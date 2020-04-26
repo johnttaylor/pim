@@ -1,11 +1,10 @@
-# Prerequisites
-*.d
-
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+*.pyc
+*.d
 
 # Precompiled Headers
 *.gch
@@ -18,7 +17,6 @@
 
 # Fortran module files
 *.mod
-*.smod
 
 # Compiled Static libraries
 *.lai
@@ -30,3 +28,23 @@
 *.exe
 *.out
 *.app
+*.x
+*.elf
+*.hex
+*.zip
+
+# e2studio junk
+.metadata
+
+# more stuff
+make.log
+*.gcda
+*.gcno
+*.idb
+*.pdb
+*.ilk
+*.lst
+*.map
+
+docs/*
+myMediaFile

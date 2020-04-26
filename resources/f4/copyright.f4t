@@ -1,0 +1,16 @@
+; Copyright 
+#HEADER
+doxygen_header
+
+#CONTENT
+/*------------------------------------------------------------------------------ 
+* This file is part of the "Patterns-in-the-Machine" (PIM) Project.  The PIM 
+* Project is an open source project with a BSD type of licensing agreement.  See 
+* the license  agreement (license.txt) in the top/ directory or on the Internet 
+* at           * http://integerfox.com/pim/license.txt
+*                                                                               
+* Copyright (c) $_YYYY$ John T. Taylor
+*                                                                               
+* Redistributions of the source code must retain the above copyright notice.    
+*-----------------------------------------------------------------------------*/ 
+$doxygen_header$
