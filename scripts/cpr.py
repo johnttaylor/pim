@@ -37,19 +37,21 @@ import utils
 
 
 #------------------------------------------------------------------------------
-        
-        
-#------------------------------------------------------------------------------
-#
-def execute_test( target, ppath, args, arg_string):
-    utils.push_dir( os.path.split(target)[0] )
-    reldir = target.replace(ppath,'')[1:]
-    exe    = os.path.basename(target)
-    cmd    = "{} {}".format( exe, arg_string )
-    for n in range( int(args['--loop']) ):
-        print("= EXECUTING (#{}): {} {}".format( n+1, reldir, arg_string ))
-        result = utils.run_shell( cmd, args['-v'], "** ERROR: Test failed **" )
-    utils.pop_dir
+# Excludes certain files
+def exclude_file( file ):
+    gitdir = os.sep + ".git" + os.sep
+    if ( gitdir in file ):
+        return True
+    if ( '__pycache__' in file ):
+        return True
+    if ( os.sep + 'gcc' + os.sep + 'xpkgs' in file ):
+        return True
+    if ( os.sep + 'vc12' + os.sep + 'xpkgs' in file ):
+        return True
+    if ( os.sep + 'mingw_w64' + os.sep + 'xpkgs' in file ):
+        return True
+
+    return False
 
 #------------------------------------------------------------------------------
 # BEGIN
@@ -83,25 +85,29 @@ if __name__ == '__main__':
 
     # Copy the files
     num_warnings = 0
+    num_files    = 0
     for h in srcfiles:
-        # housekeeping
-        src = os.path.join( srcpath, h )
-        utils.print_verbose( "cp " + src + " TO " + h  )
-        if ( os.path.exists( h ) ):
-            utils.print_warning( "destination file - {} - already exists - the file will be overwritten".format( h ) )
-            num_warnings = num_warnings + 1
-
-        # copy the file
-        d = os.path.split(h)[0]
-        utils.mkdirs( d )
-        try:
-            shutil.copyfile( src, h )
-        except:
-            sys.exit( "ERROR: Failed to copy {} TO {} [{}]".format( src, h, sys.exc_info()[0] ) )
+        # skip certain files (e.g. .git/ )
+        if ( not exclude_file( h ) ):
+            # housekeeping
+            num_files = num_files + 1
+            src       = os.path.join( srcpath, h )
+            utils.print_verbose( "cp " + src + " TO " + h  )
+            if ( os.path.exists( h ) ):
+                utils.print_warning( "destination file - {} - already exists - the file will be overwritten".format( h ) )
+                num_warnings = num_warnings + 1
+        
+            # copy the file
+            d = os.path.split(h)[0]
+            utils.mkdirs( d )
+            try:
+                shutil.copyfile( src, h )
+            except:
+                sys.exit( "ERROR: Failed to copy {} TO {} [{}]".format( src, h, sys.exc_info()[0] ) )
 
     # Restore original CWD
     utils.pop_dir()
-    print( "Copy operation completed with {} warnings".format( num_warnings ) )
+    print( "Copied {} files with {} warnings".format( num_files, num_warnings ) )
         ## Package is local
         #if ( h.startswith(common_args['-w']) ):
         #    parts   = h.replace(common_args['-w'],'',1).split(os.sep)
