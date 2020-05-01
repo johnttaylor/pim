@@ -44,13 +44,16 @@ def walk_file_list( pattern, pkgpath ):
     list = []
     for root, dirs, files in os.walk(pkgpath):
         for f in fnmatch.filter(files,pattern):
-            list.append( os.path.join(root,f) )
+            list.append( standardize_dir_sep( os.path.join(root,f) ))
             
     return list        
 
 
         
 #-----------------------------------------------------------------------------
+def standardize_dir_sep( pathinfo ):
+    return pathinfo.replace( '/', os.sep ).replace( '\\', os.sep )
+
 def push_dir( newDir ):
     global _dirstack
     
