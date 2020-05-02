@@ -1,24 +1,24 @@
 # tests
-//colony.core/src/Cpl/TShell/_0test
+src/Cpl/TShell/_0test
 
 # Unit under test
-//colony.core/src/Cpl/TShell
-//colony.core/src/Cpl/TShell/Cmd
-//colony.core/src/Cpl/TShell/Cmd/FreeRTOS
+src/Cpl/TShell
+src/Cpl/TShell/Cmd
+src/Cpl/TShell/Cmd/FreeRTOS
 
 # supporting infrastructure
-//colony.core/src/Cpl/Text/Frame
-//colony.core/src/Cpl/Text/Tokenizer
-//colony.core/src/Cpl/Memory
+src/Cpl/Text/Frame
+src/Cpl/Text/Tokenizer
+src/Cpl/Memory
 
 # Colony::Core libraries (note: the Feather52/Arduino boards uses FreeRTOS)
-//colony.core/src/Cpl/Io
-//colony.core/src/Cpl/System/FreeRTOS
-//colony.core/src/Cpl/System/FreeRTOS/_fatalerror
-//colony.core/src/Cpl/System
-//colony.core/src/Cpl/System/_trace
-//colony.core/src/Cpl/Container
-//colony.core/src/Cpl/Text
+src/Cpl/Io
+src/Cpl/System/FreeRTOS
+src/Cpl/System/FreeRTOS/_fatalerror
+src/Cpl/System
+src/Cpl/System/_trace
+src/Cpl/Container
+src/Cpl/Text
 src/Cpl/System/_trace/_arduino
 src/Cpl/Io/Serial/Adafruit/Nrf5
 src/Bsp/Adafruit/feather52/gcc

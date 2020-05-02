@@ -9,21 +9,21 @@ xsrc/colony.arduino/arduino/libraries/Adafruit_Zero_DMA_Library
 #//colony.core/src/Cpl/Text/Frame
 #//colony.core/src/Cpl/Text/Tokenizer
 #//colony.core/src/Cpl/Memory
-//colony.core/src/Cpl/Container
+src/Cpl/Container
 #//colony.core/src/Cpl/Checksum
-//colony.core/src/Cpl/Text
-//colony.core/src/Cpl/Io
-//colony.core/src/Cpl/Dm
+src/Cpl/Text
+src/Cpl/Io
+src/Cpl/Dm
 #//colony.core/src/Cpl/Dm/Mp
 #//colony.core/src/Cpl/Dm/TShell
-//colony.core/src/Cpl/Itc
-//colony.core/src/Cpl/System
+src/Cpl/Itc
+src/Cpl/System
 
 # Board specific middle-ware
-//colony.core/src/Cpl/TShell/Cmd/FreeRTOS
-//colony.core/src/Cpl/System/FreeRTOS
-//colony.core/src/Cpl/System/FreeRTOS/_fatalerror
-//colony.core/src/Cpl/System/_trace
+src/Cpl/TShell/Cmd/FreeRTOS
+src/Cpl/System/FreeRTOS
+src/Cpl/System/FreeRTOS/_fatalerror
+src/Cpl/System/_trace
 src/Cpl/System/_trace/_arduino
 src/Cpl/Io/Serial/Arduino
 src/Bsp/Adafruit/grand_central_m4/gcc

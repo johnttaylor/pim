@@ -15,8 +15,8 @@ src/Storm/Component/Equipment/Stage
 src/Storm/Dm
 src/Storm/Utils
 src/Storm/TShell
-//colony.core/src/Cpl/Dm/TShell
-//colony.core/src/Cpl/Io/File
+src/Cpl/Dm/TShell
+src/Cpl/Io/File
 
 # Non-platform specific packages
 //colony.core/top/libdirs/library_basic_libdirs.b

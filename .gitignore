@@ -45,6 +45,7 @@ make.log
 *.ilk
 *.lst
 *.map
+*.jdebug.user
 
 myMediaFile
 

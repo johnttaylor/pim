@@ -1,15 +1,15 @@
 # Test Application
-//colony.core/src/Cpl/System/_0test/_hw_basic2
+src/Cpl/System/_0test/_hw_basic2
 
 # Colony::Core libraries (note: the Feather52/Arduino boards uses FreeRTOS)
-//colony.core/src/Cpl/Io
-//colony.core/src/Cpl/System/FreeRTOS
-//colony.core/src/Cpl/System/FreeRTOS/_fatalerror
-//colony.core/src/Cpl/System
-//colony.core/src/Cpl/System/_trace
-//colony.core/src/Cpl/System/_assert
-//colony.core/src/Cpl/Container
-//colony.core/src/Cpl/Text
+src/Cpl/Io
+src/Cpl/System/FreeRTOS
+src/Cpl/System/FreeRTOS/_fatalerror
+src/Cpl/System
+src/Cpl/System/_trace
+src/Cpl/System/_assert
+src/Cpl/Container
+src/Cpl/Text
 src/Cpl/System/_trace/_arduino
 src/Cpl/Io/Serial/Adafruit/Nrf5
 src/Bsp/Adafruit/feather52/gcc

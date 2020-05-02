@@ -10,4 +10,4 @@ src/Bsp/Adafruit/grand_central_m4/gcc/FreeRTOS/source/portable/GCC/ARM_CM4F
 src/Bsp/Adafruit/grand_central_m4/gcc/FreeRTOS/source/portable/MemMang  
 
 src/Cpl/Io/Serial/Arduino
-//colony.core/src/Cpl/Io < Input.cpp Output.cpp
+src/Cpl/Io < Input.cpp Output.cpp
