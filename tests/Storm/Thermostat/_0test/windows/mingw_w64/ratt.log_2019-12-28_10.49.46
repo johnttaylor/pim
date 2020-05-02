@@ -1,0 +1,11 @@
+------------ START: Ratt, ver=0.2. Start time=2019-12-28_10.49.46
+------------ RUNNING SUITE CASE: e:\_workspaces\zoe\colony.apps\src\Storm\Thermostat\_0test\test_suite.ratt
+STARTING:  test_suite ...
+
+help
+
+Waiting up to 2 seconds for the string: [$$$ ]
+<class 'pexpect.exceptions.TIMEOUT'>
+ERROR: The UUT is not responding
+bye app
+

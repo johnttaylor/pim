@@ -1,0 +1,18 @@
+[info]
+name = colony.arduino
+branch = main
+version = 0.0.0
+pubtime = 
+pubtimelocal = 
+desc = rduino support for the Colony.* eco-system. This include Arduino libraries, BSPs, Cpl adapters, etc.
+owner = John Taylor
+email = John.T.Taylor@gmail.com
+url = www.integerfox.com/colony.arduino
+
+[immediate_deps]
+
+[weak_deps]
+nqbp\\1.1.0
+
+[transitive_deps]
+

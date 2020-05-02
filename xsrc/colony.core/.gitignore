@@ -1,0 +1,50 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+*.pyc
+*.d
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+*.x
+*.elf
+*.hex
+*.zip
+
+# e2studio junk
+.metadata
+
+# more stuff
+make.log
+*.gcda
+*.gcno
+*.idb
+*.pdb
+*.ilk
+*.lst
+*.map
+
+docs/*
+myMediaFile

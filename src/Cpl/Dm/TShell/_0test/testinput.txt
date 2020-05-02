@@ -1,0 +1,16 @@
+help
+trace
+tprint
+threads
+dm ls
+dm read APPLE
+dm read ORANGE
+dm read PLUM
+dm write { name:"APPLE", val:111 }
+dm write { name:"ORANGE", val:"0x100"}
+dm write { name:"PLUM", val:"Hello Mr. Plum", locked:true }
+dm read APPLE
+dm read ORANGE
+dm read PLUM
+tprint
+

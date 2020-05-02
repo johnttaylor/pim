@@ -1,0 +1,15 @@
+# I own the Arduino  namespace (but there are not files in -->so force it to be included)
+I:Arduino
+
+# Skip directories that start with a leading underscore
+D:_*
+
+# Ignore README.txt files that are used with Doxygen
+F:README.txt
+
+# Ignore directory that only have source files
+F:*.cpp
+F:*.c
+F:*.s
+F:*.asm
+F:*.S

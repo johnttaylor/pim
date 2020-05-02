@@ -1,0 +1,2 @@
+# Projects/Tests to clean
+build -v * --clean-all

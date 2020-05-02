@@ -1,0 +1,22 @@
+; Header skeleton
+#HEADER
+class
+namespaces
+
+#CONTENT
+$_SUBSCRIPT, copyright.f4t, ''
+
+#include "$class$.h"
+
+
+/// Namespaces
+using namespace $namespaces>+::$;
+
+
+
+///////////////////////////////
+$class$::$class$( ... )
+    {
+    }
+
+

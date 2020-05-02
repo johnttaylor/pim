@@ -1,0 +1,27 @@
+; Header skeleton
+#HEADER
+class
+namespaces
+
+#CONTENT
+#ifndef $namespaces>+_$_$class$_h_
+#define $namespaces>+_$_$class$_h_
+$_SUBSCRIPT, copyright.f4t, '/** @file */'
+
+
+/// Namespaces
+namespace $namespaces>+ { namespace $ {
+
+
+/** This class does blah.....
+ */
+class $class$
+{
+/// Stuff goes here
+};
+
+
+$_INLINE, namespaces
+};      // end namespace
+$_END_INLINE
+#endif  // end header latch

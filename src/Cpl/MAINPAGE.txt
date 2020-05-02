@@ -1,0 +1,86 @@
+/*! \mainpage Colony.Core
+
+\section References
+@htmlonly
+<ul>
+<li>The introduction for Colony.Core can be found online at: 
+   <a href="http://www.integerfox.com/colony.core" target="_blank">www.integerfox.com/colony.core</a>.
+   The introduction can also be found locally at <code>colony.core/top/start_here.html</code>
+</li>
+<li>The coding standards for Colony.Core can be found online 
+   <a href=http://www.integerfox.com/colony.core/index.html#Coding%20Standards" target="_blank">here</a>.
+</li>
+<li>The naming conventions for Colony.Core can be found online 
+   <a href=http://www.integerfox.com/colony.core/index.html#Coding%Naming%20Conventions" target="_blank">here</a>.
+</li>
+<li>Colony.Core is an "Outcast" Package.  An overview to Outcast can be found online at: 
+   <a href="http://www.integerfox.com/outcast" target="_blank">www.integerfox.com/outcast</a>.
+</li>
+<li>The default build engine for Colony.Core is NQBP. An overview to NQBP can be found online at: 
+   <a href="http://www.integerfox.com/nqbp" target="_blank">www.integerfox.com/nqbp</a>.
+</li>
+</ul>
+@endhtmlonly
+
+
+\section Conventions
+@htmlonly
+<p>The table below are excerpts from Colony.Core's coding and naming standards.  It is <b>recommended</b>
+   that you review the table before proceeding on the remainder of the documentation.
+</p>
+
+<table border="1" cellpadding="5">
+<caption>Coding Standards</caption>
+<tr>
+<th>Rule</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>Rule</td>
+<td>Source code shall be organized such that the directory structure reflects the dependencies of the contained source code. The dependency for directories is that a sub-directory is dependent on its parent directory. For example: given the the two directories: Foo/ and Bar/ such that the files in Bar/ are dependent on Foo/ (i.e. files in Bar/ implement interfaces defined in Foo/), the directory structure would be src/Foo and src/Foo/Bar. Note: Also see the Naming Conventions for the rules of naming directories after namespaces.</td>
+</tr>
+<tr>
+<td>Rule</td>
+<td>Header includes shall not directly reference sub-directories. Because the directory structure is used to reflect dependencies (see above) then a #include of a header file in a direct sub-directory creates/is-a-indication of a circular dependency. For example: given the directory structure of src/Foo/ and src/Foo/Bar/. It is a coding standard violation for a header file in the src/Foo/ directory to have #include "Foo/Bar/SomeFile.h</td>
+</tr>
+<tr>
+</table>
+
+<table border="1" cellpadding="5" >
+<caption>Naming Rules</caption>
+<tr>
+<th>Rule</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>Rule</td>
+<td>File names shall be named after the primary/principle class contained in the file</td>
+</tr>
+<tr>
+<td>Rule</td>
+<td>Directory names shall be named after/match namespace names. It is okay to have directories that do not map 1-to-1 with namespace, but this should be the minority use case.</td>
+</tr>
+<tr>
+<td>Rule</td>
+<td>All private - to the namespace - classes shall be identified by a trailing suffix of _ to the class names, e.g. class Foo_ {..}</td>
+</tr>
+<tr>
+<td>Rule</td>
+<td>Functions, variable, and class name that are considered private shall be identified by a trailing suffix of _. This applies to class names (see rule above), statically scope file variables, class methods that are public is class scope - but are private in their general usage. This last case is convention used to mimic the package scope qualify from JAVA (instead of using the tight coupling of C++'s friend mechanism).</td>
+</tr>
+<tr>
+<td>Rule</td>
+<td>All non-namespace directories (see 3.2.2 above) names shall start with a leading underscore, e.g. src\Cpl\_foobar\</td>
+</tr>
+<tr>
+<td>Rule</td>
+<td>Namespace names should be singular, e.g. Use Cpl::Container instead of Cpl::Containers</td>
+</tr>
+</table>
+
+@endhtmlonly
+
+
+*/ 
+
+  

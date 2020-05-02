@@ -78,21 +78,20 @@ if __name__ == '__main__':
     utils.pop_dir()
 
     # exclude directories
-    if ( args['--ex'] ):
-        newlist = []
-        for s in srcfiles:
-            exclude = False
-            if ( os.sep + args['--ex'] + os.sep in s  ):
-                exclude = True
-            if ( args['--ex2'] != None and os.sep + args['--ex2'] + os.sep in s  ):
-                exclude = True
-            if ( args['--ex3'] != None and os.sep + args['--ex3'] + os.sep in s  ):
-                exclude = True
+    newlist = []
+    for s in srcfiles:
+        exclude = False
+        if ( args['--ex'] != None and os.sep + args['--ex'] + os.sep in s  ):
+            exclude = True
+        if ( args['--ex2'] != None and os.sep + args['--ex2'] + os.sep in s  ):
+            exclude = True
+        if ( args['--ex3'] != None and os.sep + args['--ex3'] + os.sep in s  ):
+            exclude = True
                 
-            if ( not exclude ):
-                newlist.append( s )
+        if ( not exclude ):
+            newlist.append( s )
 
-        srcfiles = newlist
+    srcfiles = newlist
 
     # setup the destination
     dstroot  = os.path.join( args['<dstroot>'] )

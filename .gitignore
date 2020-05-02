@@ -48,8 +48,3 @@ make.log
 
 myMediaFile
 
-# Ignore 'imported' content
-src/*
-xsrc/*
-tests/*
-projects/*

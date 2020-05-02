@@ -1,0 +1,12 @@
+~~~~~; 1424662106; Sun, 22 Feb 2015 21:28:26; PUBLISH; johnttaylor <john.t.taylor@gmail.com>; 1.0.0; main; OUTCAST_colony.core-main-1.0.0; First publish of package
+
+
+~~~~~; 1429486834; Sun, 19 Apr 2015 18:40:34; PUBLISH; DaVinci <build.machine@noemail.com>; 1.1.0; main; OUTCAST_colony.core-main-1.1.0; Add generic UART driver, FastLock, clean-up on the Trace engine, generic BSP interfaces, bug fixes
+
+
+~~~~~; 1429493582; Sun, 19 Apr 2015 20:33:02; PUBLISH; DaVinci <build.machine@noemail.com>; 1.1.1; main; OUTCAST_colony.core-main-1.1.1; set proper weak dependencies (work-around for weak-cyclic use case - which is valid - but the tool support is missing)
+
+
+~~~~~; 1558972631; Mon, 27 May 2019 09:57:11; PUBLISH; john; 2.0.0; main; OUTCAST_colony.core-main-2.0.0; Major refactoring of the library to: 1) Simplify the Data Model engine. 2) changed event handling and now support bare-metal targets
+
+

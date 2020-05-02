@@ -24,12 +24,15 @@ scripts\cpr.py %1 --filter *.h* ..\catch src .
 scripts\cpr.py %1 ..\catch src\Catch\libs xsrc catch\src\Catch\libs
 scripts\cpr.py %1 ..\catch src\Catch\precompiled xsrc catch\src\Catch\precompiled
 scripts\cpr.py %1 ..\colony.core src .
-scripts\cpr.py %1 ..\colony.core top\libdirs xsrc colony.core\top\libdirs
+::scripts\cpr.py %1 ..\colony.core top\libdirs xsrc colony.core\top\libdirs
 scripts\cpr.py %1 ..\colony.bsp src .
 scripts\cpr.py %1 ..\colony.core top\libdirs .
 scripts\cpr.py %1 ..\colony.apps src .
 scripts\cpr.py %1 ..\colony.arduino src .
-scripts\cpr.py %1 --ex tests --ex2 projects ..\ colony.arduino xsrc
+scripts\cpr.py %1 ..\colony.arduino arduino xsrc colony.arduino\arduino
+scripts\cpr.py %1 ..\colony.arduino docs xsrc colony.arduino\docs
+scripts\cpr.py %1 ..\colony.arduino top xsrc colony.arduino\top
+scripts\cpr.py %1 --ex tests --ex2 projects --ex3 src ..\ colony.core xsrc
 
 
 :: Copy tests/projects directories
