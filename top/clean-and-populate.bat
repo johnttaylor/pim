@@ -12,20 +12,20 @@ set NQBP_BIN=%_HERE%..\..\nqbp
 :: Clean the source tests and projects directory
 set NQBP_XPKG_MODEL=outcast
 pushd ..\colony.core\tests
-..\..\nqbp\other\bob.py here -z
+..\..\nqbp\other\bob.py -4 here -z
 popd
 pushd ..\colony.apps\projects
-..\..\nqbp\other\bob.py here -z
+..\..\nqbp\other\bob.py -4 here -z
 popd
 pushd ..\colony.apps\tests
-..\..\nqbp\other\bob.py here -z
+..\..\nqbp\other\bob.py -4 here -z
 popd
 pushd ..\colony.arduino\tests
-..\..\nqbp\other\bob.py here -z
+..\..\nqbp\other\bob.py -4 here -z
 popd
 pushd ..\colony.arduino\projects
-..\..\nqbp\other\bob.py here -z
+..\..\nqbp\other\bob.py -4 here -z
 popd
 
 :: Call the populate script
-::%_HERE%populate.bat
+call %_HERE%populate.bat

@@ -30,9 +30,7 @@ namespace Catch {
         }
 
         ReporterPreferences getPreferences() const override {
-            ReporterPreferences prefs;
-            prefs.shouldRedirectStdOut = false;
-            return prefs;
+            return m_reporterPrefs;
         }
 
         void noMatchingTestCases( std::string const& spec ) override {
@@ -44,9 +42,9 @@ namespace Catch {
         bool assertionEnded( AssertionStats const& _assertionStats ) override {
             ++counter;
 
+            stream << "# " << currentTestCaseInfo->name << std::endl;
             AssertionPrinter printer( stream, _assertionStats, counter );
             printer.print();
-            stream << " # " << currentTestCaseInfo->name ;
 
             stream << std::endl;
             return true;

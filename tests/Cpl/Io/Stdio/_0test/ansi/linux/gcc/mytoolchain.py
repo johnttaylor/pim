@@ -42,7 +42,7 @@ unit_test_objects = '_BUILT_DIR_.src/Cpl/Io/Stdio/_0test'
 base_release = BuildValues()        # Do NOT comment out this line
 base_release.cflags    = '-m32 -std=c++11 -Wall -Werror -x c++ -fprofile-arcs -ftest-coverage -DCATCH_CONFIG_FAST_COMPILE'
 base_release.linkflags = '-m32 -fprofile-arcs'
-base_release.linklibs  = '-lgcov -lpthread'
+base_release.linklibs  = '-lgcov -lpthread -lm'
 base_release.firstobjs = unit_test_objects
 
 
@@ -72,7 +72,7 @@ debug_cpp11    = BuildValues()
 # Set 'base' options
 base_cpp11.cflags     = '-m64 -std=c++11 -Wall -Werror -x c++ -fprofile-arcs -ftest-coverage -DCATCH_CONFIG_FAST_COMPILE'
 base_cpp11.linkflags  = '-m64 -fprofile-arcs'
-base_cpp11.linklibs   = '-lgcov '
+base_cpp11.linklibs   = '-lgcov -lpthread -lm'
 base_cpp11.firstobjs  = unit_test_objects
 
 # Set 'Optimized' options
@@ -99,7 +99,7 @@ debug_posix64    = BuildValues()
 # Set project specific 'base' (i.e always used) options
 base_posix64.cflags    = '-m64 -std=c++11 -Wall -Werror -x c++ -fprofile-arcs -ftest-coverage -DCATCH_CONFIG_FAST_COMPILE'
 base_posix64.linkflags = '-fprofile-arcs'
-base_posix64.linklibs  = '-lgcov -lpthread'
+base_posix64.linklibs  = '-lgcov -lpthread -lm'
 base_posix64.firstobjs = unit_test_objects
 
 # Set project specific 'optimized' options

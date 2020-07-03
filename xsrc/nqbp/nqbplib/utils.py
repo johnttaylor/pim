@@ -9,6 +9,7 @@ import pathlib
 import platform
 import collections
 import fnmatch
+import re
 
 # Globals
 from .my_globals import NQBP_WORK_ROOT
@@ -35,17 +36,23 @@ verbose_mode = False
 
 
 #-----------------------------------------------------------------------------
-def dir_list_filter_by_ext(dir, exts): 
+def dir_list_filter_by_ext(dir, exts, derivedDir=False): 
     """Returns a list of files filter by the passed file extensions
     
     Accepts one or more file extensions (with no '.') 
     """
 
     results = []
-    for name in os.listdir(dir):
-        for e in exts:
-            if ( name.endswith("." + e) ):
-                results.append(name)
+    try:
+        for name in os.listdir(dir):
+            for e in exts:
+                if ( name.endswith("." + e) ):
+                    results.append(name)
+    except:
+        if ( derivedDir ):
+            sys.exit("ERROR: Derived/Built directory '{}' does not exist".format( dir ))
+        else:
+            sys.exit("ERROR: Source directory '{}' does not exist".format( dir ))
 
     return results
 
@@ -55,7 +62,7 @@ def get_objects_list( objext, objpath, new_root ):
         path with each object having the 'new_root' appended to it path.
     """
 
-    files = dir_list_filter_by_ext( objpath, objext.split() )
+    files = dir_list_filter_by_ext( objpath, objext.split(), derivedDir=True )
     objs  = '';
     for f in files:
         basename = os.path.splitext(f)[0]
@@ -120,7 +127,7 @@ def del_files_by_ext(dir, *exts):
     Accepts one or more file extensions (with no '.') 
     """
 
-    files_to_delete = dir_list_filter_by_ext( dir, *exts )
+    files_to_delete = dir_list_filter_by_ext( dir, *exts, derivedDir=True )
     for f in files_to_delete:
         delete_file(f)
 
@@ -275,6 +282,14 @@ def create_working_libdirs( printer, inf, arguments, libdirs, libnames, local_ex
         elif ( arguments['-x'] and entry != 'xpkg' ):
             pass
         elif ( arguments['--noabs'] and entry == 'absolute' ):
+            pass
+        elif ( arguments['-q'] != None and not arguments['-q'] in line ):
+            pass
+        elif ( arguments['-Q'] != None and re.search( arguments['-Q'], line ) == None ):
+            pass
+        elif ( arguments['-c'] != None and arguments['-c'] in line ):
+            pass
+        elif ( arguments['-C'] != None and re.search( arguments['-C'], line ) != None ):
             pass
         else:
             libdirs.append( ((line, srctype, srclist), entry) )

@@ -136,14 +136,14 @@ TEST_CASE( "uint64-export", "[uint64-export]" )
     REQUIRE( seqNum == seqNum2 );
 
     // Update the MP
-    seqNum = mp_apple_.write( -42 );
+    seqNum = mp_apple_.write( 42 );
     REQUIRE( seqNum == seqNum2 + 1 );
     uint64_t value;
     int8_t   valid;
     valid = mp_apple_.read( value );
     REQUIRE( ModelPoint::IS_VALID( valid ) == true );
     REQUIRE( mp_apple_.isNotValid() == false );
-    REQUIRE( value == -42 );
+    REQUIRE( value == 42 );
 
     // Import...
     b = mp_apple_.importData( streamBuffer, sizeof( streamBuffer ), &seqNum2 );

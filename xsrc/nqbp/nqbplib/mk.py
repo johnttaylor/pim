@@ -119,13 +119,18 @@ Arguments:
                    building directories once 'DIR' has been built. Note: 'DIR' 
                    is with respect to the expanded list of directories, i.e. 
                    after any included libdirs.b files are expanded.
+  -q STR           Only builds directories that contain 'STR' in their name/path
+  -Q STRX          Same as '-q', except 'STRX' is a regular expression.
+  -c STR           Builds all directories except those that contain 'STR' in 
+                   their name/path.
+  -C STRX          Same as '-c', except 'STRX' is a regular expression.
   -p               Skips all external directories and/or libdirs.b files.
   -x               Skips all the package's directories and/or libdirs.b files
   -a, --noabs      Skips (and does not clean) all absolute directories
   -m               Compiles all of the project directory.
   -g               Debug build (default is release build.
   -v               Display Compiler/linker options.
-  -l               Link ONLY (can be combinded with '-mpxdfse' options).
+  -l               Link ONLY (can be combinded with '-mpxdfseqQ' options).
   -k               Cleans only the package's objects/files (use with '-p')
   -j               Cleans only the external objects/files (use with '-x').
   -1               Suppresses the use of multiple processes when building.
@@ -155,7 +160,7 @@ Arguments:
 Notes:
     Default operation is to do an implicit BUILD ALL and CLEAN ALL on each 
     build.  The exception to this rule is when one of the following options are  
-    specified: -d, -f, -s, -e, -p, -x, -m, -l, -k, -j   
+    specified: -d, -f, -s, -e, -p, -x, -m, -l, -k, -j -q -Q -c -C
   
     By default, NQBP will attempt to build all files in a single directory in
     parallel. However, not all compilers deal well with parallel building (i.e
@@ -187,7 +192,7 @@ def build( argv, toolchain ):
 
     # Process command line args...
     arguments = docopt(usage, argv=rawinput, version=NQBP_VERSION() )
-    
+
     # Allow the '--turbo' option to override the '-1' option
     if ( arguments['--turbo'] ):
         arguments['-1'] = False
@@ -297,7 +302,7 @@ def do_build( printer, toolchain, arguments, variant ):
     stop      = False
     
     # Skip cleaning when selective building of libdirs.b
-    if ( arguments['-p'] or arguments['-x'] or arguments['-s']  or arguments['-e'] or arguments['--noabs']):
+    if ( arguments['-p'] or arguments['-x'] or arguments['-s']  or arguments['-e'] or arguments['--noabs'] or arguments['-q'] or arguments['-Q'] or arguments['-c'] or arguments['-C']):
         clean_pkg = clean_ext = clean_abs = False
         
     # Compile only a single file    
@@ -305,6 +310,10 @@ def do_build( printer, toolchain, arguments, variant ):
         clean_pkg = clean_ext = clean_abs = bld_prj = do_link = bld_libs = False
         build_single_file( printer, arguments, toolchain )
         
+    # Don't automatically build the project directory OR link when using the -s -e -q -Q options
+    if ( arguments['-s']  or arguments['-e'] or arguments['-q'] or arguments['-Q'] or arguments['-c'] or arguments['-C']):
+        bld_prj = do_link = False
+
     # Compile only a single directory    
     if ( arguments['-d'] ):
         clean_pkg = clean_ext = clean_abs = bld_prj = do_link = bld_libs = False
@@ -353,11 +362,11 @@ def do_build( printer, toolchain, arguments, variant ):
         clean_pkg = clean_ext = clean_abs = bld_libs = bld_prj = False
 
         # fix race condition between the -l and -m options
-        if ( arguments['-m'] or arguments['-x'] or arguments['-p']  ):
+        if ( arguments['-m'] or arguments['-x'] or arguments['-p'] ):
             bld_prj = True
             
         # fix race condition between the -l and -px|-s|-e options
-        if ( arguments['-x'] or arguments['-p'] or arguments['-s'] or arguments['-e'] ):
+        if ( arguments['-x'] or arguments['-p'] or arguments['-s'] or arguments['-e'] or arguments['-q'] or arguments['-Q'] or arguments['-c'] or arguments['-C']):
             bld_libs = True
 
     # Trap the clean options 

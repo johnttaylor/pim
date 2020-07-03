@@ -399,6 +399,10 @@ protected:
 /// Returns true if TRACE was activated/enabled at compile time
 #define CPL_SYSTEM_TRACE_IS_COMPILED()                      true
 
+/// Allocate a variable that is only 'used' when tracing is enabled
+#define CPL_SYSTEM_TRACE_ALLOCATE(type,varname,initval)    type varname = initval
+
+
 #else
     /// Macro Wrapper 
 #define CPL_SYSTEM_TRACE_FUNC(sect)
@@ -465,6 +469,9 @@ protected:
 
 /// Returns false if TRACE was NOT activated/enabled at compile time
 #define CPL_SYSTEM_TRACE_IS_COMPILED()                  false
+
+/// Macro Wrapper 
+#define CPL_SYSTEM_TRACE_ALLOCATE(type,varname,initval)                
 
 #endif  // USE_CPL_SYSTEM_TRACE
 

@@ -379,7 +379,7 @@ class ToolChain:
         utils.delete_file( self._ar_library_name )
         
         # Get all object files
-        objs = utils.dir_list_filter_by_ext( ".", [self._obj_ext] )
+        objs = utils.dir_list_filter_by_ext( ".", [self._obj_ext], derivedDir=True )
        
         # build archive string
         cmd = self._ar + ' ' + self._ar_options
@@ -466,7 +466,7 @@ class ToolChain:
         # Set my command options to construct an 'all' libdirs list
         libdirs  = []
         libnames = []
-        myargs   = { '-p':False, '-x':False, '-b':arguments['-b'], '--noabs':False }
+        myargs   = { '-p':False, '-x':False, '-b':arguments['-b'], '--noabs':False, '-q':None, '-Q':None, '-c':None, '-C':None }
         utils.create_working_libdirs( self._printer, inf, myargs, libdirs, libnames, local_external_setting, variant )  
         
         # Expand any _BUILD_DIR.aaaa symbols for .firstobjs and .lastobjs
@@ -542,7 +542,7 @@ class ToolChain:
 
     #--------------------------------------------------------------------------
     def _build_prjobjs_list( self ):
-        list = utils.dir_list_filter_by_ext( '..' + os.sep, [self._obj_ext] )
+        list = utils.dir_list_filter_by_ext( '..' + os.sep, [self._obj_ext], derivedDir=True )
         path = ''
         for i in list:
             path += ' ..' + os.sep + i

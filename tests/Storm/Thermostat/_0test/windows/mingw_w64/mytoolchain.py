@@ -75,11 +75,11 @@ base_cpp11.firstobjs  = unit_test_objects
 
 # Set 'Optimized' options
 optimzed_cpp11.cflags = '-O3'
-optimzed_cpp11.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\64bit\release\library.a'.format( NQBP_WORK_ROOT() )
+optimzed_cpp11.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\32bit\release\library.a'.format( NQBP_WORK_ROOT() )
 optimzed_cpp11.linklibs += ' -lstdc++'
 
 # Set 'Debug' options
-debug_cpp11.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\64bit\debug\library.a'.format( NQBP_WORK_ROOT() )
+debug_cpp11.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\32bit\debug\library.a'.format( NQBP_WORK_ROOT() )
 debug_cpp11.linklibs += ' -lstdc++'
 
 

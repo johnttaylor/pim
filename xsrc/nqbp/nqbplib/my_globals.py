@@ -18,7 +18,7 @@ OUT = logging.getLogger( 'nqbp' )
 
 #
 def NQBP_VERSION():
-    return "v0.0.5"
+    return "v0.1.1"
     
 #
 def NQBP_TEMP_EXT():

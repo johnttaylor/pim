@@ -26,6 +26,7 @@ using namespace Cpl::Dm;
 
 #define SECT_   "_0test"
 
+#define TRACE
 
 /////////////////////////////////////////////////////////////////
 class Viewer : public Cpl::Itc::CloseSync
@@ -69,7 +70,7 @@ public:
         , m_lastValidState( OPTION_CPL_DM_MODEL_POINT_STATE_INVALID )
         , m_done( false )
     {
-        CPL_SYSTEM_TRACE_MSG( SECT_, ("VIEWER(%p). mp1=%s, endVal=%lu", this, mp1.getName(), mpEndValue1) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "VIEWER(%p). mp1=%s, endVal=%lu", this, mp1.getName(), mpEndValue1 ) );
     }
 
 public:
@@ -83,7 +84,7 @@ public:
 
         m_pendingOpenMsgPtr    = &msg;
         m_mpNotificationCount1 = 0;
-        CPL_SYSTEM_TRACE_MSG( SECT_, ("SUBSCRIBING (%p) for Change notification. current value =%u", this, m_mpNotificationCount1) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "SUBSCRIBING (%p) for Change notification. current value =%u", this, m_mpNotificationCount1 ) );
 
         // Subscribe to my model point
         m_mp1.attach( m_observerMp1 );
@@ -99,7 +100,7 @@ public:
             FAIL( "CLOSING Viewer more than ONCE" );
         }
 
-        CPL_SYSTEM_TRACE_MSG( SECT_, ("VIEWER(%p): Closing... ", this) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "VIEWER(%p): Closing... ", this ) );
 
         // Un-subscribe to my model point
         m_mp1.detach( m_observerMp1 );
@@ -111,8 +112,8 @@ public:
 public:
     void mp1_changed( Mp::Uint32& modelPointThatChanged ) noexcept
     {
-        uint32_t prevValue  = m_lastValue;
-        int8_t   prevState  = m_lastValidState;
+        CPL_SYSTEM_TRACE_ALLOCATE( uint32_t, prevValue, m_lastValue );
+        CPL_SYSTEM_TRACE_ALLOCATE( int8_t,   prevState, m_lastValidState );
         uint16_t prevSeqNum = m_lastSeqNumber;
 
         m_mpNotificationCount1++;
@@ -131,11 +132,11 @@ public:
         {
             if ( m_done )
             {
-                CPL_SYSTEM_TRACE_MSG( SECT_, ("Viewer::mp1_changed(%p): Received Change notification after signaling the master thread, may or may not be an error. Prev: value=%lu, state=%d, seqNum=%u.  Rcvd: value=%lu, state=%d, seqNum=%u.  read_seq_num=%u, notifyCount=%d", this, prevValue, prevState, prevSeqNum, m_lastValue, m_lastValidState, m_lastSeqNumber, seqNum, m_mpNotificationCount1) );
+                CPL_SYSTEM_TRACE_MSG( SECT_, ( "Viewer::mp1_changed(%p): Received Change notification after signaling the master thread, may or may not be an error. Prev: value=%lu, state=%d, seqNum=%u.  Rcvd: value=%lu, state=%d, seqNum=%u.  read_seq_num=%u, notifyCount=%d", this, prevValue, prevState, prevSeqNum, m_lastValue, m_lastValidState, m_lastSeqNumber, seqNum, m_mpNotificationCount1 ) );
             }
             else
             {
-                CPL_SYSTEM_TRACE_MSG( SECT_, ("Viewer::mp1_changed(%p): Signaling master thread", this) );
+                CPL_SYSTEM_TRACE_MSG( SECT_, ( "Viewer::mp1_changed(%p): Signaling master thread", this ) );
                 m_mp1.detach( m_observerMp1 );
                 m_masterThread.signal();
                 m_done = true;
@@ -183,7 +184,7 @@ public:
         , m_stepSize( stepSize )
         , m_timer( myMbox, *this, &Writer::timerExpired )
     {
-        CPL_SYSTEM_TRACE_MSG( SECT_, ("WRITER(%p). mp1=%s, endVal=%lu, interval=%lu", this, mp1.getName(), endValue, intervalMsec) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "WRITER(%p). mp1=%s, endVal=%lu, interval=%lu", this, mp1.getName(), endValue, intervalMsec ) );
     }
 
 public:
@@ -195,7 +196,7 @@ public:
             FAIL( "OPENING Writer more than ONCE" );
         }
 
-        CPL_SYSTEM_TRACE_MSG( SECT_, ("WRITER(%p): Starting interval timer (%lu)", this, m_intervalMsec) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "WRITER(%p): Starting interval timer (%lu)", this, m_intervalMsec ) );
         m_opened = true;
         m_timer.start( m_intervalMsec );
         msg.returnToSender();
@@ -209,7 +210,7 @@ public:
             FAIL( "CLOSING Writer more than ONCE" );
         }
 
-        CPL_SYSTEM_TRACE_MSG( SECT_, ("WRITER(%p): Closing... ", this) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "WRITER(%p): Closing... ", this ) );
 
         // Stop my writ timer
         m_opened = false;
@@ -229,7 +230,7 @@ public:
 
             if ( m_currentValue >= m_endValue )
             {
-                CPL_SYSTEM_TRACE_MSG( SECT_, ("Writer::timerExpired(%p): Signaling master thread", this) );
+                CPL_SYSTEM_TRACE_MSG( SECT_, ( "Writer::timerExpired(%p): Signaling master thread", this ) );
                 m_masterThread.signal();
             }
             else
@@ -284,7 +285,7 @@ public:
         , m_timer( myMbox, *this, &Rmw::timerExpired )
         , m_rmwHandler( *this, &Rmw::readModifyWriteCallback )
     {
-        CPL_SYSTEM_TRACE_MSG( SECT_, ("RMW(%p). mp1=%s, endVal=%lu, interval=%lu", this, mp1.getName(), endValue, intervalMsec) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "RMW(%p). mp1=%s, endVal=%lu, interval=%lu", this, mp1.getName(), endValue, intervalMsec ) );
     }
 
 public:
@@ -296,7 +297,7 @@ public:
             FAIL( "OPENING RMW more than ONCE" );
         }
 
-        CPL_SYSTEM_TRACE_MSG( SECT_, ("RMW(%p): Starting interval timer (%lu)", this, m_intervalMsec) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "RMW(%p): Starting interval timer (%lu)", this, m_intervalMsec ) );
         m_opened = true;
         m_timer.start( m_intervalMsec );
         msg.returnToSender();
@@ -310,7 +311,7 @@ public:
             FAIL( "CLOSING RMW more than ONCE" );
         }
 
-        CPL_SYSTEM_TRACE_MSG( SECT_, ("RMW(%p): Closing... ", this) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "RMW(%p): Closing... ", this ) );
 
         // Stop my writ timer
         m_opened = false;
@@ -325,7 +326,7 @@ public:
     {
         if ( data >= m_endValue )
         {
-            CPL_SYSTEM_TRACE_MSG( SECT_, ("RMW::readModifyWriteCallback(%p): Signaling master thread", this) );
+            CPL_SYSTEM_TRACE_MSG( SECT_, ( "RMW::readModifyWriteCallback(%p): Signaling master thread", this ) );
             m_masterThread.signal();
         }
         else
@@ -364,7 +365,7 @@ public:
     uint32_t                        m_incValue;
 public:
     ///
-    RmwUint32():m_callbackCount( 0 ), m_returnResult( ModelPoint::eNO_CHANGE ), m_incValue( 0 ) {}
+    RmwUint32() :m_callbackCount( 0 ), m_returnResult( ModelPoint::eNO_CHANGE ), m_incValue( 0 ) {}
     ///
     ModelPoint::RmwCallbackResult_T callback( uint32_t& data, int8_t validState ) noexcept
     {
@@ -476,9 +477,9 @@ public:
 public:
     void mpChanged( ModelPoint& modelPointThatChanged ) noexcept
     {
-        uint32_t prevValue  = m_lastValue;
-        int8_t   prevState  = m_lastValidState;
-        uint16_t prevSeqNum = m_lastSeqNumber;
+        CPL_SYSTEM_TRACE_ALLOCATE( uint32_t, prevValue,  m_lastValue  );
+        CPL_SYSTEM_TRACE_ALLOCATE( int8_t,   prevState,  m_lastValidState );
+        CPL_SYSTEM_TRACE_ALLOCATE( uint16_t, prevSeqNum, m_lastSeqNumber );
 
         m_mpNotificationCount++;
         m_lastValidState = modelPointThatChanged.getValidState();

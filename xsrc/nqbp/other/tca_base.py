@@ -36,6 +36,9 @@ Arguments:
   -c               Removes only the '.gcov' files. Note: You do NOT have 
                    re-compile or run the executable again before rerunning this 
                    script.
+  --all            TCA configures 'gcovr' to exclude unreachable arcs. The --all 
+                   option includes all 'arcs'.  The exclusion of 'arcs' is 
+                   attempt to improve branch coverage metrics for C++ code.
   -z, --clean      Removes ALL code coverage related files.  You will have to
                    RE-COMPILE and RE-RUN the executable before running this script 
                    again.
@@ -90,13 +93,18 @@ def run(argv):
     # setup excludes 
     excludes = '--exclude=.*_0test.*  --exclude=^tests* --exclude=.*src.Catch.precompiled.* --exclude-unreachable-branches'   
 
+    # Setup 'arc' excludes for C++ code (see https://gcovr.com/en/stable/faq.html)
+    arcopt = ' --exclude-unreachable-branches'
+    if ( args['--all'] ):
+        arcopt = ''
+
     # Generate summary
     if (args['rpt']):
         python = 'python'
         if ( platform.system() == 'Windows' ):
             python = 'py -3'
 
-        cmd  = '{} -m gcovr {} -j 4 -r {}{}src --object-directory . {}'.format(python, excludes, pkg, os.sep, ' '.join(args['<args>']) if args['<args>'] else '') 
+        cmd  = '{} -m gcovr {} {} -j 4 -r {}{}src --object-directory . {}'.format(python, excludes, arcopt, pkg, os.sep, ' '.join(args['<args>']) if args['<args>'] else '') 
         if (args['<args>']):
             first = args['<args>'][0]
             if (first == '-h' or first == '--help'):

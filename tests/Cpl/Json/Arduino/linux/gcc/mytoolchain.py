@@ -40,7 +40,7 @@ FINAL_OUTPUT_NAME = 'c.out'
 base_release = BuildValues()        # Do NOT comment out this line
 base_release.cflags    = '-m32 -std=c++11 -Wall -Werror -x c++ -fprofile-arcs -ftest-coverage'
 base_release.linkflags = '-m32 -fprofile-arcs'
-base_release.linklibs  = '-lgcov -lpthread'
+base_release.linklibs  = '-lgcov -lpthread -lm'
 
 
 # Set project specific 'optimized' options
@@ -66,7 +66,7 @@ debug_cpp11    = BuildValues()
 # Set 'base' options
 base_cpp11.cflags     = '-m64 -std=c++11 -Wall -Werror -x c++ -fprofile-arcs -ftest-coverage'
 base_cpp11.linkflags  = '-m64 -fprofile-arcs'
-base_cpp11.linklibs   = '-lgcov '
+base_cpp11.linklibs   = '-lgcov -lpthread -lm'
 
 # Set 'Optimized' options
 optimzed_cpp11.cflags = '-O3'
@@ -87,7 +87,7 @@ debug_posix64    = BuildValues()
 # Set project specific 'base' (i.e always used) options
 base_posix64.cflags    = '-m64 -std=c++11 -Wall -Werror -x c++ -fprofile-arcs -ftest-coverage'
 base_posix64.linkflags = '-fprofile-arcs'
-base_posix64.linklibs  = '-lgcov -lpthread'
+base_posix64.linklibs  = '-lgcov -lpthread -lm'
 
 # Set project specific 'optimized' options
 optimzed_posix64.cflags = '-O3'
