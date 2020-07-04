@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # This script sets up the PIM environment to use NQBP and the GCC compiler
 #
 # This script MUST BE 'sourced' since it sets environment variables
@@ -15,3 +16,4 @@ export NQBP_BIN=$HERE/xsrc/nqbp
 export NQBP_XPKG_MODEL=mixed
 
 # Assumes the GCC is already in the command path
+echo "Environment set (using native GCC compiler)"
