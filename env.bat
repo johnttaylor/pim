@@ -10,6 +10,7 @@ set _HERE=%~dp0
 
 :: Set helper macros
 doskey top=cd %_HERE%
+doskey t=cd %_HERE%
 doskey bob=%_HERE%xsrc\nqbp\other\bob.py $*
 doskey chuck=%_HERE%xsrc\nqbp\other\chuck.py $*
 doskey whatcc=echo:%PIM_ENV_COMPILER%

@@ -2,6 +2,9 @@
 #include "Cpl/System/Api.h"
 #include "Cpl/Io/Stdio/StdIn.h"
 #include "Cpl/Io/Stdio/StdOut.h"
+#include "Cpl/TShell/Cmd/Threads.h"
+
+static Cpl::TShell::Cmd::Threads cmdThreads_( g_cmdlist );
 
 
 Cpl::Io::Stdio::StdIn   infd_;
