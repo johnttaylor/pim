@@ -33,7 +33,7 @@ from nqbplib.my_globals import NQBP_WORK_ROOT
 FINAL_OUTPUT_NAME = 'thermostat-simulation.exe'
 
 
-# Main directory by object module do work around static object creation issues with the MS compiler
+# Main directory by object module to work around static object creation issues with the MS compiler
 main_objects = '_BUILT_DIR_.src/Storm/Thermostat/Main'
 
 #

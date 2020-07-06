@@ -15,5 +15,9 @@ export PATH=$PATH:./
 export NQBP_BIN=$HERE/xsrc/nqbp
 export NQBP_XPKG_MODEL=mixed
 
+alias t="cd $HERE"
+alias bob="$HERE/xsrc/nqbp/other/bob.py"
+alias chuck="$HERE/xsrc/nqbp/other/chuck.py"
+
 # Assumes the GCC is already in the command path
 echo "Environment set (using native GCC compiler)"

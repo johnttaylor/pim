@@ -36,7 +36,7 @@ FINAL_OUTPUT_NAME = 'b.out'
 #
 
 # Set project specific 'base' (i.e always used) options
-base_release = BuildValues()        # Do NOT comment out this line
+base_release           = BuildValues()        # Do NOT comment out this line
 base_release.cflags    = '-m32 -std=c++11 -Wall -Werror -x c++ -fprofile-arcs -ftest-coverage'
 base_release.linkflags = '-m32 -fprofile-arcs'
 base_release.linklibs  = '-lgcov -lpthread -lm'

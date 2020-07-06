@@ -16,21 +16,21 @@ Cpl::TShell::Cmd::Threads threadsCmd_( cmdlist );
 
 int main( int argc, char* const argv[] )
 {
-	// Initialize Colony
-	Cpl::System::Api::initialize();
+    // Initialize Colony
+    Cpl::System::Api::initialize();
 
-	CPL_SYSTEM_TRACE_ENABLE();
-	CPL_SYSTEM_TRACE_ENABLE_SECTION( "_0test" );
-	CPL_SYSTEM_TRACE_SET_INFO_LEVEL( Cpl::System::Trace::eINFO );
+    CPL_SYSTEM_TRACE_ENABLE();
+    CPL_SYSTEM_TRACE_ENABLE_SECTION( "_0test" );
+    CPL_SYSTEM_TRACE_SET_INFO_LEVEL( Cpl::System::Trace::eINFO );
 
-	// Run the test
-	shell_test( infd_, outfd_ );
+    // Run the test
+    shell_test( infd_, outfd_ );
 
-	// do not exit
-	for ( ;;)
-	{
-		Cpl::System::Api::sleep( 1000 );
-	}
+    // do not exit
+    for ( ;;)
+    {
+        Cpl::System::Api::sleep( 1000 );
+    }
 
-	return 0;
+    return 0;
 }

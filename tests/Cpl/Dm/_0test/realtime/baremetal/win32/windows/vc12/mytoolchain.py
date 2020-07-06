@@ -39,7 +39,7 @@ unit_test_objects = '_BUILT_DIR_.src/Cpl/Dm/_0test _BUILT_DIR_.src/Cpl/Dm/_0test
 #
 
 # Set project specific 'base' (i.e always used) options
-base_release = BuildValues()        # Do NOT comment out this line
+base_release           = BuildValues()        # Do NOT comment out this line
 base_release.cflags    = '/W3 /WX /EHsc /D CATCH_CONFIG_FAST_COMPILE'  # /EHsc enables exceptions
 base_release.firstobjs = unit_test_objects
 
@@ -47,12 +47,12 @@ base_release.firstobjs = unit_test_objects
 # Set project specific 'optimized' options
 optimzed_release          = BuildValues()    # Do NOT comment out this line
 optimzed_release.cflags   = '/O2'
-optimzed_release.linklibs = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\vc14\cpp11\32bit\release\library.lib'.format( NQBP_WORK_ROOT() )
+optimzed_release.linklibs = ''
 
 # Set project specific 'debug' options
 debug_release          = BuildValues()       # Do NOT comment out this line
 debug_release.cflags   = '/D "_MY_APP_DEBUG_SWITCH_"'
-debug_release.linklibs = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\vc14\cpp11\32bit\debug\library.lib'.format( NQBP_WORK_ROOT() )
+debug_release.linklibs = ''
 
 #-------------------------------------------------
 # ONLY edit this section if you are ADDING options

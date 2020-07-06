@@ -3,7 +3,9 @@
 #include "Cpl/System/Trace.h"
 #include "Cpl/System/_testsupport/Shutdown_TS.h"
 #include "Cpl/Memory/_testsupport/New_TS.h"
-#include "Catch/precompiled/main.h"
+#define CATCH_CONFIG_RUNNER  
+#include "Catch/catch.hpp"
+
 
 
 int main( int argc, char* argv[] )
@@ -22,7 +24,7 @@ int main( int argc, char* argv[] )
 
 
     // Run the test(s)
-    int result = run_catch2_tests( argc, argv );
+    int result = Catch::Session().run( argc, argv );
 
 	// Shutdown Cpl so my testing infra-structure cleanup/post processing gets done
     Cpl::System::Shutdown_TS::restore();

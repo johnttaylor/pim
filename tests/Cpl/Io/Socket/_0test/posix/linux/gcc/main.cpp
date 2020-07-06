@@ -3,9 +3,8 @@
 #include "Cpl/Io/Socket/Posix/Listener.h"
 #include "Cpl/Io/Socket/Posix/Connector.h"
 #include "Cpl/Io/Socket/_0test/loopback.h"
-#include "Catch/precompiled/main.h"
-
-
+#define CATCH_CONFIG_RUNNER  
+#include "Catch/catch.hpp"
 
 
 int main( int argc, char* argv[] )
@@ -24,6 +23,6 @@ int main( int argc, char* argv[] )
 	CPL_SYSTEM_TRACE_SET_INFO_LEVEL( Cpl::System::Trace::eINFO );
 
 	// Run the test(s)
-	return run_catch2_tests( argc, argv );
+    return Catch::Session().run( argc, argv );
 }
 

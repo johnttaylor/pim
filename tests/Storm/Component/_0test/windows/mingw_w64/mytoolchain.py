@@ -36,21 +36,21 @@ FINAL_OUTPUT_NAME = 'a.exe'
 unit_test_objects = '_BUILT_DIR_.src/Storm/Component/_0test'
 
 # Set project specific 'base' (i.e always used) options
-base_release = BuildValues()        # Do NOT comment out this line
+base_release           = BuildValues()        # Do NOT comment out this line
 base_release.cflags    = '-m32 -std=c++11 -Wall -Werror -x c++  -fprofile-arcs -ftest-coverage -D__STDC_CONSTANT_MACROS=1 -D__STDC_LIMIT_MACROS=1'
 base_release.linkflags = '-m32 -fprofile-arcs'
 base_release.linklibs  = '-lgcov'
 base_release.firstobjs = unit_test_objects
 
 # Set project specific 'optimized' options
-optimzed_release = BuildValues()    # Do NOT comment out this line
-optimzed_release.cflags = '-O3'
-optimzed_release.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\32bit\release\library.a'.format( NQBP_WORK_ROOT() )
+optimzed_release           = BuildValues()    # Do NOT comment out this line
+optimzed_release.cflags    = '-O3'
+optimzed_release.linklibs  = ''
 optimzed_release.linklibs += ' -lstdc++'
 
 # Set project specific 'debug' options
-debug_release = BuildValues()       # Do NOT comment out this line
-debug_release.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\32bit\debug\library.a'.format( NQBP_WORK_ROOT() )
+debug_release           = BuildValues()       # Do NOT comment out this line
+debug_release.linklibs  = ''
 debug_release.linklibs += ' -lstdc++'
 
 
@@ -74,12 +74,12 @@ base_cpp11.linklibs   = '-lgcov'
 base_cpp11.firstobjs  = unit_test_objects
 
 # Set 'Optimized' options
-optimzed_cpp11.cflags = '-O3'
-optimzed_cpp11.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\32bit\release\library.a'.format( NQBP_WORK_ROOT() )
+optimzed_cpp11.cflags    = '-O3'
+optimzed_cpp11.linklibs  = ''
 optimzed_cpp11.linklibs += ' -lstdc++'
 
 # Set 'Debug' options
-debug_cpp11.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\32bit\debug\library.a'.format( NQBP_WORK_ROOT() )
+debug_cpp11.linklibs  = ''
 debug_cpp11.linklibs += ' -lstdc++'
 
 
@@ -103,11 +103,11 @@ base_win64.firstobjs  = unit_test_objects
 
 # Set 'Optimized' options
 optimzed_win64.cflags    = '-O3'
-optimzed_win64.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\64bit\release\library.a'.format( NQBP_WORK_ROOT() )
+optimzed_win64.linklibs  = ''
 optimzed_win64.linklibs += ' -lstdc++'
 
 # Set 'debug' options
-debug_win64.linklibs  = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\mingw_64\cpp11\64bit\debug\library.a'.format( NQBP_WORK_ROOT() )
+debug_win64.linklibs  = ''
 debug_win64.linklibs += ' -lstdc++'
 
 #-------------------------------------------------

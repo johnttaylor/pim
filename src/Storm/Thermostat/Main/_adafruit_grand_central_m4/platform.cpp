@@ -21,9 +21,9 @@
 #include "task.h"
 #include <Adafruit_NeoPixel.h>
 
-#include "Cpl/Persistence/RecordServer.h"
-#include "Cpl/Persistence/MirroredChunk.h"
-#include "Cpl/Persistence/FileAdapter.h"
+#include "Cpl/Persistent/RecordServer.h"
+#include "Cpl/Persistent/MirroredChunk.h"
+#include "Cpl/Persistent/FileAdapter.h"
 #include "Storm/Thermostat/Main/UserRecord.h"
 #include "Storm/Thermostat/Main/InstallerRecord.h"
 #include "Storm/Thermostat/Main/RunTimeRecord.h"
@@ -37,7 +37,7 @@ static Storm::Thermostat::SimHouse::House   houseSimulator_;
 // Get a reference to the NeoPixel driver
 extern Adafruit_NeoPixel g_pixels;
 
-// Persistence Storage
+// Persistent Storage
 #define USER_REC_FILE_NAME_REGION1          "user1.nvr"
 #define USER_REC_FILE_NAME_REGION2          "user2.nvr"
 #define USER_REGION_START_ADDRESS           0
@@ -54,23 +54,23 @@ extern Adafruit_NeoPixel g_pixels;
 #define RUNTIME_REGION_LENGTH               (4+200)
 
 
-static Cpl::Persistence::FileAdapter            fd1UserRec_( USER_REC_FILE_NAME_REGION1, USER_REGION_START_ADDRESS, USER_REGION_LENGTH );
-static Cpl::Persistence::FileAdapter            fd2UserRec_( USER_REC_FILE_NAME_REGION2, USER_REGION_START_ADDRESS, USER_REGION_LENGTH );
-static Cpl::Persistence::MirroredChunk          chunkUserRec_( fd1UserRec_, fd2UserRec_ );
+static Cpl::Persistent::FileAdapter            fd1UserRec_( USER_REC_FILE_NAME_REGION1, USER_REGION_START_ADDRESS, USER_REGION_LENGTH );
+static Cpl::Persistent::FileAdapter            fd2UserRec_( USER_REC_FILE_NAME_REGION2, USER_REGION_START_ADDRESS, USER_REGION_LENGTH );
+static Cpl::Persistent::MirroredChunk          chunkUserRec_( fd1UserRec_, fd2UserRec_ );
 static Storm::Thermostat::Main::UserRecord      userRec_( chunkUserRec_ );
 
-static Cpl::Persistence::FileAdapter            fd1InstallerRec_( INSTALLER_REC_FILE_NAME_REGION1, INSTALLER_REGION_START_ADDRESS, INSTALLER_REGION_LENGTH );
-static Cpl::Persistence::FileAdapter            fd2InstallerRec_( INSTALLER_REC_FILE_NAME_REGION2, INSTALLER_REGION_START_ADDRESS, INSTALLER_REGION_LENGTH );
-static Cpl::Persistence::MirroredChunk          chunkInstallerRec_( fd1InstallerRec_, fd2InstallerRec_ );
+static Cpl::Persistent::FileAdapter            fd1InstallerRec_( INSTALLER_REC_FILE_NAME_REGION1, INSTALLER_REGION_START_ADDRESS, INSTALLER_REGION_LENGTH );
+static Cpl::Persistent::FileAdapter            fd2InstallerRec_( INSTALLER_REC_FILE_NAME_REGION2, INSTALLER_REGION_START_ADDRESS, INSTALLER_REGION_LENGTH );
+static Cpl::Persistent::MirroredChunk          chunkInstallerRec_( fd1InstallerRec_, fd2InstallerRec_ );
 static Storm::Thermostat::Main::InstallerRecord installerRec_( chunkInstallerRec_ );
 
-static Cpl::Persistence::FileAdapter            fd1RuntimeRec_( RUNTIME_REC_FILE_NAME_REGION1, RUNTIME_REGION_START_ADDRESS, RUNTIME_REGION_LENGTH );
-static Cpl::Persistence::FileAdapter            fd2RuntimeRec_( RUNTIME_REC_FILE_NAME_REGION2, RUNTIME_REGION_START_ADDRESS, RUNTIME_REGION_LENGTH );
-static Cpl::Persistence::MirroredChunk          chunkRuntimeRec_( fd1RuntimeRec_, fd2RuntimeRec_ );
+static Cpl::Persistent::FileAdapter            fd1RuntimeRec_( RUNTIME_REC_FILE_NAME_REGION1, RUNTIME_REGION_START_ADDRESS, RUNTIME_REGION_LENGTH );
+static Cpl::Persistent::FileAdapter            fd2RuntimeRec_( RUNTIME_REC_FILE_NAME_REGION2, RUNTIME_REGION_START_ADDRESS, RUNTIME_REGION_LENGTH );
+static Cpl::Persistent::MirroredChunk          chunkRuntimeRec_( fd1RuntimeRec_, fd2RuntimeRec_ );
 static Storm::Thermostat::Main::RunTimeRecord   runtimeRec_( chunkRuntimeRec_ );
 
-static Cpl::Persistence::Record*      records_[3 + 1] ={ &userRec_, &installerRec_, &runtimeRec_, 0 };
-static Cpl::Persistence::RecordServer recordServer_( records_ );
+static Cpl::Persistent::Record*      records_[3 + 1] ={ &userRec_, &installerRec_, &runtimeRec_, 0 };
+static Cpl::Persistent::RecordServer recordServer_( records_ );
 
 
 

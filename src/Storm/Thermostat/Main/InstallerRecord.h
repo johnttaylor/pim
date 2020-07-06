@@ -13,7 +13,7 @@
 
 #include "colony_config.h"
 #include "Storm/Constants.h"
-#include "Cpl/Dm/Persistence/Record.h"
+#include "Cpl/Dm/Persistent/Record.h"
 #include "Storm/Thermostat/ModelPoints.h"
 
 
@@ -38,12 +38,12 @@ namespace Main {
 
 /** This concrete class implements the "Record" class for storing Installer settings.
  */
-class InstallerRecord : public Cpl::Dm::Persistence::Record
+class InstallerRecord : public Cpl::Dm::Persistent::Record
 {
 public:
     /// Constructor
-    InstallerRecord( Cpl::Persistence::Chunk& chunkHandler )
-        : Cpl::Dm::Persistence::Record( m_modelPoints, chunkHandler, OPTION_STORM_THERMOSTAT_MAIN_INSTALLER_RECORD_MAJOR, OPTION_STORM_THERMOSTAT_MAIN_INSTALLER_RECORD_MINOR )
+    InstallerRecord( Cpl::Persistent::Chunk& chunkHandler )
+        : Cpl::Dm::Persistent::Record( m_modelPoints, chunkHandler, OPTION_STORM_THERMOSTAT_MAIN_INSTALLER_RECORD_MAJOR, OPTION_STORM_THERMOSTAT_MAIN_INSTALLER_RECORD_MINOR )
     {
         m_modelPoints[0] ={ &mp_enabledSecondaryIdt, CPL_DM_PERISTENCE_RECORD_USE_SUBSCRIBER };
         m_modelPoints[1] ={ &mp_equipmentConfig, CPL_DM_PERISTENCE_RECORD_USE_SUBSCRIBER };
@@ -52,7 +52,7 @@ public:
     }
 
 public:
-    /// See Cpl::Dm::Persistence::Record
+    /// See Cpl::Dm::Persistent::Record
     void resetData() noexcept
     {
         mp_enabledSecondaryIdt.write( OPTION_STORM_DEFAULT_REMOTE_SENSOR_ENABLED_STATE );
@@ -76,7 +76,7 @@ public:
 
 protected:
     /// List of Model Points for the Record
-    Cpl::Dm::Persistence::Record::Item_T m_modelPoints[3 + 1];
+    Cpl::Dm::Persistent::Record::Item_T m_modelPoints[3 + 1];
 };
 
 };      // end namespace(s)

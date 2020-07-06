@@ -40,24 +40,24 @@ unit_test_objects = '_BUILT_DIR_.src/Storm/Component/_0test'
 #
 
 # Set project specific 'base' (i.e always used) options
-base_release = BuildValues()        # Do NOT comment out this line
+base_release           = BuildValues()        # Do NOT comment out this line
 base_release.cflags    = '/W3 /WX /EHsc'  # /EHsc enables exceptions
 base_release.firstobjs = unit_test_objects
 
 # Set project specific 'optimized' options
-optimzed_release = BuildValues()    # Do NOT comment out this line
-optimzed_release.cflags = '/O2'
-optimzed_release.linklibs = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\vc14\cpp11\32bit\release\library.lib'.format( NQBP_WORK_ROOT() )
+optimzed_release          = BuildValues()    # Do NOT comment out this line
+optimzed_release.cflags   = '/O2'
+optimzed_release.linklibs = ''
 
 # Set project specific 'debug' options
-debug_release = BuildValues()       # Do NOT comment out this line
-debug_release.cflags = '/D "_MY_APP_DEBUG_SWITCH_"'
-debug_release.linklibs = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\vc14\cpp11\32bit\debug\library.lib'.format( NQBP_WORK_ROOT() )
+debug_release         = BuildValues()       # Do NOT comment out this line
+debug_release.cflags   = '/D "_MY_APP_DEBUG_SWITCH_"'
+debug_release.linklibs = ''
 
 #
 # For build config/variant: "cpp11"
 # (note: uses same internal toolchain options as the 'Release' variant, 
-#        only the 'User' options will/are different)
+#        only the 'User' options will/are different) 
 #
 
 # Construct option structs
@@ -71,11 +71,11 @@ base_cpp11.cflags     = '/W3 /WX /EHsc'  # /EHsc enables exceptions
 base_cpp11.firstobjs  = unit_test_objects
 
 # Set 'Optimized' options
-optimzed_cpp11.cflags = '/O2'
-optimzed_cpp11.linklibs = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\vc14\cpp11\32bit\release\library.lib'.format( NQBP_WORK_ROOT() )
+optimzed_cpp11.cflags   = '/O2'
+optimzed_cpp11.linklibs = ''
 
 # Set project specific 'debug' options
-debug_cpp11.linklibs = r'{}\xpkgs\catch\src\Catch\libs\x86\windows\vc14\cpp11\32bit\debug\library.lib'.format( NQBP_WORK_ROOT() )
+debug_cpp11.linklibs   = ''
 
 
 #-------------------------------------------------

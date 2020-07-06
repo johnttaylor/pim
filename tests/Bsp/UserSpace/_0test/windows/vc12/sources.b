@@ -1,2 +1,2 @@
-# Comman main.cpp
-../main.cpp
+# Common main.cpp
+../../main.cpp

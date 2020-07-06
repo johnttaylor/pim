@@ -2,7 +2,7 @@
 :: This script is used to populate the content that is pulled from other 
 :: repositories.
 :: NOTES:
-::  o All of the repositories ('colony.*', 'pim', etc.) are assumed to be children
+::  o All of the repositories ('colony.*', 'pim', etc.) are assumed to be siblings
 ::    of the same parent directory
 ::  o This script is run from the ROOT of the 'pim' repository
 ::
@@ -21,8 +21,6 @@ rmdir /S /Q top\libdirs
 scripts\cpr.py %1 ..\ nqbp xsrc
 scripts\cpr.py %1 ..\ ratt xsrc
 scripts\cpr.py %1 --filter *.h* ..\catch src .
-scripts\cpr.py %1 ..\catch src\Catch\libs xsrc catch\src\Catch\libs
-scripts\cpr.py %1 ..\catch src\Catch\precompiled xsrc catch\src\Catch\precompiled
 scripts\cpr.py %1 ..\colony.core src .
 ::scripts\cpr.py %1 ..\colony.core top\libdirs xsrc colony.core\top\libdirs
 scripts\cpr.py %1 ..\colony.bsp src .

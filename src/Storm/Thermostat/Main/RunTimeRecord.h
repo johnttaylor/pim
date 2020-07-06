@@ -12,7 +12,7 @@
 *----------------------------------------------------------------------------*/
 
 #include "colony_config.h"
-#include "Cpl/Dm/Persistence/Record.h"
+#include "Cpl/Dm/Persistent/Record.h"
 #include "Storm/Thermostat/ModelPoints.h"
 #include "Cpl/System/Timer.h"
 #include "Cpl/Memory/Aligned.h"
@@ -43,12 +43,12 @@ namespace Main {
 /** This concrete class implements the "Record" class for storing persistent
     run time alerts, status, etc.
  */
-class RunTimeRecord : public Cpl::Dm::Persistence::Record, public Cpl::System::Timer
+class RunTimeRecord : public Cpl::Dm::Persistent::Record, public Cpl::System::Timer
 {
 public:
     /// Constructor
-    RunTimeRecord( Cpl::Persistence::Chunk& chunkHandler )
-        : Cpl::Dm::Persistence::Record( m_modelPoints, chunkHandler, OPTION_STORM_THERMOSTAT_MAIN_RUN_TIME_RECORD_MAJOR, OPTION_STORM_THERMOSTAT_MAIN_RUN_TIME_RECORD_MINOR )
+    RunTimeRecord( Cpl::Persistent::Chunk& chunkHandler )
+        : Cpl::Dm::Persistent::Record( m_modelPoints, chunkHandler, OPTION_STORM_THERMOSTAT_MAIN_RUN_TIME_RECORD_MAJOR, OPTION_STORM_THERMOSTAT_MAIN_RUN_TIME_RECORD_MINOR )
     {
         m_modelPoints[0] ={ &mp_airFilterAlert, CPL_DM_PERISTENCE_RECORD_USE_SUBSCRIBER };
         m_modelPoints[1] ={ &mp_airFilterOperationTime, CPL_DM_PERISTENCE_RECORD_NO_SUBSCRIBER };
@@ -56,14 +56,14 @@ public:
     }
 
 public:
-    /// See Cpl::Dm::Persistence::Record
+    /// See Cpl::Dm::Persistent::Record
     void resetData() noexcept
     {
         mp_airFilterAlert.write( { false, false, false } );
         mp_airFilterOperationTime.write( { 0,0 } );
     }
 
-    /// See Cpl::Persistence::Record
+    /// See Cpl::Persistent::Record
     void start( Cpl::Dm::MailboxServer& myMbox ) noexcept
     {
         Record::start( myMbox );
@@ -71,7 +71,7 @@ public:
         Cpl::System::Timer::start( OPTION_STORM_THERMOSTAT_MAIN_RUN_TIME_RECORD_PERIODIC_UPDATE_MS );
     }
 
-    /// See Cpl::Persistence::Record
+    /// See Cpl::Persistent::Record
     void stop() noexcept
     {
         Cpl::System::Timer::stop();
@@ -87,7 +87,7 @@ public:
 
 protected:
     /// List of Model Points for the Record
-    Cpl::Dm::Persistence::Record::Item_T m_modelPoints[2 + 1];
+    Cpl::Dm::Persistent::Record::Item_T m_modelPoints[2 + 1];
 };
 
 };      // end namespace(s)

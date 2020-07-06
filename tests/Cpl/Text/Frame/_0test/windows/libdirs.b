@@ -1,11 +1,4 @@
-# Unit under test
-src/Cpl/Text/Frame
-
-# tests
-src/Cpl/Text/Frame/_0test
-
 # supporting infrastructure
-src/Cpl/Io/File
 src/Cpl/Io/File/_win32
 src/Cpl/Io/File/_win32/_api
 
