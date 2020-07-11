@@ -20,20 +20,18 @@ if __name__ == '__main__':
     options = ' '.join(sys.argv[1:])
 
     # Get paths to important stuff...
-    result, wrk_root = run_shell( 'orc --qry-w' )
-    if ( result != 0 ):
-        sys.exit( "Outcast Environment not configured (cannot execute 'orc.py')" )
-    result, pkg_root = run_shell( 'orc --qry-p' )
-    if ( result != 0 ):
-        sys.exit( "Outcast Environment not configured (cannot execute 'orc.py')" )
-    wrk_root = wrk_root.strip()
-    pkg_root = pkg_root.strip()
-
-    testdir = os.path.join( pkg_root,  "src", "Storm", "Thermostat", "_0test" )
-    ratt    = os.path.join( wrk_root, "ratt", "bin",  "ratt.py" )
+    outcast    = os.environ.get('NQBP_XPKG_MODEL')
+    pkg_root   = os.environ.get('NQBP_PKG_ROOT')
+    if ( outcast == 'outcast' ):
+        result, pkg_root = run_shell( 'orc.py --qry-pkg' )
+        pkg_root = pkg_root.strip()
+    xpkgs_root = os.environ.get('NQBP_XPKGS_ROOT')
+    testdir    = os.path.join( pkg_root,  "src", "Storm", "Thermostat", "_0test" )
+    ratt       = os.path.join( xpkgs_root, "ratt", "bin",  "ratt.py" )
 
     # Run the test suite(s)
     cmd = "{} {} --input test_suite.ratt --path1 {} --win _win32\\b.exe".format( ratt, options, testdir )
+    print( cmd )
     result, testoutput = run_shell( cmd  )
     print( testoutput )
     sys.exit( result )

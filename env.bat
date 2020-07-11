@@ -21,7 +21,7 @@ doskey killpy=taskkill /F /IM python.exe
 set NQBP_XPKG_MODEL=mixed
 set NQBP_PKG_ROOT=%_HERE%
 set NQBP_WORK_ROOT=%_HERE%..\
-set NQBP_XPKGS_ROOT=%_HERE%xpkgs
+set NQBP_XPKGS_ROOT=%_HERE%xsrc
 set NQBP_BIN=%NQBP_XPKGS_ROOT%\nqbp
 
 :: No compiler option selected
