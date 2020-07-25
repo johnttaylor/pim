@@ -29,8 +29,8 @@ IF "/%1"=="/" GOTO :displaycc
 
 
 :: Set the compiler toolchain
-pushd %_HERE%top\compilers
-call master-list.bat %1
+pushd %_HERE%top
+call compiler-list.bat %1
 popd
 exit /b 0
 
@@ -39,7 +39,7 @@ exit /b 0
 IF "/%PIM_ENV_COMPILER%"=="/"     echo:NO TOOLCHAIN SET
 IF NOT "/%PIM_ENV_COMPILER%"=="/" echo:Current toolchain: %PIM_ENV_COMPILER%
 echo:
-pushd %_HERE%top\compilers
-call master-list.bat
+pushd %_HERE%top
+call compiler-list.bat
 popd
 exit /b 0

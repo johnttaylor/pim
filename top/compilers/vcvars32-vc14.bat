@@ -1,3 +1,5 @@
+@echo off
+IF "/%1"=="/name" ECHO:Visual Studio VC14 (32bit) compiler for Windows & exit /b 0
 
 
 

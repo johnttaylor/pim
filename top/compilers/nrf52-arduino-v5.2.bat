@@ -1,4 +1,6 @@
 @echo off
+IF "/%1"=="/name" ECHO:GCC-ARM Cortex M/R cross compiler for NRF52/Arduino & exit /b 0
+
 :: Core Arduino tools
 set ARDUINO_TOOLS=c:\compilers\nrf52-arduino-15
 set ARDUINO_COMPILER_VER=5_2-2015q4

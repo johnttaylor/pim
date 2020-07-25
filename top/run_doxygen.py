@@ -22,6 +22,10 @@ def filter_warnings( output ):
     lines = output.splitlines()
     for line in lines:
         # Filter
+        if ( re.search( r"^.*error.*inline_dotgraph_.*\.dot", line ) ):
+            continue
+
+        # Filter
         if ( re.search( r"^.*src/Cpl/Type/enum.h:.*warning:.*", line ) ):
             continue
 
@@ -61,8 +65,8 @@ if ( p.returncode != 0 ):
     exit( "ERROR: Doxygen failed to run.  Check if doxygen.exe is in your command path" )
 
 # delete the HTML files - only keep the Windows Help (.chm) file
-path = os.path.join( '..', 'docs', 'html' )
-shutil.rmtree( path, ignore_errors=True  )
+#path = os.path.join( '..', 'docs', 'html' )
+#shutil.rmtree( path, ignore_errors=True  )
 
 # check for errors
 if ( " warning: " in r[1].decode() ):

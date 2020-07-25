@@ -1,4 +1,6 @@
 @echo off
+IF "/%1"=="/name" ECHO:GCC-AVR cross compiler for Atmel AVR/arduino & exit /b 0
+
 :: Core Arduino tools
 set NQBP_CMD_OPTIONS=-1
 set ARDUINO_TOOLS=c:\compilers\avr-arduino
