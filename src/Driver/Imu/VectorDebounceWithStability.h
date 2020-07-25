@@ -132,6 +132,7 @@ public:
 
 
 protected:
+    /// Helper function
     static bool equalEnough( T a, T b, T tolerance )
     {
         if ( a <= b )

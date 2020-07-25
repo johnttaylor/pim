@@ -23,10 +23,10 @@ namespace Type {
 
 /** The following enum/class defines the support Outdoor Unit Types.
 
-    \param OduType           - Class name for the Indoor Unit Type enum
-    \param int               - storage type of the enum
-    \param eAC               - Outdoor Unit is an Air Conditioner
-    \param eHP               - Outdoor Unit is a heat pump
+    @param OduType           - Class name for the Indoor Unit Type enum
+    @param int               - storage type of the enum
+    @param eAC               - Outdoor Unit is an Air Conditioner
+    @param eHP               - Outdoor Unit is a heat pump
  */
 BETTER_ENUM( OduType, int, eAC, eHP );
 

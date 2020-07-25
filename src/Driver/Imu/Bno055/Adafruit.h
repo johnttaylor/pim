@@ -24,6 +24,7 @@
 #include <stdint.h>
 #include "Driver/Imu/Vector.h"
 
+#ifndef DOXYGEN_WILL_SKIP_THIS
 
 #define DRIVER_IMU_BNO005_ADAFRUIT_ADDRESS_A                  (0x28)
 #define DRIVER_IMU_BNO005_ADAFRUIT_ADDRESS_B                  (0x29)
@@ -432,4 +433,7 @@ protected:
 };      // end Namespaces
 };
 };
+
+#endif // end DOXYGEN_WILL_SKIP_THIS
+
 #endif  // end Header latch

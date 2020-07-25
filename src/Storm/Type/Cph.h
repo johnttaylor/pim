@@ -22,14 +22,14 @@ namespace Type {
 
 /** The following enum/class defines the valid Cycles-Per-Hours options. 
 
-    \param Cph                     - Class name for the Cycles Per Hour enum
-    \param int                      - storage type of the enum
-    \param e2CPH                    - 2 cycles per hour
-    \param e3CPH                    - 3 cycles per hour
-    \param e4CPH                    - 4 cycles per hour
-    \param e5CPH                    - 5 cycles per hour
-    \param e6CPH                    - 6 cycles per hour
-    \param eNUM_OPTIONS             - Number of CPH options
+    @param Cph                     - Class name for the Cycles Per Hour enum
+    @param int                      - storage type of the enum
+    @param e2CPH                    - 2 cycles per hour
+    @param e3CPH                    - 3 cycles per hour
+    @param e4CPH                    - 4 cycles per hour
+    @param e5CPH                    - 5 cycles per hour
+    @param e6CPH                    - 6 cycles per hour
+    @param eNUM_OPTIONS             - Number of CPH options
  */
 BETTER_ENUM( Cph, int, e2CPH=0, e3CPH, e4CPH, e5CPH, e6CPH, eNUM_OPTIONS );
 

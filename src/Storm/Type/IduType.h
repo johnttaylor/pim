@@ -23,10 +23,10 @@ namespace Type {
 
 /** The following enum/class defines the support Indoor Unit Types.
 
-    \param IduType           - Class name for the Indoor Unit Type enum
-    \param int               - storage type of the enum
-    \param eAIR_HANDLER      - Indoor Unit is an Air Handler
-    \param eFURNACE          - Indoor Unit is a Furnace
+    @param IduType           - Class name for the Indoor Unit Type enum
+    @param int               - storage type of the enum
+    @param eAIR_HANDLER      - Indoor Unit is an Air Handler
+    @param eFURNACE          - Indoor Unit is a Furnace
  */
 BETTER_ENUM( IduType, int, eAIR_HANDLER, eFURNACE );
 

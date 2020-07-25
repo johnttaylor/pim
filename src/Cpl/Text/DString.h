@@ -104,7 +104,8 @@ public:
 
 
 public:
-	/// Assignment
+    ///@{
+    /// Assignment
     Cpl::Text::String & operator =( const DString& string );
 
 	/// Assignment

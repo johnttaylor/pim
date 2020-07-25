@@ -24,12 +24,12 @@ namespace Type {
 /** The following enum/class defines the Operating modes of the thermostat.  The
     operating mode represent the equipment/system mode of operation.
 
-    \param OperatingMode            - Class name for the Operating Mode enum
-    \param int                      - storage type of the enum
-    \param eOFF                     - The system/equipment is off
-    \param eCOOLING                 - The system/equipment only operates in the cooling mode
-    \param eHEATING                 - The system/equipment only operates in the heating mode
-    \param eID_HEATING              - The system/equipment only operates in the heating mode AND only uses Indoor Heating sources
+    @param OperatingMode            - Class name for the Operating Mode enum
+    @param int                      - storage type of the enum
+    @param eOFF                     - The system/equipment is off
+    @param eCOOLING                 - The system/equipment only operates in the cooling mode
+    @param eHEATING                 - The system/equipment only operates in the heating mode
+    @param eID_HEATING              - The system/equipment only operates in the heating mode AND only uses Indoor Heating sources
  */
 BETTER_ENUM( OperatingMode, int, eOFF, eCOOLING, eHEATING, eID_HEATING, eUNKNOWN );
 

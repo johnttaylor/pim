@@ -63,6 +63,8 @@ extern "C" {
 //                          DEFAULT IMPLEMENATION
 /////////////////////////////////////////////////////////////////////////////
 
+#ifndef DOXYGEN_WILL_SKIP_THIS
+
 #ifndef HAVE_BSP_WATCH_DOG_START
 #define Bsp_WatchDog_start_MAP()                    
 #endif
@@ -71,7 +73,7 @@ extern "C" {
 #define Bsp_WatchDog_kick_MAP()     
 #endif
 
-
+#endif // end DOXYGEN_WILL_SKIP_THIS
 
 #ifdef __cplusplus
 };

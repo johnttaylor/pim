@@ -62,6 +62,7 @@ public:
 
 
 public: ///@name Operations to manage items in the Dictionary
+    ///@{
     /** Inserts an item into the table.
      */
     void insert( ITEM& node );

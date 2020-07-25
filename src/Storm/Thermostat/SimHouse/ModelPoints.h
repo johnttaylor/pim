@@ -10,12 +10,14 @@
 *
 * Redistributions of the source code must retain the above copyright notice.
 *----------------------------------------------------------------------------*/
-/** @file This file defines test/simulation specific Model Points for the Thermostat 
-          Application.  
+/** @file 
+
+This file defines test/simulation specific Model Points for the Thermostat 
+Application.  
           
-          Note: the Model Points (and Database) are purposely placed in the 
-                standard/global namespace to simplify their usage (i.e. less 
-                verbose naming).
+Note: the Model Points (and Database) are purposely placed in the 
+      standard/global namespace to simplify their usage (i.e. less 
+      verbose naming).
  */
 #include "Cpl/Dm/Mp/Bool.h"
 

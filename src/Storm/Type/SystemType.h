@@ -83,6 +83,7 @@ namespace Type {
 
 /** The following enum/class defines the possible/supported system
     configurations.
+    @code 
 
     Format of enum:
         <odtype>[<ostages>]_<idtype><istages>
@@ -92,16 +93,18 @@ namespace Type {
             <idtype>    Type of Indoor Unit
             <istages>   Number of indoor stages
 
-    \param SystemType                       - Class name for the System Type enum
-    \param uint16_t                         - storage type of the enum
-    \param eUNDEFINED                       - The system has not been configured and/or is an invalid/supported configuration
-    \param eAC1_AH0                         - Single Stage AC with Air Handler with NO electric heat
-    \param eAC1_FURN1                       - Single Stage AC with a Single Stage furnace
-    \param eAC1_FURN2                       - Single Stage AC with a Two Stage furnace
-    \param eAC1_FURN3                       - Single Stage AC with a Three Stage furnace
-    \param eNONE_FURN1                      - Single stage furnace and NO outdoor unit
-    \param eNONE_FURN2                      - Two stage furnace and NO outdoor unit
-    \param eNONE_FURN3                      - Three stage furnace and NO outdoor unit
+    @param SystemType                       - Class name for the System Type enum
+    @param uint16_t                         - storage type of the enum
+    @param eUNDEFINED                       - The system has not been configured and/or is an invalid/supported configuration
+    @param eAC1_AH0                         - Single Stage AC with Air Handler with NO electric heat
+    @param eAC1_FURN1                       - Single Stage AC with a Single Stage furnace
+    @param eAC1_FURN2                       - Single Stage AC with a Two Stage furnace
+    @param eAC1_FURN3                       - Single Stage AC with a Three Stage furnace
+    @param eNONE_FURN1                      - Single stage furnace and NO outdoor unit
+    @param eNONE_FURN2                      - Two stage furnace and NO outdoor unit
+    @param eNONE_FURN3                      - Three stage furnace and NO outdoor unit
+ 
+ @endcode
  */
 BETTER_ENUM( SystemType, uint16_t,
              eUNDEFINED  = 0,

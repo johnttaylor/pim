@@ -93,6 +93,8 @@ extern "C" {
 //                          DEFAULT IMPLEMENATION
 /////////////////////////////////////////////////////////////////////////////
 
+#ifndef DOXYGEN_WILL_SKIP_THIS
+
 #ifndef HAVE_BSP_EXECUTION_REBOOT
 #define Bsp_Execution_reboot_MAP()                  {Bsp_Api_disableIrqs();for(;;);}
 #endif
@@ -112,6 +114,8 @@ extern "C" {
 #define Bsp_Execution_getResetType_MAP()            BSP_EXECUTION_RESET_UNKNOWN
 #endif
 
+
+#endif // end DOXYGEN_WILL_SKIP_THIS
 
 #ifdef __cplusplus
 };

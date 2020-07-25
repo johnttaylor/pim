@@ -38,7 +38,7 @@ public:
 	{
 	}
 
-    // Type
+    /// Type
     const char* getTypeAsText() const noexcept
 	{
 		return "Storm::Dm::MpThermostatMode";

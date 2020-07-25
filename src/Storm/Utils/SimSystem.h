@@ -76,7 +76,7 @@ public:
     double	        _req;
 
 public:
-    /*
+    /**
      * tickPeriodInSeconds is the time between each
      * call to the tick() operations.
      * controlResistance is the "internal" resistance

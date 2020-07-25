@@ -58,6 +58,7 @@ public:
     Map( const char* ignoreThisParameter_usedToCreateAUniqueConstructor );
 
 public: ///@name Operations to manage items in the Map
+    ///@{
     /** Inserts an item into the tree.  If the node is successfully inserted,
         then the method return true.  If the tree already contains a node
         with the same key, then the method returns false.

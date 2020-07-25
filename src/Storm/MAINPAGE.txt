@@ -1,4 +1,4 @@
-/*! \mainpage Colony.Core
+/*! \mainpage Colony.Apps
 
 \section References
 @htmlonly

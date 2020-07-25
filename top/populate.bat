@@ -53,5 +53,8 @@ scripts\replace.py --sol projects libdirs.b //colony.arduino/src/  src/
 scripts\replace.py --sol projects libdirs.b arduino/ xsrc/colony.arduino/arduino/
 scripts\replace.py --sol projects mytoolchain.py "ARDUINO_SUPPORT = NQBP_PKG_ROOT()" "ARDUINO_SUPPORT = NQBP_PKG_ROOT() + \"\\xsrc\\colony.arduino\""
 
+:: There can be only one....
+del /q /f src\Cpl\MAINPAGE.txt
+
 :: Success
 exit /b 0
