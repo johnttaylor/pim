@@ -46,6 +46,8 @@ make.log
 *.lst
 *.map
 *.jdebug.user
+*.jdebug
+*.nvram
 
 myMediaFile
 
