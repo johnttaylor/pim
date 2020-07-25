@@ -45,19 +45,19 @@ static Storm::Thermostat::SimHouse::House   houseSimulator_;
 #define RUNTIME_REGION_LENGTH               (4+200)
 
 
-static Cpl::Persistent::FileAdapter            fd1UserRec_( USER_REC_FILE_NAME_REGION1, USER_REGION_START_ADDRESS, USER_REGION_LENGTH );
-static Cpl::Persistent::FileAdapter            fd2UserRec_( USER_REC_FILE_NAME_REGION2, USER_REGION_START_ADDRESS, USER_REGION_LENGTH );
-static Cpl::Persistent::MirroredChunk          chunkUserRec_( fd1UserRec_, fd2UserRec_ );
+static Cpl::Persistent::FileAdapter             fd1UserRec_( USER_REC_FILE_NAME_REGION1, USER_REGION_START_ADDRESS, USER_REGION_LENGTH );
+static Cpl::Persistent::FileAdapter             fd2UserRec_( USER_REC_FILE_NAME_REGION2, USER_REGION_START_ADDRESS, USER_REGION_LENGTH );
+static Cpl::Persistent::MirroredChunk           chunkUserRec_( fd1UserRec_, fd2UserRec_ );
 static Storm::Thermostat::Main::UserRecord      userRec_( chunkUserRec_ );
-
-static Cpl::Persistent::FileAdapter            fd1InstallerRec_(INSTALLER_REC_FILE_NAME_REGION1, INSTALLER_REGION_START_ADDRESS, INSTALLER_REGION_LENGTH );
-static Cpl::Persistent::FileAdapter            fd2InstallerRec_(INSTALLER_REC_FILE_NAME_REGION2, INSTALLER_REGION_START_ADDRESS, INSTALLER_REGION_LENGTH );
-static Cpl::Persistent::MirroredChunk          chunkInstallerRec_( fd1InstallerRec_, fd2InstallerRec_ );
+  
+static Cpl::Persistent::FileAdapter             fd1InstallerRec_(INSTALLER_REC_FILE_NAME_REGION1, INSTALLER_REGION_START_ADDRESS, INSTALLER_REGION_LENGTH );
+static Cpl::Persistent::FileAdapter             fd2InstallerRec_(INSTALLER_REC_FILE_NAME_REGION2, INSTALLER_REGION_START_ADDRESS, INSTALLER_REGION_LENGTH );
+static Cpl::Persistent::MirroredChunk           chunkInstallerRec_( fd1InstallerRec_, fd2InstallerRec_ );
 static Storm::Thermostat::Main::InstallerRecord installerRec_( chunkInstallerRec_ );
 
-static Cpl::Persistent::FileAdapter            fd1RuntimeRec_( RUNTIME_REC_FILE_NAME_REGION1, RUNTIME_REGION_START_ADDRESS, RUNTIME_REGION_LENGTH );
-static Cpl::Persistent::FileAdapter            fd2RuntimeRec_( RUNTIME_REC_FILE_NAME_REGION2, RUNTIME_REGION_START_ADDRESS, RUNTIME_REGION_LENGTH );
-static Cpl::Persistent::MirroredChunk          chunkRuntimeRec_( fd1RuntimeRec_, fd2RuntimeRec_ );
+static Cpl::Persistent::FileAdapter             fd1RuntimeRec_( RUNTIME_REC_FILE_NAME_REGION1, RUNTIME_REGION_START_ADDRESS, RUNTIME_REGION_LENGTH );
+static Cpl::Persistent::FileAdapter             fd2RuntimeRec_( RUNTIME_REC_FILE_NAME_REGION2, RUNTIME_REGION_START_ADDRESS, RUNTIME_REGION_LENGTH );
+static Cpl::Persistent::MirroredChunk           chunkRuntimeRec_( fd1RuntimeRec_, fd2RuntimeRec_ );
 static Storm::Thermostat::Main::RunTimeRecord   runtimeRec_( chunkRuntimeRec_ );
 
 static Cpl::Persistent::Record*      records_[3+1] ={ &userRec_, &installerRec_, &runtimeRec_, 0 };

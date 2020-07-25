@@ -26,7 +26,7 @@ popd
 pushd ..\colony.arduino\projects
 ..\..\nqbp\other\bob.py -4 here -z
 popd
-pushd ..\colony.bsp.renesas.tx\tests
+pushd ..\colony.bsp.renesas.rx\tests
 ..\..\nqbp\other\bob.py -4 here -z
 popd
 

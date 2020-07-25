@@ -38,7 +38,7 @@ scripts\cpr.py %1 --ex tests --ex2 projects --ex3 src ..\ colony.core xsrc
 :: Copy tests/projects directories
 scripts\cpr.py %1 ..\colony.core tests .
 scripts\cpr.py %1 ..\colony.apps tests .
-scripts\cpr.py %1 ..\colony.bsp.renesas.tx tests .
+scripts\cpr.py %1 ..\colony.bsp.renesas.rx tests .
 scripts\cpr.py %1 ..\colony.apps projects .
 scripts\cpr.py %1 ..\colony.arduino tests .
 scripts\cpr.py %1 ..\colony.arduino projects .

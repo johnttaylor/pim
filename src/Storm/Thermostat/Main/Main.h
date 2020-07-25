@@ -22,7 +22,7 @@
 #include "Cpl/TShell/Command.h"
 
 
-/** This method is launch the start-up sequence, then run the application, followed
+/** This method launchs the start-up sequence, then runs the application, followed
     by the shutdown sequence.  The 'infd' and 'outfd' are the file descriptors
     to be used for the TShell/Command-Line-Interface.
     

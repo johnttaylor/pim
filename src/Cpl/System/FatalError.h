@@ -24,7 +24,7 @@
 #endif
 
 
- /// 
+/// 
 namespace Cpl {
 /// 
 namespace System {
@@ -74,8 +74,6 @@ public:
 
     /// Same as log(..) method, except NO 'extra info' and restricted media
     static void logRaw( const char* message, size_t value );
-
-
 };
 
 
