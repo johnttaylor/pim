@@ -30,12 +30,15 @@ scripts\cpr.py %1 ..\colony.arduino src .
 scripts\cpr.py %1 ..\colony.arduino arduino xsrc colony.arduino\arduino
 scripts\cpr.py %1 ..\colony.arduino docs xsrc colony.arduino\docs
 scripts\cpr.py %1 ..\colony.arduino top xsrc colony.arduino\top
+scripts\cpr.py %1 ..\colony.bsp.renesas.rx src .
+
 scripts\cpr.py %1 --ex tests --ex2 projects --ex3 src ..\ colony.core xsrc
 
 
 :: Copy tests/projects directories
 scripts\cpr.py %1 ..\colony.core tests .
 scripts\cpr.py %1 ..\colony.apps tests .
+scripts\cpr.py %1 ..\colony.bsp.renesas.tx tests .
 scripts\cpr.py %1 ..\colony.apps projects .
 scripts\cpr.py %1 ..\colony.arduino tests .
 scripts\cpr.py %1 ..\colony.arduino projects .

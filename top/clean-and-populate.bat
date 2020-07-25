@@ -26,6 +26,9 @@ popd
 pushd ..\colony.arduino\projects
 ..\..\nqbp\other\bob.py -4 here -z
 popd
+pushd ..\colony.bsp.renesas.tx\tests
+..\..\nqbp\other\bob.py -4 here -z
+popd
 
 :: Call the populate script
 call %_HERE%populate.bat
