@@ -3,38 +3,37 @@
 ::
 :: NOTE: This script MUST be run in the top/compiler directory!!!!
 ::
-:: usage: master-list [<n>]
+:: usage: compiler-list [<n>]
 
+
+:: Get the list of available compilers
+call compiler-list-helper
+IF NOT EXIST _compiler_.txt GOTO :notselected
 
 :: Display list of compilers
 IF "/%1"=="/" GOTO :displaylist
 
 :: Configure compilers
-del /q /f _compiler_.txt 1>nul 2>nul
-setlocal enableextensions enabledelayedexpansion
-set /a index = 0
-for /f "delims=" %%i in ('dir /a-d /b compilers\*.bat') do (
-    set /a index += 1 
-    for /f "delims=" %%j in ('compilers\%%i name') do set COMPILER=%%j
-    IF "!index!"=="%1" echo:!index! - !COMPILER! > _compiler_.txt & call compilers\%%i 
+set PIM_ENV_COMPILER=no
+for /f "tokens=1,2,3* delims=," %%i in (_compiler_.txt) do (
+    IF "/%%i"=="/%1" SET PIM_ENV_COMPILER=%%k & call compilers\%%j
 )
-endlocal
-IF NOT EXIST _compiler_.txt GOTO :notselected
-for /f "delims=" %%i in (_compiler_.txt) do SET PIM_ENV_COMPILER=%%i
+IF "/%PIM_ENV_COMPILER%"=="/no" GOTO :invalidselection
 exit /b 0
 
+:: No available compilers
 :notselected
-echo:Invalid Compiler selection.  Try 'env.bat' with no options for a list of compilers
+echo:No compilers have-been-configured/are-available.
+echo:Check the contents of the top/compilers directory.
+exit /b 1
+
+:: Invalid selection
+:invalidselection
+echo:Invalid compiler selection.  
+echo:Try running env.bat without arguments for the list of available compilers.
 exit /b 1
 
 :: Dynamically discovered list
 :displaylist
-setlocal enableextensions enabledelayedexpansion
-set /a index = 0
-for /f "delims=" %%i in ('dir /a-d /b compilers\*.bat') do (
-    for /f "delims=" %%j in ('compilers\%%i name') do set COMPILER=%%j
-    set /a index += 1 
-    echo:!index! - !COMPILER!
-)
-endlocal
+for /f "tokens=1,2,3* delims=," %%i in (_compiler_.txt) do echo:%%i - %%k
 exit /b 0
