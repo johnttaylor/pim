@@ -1,5 +1,5 @@
 @echo off
-IF "/%1"=="/name" ECHO:GCC-ARM Cortex M/R cross compiler for ATSAM51/Arduino & exit /b 0
+IF "/%1"=="/name" ECHO:GCC-ARM compiler for Grand Central BSP 1.5.7 & exit /b 0
 
 :: Core Arduino tools
 set ARDUINO_TOOLS=C:\Users\User\AppData\Local\Arduino15\packages\adafruit

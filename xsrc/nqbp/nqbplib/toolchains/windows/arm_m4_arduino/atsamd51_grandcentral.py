@@ -18,12 +18,12 @@ class ToolChain( base.ToolChain ):
     def __init__( self, exename, prjdir, build_variants, env_tools, env_support, env_cc_ver, env_bsp_ver, default_variant='release', env_error=None, override_freertos_config=False ):
         base.ToolChain.__init__( self, exename, prjdir, build_variants, default_variant )
         self._ccname   = 'GCC Arm-Cortex M4 (no eabi) Compiler'
-        self._cc       = os.path.join( env_tools, 'tools', 'gcc-arm-none-eabi', env_cc_ver, 'bin', 'arm-none-eabi-gcc' )
-        self._asm      = os.path.join( env_tools, 'tools', 'gcc-arm-none-eabi', env_cc_ver, 'bin', 'arm-none-eabi-gcc' )
-        self._ld       = os.path.join( env_tools, 'tools', 'gcc-arm-none-eabi', env_cc_ver, 'bin', 'arm-none-eabi-gcc' )
-        self._ar       = os.path.join( env_tools, 'tools', 'gcc-arm-none-eabi', env_cc_ver, 'bin', 'arm-none-eabi-ar' )
-        self._objcpy   = os.path.join( env_tools, 'tools', 'gcc-arm-none-eabi', env_cc_ver, 'bin', 'arm-none-eabi-objcopy' )
-        self._printsz  = os.path.join( env_tools, 'tools', 'gcc-arm-none-eabi', env_cc_ver, 'bin', 'arm-none-eabi-size' )
+        self._cc       = os.path.join( env_tools, 'tools', 'arm-none-eabi-gcc', env_cc_ver, 'bin', 'arm-none-eabi-gcc' )
+        self._asm      = os.path.join( env_tools, 'tools', 'arm-none-eabi-gcc', env_cc_ver, 'bin', 'arm-none-eabi-gcc' )
+        self._ld       = os.path.join( env_tools, 'tools', 'arm-none-eabi-gcc', env_cc_ver, 'bin', 'arm-none-eabi-gcc' )
+        self._ar       = os.path.join( env_tools, 'tools', 'arm-none-eabi-gcc', env_cc_ver, 'bin', 'arm-none-eabi-ar' )
+        self._objcpy   = os.path.join( env_tools, 'tools', 'arm-none-eabi-gcc', env_cc_ver, 'bin', 'arm-none-eabi-objcopy' )
+        self._printsz  = os.path.join( env_tools, 'tools', 'arm-none-eabi-gcc', env_cc_ver, 'bin', 'arm-none-eabi-size' )
 
         self._asm_ext  = 'asm'    
         self._asm_ext2 = 'S'   
@@ -63,11 +63,13 @@ class ToolChain( base.ToolChain ):
         self._base_release.cflags       = self._base_release.cflags + common_flags + cpp_and_c_flags + asm_and_compile_flags + ' -g'
         self._base_release.c_only_flags = self._base_release.c_only_flags + ' -std=gnu11'
         self._base_release.cppflags     = self._base_release.cppflags + ' -std=gnu++11 -fno-threadsafe-statics -fno-rtti -fno-exceptions -DARDUINO_BSP_VERSION=\\"' + env_bsp_ver + '\\"'
+        self._base_release.cppflags    += ' -Wno-restrict -Wno-address-of-packed-member -Wno-class-memaccess'
         self._base_release.asmflags     = asm_and_compile_flags + ' -c -x assembler-with-cpp'
 
         linker_search_path1          = os.path.join(samd_src_path, 'variants', 'grand_central_m4', "linker_scripts", "gcc" )
         linker_search_path2          = os.path.join(samd_src_path, 'variants', 'grand_central_m4' )
-        self._base_release.linklibs  = ' -Wl,--start-group -larm_cortexM4lf_math -lm -lstdc++ -Wl,--end-group'
+        #self._base_release.linklibs  = ' -Wl,--start-group -larm_cortexM4lf_math -lm -lstdc++ -Wl,--end-group'
+        self._base_release.linklibs  = ' -Wl,--start-group -lm -lstdc++ -Wl,--end-group'
         self._base_release.linkflags = common_flags + ' -Wl,--gc-sections -save-temps -L{} -L{} -Wl,-Map,{}.map  -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align -Wl,--cref -Wl,--check-sections'.format(linker_search_path1, linker_search_path2, exename)
 
         self._ar_options             = 'rcs ' + self._ar_library_name

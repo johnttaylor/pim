@@ -41,7 +41,7 @@ static Cpl::TShell::Cmd::Help	                    helpCmd_( g_cmdlist );
 static Cpl::TShell::Cmd::Bye	                    byeCmd_( g_cmdlist );
 static Cpl::TShell::Cmd::Trace	                    traceCmd_( g_cmdlist );
 static Cpl::TShell::Cmd::TPrint	                    tprintCmd_( g_cmdlist );
-static Cpl::Dm::TShell::Dm	                        dmCmd_( g_cmdlist, g_modelDatabase, "dm" );
+static Cpl::Dm::TShell::Dm	                        dmCmd_( g_cmdlist, g_modelDatabase );
 static Storm::TShell::State	                        stateCmd_( g_cmdlist);
 static Storm::TShell::User	                        userCmd_( g_cmdlist );
 static Storm::TShell::Filter	                    filterCmd_( g_cmdlist );
