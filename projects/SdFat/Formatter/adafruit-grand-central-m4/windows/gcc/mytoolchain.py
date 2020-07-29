@@ -59,7 +59,7 @@ FINAL_OUTPUT_NAME = 'a'
 # Set project specific 'base' (i.e always used) options
 base_release = BuildValues()        # Do NOT comment out this line
 base_release.cflags       = ' -DUSING_FREERTOS -DBUILD_OPT_PIN=6 -DBUILD_OPT_NUM_PIXELS=40 -DBUILD_OPT_NEO_TYPE=NEO_GRBW -Wall -DF_CPU=120000000L -DARDUINO=10810 -DVARIANT_QSPI_BAUD_DEFAULT=50000000 -DENABLE_CACHE '
-base_release.cflags      += '-DEXTERNAL_FLASH_USE_QSPI=1'
+#base_release.cflags      += '-DEXTERNAL_FLASH_USE_QSPI=1'
 base_release.inc         += r' -I{}\src\Bsp\Adafruit\grand_central_m4\gcc\FreeRTOS\Source\Include'.format(NQBP_PKG_ROOT())
 base_release.inc         += r' -I{}\src\Bsp\Adafruit\grand_central_m4\gcc\FreeRTOS\Source\portable\GCC\ARM_CM4F'.format(NQBP_PKG_ROOT())
 base_release.inc         += r' -I{}\arduino\libraries\SdFat\src'.format( ARDUINO_SUPPORT )
