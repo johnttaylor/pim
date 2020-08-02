@@ -50,7 +50,15 @@ void Api::sleepInRealTime( unsigned long milliseconds ) noexcept
     std::this_thread::sleep_for( std::chrono::milliseconds( milliseconds ) );
 }
 
+void Api::suspendScheduling(void)
+{
+    // DO NOT Nothing.  No native C++ Threading API for this - and one could argue that suspending scheduling on Desktop OS is bad thing
+}
 
+void Api::resumeScheduling(void)
+{
+    // DO NOT Nothing.  See above
+}
 ////////////////////////////////////////////////////////////////////////////////
 Mutex& Locks_::system( void )
 {

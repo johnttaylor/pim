@@ -73,6 +73,33 @@ public:
         details about Simulated Time.
      */
     static void sleepInRealTime( unsigned long milliseconds ) noexcept;
+
+public:
+    /** This method is used to temporarily suspend thread scheduling, i.e. no
+        thread context switch will occur until resumeScheduling() is called.
+        For every call to suspendScheduling() there must be a matching call
+        to resumeScheduling().  Whether or not the calls to resumeScheduling()
+        can be nested is platform specific.
+
+        NOTES: 
+            o The application MUST be very careful when using this method, i.e.
+              it should NOT make an Cpl::System calls when scheduling has
+              been suspended.  
+            o The time between suspending and resuming scheduling should be kept 
+              as SMALL AS POSSIBLE.
+            o The details of what happens is VERY platform specific, i.e. Windows
+              and POSIX do not natively provide this functionality.  Typically,
+              this type of semantic only has meaning/is-useful when using an RTOS.
+              OR said another - use of the suspend|resume methods are NOT
+              portable with respect to guaranteed behavior across platforms.
+     */
+    static void suspendScheduling(void);
+
+    /** This method is used to resume thread scheduling after a call to 
+        suspendScheduling has been made.
+     */
+    static void resumeScheduling(void);
+
 };
 
 

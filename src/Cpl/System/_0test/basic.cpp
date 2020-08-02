@@ -328,5 +328,13 @@ TEST_CASE( "basic" )
         result = Thread::timedWait( 100 );
         REQUIRE( result == false );
     }
+
+    SECTION("SuspendScheduling")
+    {
+        // Cant really test on a desktop OS - but at least we can make sure that there is an implementation for (i.e. verify compile & link)
+        Api::suspendScheduling();
+        Api::resumeScheduling();
+    }
+
     REQUIRE( Shutdown_TS::getAndClearCounter() == 0u );
 }

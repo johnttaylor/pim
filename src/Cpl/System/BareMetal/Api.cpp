@@ -49,6 +49,16 @@ void Api::sleep( unsigned long milliseconds ) noexcept
     BareMetal::busyWait( milliseconds );
 }
 
+void Api::suspendScheduling(void)
+{
+    // DO NOT Nothing.  Has no meaning for a bare metal system
+}
+
+void Api::resumeScheduling(void)
+{
+    // DO NOT Nothing.  See above
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 Mutex& Locks_::system( void )
 {

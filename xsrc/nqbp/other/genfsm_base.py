@@ -61,7 +61,7 @@ copyright_header = """* This file is part of the Colony.Core Project.  The Colon
 * agreement (license.txt) in the top/ directory or on the Internet at
 * http://integerfox.com/colony.core/license.txt
 *
-* Copyright (c) 2014-2019  John T. Taylor
+* Copyright (c) 2014-2020  John T. Taylor
 *
 * Redistributions of the source code must retain the above copyright notice."""
 

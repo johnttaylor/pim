@@ -48,11 +48,12 @@ scripts\replace.py --sol tests libdirs.b //colony.core/src/  src/
 scripts\replace.py --sol tests libdirs.b //colony.arduino/src/  src/
 scripts\replace.py --sol tests libdirs.b arduino/ xsrc/colony.arduino/arduino/
 scripts\replace.py --sol tests mytoolchain.py "ARDUINO_SUPPORT = NQBP_PKG_ROOT()" "ARDUINO_SUPPORT = NQBP_PKG_ROOT() + \"\\xsrc\\colony.arduino\""
+scripts\replace.py --sol tests mytoolchain.py "COLONY_ARDUINO_BSP_SUPPORT = NQBP_WORK_ROOT() + \"\\xpkgs\\colony.arduino\"" "COLONY_ARDUINO_BSP_SUPPORT = NQBP_PKG_ROOT() 
 scripts\replace.py --sol projects libdirs.b //colony.core/src/  src/
 scripts\replace.py --sol projects libdirs.b //colony.arduino/src/  src/
 scripts\replace.py --sol projects libdirs.b arduino/ xsrc/colony.arduino/arduino/
 scripts\replace.py --sol projects mytoolchain.py "ARDUINO_SUPPORT = NQBP_PKG_ROOT()" "ARDUINO_SUPPORT = NQBP_PKG_ROOT() + \"\\xsrc\\colony.arduino\""
-scripts\replace.py --sol projects mytoolchain.py "ARDUINO_SUPPORT = NQBP_PKG_ROOT()" "ARDUINO_SUPPORT = NQBP_PKG_ROOT() + \"\\xsrc\\colony.arduino\""scripts\replace.py --sol projects mytoolchain.py "COLONY_ARDUINO_BSP_SUPPORT = NQBP_WORK_ROOT() + \"\\xpkgs\\colony.arduino\"" "ARDUINO_SUPPORT = NQBP_PKG_ROOT() 
+scripts\replace.py --sol projects mytoolchain.py "COLONY_ARDUINO_BSP_SUPPORT = NQBP_WORK_ROOT() + \"\\xpkgs\\colony.arduino\"" "COLONY_ARDUINO_BSP_SUPPORT = NQBP_PKG_ROOT() 
 
 :: There can be only one....
 del /q /f src\Cpl\MAINPAGE.txt

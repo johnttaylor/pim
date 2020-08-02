@@ -19,21 +19,21 @@
 
 
 /** Usage
-										"         1         2         3         4         5         6         7         8"
-										"12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+                                        "         1         2         3         4         5         6         7         8"
+                                        "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 */
-#define CPLDMTSHELL_USAGE_DM_		    "dmN ls [<filter>]\n" \
-                                        "dmN write {<mp-json>}\n" \
-                                        "dmN read <mpname>\n" 
+#define CPLDMTSHELL_USAGE_DM_           "dm ls [<filter>]\n" \
+                                        "dm write {<mp-json>}\n" \
+                                        "dm read <mpname>\n" 
 
 /// Detailed Help text
 #ifndef CPLDMTSHELL_DETAIL_DM_
-#define CPLDMTSHELL_DETAIL_DM_          "  Lists, updates, and displays Model Points contained in Model Database 'N'.\n" \
-										"  When 'ls' is used a list of model point names is returned.  The <filter>\n" \
-										"  argument will only list points that contain <filter>.  Updating a Model Point\n" \
-										"  is done by specifing a JSON object. See the concrete class definition of the\n" \
-										"  Model Point being updated for the JSON format.  When displaying a Model Point\n" \
-										"  <mpname> is the string name of the Model Point instance to be displayed."
+#define CPLDMTSHELL_DETAIL_DM_          "  Lists, updates, and displays Model Points contained in the Model Database.\n" \
+                                        "  When 'ls' is used a list of model point names is returned.  The <filter>\n" \
+                                        "  argument will only list points that contain <filter>.  Updating a Model Point\n" \
+                                        "  is done by specifing a JSON object. See the concrete class definition of the\n" \
+                                        "  Model Point being updated for the JSON format.  When displaying a Model Point\n" \
+                                        "  <mpname> is the string name of the Model Point instance to be displayed."
 
 #endif // ifndef allows detailed help to be compacted down to a single character if FLASH/code space is an issue
 
@@ -49,34 +49,34 @@ namespace TShell {
 
 
 /** This class implements a TShell command.  Note: Up to 10 different
-	instance of this command can be instantiated - but each instance MUST
-	have a different database number.  The database number specified by
-	specifying the actual command name, e.g. 'dm0' is database number 0,
-	'dm1' is database number 1, etc.
+    instance of this command can be instantiated - but each instance MUST
+    have a different database number.  The database number specified by
+    specifying the actual command name, e.g. 'dm0' is database number 0,
+    'dm1' is database number 1, etc.
  */
 class Dm : public Cpl::TShell::Cmd::Command
 {
 protected:
-	/// Model Point Database to access
-	Cpl::Dm::ModelDatabaseApi& m_database;
+    /// Model Point Database to access
+    Cpl::Dm::ModelDatabaseApi& m_database;
 
-	/// Dynamic 
+    /// Dynamic 
 public:
-	/// See Cpl::TShell::Command                                                               `
-	const char* getUsage() const noexcept { return CPLDMTSHELL_USAGE_DM_; }
+    /// See Cpl::TShell::Command                                                               `
+    const char* getUsage() const noexcept { return CPLDMTSHELL_USAGE_DM_; }
 
-	/// See Cpl::TShell::Command
-	const char* getHelp() const noexcept { return CPLDMTSHELL_DETAIL_DM_; }
-
-
-public:
-	/// Constructor
-	Dm( Cpl::Container::Map<Cpl::TShell::Command>& commandList, Cpl::Dm::ModelDatabaseApi& modelDatabase, const char* cmdNameAndDatabaseNumber="dm" ) noexcept;
+    /// See Cpl::TShell::Command
+    const char* getHelp() const noexcept { return CPLDMTSHELL_DETAIL_DM_; }
 
 
 public:
-	/// See Cpl::TShell::Command
-	Cpl::TShell::Command::Result_T execute( Cpl::TShell::Context_& context, char* cmdString, Cpl::Io::Output& outfd ) noexcept;
+    /// Constructor
+    Dm( Cpl::Container::Map<Cpl::TShell::Command>& commandList, Cpl::Dm::ModelDatabaseApi& modelDatabase, const char* cmdNameAndDatabaseNumber="dm" ) noexcept;
+
+
+public:
+    /// See Cpl::TShell::Command
+    Cpl::TShell::Command::Result_T execute( Cpl::TShell::Context_& context, char* cmdString, Cpl::Io::Output& outfd ) noexcept;
 
 };
 

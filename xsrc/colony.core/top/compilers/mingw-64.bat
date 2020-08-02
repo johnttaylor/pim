@@ -1,2 +1,2 @@
 @echo off
-call C:\compilers\mingw64-v5.1.0.bat
+call C:\compilers\mingw64-v9.2.0.bat

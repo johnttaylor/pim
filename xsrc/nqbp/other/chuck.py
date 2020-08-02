@@ -44,10 +44,10 @@ Options:
 Examples:
     ; Runs all 'a.exe' executables found under the current working directory
     ; 5 times in row
-    chuck --match a.exe --loop 5
+    chuck.py --match a.exe --loop 5
 
     ; Runs all a.exe built with the vc12 compiler
-    chuck --match a.exe --dir vc12
+    chuck.py --match a.exe --dir vc12
 
       
 """

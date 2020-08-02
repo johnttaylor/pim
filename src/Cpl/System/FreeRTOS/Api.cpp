@@ -67,7 +67,15 @@ void Api::sleepInRealTime( unsigned long milliseconds ) noexcept
 }
 
 
+void Api::suspendScheduling(void)
+{
+    vTaskSuspendAll();
+}
 
+void Api::resumeScheduling(void)
+{
+    xTaskResumeAll();
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 Mutex& Locks_::system( void )

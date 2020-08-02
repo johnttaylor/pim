@@ -46,6 +46,15 @@ void Api::sleepInRealTime( unsigned long milliseconds ) noexcept
     Sleep( (DWORD) milliseconds );
 }
 
+void Api::suspendScheduling(void)
+{
+    // DO NOT Nothing.  No native Win32 API for this - and one could argue that suspending scheduling on Desktop OS is bad thing
+}
+
+void Api::resumeScheduling(void)
+{
+    // DO NOT Nothing.  See above
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 Mutex& Locks_::system( void )

@@ -46,10 +46,10 @@ Examples:
     ; Builds all NQBP projects (and all 'variants') under the projects/ 
     ; directory that contain 'mingw' in their path.  The '--bld-all' option 
     ; is NQBP option.
-    build --path \mywrkspace\mypkg\projects mingw --bld-all
+    bob.py --path \mywrkspace\mypkg\projects mingw --bld-all
     
     ; Builds the projects listed in the file 'mybuild.lst'
-    build --file mybuild.lst
+    bob.py --file mybuild.lst
     
 """
 

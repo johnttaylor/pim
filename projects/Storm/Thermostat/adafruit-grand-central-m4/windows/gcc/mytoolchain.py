@@ -41,7 +41,7 @@ if ( ARDUINO_BSP_VER == None ):
     ARDUINO_BSP_VER = env_error = "ARDUINO_BSP_VER"
 
 ARDUINO_SUPPORT            = NQBP_WORK_ROOT() + "\\xpkgs\\colony.arduino"
-COLONY_ARDUINO_BSP_SUPPORT = NQBP_WORK_ROOT() + "\\xpkgs\\colony.arduino"
+COLONY_ARDUINO_BSP_SUPPORT = NQBP_PKG_ROOT() 
 
 #===================================================
 # BEGIN EDITS/CUSTOMIZATIONS
