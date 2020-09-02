@@ -1,4 +1,4 @@
-/** @namespace Cpl::Dm
+/** @namespace Bsp
 
 
 The 'Bsp' namespace is the root name space for Board Support Packages (BSPs)

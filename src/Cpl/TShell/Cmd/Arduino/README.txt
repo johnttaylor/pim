@@ -1,11 +1,11 @@
 /** @file */
-/** @namespace Cpl::TShell::Dac::Cmd::Arduino
+/** @namespace Cpl::TShell::Cmd::Arduino
 @htmlonly
 <pre>    
 
-This namespace contains the implementation of DAC Shell commands that are
+This namespace contains the implementation of TShell commands that are
 specific to Arduino framework/system. The application is free to choose 
-which commands to include in its DAC Shell.
+which commands to include in its TShell.
 
 
 </pre>    
