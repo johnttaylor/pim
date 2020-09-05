@@ -28,7 +28,7 @@ from nqbplib import utils
 usage = """ 
 genfsm - Generates source code from Cadifra FSM Diagrams (.cdd files)
 ===============================================================================
-Usage: genfsm [options] <basename> <namespaces>
+Usage: genfsm [options] <basename> <namespaces> [<sinelabore>...]
 
 Arguments:
   <basename>       Base name for the FSM.  The Cadifra diagram must have this
@@ -39,6 +39,9 @@ Arguments:
   <namespaces>     The encapsulated namespace(s) for the generated files. The
                    Format is: 'Rte::Db::Record'
                    
+  <sinelabore>     Optional arguments passed directly to the Sinelabore code
+                   generator
+
 Options:
   -d NEVENTS       When NEVENTS is greater then 0 code for an event queue is 
                    generated where NEVENTS is the size of the event queue. 
@@ -76,8 +79,9 @@ def run( argv, copyright=None ):
     global copyright_header
 
     # Process command line args...
-    args = docopt(usage, version="0.0.1" )
-     
+    args  = docopt(usage, version="0.0.1", options_first=True )
+    sargs = ' '.join( args['<sinelabore>'] )
+
     # Check the environment variables 
     sinpath = os.environ.get( "SINELABORE_PATH" )
     if ( sinpath == None ):
@@ -116,7 +120,7 @@ def run( argv, copyright=None ):
     geneatedCodegenConfig( cfg, base, names )
         
     # Build Sinelabore command
-    cmd = 'java -jar -Djava.ext.dirs={} {}/codegen.jar -p CADIFRA -doxygen -o {} -l cppx -Trace {}'.format( sinpath, sinpath, fsm, fsmdiag )
+    cmd = 'java -jar -Djava.ext.dirs={} {}/codegen.jar {} -p CADIFRA -doxygen -o {} -l cppx -Trace {}'.format( sinpath, sinpath, sargs, fsm, fsmdiag )
     cmd = utils.standardize_dir_sep( cmd )
   
     # Invoke Sinelabore command

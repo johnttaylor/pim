@@ -54,7 +54,7 @@ DString::DString( const char* string, int initialSize, int blocksize )
 	m_storageLen( calcMemSize( my_max( ( string ? strlen( string ) : 1 ), initialSize ) ) )
 {
 	m_strPtr = new( std::nothrow ) char[m_storageLen];
-	validateAndCopy( string, string ? strlen( string ) : 0 );
+	validateAndCopy( string, (string ? strlen( string ) : 0) );
 }
 
 DString::DString( char c, int initialSize, int blocksize )
