@@ -11,6 +11,7 @@ import platform
 #
 from nqbplib.docopt.docopt import docopt
 from nqbplib import utils
+from nqbplib.my_globals import NQBP_PKG_ROOT
 
 
 #
@@ -88,10 +89,10 @@ def run(argv):
     args = docopt(usage, version="0.0.1", options_first=True)
     
     # get the package root
-    pkg = run_shell('orc.py --qry-pkg')[1].strip()
+    pkg = NQBP_PKG_ROOT()
     
     # setup excludes 
-    excludes = '--exclude=.*_0test.*  --exclude=^tests* --exclude=.*src.Catch.precompiled.* --exclude-unreachable-branches'   
+    excludes = '--exclude=.*_0test.*  --exclude=^tests* --exclude-unreachable-branches'
 
     # Setup 'arc' excludes for C++ code (see https://gcovr.com/en/stable/faq.html)
     arcopt = ' --exclude-unreachable-branches'
@@ -104,7 +105,7 @@ def run(argv):
         if ( platform.system() == 'Windows' ):
             python = 'py -3'
 
-        cmd  = '{} -m gcovr {} {} -j 4 -r {}{}src --object-directory . {}'.format(python, excludes, arcopt, pkg, os.sep, ' '.join(args['<args>']) if args['<args>'] else '') 
+        cmd  = '{} -m gcovr {} {} -j 8 -r {}{}src --object-directory . {}'.format(python, excludes, arcopt, pkg, os.sep, ' '.join(args['<args>']) if args['<args>'] else '') 
         if (args['<args>']):
             first = args['<args>'][0]
             if (first == '-h' or first == '--help'):

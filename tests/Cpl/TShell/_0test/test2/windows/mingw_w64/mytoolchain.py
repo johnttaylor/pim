@@ -136,6 +136,6 @@ from nqbplib.toolchains.windows.mingw_w64.console_exe import ToolChain
 
 # Function that instantiates an instance of the toolchain
 def create():
-    tc = ToolChain( FINAL_OUTPUT_NAME, prjdir, build_variants, "win64" )
+    tc = ToolChain( FINAL_OUTPUT_NAME, prjdir, build_variants, "win32" )
     return tc 
 

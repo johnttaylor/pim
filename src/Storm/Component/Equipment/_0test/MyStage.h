@@ -123,7 +123,7 @@ public:
 
     void notifyAsExitingSupplmenting_( Storm::Component::Control::Equipment::Args_T& args, bool startInOnCycle = true ) noexcept
     {
-        m_isTransitioningBackToLowerStage++;
+        m_isTransitioningBackToLowerStage = true;
     }
 
     void reconfigure( unsigned systemStageIndex, unsigned outputStageIndex ) noexcept
