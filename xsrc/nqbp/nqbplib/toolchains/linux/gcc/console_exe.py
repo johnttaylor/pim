@@ -22,7 +22,8 @@ class ToolChain( base.ToolChain ):
         # Build Config/Variant: "xyz"
         #
        
-        # Common/base options, flags, etc.
+        # Disable the following 'string warnings' because they generate false-positives (i.e. issues with GCC itself)
+        self._base_release.cflags = self._base_release.cflags + '-Wno-stringop-truncation -Wno-stringop-overflow '
         
         #self._base_xyz = self._base_release.copy()
         #self._base_xyz.cflags  = '-c -DBUILD_TIME_UTC={:d}'.format(self._build_time_utc)
