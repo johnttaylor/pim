@@ -14,6 +14,7 @@
 
 
 #include "Cpl/Container/Key.h"
+#include "Cpl/Json/Arduino.h"
 
 ///
 namespace Cpl {
@@ -37,9 +38,15 @@ namespace Dm {
        Network Name, etc.) per the needs of the Application.
     2) The constructor for a concrete Model Point class takes a static reference to 
        the class defined in step 1.
-    3) The concrete Model Point class implementation can safely 'down cast' the
-       Model Points' m_staticInfo reference to the concrete class type from
-       step 1.
+    3) The concrete Model Point class implementation can safely 'down cast' 
+       the Model Points' m_staticInfo reference to the concrete class type 
+       from step 1.
+    4) The child class can optionally support JSON formating (to be used 
+       when the MP instance is serialized to a JSON string).  To support 
+       JSON formatting a child class must override the hasJSONFormatter() 
+       method and have it return true. And override the toJSON() method to 
+       provide the actual JSON formating.
+
  */
 class StaticInfo : public Cpl::Container::KeyLiteralString
 {
@@ -50,6 +57,22 @@ public:
         return m_stringKeyPtr;
     }
 
+    /** Returns true if the instance has a JSON formatter.  The default is 
+        not formatted.  A child class must override this method to add its
+        type specific formatter.
+     */
+    virtual bool hasJSONFormatter() const noexcept 
+    {
+        return false;
+    }
+
+    /** This method is responsible for populating the provided JSON
+        object instance.  The JSON format/key-value-pairs/content is
+        child class specific.  The default implementation does NOTHING,
+        the child classes are responsible for providing a meaningful
+        implementation.
+     */
+    virtual void toJSON(JsonObject& dstObject) const noexcept {}
 
 public:
     /// Constructor

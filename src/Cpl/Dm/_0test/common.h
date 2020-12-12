@@ -511,4 +511,30 @@ public:
     }
 };
 
+
+/////////////////////////////////////////////////////////////////
+class MyStaticInfo : public StaticInfo
+{
+public:
+    /// Constructor
+    MyStaticInfo(const char* name, const char* units, const char* description)
+        : StaticInfo(name)
+        , m_units(units)
+        , m_description(description)
+    {
+    }
+
+public:
+    bool hasJSONFormatter() const noexcept { return true; }
+    void toJSON(JsonObject& dstObject) const noexcept
+    {
+        dstObject["units"] = m_units;
+        dstObject["desc"] = m_description;
+    }
+
+public:
+    const char* m_units;
+    const char* m_description;
+};
+
 #endif
