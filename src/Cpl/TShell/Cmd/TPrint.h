@@ -23,7 +23,7 @@
 */
 #define CPLTSHELLCMD_CMD_TPRINT_	  "tprint"
 /// Usage
-#define CPLTSHELLCMD_USAGE_TPRINT_    "tprint [<text>]"
+#define CPLTSHELLCMD_USAGE_TPRINT_    "tprint [\"<text>\"]"
 
 /// Detailed Help text
 #ifndef CPLTSHELLCMD_DETAIL_TPRINT_  

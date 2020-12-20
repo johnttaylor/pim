@@ -129,6 +129,33 @@ Cpl::TShell::Command::Result_T Dm::execute( Cpl::TShell::Context_& context, char
 		return Command::eSUCCESS;
 	}
 
+	// TOUCH Sub-command
+	else if (strncmp(subCmd, "touch", 5) == 0)
+	{
+		Cpl::Text::Tokenizer::TextBlock tokens(cmdString, context.getDelimiterChar(), context.getTerminatorChar(), context.getQuoteChar(), context.getEscapeChar());
+
+		// Wrong number of args?
+		if (tokens.numParameters() < 2)
+		{
+			return Command::eERROR_MISSING_ARGS;
+		}
+		else if (tokens.numParameters() > 3)
+		{
+			return Command::eERROR_EXTRA_ARGS;
+		}
+
+		// Look-up the model point
+		Cpl::Dm::ModelPoint* point = m_database.lookupModelPoint(tokens.getParameter(2));
+		if (point == 0)
+		{
+			return Command::eERROR_INVALID_ARGS;
+		}
+
+		// Call touch on the MP (to trigger change notification(s))
+		point->touch();
+		return Command::eSUCCESS;
+	}
+
 	// If I get here the command failed!
 	return Command::eERROR_FAILED;
 }

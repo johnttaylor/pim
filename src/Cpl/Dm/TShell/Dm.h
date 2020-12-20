@@ -24,14 +24,15 @@
 */
 #define CPLDMTSHELL_USAGE_DM_           "dm ls [<filter>]\n" \
                                         "dm write {<mp-json>}\n" \
-                                        "dm read <mpname>\n" 
+                                        "dm read <mpname>\n" \
+                                        "dm touch <mpname>"
 
 /// Detailed Help text
 #ifndef CPLDMTSHELL_DETAIL_DM_
 #define CPLDMTSHELL_DETAIL_DM_          "  Lists, updates, and displays Model Points contained in the Model Database.\n" \
                                         "  When 'ls' is used a list of model point names is returned.  The <filter>\n" \
                                         "  argument will only list points that contain <filter>.  Updating a Model Point\n" \
-                                        "  is done by specifing a JSON object. See the concrete class definition of the\n" \
+                                        "  is done by specifying a JSON object. See the concrete class definition of the\n" \
                                         "  Model Point being updated for the JSON format.  When displaying a Model Point\n" \
                                         "  <mpname> is the string name of the Model Point instance to be displayed."
 

@@ -2,7 +2,7 @@
 #define COLONY_MAP_H_
 
 // Null BSP
-#include "Bsp/Userspace/Api.h"
+#include "Bsp/UserSpace/Api.h"
 
 // Cpl::System mappings
 #if defined(BUILD_VARIANT_POSIX) || defined(BUILD_VARIANT_POSIX64)
