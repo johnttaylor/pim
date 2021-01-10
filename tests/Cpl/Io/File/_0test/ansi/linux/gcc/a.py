@@ -10,9 +10,9 @@ import shutil
 import subprocess
 
 #------------------------------------------------------------------------------
-def run_test( root, subdir ):
+def run_test( subdir ):
     utils.push_dir( subdir )
-    src = os.path.join( root, 'colony.core', 'src', 'Cpl', 'Io', 'File', '_0test', 'testinput.txt' )
+    src = os.path.join( my_globals.NQBP_WORK_ROOT(), my_globals.NQBP_PKG_ROOT(), 'src', 'Cpl', 'Io', 'File', '_0test', 'testinput.txt' )
     shutil.copy( src, '.' ); 
     print( "Running unit test dir: {} ...".format( subdir ) )
     p = subprocess.Popen( 'b.out', shell=True )
@@ -41,14 +41,14 @@ utils.set_pkg_and_wrkspace_roots(__file__)
 #
 
 if ( os.path.isdir( '_posix64' ) ):
-    run_test( my_globals.NQBP_WORK_ROOT(), '_posix64' )
+    run_test( '_posix64' )
     print
 
 if ( os.path.isdir( '_posix' ) ):
-    run_test( my_globals.NQBP_WORK_ROOT(), '_posix' )
+    run_test( '_posix' )
     print
 
 if ( os.path.isdir( '_cpp11' ) ):
-    run_test( my_globals.NQBP_WORK_ROOT(), '_cpp11' )
+    run_test( '_cpp11' )
     print
     

@@ -10,9 +10,9 @@ import shutil
 import subprocess
 
 #------------------------------------------------------------------------------
-def run_test( root, subdir ):
+def run_test( subdir ):
     utils.push_dir( subdir )
-    basesrc = os.path.join( root, 'colony.core', 'src', 'Cpl', 'Text', 'Frame', '_0test' )
+    basesrc = os.path.join( my_globals.NQBP_WORK_ROOT(), my_globals.NQBP_PKG_ROOT(), 'src', 'Cpl', 'Text', 'Frame', '_0test' )
     src     = os.path.join( basesrc, 'testinput.txt' )
     src2    = os.path.join( basesrc, 'testinput2.txt' )
     shutil.copy( src, '.' ); 
@@ -44,13 +44,13 @@ utils.set_pkg_and_wrkspace_roots(__file__)
 #
 
 if ( os.path.isdir( '_posix' ) ):
-    run_test( my_globals.NQBP_WORK_ROOT(), '_posix' )
+    run_test( '_posix' )
     print
 
 if ( os.path.isdir( '_posix64' ) ):
-    run_test( my_globals.NQBP_WORK_ROOT(), '_posix64' )
+    run_test( '_posix64' )
     print
 
 if ( os.path.isdir( '_cpp11' ) ):
-    run_test( my_globals.NQBP_WORK_ROOT(), '_cpp11' )
+    run_test( '_cpp11' )
     print
