@@ -196,21 +196,34 @@ FString_::FString_( unsigned long long num, char* internalString, int maxLen )
 void
 FString_::copyIn( const char* src, int len )
 {
-	m_truncated  = len <= m_internalMaxlen ? false : true;
-	len          = my_min( m_internalMaxlen, len );
-	strncpy( m_strPtr, src, len );
-	m_strPtr[len] = '\0';
+	// Trap null pointer for 'src' string
+	if (!src)
+	{
+		m_truncated = true;
+		m_strPtr[0] = '\0';
+	}
+	else
+	{
+		m_truncated = len <= m_internalMaxlen ? false : true;
+		len = my_min(m_internalMaxlen, len);
+		strncpy(m_strPtr, src, len);
+		m_strPtr[len] = '\0';
+	}
 }
 
 void
 FString_::appendTo( const char* string, int len )
 {
-	int   curlen  = strlen( m_strPtr );
-	int   avail   = m_internalMaxlen - curlen;
-	int   copylen = my_min( len, avail );
-	m_truncated   = copylen == len ? false : true;
-	strncat( m_strPtr, string, copylen );
-	m_strPtr[curlen + copylen] = '\0';
+	// Note: Do NOTHING if null string pointer is passed
+	if (string)
+	{
+		int   curlen = strlen(m_strPtr);
+		int   avail = m_internalMaxlen - curlen;
+		int   copylen = my_min(len, avail);
+		m_truncated = copylen == len ? false : true;
+		strncat(m_strPtr, string, copylen);
+		m_strPtr[curlen + copylen] = '\0';
+	}
 }
 
 

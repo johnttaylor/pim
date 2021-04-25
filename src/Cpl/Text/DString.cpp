@@ -169,7 +169,7 @@ void DString::freeCurrentString( void )
 {
 	if ( m_strPtr && m_strPtr != noMemory_ )
 	{
-		delete m_strPtr;
+		delete[] m_strPtr;
 		m_strPtr     = noMemory_;
 		m_storageLen = 1;
 	}

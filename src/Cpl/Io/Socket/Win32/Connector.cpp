@@ -63,6 +63,7 @@ Connector::Result_T Connector::establish( const char* remoteHostName, int portNu
 		sockfd = socket( ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol );
 		if ( sockfd == INVALID_SOCKET )
 		{
+			freeaddrinfo(resultPtr);
 			return eERROR;
 		}
 
