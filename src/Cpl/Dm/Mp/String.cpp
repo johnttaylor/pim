@@ -202,26 +202,34 @@ size_t Cpl::Dm::Mp::String::getInternalDataSize_() const noexcept
 
 bool Cpl::Dm::Mp::String::importMetadata_( const void* srcDataStream, size_t& bytesConsumed ) noexcept
 {
+    // NOTE: Use memcpy instead of the assignment operator since the alignment of 'srcDataStream' is unknown/not-guaranteed 
+    size_t          incomingMaxLen;
+    size_t          incomingStringLen;
+    String::Data*   incoming = ( String::Data* ) srcDataStream;
+    memcpy( &incomingMaxLen, &( incoming->maxLength ), sizeof( incomingMaxLen ) );
+    memcpy( &incomingStringLen, &( incoming->stringLen), sizeof( incomingStringLen ) );
+    
     // Incoming data MUST fit with the previously allocated memory
-    String::Data* incoming = ( String::Data* ) srcDataStream;
-    if ( incoming->maxLength > m_data.maxLength || incoming->stringLen > m_data.maxLength )
+    if ( incomingMaxLen> m_data.maxLength || incomingStringLen > m_data.maxLength )
     {
         return false;
     }
 
     // Capture the incoming string length and ensure that the incoming string data gets null terminated        
-    bytesConsumed                         = sizeof( String::Data );
-    m_data.stringLen                      = incoming->stringLen;
-    m_data.stringPtr[incoming->stringLen] = '\0';
+    bytesConsumed                       = sizeof( String::Data );
+    m_data.stringLen                    = incomingStringLen;
+    m_data.stringPtr[incomingStringLen] = '\0';
     return true;
 }
 
 bool Cpl::Dm::Mp::String::exportMetadata_( void* dstDataStream, size_t& bytesAdded ) const noexcept
 {
+    // NOTE: Use memcpy instead of the assignment operator since the alignment of 'dstDataStream' is unknown/not-guaranteed 
     String::Data* dst = ( String::Data* ) dstDataStream;
-    dst->maxLength    = m_data.maxLength;
-    dst->stringLen    = m_validState == MODEL_POINT_STATE_VALID ? m_data.stringLen : 0;
-    dst->stringPtr    = 0;
+    size_t stringLen  = m_validState == MODEL_POINT_STATE_VALID ? m_data.stringLen : 0;
+    memcpy( &( dst->maxLength ), &( m_data.maxLength ), sizeof( dst->maxLength  ) );
+    memcpy( &( dst->stringLen ), &stringLen, sizeof( dst->maxLength ) );
+    memset( &( dst->stringPtr ), 0, sizeof( dst->stringPtr ) );
     bytesAdded        = sizeof( String::Data );
     return true;
 }

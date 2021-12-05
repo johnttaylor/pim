@@ -74,9 +74,9 @@ public:
 	/// Destructor.
 	~HPool()
 	{
-		delete( m_poolPtr );
-		delete( m_blocks );
-		delete( m_infoBlocks );
+		delete m_poolPtr;
+		delete[] m_blocks;
+		delete[] m_infoBlocks;
 	}
 
 

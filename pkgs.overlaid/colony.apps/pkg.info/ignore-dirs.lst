@@ -1,0 +1,34 @@
+# Ignore the final output directories from the builds
+__pycache__/
+tests/**/_arduino/
+tests/**/_win32/
+tests/**/_win64/
+tests/**/_posix/
+tests/**/_posix64/
+tests/**/_cpp11/
+projects/**/_arduino/
+projects/**/_win32/
+projects/**/_win64/
+projects/**/_posix/
+projects/**/_posix64/
+projects/**/_cpp11/
+
+# Ignore the .obj directories
+tests/**/gcc/src/
+tests/**/gcc/xsrc/
+tests/**/gcc/arduino/
+tests/**/vc12/src/
+tests/**/vc12/xsrc/
+tests/**/mingw_w64/src/
+tests/**/mingw_w64/xsrc/
+tests/**/gcc/src/
+tests/**/gcc/xsrc/
+projects/**/gcc/src/
+projects/**/gcc/xsrc/
+projects/**/gcc/arduino/
+projects/**/vc12/src/
+projects/**/vc12/xsrc/
+projects/**/mingw_w64/src/
+projects/**/mingw_w64/xsrc/
+projects/**/gcc/src/
+projects/**/gcc/xsrc/

@@ -24,6 +24,6 @@ src/Cpl/System/_ansi
 src/Cpl/System/_ansi/_shutdown
 
 # Non-platform specific packages
-//colony.core/top/libdirs/library_basic_libdirs.b
-//colony.core/top/libdirs/library_tshell_libdirs.b
-//colony.core/top/libdirs/platform_default_simtime_libdirs.b
+/top/libdirs/library_basic_libdirs.b
+/top/libdirs/library_tshell_libdirs.b
+/top/libdirs/platform_default_simtime_libdirs.b

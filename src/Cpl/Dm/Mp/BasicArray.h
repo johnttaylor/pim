@@ -242,10 +242,13 @@ public:
     /// See Cpl::Dm::ModelPoint.  
     bool importMetadata_( const void* srcDataStream, size_t& bytesConsumed ) noexcept
     {
+        // NOTE: Use memcpy instead of the assignment operator since the alignment of 'srcDataStream' is unknown/not-guaranteed 
         InternalData* incoming = (InternalData*)srcDataStream;
-        
+        size_t        incomingNumElements;
+        memcpy( &incomingNumElements, &( incoming->numElements ), sizeof( incomingNumElements ) );
+
         // Array sizes MUST match
-        if ( incoming->numElements != m_data.numElements )
+        if ( incomingNumElements != m_data.numElements )
         {
             return false;
         }
@@ -258,10 +261,11 @@ public:
     /// See Cpl::Dm::ModelPoint.  
     bool exportMetadata_( void* dstDataStream, size_t& bytesAdded ) const noexcept
     {
+        // NOTE: Use memcpy instead of the assignment operator since the alignment of 'dstDataStream' is unknown/not-guaranteed 
         InternalData* outgoing = (InternalData*)dstDataStream;
-        outgoing->numElements = m_data.numElements;
-        outgoing->elemPtr     = 0;
-        outgoing->elemIndex   = 0;
+        memcpy( &( outgoing->numElements ), &( m_data.numElements ), sizeof( outgoing->numElements ) );
+        memset( &( outgoing->elemPtr ), 0, sizeof( outgoing->elemPtr ) );
+        memset( &( outgoing->elemIndex ), 0, sizeof( outgoing->elemIndex ) );
         bytesAdded            = sizeof( InternalData );
         return true;
     }

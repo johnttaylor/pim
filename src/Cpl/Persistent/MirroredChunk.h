@@ -51,6 +51,16 @@ protected:
     /// Helper method.  If the region is 'corrupt' a transaction ID of zero is returned
     uint64_t getTransactionId( RegionMedia& region, size_t& dataLen );
 
+    /// Helper method. Encapsulates pushing data to the record
+    virtual bool pushToRecord(Payload& dstHandler);
+
+    /// Helper method. Encapsulates retrieving data from the record
+    virtual bool pullFromRecord(Payload& srcHandler);
+
+    /// Helper method. Encapsulates actions that occur when there is NO VALID data
+    virtual void reset();
+
+
 protected:
     /// Region/Media for copy A
     RegionMedia& m_regionA;

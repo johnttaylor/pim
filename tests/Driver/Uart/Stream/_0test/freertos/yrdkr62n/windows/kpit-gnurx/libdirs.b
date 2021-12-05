@@ -11,8 +11,16 @@ src/Cpl/Text/_mappings/_kpitrx
 /top/libdirs/platform_freertos_default_realtime_libdirs.b
 
 # BSP
-//colony.bsp.renesas.rx/top/libdirs/yrdkr62n_gnurx_libdirs.b
+src/Bsp/Renesas/Rx/_glyph
+src/Bsp/Renesas/Rx/u62n
+src/Bsp/Renesas/Rx/u62n/Yrdkr62n
+src/Bsp/Renesas/Rx/u62n/Yrdkr62n/_renesas
+src/Bsp/Renesas/Rx/u62n/Yrdkr62n/_freertos
+src/Bsp/Renesas/Rx/u62n/Yrdkr62n/Gnurx
+src/Bsp/Renesas/Rx/u62n/Yrdkr62n/Gnurx/_libc
+src/Bsp/Renesas/Rx/u62n/Yrdkr62n/Gnurx/_no_c++_exceptions
 
 # FreeRTOS
-//freertos/top/libdirs/gcc_rx600_libdirs.b
+xsrc/freertos/src/
+xsrc/freertos/src/portable/GCC/RX600
 

@@ -41,7 +41,7 @@ DFString::~DFString()
 {
 	if ( m_strPtr != m_noMemory )
 	{
-		delete m_strPtr; // Pointer is stored in root class
+		delete[] m_strPtr; // Pointer is stored in root class
 	}
 }
 

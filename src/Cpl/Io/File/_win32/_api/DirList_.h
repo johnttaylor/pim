@@ -30,21 +30,28 @@ namespace File {
 class DirList_
 {
 protected:
-    ///
+    /// internal variable
     int                 m_depth;
-    ///
+    
+    /// internal variable
     int                 m_curDepth;
-    ///
+    
+    /// internal variable
     bool                m_filesOnly;
-    ///
+    
+    /// internal variable
     bool                m_dirsOnly;
-    ///
+    
+    /// internal variable
     Api::Info           m_info;
-    ///
+    
+    /// internal variable
     WIN32_FIND_DATA     m_fdata;
-    ///
+    
+    /// internal variable
     NameString          m_name;
-    ///
+    
+    /// internal variable
     NameString          m_file;
 
 
@@ -58,7 +65,7 @@ public:
 
 
 public:
-    ///
+    /// See Api::walkDirectory
     bool traverse( Api::DirectoryWalker& callback );
 };
 

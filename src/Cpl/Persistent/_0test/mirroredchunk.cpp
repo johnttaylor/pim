@@ -122,9 +122,12 @@ TEST_CASE( "MirroredChunk" )
 
     SECTION( "Load/update" )
     {
+        uut.start( mockEvents_ );
+    
         // Delete files
         Cpl::Io::File::Api::remove( FILE_NAME_REGION1 );
         Cpl::Io::File::Api::remove( FILE_NAME_REGION2 );
+        uut.start( mockEvents_ );
 
         bool result = uut.loadData( payload1_ );
         REQUIRE( result == false );
@@ -150,10 +153,14 @@ TEST_CASE( "MirroredChunk" )
         REQUIRE( payload1_.m_putCount == 1 );
         printf( "buffer=[%s], expected=[%s]\n", payload2_.m_buffer, payload2_.m_getString );
         REQUIRE( strcmp( payload2_.m_buffer, payload2_.m_getString ) == 0 );
+  
+        uut.stop();
     }
 
     SECTION( "corrupt CRC" )
     {
+        uut.start( mockEvents_ );
+    
         // Read the data 
         payload2_.m_putCount = 0;
         payload2_.m_getCount = 0;
@@ -177,6 +184,8 @@ TEST_CASE( "MirroredChunk" )
         REQUIRE( result == false );
         REQUIRE( payload2_.m_getCount == 0 );
         REQUIRE( payload2_.m_putCount == 1 );
+   
+        uut.stop();
     }
 
     REQUIRE( Cpl::System::Shutdown_TS::getAndClearCounter() == 0u );

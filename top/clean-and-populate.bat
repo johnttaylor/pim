@@ -31,4 +31,4 @@ pushd ..\colony.bsp.renesas.rx\tests
 popd
 
 :: Call the populate script
-call %_HERE%populate.bat
+::call %_HERE%populate.bat

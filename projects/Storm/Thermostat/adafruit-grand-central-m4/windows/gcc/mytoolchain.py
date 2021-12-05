@@ -40,8 +40,8 @@ ARDUINO_BSP_VER = os.environ.get( 'ARDUINO_BSP_VER' )
 if ( ARDUINO_BSP_VER == None ):
     ARDUINO_BSP_VER = env_error = "ARDUINO_BSP_VER"
 
-ARDUINO_SUPPORT            = NQBP_WORK_ROOT() + "\\xpkgs\\colony.arduino"
-COLONY_ARDUINO_BSP_SUPPORT = NQBP_PKG_ROOT() 
+ARDUINO_SUPPORT            = NQBP_PKG_ROOT()
+COLONY_ARDUINO_BSP_SUPPORT = NQBP_PKG_ROOT()
 
 #===================================================
 # BEGIN EDITS/CUSTOMIZATIONS
@@ -51,7 +51,7 @@ COLONY_ARDUINO_BSP_SUPPORT = NQBP_PKG_ROOT()
 FINAL_OUTPUT_NAME = 'thermostat'
 
 # BSP directory that contains the vector table 
-#bsp_objects = '_BUILT_DIR_.xpkgs/arduino/src/Bsp/Adafruit/grand_central_m4/gcc'
+#bsp_objects = '_BUILT_DIR_.arduino/src/Bsp/Adafruit/grand_central_m4/gcc'
 
 #
 # For build config/variant: "Release"

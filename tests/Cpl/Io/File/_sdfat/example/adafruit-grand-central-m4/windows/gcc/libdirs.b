@@ -1,9 +1,9 @@
 # Libraries
-xsrc/colony.arduino/arduino/libraries/SdFat/src
-xsrc/colony.arduino/arduino/libraries/SdFat/src/FatLib
-xsrc/colony.arduino/arduino/libraries/Adafruit_SPIFlash/src
-xsrc/colony.arduino/arduino/libraries/Adafruit_SPIFlash/src/qspi < Adafruit_FlashTransport_QSPI_SAMD.cpp
-xsrc/colony.arduino/arduino/libraries/Adafruit_Zero_DMA_Library
+arduino/libraries/SdFat/src
+arduino/libraries/SdFat/src/FatLib
+arduino/libraries/Adafruit_SPIFlash/src
+arduino/libraries/Adafruit_SPIFlash/src/qspi < Adafruit_FlashTransport_QSPI_SAMD.cpp
+arduino/libraries/Adafruit_Zero_DMA_Library
 
 # Unit under test
 #src/Cpl/Io/File/_ardunio/_sdfat
@@ -11,20 +11,20 @@ xsrc/colony.arduino/arduino/libraries/Adafruit_Zero_DMA_Library
 src/Cpl/Io/File
 
 # tests
-#//colony.core/src/Cpl/Io/File/_0test
+#src/Cpl/Io/File/_0test
 
 
 # Colony Core infrastructure
-#//colony.core/src/Cpl/Text/Frame
-#//colony.core/src/Cpl/Text/Tokenizer
-#//colony.core/src/Cpl/Memory
+#src/Cpl/Text/Frame
+#src/Cpl/Text/Tokenizer
+#src/Cpl/Memory
 src/Cpl/Container
-#//colony.core/src/Cpl/Checksum
+#src/Cpl/Checksum
 src/Cpl/Text
 src/Cpl/Io
 src/Cpl/Dm
-#//colony.core/src/Cpl/Dm/Mp
-#//colony.core/src/Cpl/Dm/TShell
+#src/Cpl/Dm/Mp
+#src/Cpl/Dm/TShell
 src/Cpl/Itc
 src/Cpl/System
 
@@ -41,9 +41,9 @@ src/Bsp/Adafruit/grand_central_m4/gcc/FreeRTOS/source/portable/GCC/ARM_CM4F
 src/Bsp/Adafruit/grand_central_m4/gcc/FreeRTOS/source/portable/MemMang  
 
 # Arduino Core library for the Adafruit's Grand Central M4 board (Atmel SAMD51 mcu)
-xsrc/colony.arduino/arduino/hardware/samd/$ARDUINO_BSP_VER$/cores/arduino/USB
-xsrc/colony.arduino/arduino/hardware/samd/$ARDUINO_BSP_VER$/libraries/Wire
-xsrc/colony.arduino/arduino/hardware/samd/$ARDUINO_BSP_VER$/variants/grand_central_m4
-xsrc/colony.arduino/arduino/hardware/samd/$ARDUINO_BSP_VER$/cores/arduino > main.cpp cortex_handlers.c wiring.c
+arduino/hardware/samd/$ARDUINO_BSP_VER$/cores/arduino/USB
+arduino/hardware/samd/$ARDUINO_BSP_VER$/libraries/Wire
+arduino/hardware/samd/$ARDUINO_BSP_VER$/variants/grand_central_m4
+arduino/hardware/samd/$ARDUINO_BSP_VER$/cores/arduino > main.cpp cortex_handlers.c wiring.c
 
 
