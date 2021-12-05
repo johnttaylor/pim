@@ -114,6 +114,22 @@
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
+      },
+      {
+        "pkgname": "ratt",
+        "pkgtype": "readonly",
+        "adoptedDate": "Sun Dec  5 19:49:15 2021",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "1.0.0",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.0.0"
+        },
+        "repo": {
+          "name": "ratt",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
       }
     ]
   },
@@ -129,15 +145,15 @@
     ]
   },
   "info": {
-    "pkgname": null,
-    "desc": null,
-    "owner": null,
-    "email": null,
-    "url": null,
+    "pkgname": "pim",
+    "desc": "Source code for the book: Patterns in the Machine: A Software Engineering Guide to Embedded Development",
+    "owner": "John Taylor",
+    "email": "john.t.taylor@gmail.com",
+    "url": "https://www.apress.com/us/book/9781484264393",
     "repo": {
-      "name": null,
-      "type": null,
-      "origin": null
+      "name": "pim",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
     }
   },
   "publish": {
