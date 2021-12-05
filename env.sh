@@ -12,7 +12,6 @@ HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export PATH=$PATH:./
 
 # Configure NQBP
-export NQBP_XPKG_MODEL=mixed
 export NQBP_PKG_ROOT=$HERE
 export NQBP_WORK_ROOT=$HERE/..
 export NQBP_XPKGS_ROOT=$HERE/xsrc

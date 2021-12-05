@@ -1,0 +1,86 @@
+{
+  "dependencies": {
+    "strong": [
+      {
+        "pkgname": "colony.bsp",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun Nov 21 23:18:40 2021",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "0.1.0",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.1.0"
+        },
+        "repo": {
+          "name": "colony.bsp",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      }
+    ],
+    "weak": [
+        {
+            "pkgname": "nqbp",
+            "pkgtype": "foreign",
+            "adoptedDate": "Sun Nov 21 23:17:20 2021",
+            "parentDir": "xsrc",
+            "version": {
+                "semanticVersion": "2.2.0",
+                "branch": null,
+                "tag": "OUTCAST2-main-2.2.0"
+            },
+            "repo": {
+                "name": "nqbp",
+                "type": "git",
+                "origin": "https://github.com/johnttaylor"
+            }
+        },
+        {
+            "pkgname": "freertos",
+            "pkgtype": "readonly",
+            "adoptedDate": "Sun Nov 21 23:18:06 2021",
+            "parentDir": "xsrc",
+            "version": {
+                "semanticVersion": "8.2.1",
+                "branch": null,
+                "tag": "OUTCAST2-main-8.2.1"
+            },
+            "repo": {
+                "name": "freertos",
+                "type": "git",
+                "origin": "https://github.com/johnttaylor"
+            }
+        }
+    ]
+  },
+  "directories": {
+    "primary": [
+      "src",
+      "tests"
+    ],
+    "adoptedExtras": [
+      "top"
+    ]
+  },
+  "info": {
+    "desc": "Colony.Bsp package is part of the Colony.* eco system and provides a collection of Board Support Packages - for Renesas RX microcontroller based boards - that support the Colony.Core root level BSP interaces.",
+    "owner": "John Taylor",
+    "email": "John.T.Taylor@gmail.com",
+    "url": "www.integerfox.com/colony.bsp.renesas.rx",
+    "repo": {
+      "name": "colony.bsp.renesas.rx",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
+    },
+    "pkgname": "colony.bsp.renesas.rx"
+  },
+  "publish": {
+    "current": {
+      "comment": "Publish as Outcast2 package",
+      "version": "1.0.1",
+      "date": "Sun Nov 21 23:19:37 2021",
+      "timestamp": 1637536777
+    },
+    "history": []
+  }
+}

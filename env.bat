@@ -18,7 +18,6 @@ doskey killpy=taskkill /F /IM python.exe
 
 
 :: Set the NQBP_BIN path
-set NQBP_XPKG_MODEL=mixed
 set NQBP_PKG_ROOT=%_HERE%
 set NQBP_WORK_ROOT=%_HERE%..\
 set NQBP_XPKGS_ROOT=%_HERE%xsrc
