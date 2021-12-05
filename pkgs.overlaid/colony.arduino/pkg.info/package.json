@@ -15,8 +15,7 @@
           "name": "colony.bsp",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
-        },
-        "depType": "S"
+        }
       },
       {
         "pkgname": "colony.core",
@@ -32,8 +31,7 @@
           "name": "colony.core",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
-        },
-        "depType": "S"
+        }
       }
     ],
     "weak": [
@@ -51,8 +49,7 @@
           "name": "catch",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
-        },
-        "depType": "W"
+        }
       },
       {
         "pkgname": "nqbp",
@@ -68,14 +65,14 @@
           "name": "nqbp",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
-        },
-        "depType": "S"
+        }
       }
     ]
   },
   "directories": {
     "primary": [
       "arduino",
+      "projects",
       "src",
       "tests"
     ],

@@ -36,7 +36,7 @@
       {
         "pkgname": "colony.arduino",
         "pkgtype": "overlay",
-        "adoptedDate": "Sun Dec  5 15:20:30 2021",
+        "adoptedDate": "Sun Dec  5 20:25:54 2021",
         "parentDir": null,
         "version": {
           "semanticVersion": "1.0.1",
@@ -79,6 +79,22 @@
         },
         "repo": {
           "name": "nqbp",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "ratt",
+        "pkgtype": "foreign",
+        "adoptedDate": "Sun Dec  5 20:28:28 2021",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "1.0.0",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.0.0"
+        },
+        "repo": {
+          "name": "ratt",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }

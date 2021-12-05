@@ -1043,6 +1043,11 @@ arduino/libraries/SdFat/src/FatLib
 arduino/libraries/SdFat/src/SdCard
 arduino/libraries/SdFat/src/SpiDriver
 arduino/libraries/SdFat/src/SpiDriver/boards
+projects/blink
+projects/blink/adafruit-feather52/windows/gcc
+projects/blink/adafruit-grand-central-m4/windows/gcc
+projects/blink/uno/windows/gcc
+projects/SdFat/Formatter/adafruit-grand-central-m4/windows/gcc
 src/Bsp/Adafruit/feather52/gcc
 src/Bsp/Adafruit/grand_central_m4/gcc
 src/Bsp/Adafruit/grand_central_m4/gcc/FreeRTOS
