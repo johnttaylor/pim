@@ -1,0 +1,38 @@
+{
+  "dependencies": {
+    "strong": [],
+    "weak": []
+  },
+  "directories": {
+    "primary": null,
+    "adoptedExtras": null
+  },
+  "info": {
+    "pkgname": "ratt",
+    "desc": "A Python based automated test tool based on pexect",
+    "owner": "John Taylor",
+    "email": "john.t.taylor@gmail.com",
+    "url": "url",
+    "repo": {
+      "name": "ratt",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
+    }
+  },
+  "publish": {
+    "current": {
+      "comment": "remove native support for serial ports (was not portable in python)",
+      "version": "1.0.1",
+      "date": "Sun May 29 17:01:20 2022",
+      "timestamp": 1653843680
+    },
+    "history": [
+      {
+        "comment": "Publish as Outcast2 package",
+        "version": "1.0.0",
+        "date": "Sun Nov 28 20:26:32 2021",
+        "timestamp": 1638131192
+      }
+    ]
+  }
+}
