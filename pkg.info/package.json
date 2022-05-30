@@ -2,22 +2,6 @@
   "dependencies": {
     "strong": [
       {
-        "pkgname": "colony.core",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Dec  5 19:12:15 2021",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "2.0.2",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.0.2"
-        },
-        "repo": {
-          "name": "colony.core",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "colony.bsp",
         "pkgtype": "overlay",
         "adoptedDate": "Sun Dec  5 19:12:37 2021",
@@ -29,22 +13,6 @@
         },
         "repo": {
           "name": "colony.bsp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "colony.apps",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Dec  5 20:31:07 2021",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "1.0.0",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.0.0"
-        },
-        "repo": {
-          "name": "colony.apps",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
@@ -68,38 +36,6 @@
     ],
     "weak": [
       {
-        "pkgname": "catch",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Dec  5 19:13:33 2021",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "2.13.7",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.13.7"
-        },
-        "repo": {
-          "name": "catch",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "nqbp",
-        "pkgtype": "foreign",
-        "adoptedDate": "Sun Dec  5 19:15:42 2021",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "2.2.0",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.2.0"
-        },
-        "repo": {
-          "name": "nqbp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "colony.bsp.renesas.rx",
         "pkgtype": "overlay",
         "adoptedDate": "Sun Dec  5 19:42:47 2021",
@@ -111,22 +47,6 @@
         },
         "repo": {
           "name": "colony.bsp.renesas.rx",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "ratt",
-        "pkgtype": "readonly",
-        "adoptedDate": "Sun Dec  5 19:49:15 2021",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "1.0.0",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.0.0"
-        },
-        "repo": {
-          "name": "ratt",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
