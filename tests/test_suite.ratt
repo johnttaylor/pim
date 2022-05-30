@@ -1,0 +1,40 @@
+""" Test Suite: 
+
+    Verifies the feature content of the Ratt tool and its rattlib package.
+
+    Pre-Conditions:  The Mocked UUT must be running.
+
+    Post-Conditions: The Mocked UUT will be exited
+"""
+
+from rattlib import *
+import config
+
+def main():
+    """ Entry point for the Test Suite
+    """
+
+    output.write_entry( __name__ )
+    passcode = config.g_passed
+
+    # Test rattlib.uut
+    if ( passcode == config.g_passed ):
+         tc = std.load("tc_uut")
+         passcode = config.g_failed if tc == None else tc.run()
+
+    # Test rattlib.std
+    #if ( passcode == config.g_passed ):
+    #    tc = std.load("tc_std")
+    #    passcode = config.g_failed if tc == None else tc.run() 
+
+
+    # Test ratt search paths
+    if ( passcode == config.g_passed ):
+         tc = std.load("tc_paths")
+         passcode = config.g_failed if tc == None else tc.run() 
+    
+    # Cleanly Exit the UUT
+    uut.cli(".exit;")
+
+    output.write_exit( __name__ )
+    return passcode
