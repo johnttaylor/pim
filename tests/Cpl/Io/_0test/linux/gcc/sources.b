@@ -1,0 +1,2 @@
+# Common main
+../../main.cpp

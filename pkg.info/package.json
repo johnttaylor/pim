@@ -64,6 +64,22 @@
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
+      },
+      {
+        "pkgname": "colony.core",
+        "pkgtype": "overlay",
+        "adoptedDate": "Mon May 30 19:51:34 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "3.0.0",
+          "branch": null,
+          "tag": "OUTCAST2-main-3.0.0"
+        },
+        "repo": {
+          "name": "colony.core",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
       }
     ],
     "weak": [

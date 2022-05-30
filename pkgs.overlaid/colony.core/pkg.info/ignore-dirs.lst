@@ -1,0 +1,19 @@
+# Ignore the final output directories from the builds
+__pycache__/
+tests/**/_win32/
+tests/**/_win64/
+tests/**/_posix/
+tests/**/_posix64/
+tests/**/_cpp11/
+
+# Ignore the .obj directories
+tests/**/vc12/src/
+tests/**/vc12/xsrc/
+tests/**/mingw_w64/src/
+tests/**/mingw_w64/xsrc/
+tests/**/gcc/src/
+tests/**/gcc/xsrc/
+
+# Ignore most of the top/
+top/
+!top/libdirs
