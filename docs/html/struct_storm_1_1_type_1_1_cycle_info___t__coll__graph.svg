@@ -19,10 +19,10 @@
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="struct_cpl_1_1_system_1_1_elapsed_time_1_1_precision___tag.html" target="_top" xlink:title="Data type for time in seconds with a &#39;fractional&#39; millisecond precision.">
+<g id="a_node2"><a xlink:href="struct_cpl_1_1_system_1_1_elapsed_time_1_1_precision___t.html" target="_top" xlink:title="Data type for time in seconds with a &#39;fractional&#39; millisecond precision.">
 <polygon fill="white" stroke="black" points="0,-78.5 0,-108.5 134,-108.5 134,-78.5 0,-78.5"/>
 <text text-anchor="start" x="8" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::System::ElapsedTime</text>
-<text text-anchor="middle" x="67" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Precision_Tag</text>
+<text text-anchor="middle" x="67" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Precision_T</text>
 </a>
 </g>
 </g>
@@ -30,8 +30,8 @@
 <g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M67,-68.2485C67,-51.781 67,-30.9886 67,-19.5391"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="63.5001,-68.3037 67,-78.3038 70.5001,-68.3038 63.5001,-68.3037"/>
-<text text-anchor="middle" x="97.5" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00"> beginOnTime</text>
-<text text-anchor="middle" x="97.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00">beginOffTime</text>
+<text text-anchor="middle" x="98" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00"> beginOffTime</text>
+<text text-anchor="middle" x="98" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00">beginOnTime</text>
 </g>
 </g>
 </svg>

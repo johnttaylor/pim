@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-460 1497.5,-460 1497.5,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="This file provides magic constants that NOT component specific, i.e.">
 <polygon fill="#bfbfbf" stroke="black" points="385.5,-436.5 385.5,-455.5 483.5,-455.5 483.5,-436.5 385.5,-436.5"/>
 <text text-anchor="middle" x="434.5" y="-443.5" font-family="Helvetica,sans-Serif" font-size="10.00">Storm/Constants.h</text>
 </a>
@@ -99,7 +99,7 @@
 </g>
 <!-- Node7 -->
 <g id="node7" class="node"><title>Node7</title>
-<g id="a_node7"><a xlink:href="_model_points_8h.html" target="_top" xlink:title=" ">
+<g id="a_node7"><a xlink:href="_model_points_8h.html" target="_top" xlink:title="This file defines all of the Model Points for the Thermostat Application.">
 <polygon fill="white" stroke="black" points="232,-263 232,-282 393,-282 393,-263 232,-263"/>
 <text text-anchor="middle" x="312.5" y="-270" font-family="Helvetica,sans-Serif" font-size="10.00">Storm/Thermostat/ModelPoints.h</text>
 </a>

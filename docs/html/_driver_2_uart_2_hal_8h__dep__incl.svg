@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-225 301.5,-225 301.5,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="This file defines a hardware abstraction layer (HAL) for accessing a hardware register based UART.">
 <polygon fill="#bfbfbf" stroke="black" points="88,-201.5 88,-220.5 177,-220.5 177,-201.5 88,-201.5"/>
 <text text-anchor="middle" x="132.5" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00">Driver/Uart/Hal.h</text>
 </a>
@@ -19,7 +19,7 @@
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="_cpl_2_io_2_serial_2_renesas_2_rx62n_2_hal_8h.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="_cpl_2_io_2_serial_2_renesas_2_rx62n_2_hal_8h.html" target="_top" xlink:title="This file defines a hardware abstraction layer (HAL) for initializing the UARTs (SCIn) peripherals on...">
 <polygon fill="white" stroke="black" points="0,-67.5 0,-97.5 111,-97.5 111,-67.5 0,-67.5"/>
 <text text-anchor="start" x="8" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl/Io/Serial/Renesas</text>
 <text text-anchor="middle" x="55.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Rx62n/Hal.h</text>

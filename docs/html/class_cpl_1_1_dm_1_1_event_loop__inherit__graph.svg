@@ -137,29 +137,15 @@
 <!-- Node11 -->
 <g id="node11" class="node"><title>Node11</title>
 <g id="a_node11"><a xlink:href="class_cpl_1_1_persistent_1_1_record_server.html" target="_top" xlink:title="This concrete class provides an Event driven Runnable object for executing the read/write operation t...">
-<polygon fill="white" stroke="black" points="815,-60.5 815,-79.5 961,-79.5 961,-60.5 815,-60.5"/>
-<text text-anchor="middle" x="888" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Persistent::RecordServer</text>
+<polygon fill="white" stroke="black" points="815,-38.5 815,-57.5 961,-57.5 961,-38.5 815,-38.5"/>
+<text text-anchor="middle" x="888" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Persistent::RecordServer</text>
 </a>
 </g>
 </g>
 <!-- Node10&#45;&gt;Node11 -->
 <g id="edge10" class="edge"><title>Node10&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M789.493,-57.1547C797.908,-58.2634 806.52,-59.3978 814.971,-60.5111"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="789.72,-53.6545 779.348,-55.8183 788.805,-60.5945 789.72,-53.6545"/>
-</g>
-<!-- Node12 -->
-<g id="node12" class="node"><title>Node12</title>
-<g id="a_node12"><a xlink:href="class_storm_1_1_thermostat_1_1_algorithm.html" target="_top" xlink:title="This concrete class is a &quot;maker&quot; pattern assembles the objects needed for the thermostat&#39;s control al...">
-<polygon fill="white" stroke="black" points="836,-11 836,-41 940,-41 940,-11 836,-11"/>
-<text text-anchor="start" x="844" y="-29" font-family="Helvetica,sans-Serif" font-size="10.00">Storm::Thermostat::</text>
-<text text-anchor="middle" x="888" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">Algorithm</text>
-</a>
-</g>
-</g>
-<!-- Node10&#45;&gt;Node12 -->
-<g id="edge11" class="edge"><title>Node10&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M789.448,-38.8512C804.999,-36.8025 821.22,-34.6657 835.868,-32.7359"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="788.805,-35.4055 779.348,-40.1817 789.72,-42.3455 788.805,-35.4055"/>
+<path fill="none" stroke="midnightblue" d="M789.493,-48C797.908,-48 806.52,-48 814.971,-48"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="789.348,-44.5001 779.348,-48 789.348,-51.5001 789.348,-44.5001"/>
 </g>
 </g>
 </svg>

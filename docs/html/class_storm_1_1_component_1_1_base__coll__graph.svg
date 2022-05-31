@@ -32,10 +32,10 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="struct_cpl_1_1_system_1_1_elapsed_time_1_1_precision___tag.html" target="_top" xlink:title="Data type for time in seconds with a &#39;fractional&#39; millisecond precision.">
+<g id="a_node3"><a xlink:href="struct_cpl_1_1_system_1_1_elapsed_time_1_1_precision___t.html" target="_top" xlink:title="Data type for time in seconds with a &#39;fractional&#39; millisecond precision.">
 <polygon fill="white" stroke="black" points="137.5,-78.5 137.5,-108.5 271.5,-108.5 271.5,-78.5 137.5,-78.5"/>
 <text text-anchor="start" x="145.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::System::ElapsedTime</text>
-<text text-anchor="middle" x="204.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Precision_Tag</text>
+<text text-anchor="middle" x="204.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Precision_T</text>
 </a>
 </g>
 </g>
@@ -43,8 +43,8 @@
 <g id="edge2" class="edge"><title>Node3&#45;&gt;Node1</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M184.857,-70.5701C169.82,-53.7824 149.892,-31.5338 139.149,-19.5391"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="182.505,-73.1901 191.784,-78.3038 187.719,-68.5197 182.505,-73.1901"/>
-<text text-anchor="middle" x="204.5" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00"> m_timeMark</text>
-<text text-anchor="middle" x="204.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00">m_interval</text>
+<text text-anchor="middle" x="203" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00"> m_interval</text>
+<text text-anchor="middle" x="203" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00">m_timeMark</text>
 </g>
 </g>
 </svg>

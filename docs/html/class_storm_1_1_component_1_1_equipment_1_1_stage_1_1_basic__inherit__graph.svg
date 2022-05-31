@@ -76,7 +76,7 @@
 </g>
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
-<g id="a_node4"><a xlink:href="class_storm_1_1_component_1_1_equipment_1_1_stage_1_1_fsm.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="class_storm_1_1_component_1_1_equipment_1_1_stage_1_1_fsm.html" target="_top" xlink:title="Here is the graph that shows the state machine this class implements.">
 <polygon fill="white" stroke="black" points="305,-50 305,-69 341,-69 341,-50 305,-50"/>
 <text text-anchor="middle" x="323" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Fsm</text>
 </a>

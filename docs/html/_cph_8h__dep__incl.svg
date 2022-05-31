@@ -111,7 +111,7 @@
 </g>
 <!-- Node15 -->
 <g id="node15" class="node"><title>Node15</title>
-<g id="a_node15"><a xlink:href="_model_points_8h.html" target="_top" xlink:title=" ">
+<g id="a_node15"><a xlink:href="_model_points_8h.html" target="_top" xlink:title="This file defines all of the Model Points for the Thermostat Application.">
 <polygon fill="white" stroke="black" points="253.467,-263 253.467,-282 414.467,-282 414.467,-263 253.467,-263"/>
 <text text-anchor="middle" x="333.967" y="-270" font-family="Helvetica,sans-Serif" font-size="10.00">Storm/Thermostat/ModelPoints.h</text>
 </a>
