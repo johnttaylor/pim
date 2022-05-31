@@ -37,7 +37,7 @@ public:
     /** Synchronously closes/cleans-up the called object. The method returns
         if the close operation was successful.
      */
-    virtual bool close( void ) = 0;
+    virtual bool close( void* args = nullptr ) = 0;
 
 
 public:

@@ -187,7 +187,7 @@ TEST_CASE( "atob", "[atob]" )
         REQUIRE( result == false );
     }
 
-    SECTION( "bool" )
+    SECTION( "hextobuffer" )
     {
         const char* text = "AA0055BBFC";
         uint8_t buffer[5];
@@ -251,6 +251,75 @@ TEST_CASE( "atob", "[atob]" )
         result = parsePrecisionTimeStamp( text, time );
         REQUIRE( result == false );
 
+    }
+
+    SECTION( "bintobuffer" )
+    {
+        const char* text = "00101100101001011111000100011111"; // 0x2CA5F11F
+        uint8_t buffer[4];
+
+        long result = asciiBinaryToBuffer( buffer, text, sizeof( buffer ), true );
+        REQUIRE( result == 4*8 );
+        REQUIRE( buffer[0] == 0x1F );
+        REQUIRE( buffer[1] == 0xF1 );
+        REQUIRE( buffer[2] == 0xA5 );
+        REQUIRE( buffer[3] == 0x2C );
+        
+        result = asciiBinaryToBuffer( buffer, text, sizeof( buffer ) );
+        REQUIRE( result == 4*8 );
+        REQUIRE( buffer[0] == 0x2C );
+        REQUIRE( buffer[1] == 0xA5 );
+        REQUIRE( buffer[2] == 0xF1 );
+        REQUIRE( buffer[3] == 0x1F );
+
+        result = asciiBinaryToBuffer( buffer, 0, sizeof( buffer ) );
+        REQUIRE( result == -1 );
+        result = asciiBinaryToBuffer( 0, text, sizeof( buffer ) );
+        REQUIRE( result == -1 );
+        result = asciiBinaryToBuffer( buffer, text, 0 );
+        REQUIRE( result == -1 );
+
+        result = asciiBinaryToBuffer( buffer, text, 1 );
+        REQUIRE( result == 8 );
+        REQUIRE( buffer[0] == 0x2C );
+
+        uint8_t buffer2[5];
+        result = asciiBinaryToBuffer( buffer2, text, sizeof( buffer2 ), true );
+        REQUIRE( result == 4*8 );
+        REQUIRE( buffer2[0] == 0x1F );
+        REQUIRE( buffer2[1] == 0xF1 );
+        REQUIRE( buffer2[2] == 0xA5 );
+        REQUIRE( buffer2[3] == 0x2C );
+
+        result = asciiBinaryToBuffer( buffer2, text, sizeof( buffer2 ) );
+        REQUIRE( result == 4*8 );
+        REQUIRE( buffer2[0] == 0x2C );
+        REQUIRE( buffer2[1] == 0xA5 );
+        REQUIRE( buffer2[2] == 0xF1 );
+        REQUIRE( buffer2[3] == 0x1F );
+
+        text = "10101"; // 0xA8
+        result = asciiBinaryToBuffer( buffer, text, sizeof( buffer ) );
+        REQUIRE( result == 5 );
+        REQUIRE( buffer[0] == 0xA8 );
+
+        result = asciiBinaryToBuffer( buffer, text, sizeof( buffer ), true );
+        REQUIRE( result == 5 );
+        REQUIRE( buffer[0] == 0xA8 );
+
+        text = "100 1"; // error
+        result = asciiBinaryToBuffer( buffer, text, sizeof( buffer ) );
+        REQUIRE( result == -1 );
+
+        result = asciiBinaryToBuffer( buffer, text, sizeof( buffer ), true );
+        REQUIRE( result == -1 );
+
+        text = " 1001"; // error
+        result = asciiBinaryToBuffer( buffer, text, sizeof( buffer ) );
+        REQUIRE( result == -1 );
+
+        result = asciiBinaryToBuffer( buffer, text, sizeof( buffer ), true );
+        REQUIRE( result == -1 );
     }
 
     REQUIRE( Shutdown_TS::getAndClearCounter() == 0u );

@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-80 211,-80 211,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="This file contains a collection of methods comparing, manipulating, etc.">
 <polygon fill="#bfbfbf" stroke="black" points="84,-56.5 84,-75.5 167,-75.5 167,-56.5 84,-56.5"/>
 <text text-anchor="middle" x="125.5" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl/Math/real.h</text>
 </a>

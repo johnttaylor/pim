@@ -40,9 +40,12 @@ public:
         /// Pass/Fail result of the class request
         bool m_success;
 
+        /// Optional arguments
+        void* m_args;
+
     public:
         /// Constructor
-        ClosePayload():m_success( true ) {}
+        ClosePayload( void* args = nullptr ) :m_success( true ), m_args( args ) {}
     };
 
 

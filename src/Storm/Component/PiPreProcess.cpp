@@ -42,7 +42,7 @@ PiPreProcess::PiPreProcess( struct Input_T ins, struct Output_T outs )
 }
 
 
-bool PiPreProcess::start( Cpl::System::ElapsedTime::Precision_T intervalTime )
+bool PiPreProcess::start( Cpl::System::ElapsedTime::Precision_T& intervalTime )
 {
     // Initialize my data
     m_prevActiveSetpoint = INVALID_SETPOINT_;
@@ -68,17 +68,17 @@ bool PiPreProcess::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     float                                 coolSetpoint      = 0.0F;
     float                                 heatSetpoint      = 0.0F;
     bool                                  modeChanged       = false;
-    Storm::Type::SystemConfig_T           sysCfg            = { 0, };
+    Storm::Type::SystemConfig_T           sysCfg            ={ 0, };
     int8_t                                validIdt          = m_in.activeIdt->read( idt );
     int8_t                                validModeChanged  = m_in.operatingModeChange->read( modeChanged );
     int8_t                                validSetpoints    = m_in.setpoints->read( coolSetpoint, heatSetpoint );
     int8_t                                validSystem       = m_in.systemConfig->read( sysCfg );
-    if ( Cpl::Dm::ModelPoint::IS_VALID( validIdt ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validModeChanged ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validSetpoints ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validSystem ) == false )
+    if ( validIdt == false ||
+         validModeChanged == false ||
+         validSetpoints == false ||
+         validSystem == false )
     {
-        CPL_SYSTEM_TRACE_MSG( SECT_, ( "PiPreProcess::execute. One or more invalid MPs (idt=%d, modechg=%d,setpts=%d, system=%d", validIdt, validModeChanged, validSetpoints, validSystem ) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ("PiPreProcess::execute. One or more invalid MPs (idt=%d, modechg=%d,setpts=%d, system=%d", validIdt, validModeChanged, validSetpoints, validSystem) );
 
         // Force the operating mode to off if I am missing one or more inputs values
         sysCfg.currentOpMode = Storm::Type::OperatingMode::eOFF;

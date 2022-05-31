@@ -10,6 +10,7 @@ src/Cpl/Dm/Persistent
 src/Cpl/Persistent
 
 # infrastructure
+src/Storm/Type
 src/Storm/Dm
 src/Storm/Utils
 src/Storm/TShell

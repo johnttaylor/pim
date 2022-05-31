@@ -13,6 +13,7 @@
 /** @file */
 
 #include <stdint.h>
+#include <memory.h>
 
 
 /// 
@@ -30,45 +31,73 @@ class ElapsedTime
 {
 public:
     /// Data type for time in seconds with a 'fractional' millisecond precision
-    typedef struct Precision_Tag
+    struct Precision_T
     {
         unsigned long  m_seconds;      //!< Total number of elapsed seconds
         uint16_t       m_thousandths;  //!< fractional number of milliseconds (i.e. a value between 0 and 999)
 
         /// Comparison operator (explicitly provided to avoid potential issue with pad bytes in the structure)
-        bool operator == ( Precision_Tag const other ) const
+        bool operator == ( Precision_T const other ) const
         {
             return m_seconds == other.m_seconds && m_thousandths == other.m_thousandths;
         }
 
         /// Not equals operator
-        bool operator != ( Precision_Tag const other ) const
+        bool operator != ( Precision_T const other ) const
         {
             return m_seconds != other.m_seconds || m_thousandths != other.m_thousandths;
         }
 
         /// Increment elapsed time by 'x'
-        Precision_Tag& operator +=( const Precision_Tag& x );
+        Precision_T& operator +=( const Precision_T& x );
 
         /// Greater than (i.e. is this instance newer/more-recent then 'other')
-        bool operator > ( Precision_Tag const other ) const;
+        bool operator > ( Precision_T const other ) const;
 
         /// Greater than or equal (i.e. is this instance the same as 'other' or is it newer/more-recent then 'other')
-        bool operator >= ( Precision_Tag const other ) const;
+        bool operator >= ( Precision_T const other ) const;
 
         /// less than (i.e. is this instance older then 'other')
-        bool operator < ( Precision_Tag const other ) const;
+        bool operator < ( Precision_T const other ) const;
 
         /// less than or equal (i.e. is this instance the same as 'other' or is it older then 'other')
-        bool operator <= ( Precision_Tag const other ) const;
+        bool operator <= ( Precision_T const other ) const;
 
         /// Sets the Precision value from a millisecond value
-        Precision_Tag& setFromMilliseconds( uint32_t milliseconds );
+        Precision_T& setFromMilliseconds( uint32_t milliseconds );
 
         /// Assign my value based on total milliseconds
-        Precision_Tag& operator =( uint32_t milliseconds );
+        Precision_T& operator =( uint32_t milliseconds );
 
-    } Precision_T;
+
+    public:
+        /// Constructor (to ensure any pad bytes get zero'd)
+        Precision_T()
+        {
+            memset( (void*) this, 0, sizeof( Precision_T ) );   
+        }
+
+        /// Constructor (to ensure any pad bytes get zero'd)
+        Precision_T( unsigned long  seconds, uint16_t thousandths )
+        {
+            memset( (void*) this, 0, sizeof( Precision_T ) );
+            m_seconds     = seconds;
+            m_thousandths = thousandths;
+        }
+
+        /// Copy Constructor (to ensure any pad bytes get zero'd)
+        Precision_T( const Precision_T& other )
+        {
+            memcpy( (void*) this, (void*) &other, sizeof( Precision_T ) );
+        }
+
+        /// Copy operator
+        Precision_T& operator =( const Precision_T& other )
+        {
+            memcpy( (void*) this, (void*) &other, sizeof( Precision_T ) );
+            return *this;
+        }
+    };
 
 
 public:

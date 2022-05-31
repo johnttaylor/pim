@@ -13,7 +13,6 @@
 /** @file */
 
 #include "Cpl/Dm/ModelPointCommon_.h"
-#include "Cpl/Text/FString.h"
 #include "Storm/Type/CycleInfo.h"
 
 
@@ -32,7 +31,7 @@ namespace Dm {
     The toJSON()/fromJSON format is:
     \code
 
-    { name:"<mpname>", type:"<mptypestring>", invalid:nn, seqnum:nnnn, locked:true|false, val:{"onTimeMsec":nn, offTimeMsec:nn, "beginOnTimeSec":mm.nn, "beginOffTimeSec":mm.nn, "mode":"<enum>"} }
+    { name:"<mpname>", type:"<mptypestring>", valid:true|false, seqnum:nnnn, locked:true|false, val:{"onTimeMsec":nn, offTimeMsec:nn, "beginOnTimeSec":mm.nn, "beginOffTimeSec":mm.nn, "mode":"<enum>"} }
 
     \endcode
 
@@ -48,47 +47,44 @@ protected:
 
 public:
     /// Constructor.  Valid MP - sets all fields to zero/eOFF
-    MpCycleInfo( Cpl::Dm::ModelDatabase& myModelBase, Cpl::Dm::StaticInfo& staticInfo );
+    MpCycleInfo( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName );
 
-public:
-    /// See Cpl::Dm::ModelPoint
-    uint16_t setInvalidState( int8_t newInvalidState, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
 public:
     /// Type safe read. See Cpl::Dm::ModelPoint
-    virtual int8_t read( Storm::Type::CycleInfo_T& dstData, uint16_t* seqNumPtr=0 ) const noexcept;
+    inline bool read( Storm::Type::CycleInfo_T& dstData, uint16_t* seqNumPtr=0 ) const noexcept
+    {
+        return ModelPointCommon_::read( &dstData, sizeof( Storm::Type::CycleInfo_T ), seqNumPtr );
+    }
 
     /// Type safe write. See Cpl::Dm::ModelPoint
-    virtual uint16_t write( const Storm::Type::CycleInfo_T& srcData, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    inline uint16_t write( const Storm::Type::CycleInfo_T& srcData, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        return ModelPointCommon_::write( &srcData, sizeof( Storm::Type::CycleInfo_T ), lockRequest );
+    }
 
     /// Sets the Point's Cycle on time.  Note: This is read-modify-write operation WRT to the Point's data
-    virtual uint16_t setOnTime( uint32_t newOnCycleTime, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    uint16_t setOnTime( uint32_t newOnCycleTime, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
     /// Sets the Point's Cycle off time.  Note: This is read-modify-write operation WRT to the Point's data
-    virtual uint16_t setOffTime( uint32_t newOffCycleTime, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    uint16_t setOffTime( uint32_t newOffCycleTime, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
     /// Sets the Point's Cycle Begin on time.  Note: This is read-modify-write operation WRT to the Point's data
-    virtual uint16_t setBeginOnTime( Cpl::System::ElapsedTime::Precision_T newBeginOnCycleTime, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    uint16_t setBeginOnTime( Cpl::System::ElapsedTime::Precision_T newBeginOnCycleTime, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
     /// Sets the Point's Cycle Begin off time.  Note: This is read-modify-write operation WRT to the Point's data
-    virtual uint16_t setBeginOffTime( Cpl::System::ElapsedTime::Precision_T newBeginOffCycleTime, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    uint16_t setBeginOffTime( Cpl::System::ElapsedTime::Precision_T newBeginOffCycleTime, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
     /// Sets the Point's Cycle mode/state.  Note: This is read-modify-write operation WRT to the Point's data
-    virtual uint16_t setMode( Storm::Type::CycleStatus newMode, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    uint16_t setMode( Storm::Type::CycleStatus newMode, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
-    /// Type safe read-modify-write client callback interface
-    typedef Cpl::Dm::ModelPointRmwCallback<Storm::Type::CycleInfo_T> Client;
 
-    /** Type safe read-modify-write. See Cpl::Dm::ModelPoint
-
-       NOTE: THE USE OF THIS METHOD IS STRONGLY DISCOURAGED because it has
-             potential to lockout access to the ENTIRE Model Base for an
-             indeterminate amount of time.  And alternative is to have the
-             concrete Model Point leaf classes provide the application
-             specific read, write, read-modify-write methods in addition or in
-             lieu of the read/write methods in this interface.
-     */
-    virtual uint16_t readModifyWrite( Client& callbackClient, LockRequest_T lockRequest = eNO_REQUEST );
+public:
+    /// Updates the MP with the valid-state/data from 'src'. Note: the src.lock state is NOT copied
+    inline uint16_t copyFrom( const MpCycleInfo& src, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        return ModelPointCommon_::copyFrom( src, lockRequest );
+    }
 
 public:
     /// Type safe subscriber
@@ -102,34 +98,15 @@ public:
 
 
 public:
-    /// See Cpl::Dm::Point.  
-    bool toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose=true ) noexcept;
-
     ///  See Cpl::Dm::ModelPoint.
     const char* getTypeAsText() const noexcept;
 
-    /// See Cpl::Dm::ModelPoint.  Note: the returned sized does DOES NOT the null terminator
-    size_t getSize() const noexcept;
-
-
-public:
     /// See Cpl::Dm::Point.  
     bool fromJSON_( JsonVariant& src, LockRequest_T lockRequest, uint16_t& retSequenceNumber, Cpl::Text::String* errorMsg ) noexcept;
 
-    /// See Cpl::Dm::ModelPoint. 
-    void copyDataTo_( void* dstData, size_t dstSize ) const noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    void copyDataFrom_( const void* srcData, size_t srcSize ) noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    bool isDataEqual_( const void* otherData ) const noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    const void* getImportExportDataPointer_() const noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    size_t getInternalDataSize_() const noexcept;
+protected:
+    /// See Cpl::Dm::Point.  
+    void setJSONVal( JsonDocument& doc ) noexcept;
 };
 
 

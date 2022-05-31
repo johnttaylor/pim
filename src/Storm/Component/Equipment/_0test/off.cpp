@@ -46,7 +46,8 @@ TEST_CASE( "Off" )
     args.systemConfig.outdoorUnitType     = Storm::Type::OduType::eAC;
 
     // Exercise the Equipment
-    uut.start( { 0, 100 } );
+    Cpl::System::ElapsedTime::Precision_T tick ={ 0,100 };
+    uut.start( tick );
     uut.executeOff( args );
     REQUIRE( args.vOutputs.indoorFan == 1 );
     REQUIRE( args.vOutputs.outdoorFan == 2 );

@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-91 116,-91 116,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="This file provides the LCONFIG mapping of various Cpl::Driver::xxxx Hardware abstraction interfaces t...">
 <polygon fill="#bfbfbf" stroke="black" points="0,-56.5 0,-86.5 112,-86.5 112,-56.5 0,-56.5"/>
 <text text-anchor="start" x="8" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">Bsp/UserSpace/driver</text>
 <text text-anchor="middle" x="56" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">_hal_mappings_.h</text>
@@ -20,7 +20,7 @@
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="_bsp_2_user_space_2_api_8h.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="_bsp_2_user_space_2_api_8h.html" target="_top" xlink:title="This BSP is a null/empty BSP to be used when compiling applications that are dependent on &quot;Bsp/Api....">
 <polygon fill="white" stroke="black" points="1,-0.5 1,-19.5 111,-19.5 111,-0.5 1,-0.5"/>
 <text text-anchor="middle" x="56" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Bsp/UserSpace/Api.h</text>
 </a>

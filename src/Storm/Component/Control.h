@@ -92,7 +92,7 @@ public:
             start() method is called. This method return true when successfully;
             else false is returned.
          */
-        virtual bool start( Cpl::System::ElapsedTime::Precision_T intervalTime ) noexcept = 0;
+        virtual bool start( Cpl::System::ElapsedTime::Precision_T& intervalTime ) noexcept = 0;
 
         /** This method is used to 'reset' the equipment.  This method is intended
             to be called whenever the System Type changes
@@ -137,7 +137,7 @@ public:
     Control( Equipment& controlLogic, struct Input_T ins, struct Output_T outs );
 
     /// See Storm::Component::Api
-    bool start( Cpl::System::ElapsedTime::Precision_T intervalTime );
+    bool start( Cpl::System::ElapsedTime::Precision_T& intervalTime );
 
 protected:
     /// See Storm::Component::Base

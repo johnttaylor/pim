@@ -8,7 +8,7 @@ import pexpect
 
 #------------------------------------------------------------------------------
 #
-def cli( cli_command, prompt=None, max_wait_sec=2, regex_match=False, append_newline=True ):
+def cli( cli_command, prompt=None, max_wait_sec=10, regex_match=False, append_newline=True, strip_prompt=True ):
     """ Sends the specified cli_command/content to the UUT.  If 'prompt' is 
         None then the call does not wait for a response; else it will wait up to
         'max_wait_sec'. When append_newline is true a 'newline' is append to 
@@ -31,6 +31,11 @@ def cli( cli_command, prompt=None, max_wait_sec=2, regex_match=False, append_new
         result = waitfor( max_wait_sec, prompt, regex_match )
         if ( result != None ):
             result = before_cmd + result
+
+            # Remove the prompt from the returned result
+            if ( strip_prompt ):
+                result = result.rstrip(prompt)
+
         return result
     else:
         return None

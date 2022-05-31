@@ -13,10 +13,13 @@
 /** @file */
 
 #include "Cpl/Persistent/Record.h"
+#include "Cpl/Persistent/RecordServer.h"
 #include "Cpl/Persistent/Chunk.h"
 #include "Cpl/Persistent/Payload.h"
 #include "Cpl/Dm/ModelPoint.h"
 #include "Cpl/Dm/SubscriberComposer.h"
+#include "Cpl/Dm/Persistent/FlushRequest.h"
+#include "Cpl/Dm/Persistent/EraseRequest.h"
 
 ///
 namespace Cpl {
@@ -30,7 +33,7 @@ namespace Persistent {
     child class is needed to provide the specifics of 'resetting' the Record's
     data.
  */
-class Record: public Cpl::Persistent::Record, public Cpl::Persistent::Payload
+class Record: public Cpl::Persistent::Record, public Cpl::Persistent::Payload, public FlushRequest, public EraseRequest
 {
 public:
     /** This data structure associates a Data Model subscriber instance with a
@@ -74,13 +77,40 @@ public:
     /// See Cpl::Persistent::Payload
     bool putData( const void* src, size_t srcLen ) noexcept;
 
+public:
+    /// Returns the size of record.  Does NOT include any meta-data that the Chunk Handler adds
+    size_t getRecordSize() noexcept;
+
+public:
+    /** Synchronous Flush/update of the Record to persistent storage.
+        Note: Use this method with CAUTION.  The call will BLOCK the calling 
+        thread for an undetermined amount of time!!
+     */
+    bool flush( Cpl::Persistent::RecordServer& myRecordsServer ) noexcept;
+
+    /** Synchronous Invalidate/logically-erase of the Record in persistent storage.
+        Note: Use this method with CAUTION.  The call will BLOCK the calling 
+        thread for an undetermined amount of time!!
+     */
+    bool erase( Cpl::Persistent::RecordServer& myRecordsServer ) noexcept;
+
+public:
+    /// See Cpl::Dm::Persistent::FlushRequest
+    void request( FlushMsg& msg );
+
+    /// See Cpl::Dm::Persistent::EraseRequest
+    void request( EraseMsg& msg );
 
 protected:
     /** This method is responsible for updating all of the Model Points in
         record to their default values.  This method is called when there is
-        valid data when reading the record's data from persistence storage.
+        NO valid data when reading the record's data from persistence storage.
+
+        When the method returns true, the 'reset data' is written to persistence
+        storage; else the persistence storage is NOT updated and NO further updates
+        of the persistence storage will be allowed.
      */
-    virtual void resetData() noexcept = 0;
+    virtual bool resetData() noexcept = 0;
 
     /** This method is called when the stored record data has different
         schema indexes. It is up to the child record class on what to do when
@@ -99,6 +129,11 @@ protected:
                                uint8_t      previousSchemaMinorIndex,
                                const void*  src, 
                                size_t       srcLen ) noexcept { return false; }
+
+    /** This method is called when the Record has been successfully loaded into
+        RAM/Model-Points.  The default action does nothing.  
+     */
+    virtual void hookProcessPostRecordLoaded() noexcept {};
 
 protected:
     /// Callback method for Model Point change notifications

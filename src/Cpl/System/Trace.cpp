@@ -201,17 +201,28 @@ void Trace::disableSection_( const char* sectionToDisable )
 
 bool Trace::isSectionEnabled_( const char* section )
 {
-    bool result = false;
+    bool result   = false;
     Locks_::tracing().lock();
     if ( enabled_ )
     {
         int i;
         for ( i=0; i < OPTION_CPL_SYSTEM_TRACE_MAX_SECTIONS; i++ )
         {
-            if ( activeSections_[i] == section )
+            if ( activeSections_[i][0] != '*' )
             {
-                result = true;
-                break;
+                if ( activeSections_[i] == section )
+                {
+                    result = true;
+                    break;
+                }
+            }
+            else
+            {
+                if ( activeSections_[i].isEqualSubstring( 1, activeSections_[i].length() - 1, section ) )
+                {
+                    result = true;
+                    break;
+                }
             }
         }
     }

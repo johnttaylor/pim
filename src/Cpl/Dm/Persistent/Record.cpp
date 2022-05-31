@@ -11,6 +11,9 @@
 
 #include "Record.h"
 #include "Cpl/System/Assert.h"
+#include "Cpl/System/Trace.h"
+#include "Cpl/Itc/SyncReturnHandler.h"
+
 
 #define SECT_ "Cpl::Dm::Persistent"
 
@@ -45,15 +48,40 @@ void Record::start( Cpl::Dm::MailboxServer& myMbox ) noexcept
         m_chunkHandler.start( myMbox );
 
         // Load the record's data from persistent storage
+        bool subscribeForChanges = true;
         if ( !m_chunkHandler.loadData( *this ) )
         {
             // No valid data -->reset to my defaults
-            resetData();
+            CPL_SYSTEM_TRACE_MSG( SECT_, ( "Initial loadData() failed. mp[0]=%s", m_items[0].mpPtr->getName() ) );
+            if ( resetData() )
+            {
+                dataChanged( *( m_items[0].mpPtr ) );  // Write the new/reset data to storage. Note: The model point argument to the function is NOT used by the called method
+            }
+
+            // The Record has requested that NO UPDATES to persistence storage occur -->so we prevent the subscriptions
+            else
+            {
+                subscribeForChanges = false;
+            }
+        }
+
+        // Record was successfully loaded -->allow for optional child class processing
+        else
+        {
+            CPL_SYSTEM_TRACE_MSG( SECT_, ( "Initial loadData() succeeded! mp[0]=%s", m_items[0].mpPtr->getName() ) );
+            hookProcessPostRecordLoaded();
         }
 
         // Subscribe for change notification 
         for ( unsigned i=0; m_items[i].mpPtr != 0; i++ )
         {
+            // Stop the subscriptions from ever happening
+            if ( !subscribeForChanges )
+            {
+                m_items[i].observerPtr = CPL_DM_PERISTENCE_RECORD_NO_SUBSCRIBER;
+                continue;
+            }
+
             // Only allocate a subscriber when requested
             if ( m_items[i].observerPtr != CPL_DM_PERISTENCE_RECORD_NO_SUBSCRIBER )
             {
@@ -61,7 +89,7 @@ void Record::start( Cpl::Dm::MailboxServer& myMbox ) noexcept
                 m_items[i].observerPtr = new Cpl::Dm::SubscriberComposer<Record, Cpl::Dm::ModelPoint>( myMbox, *this, &Record::dataChanged );
                 if ( m_items[i].observerPtr )
                 {
-                    // subscribe with the current sequence number so there will be NO IMMEDIATE call back
+                    // Subscribe with the current sequence number so there will be NO IMMEDIATE call back
                     m_items[i].mpPtr->genericAttach( *( m_items[i].observerPtr ), m_items[i].mpPtr->getSequenceNumber() );
                 }
                 else
@@ -96,14 +124,23 @@ void Record::stop() noexcept
     }
 }
 
-
 //////////////////////////////////////////////////////
+size_t Record::getRecordSize() noexcept
+{
+    size_t byteCount = 2;
+    for ( unsigned i = 0; m_items[i].mpPtr != 0; i++ )
+    {
+        byteCount += m_items[i].mpPtr->getExternalSize();
+    }
+    return byteCount;
+}
+
 size_t Record::getData( void* dst, size_t maxDstLen ) noexcept
 {
     CPL_SYSTEM_ASSERT( maxDstLen > 2 );
 
     // Write Schema identifiers
-    uint8_t* buffer = (uint8_t*)dst;
+    uint8_t* buffer = (uint8_t*) dst;
     *buffer++       = m_major;
     *buffer++       = m_minor;
     maxDstLen      -= 2;
@@ -139,7 +176,7 @@ bool Record::putData( const void* src, size_t srcLen ) noexcept
     CPL_SYSTEM_ASSERT( srcLen > 2 );
 
     // Get schema identifiers
-    const uint8_t* buffer = (const uint8_t*)src;
+    const uint8_t* buffer = (const uint8_t*) src;
     uint8_t major         = *buffer++;
     uint8_t minor         = *buffer++;
     srcLen               -= 2;
@@ -177,5 +214,38 @@ bool Record::putData( const void* src, size_t srcLen ) noexcept
 void Record::dataChanged( Cpl::Dm::ModelPoint& point ) noexcept
 {
     // NOTE: If the write to the storage media failed -->the RAM contents are still valid so no immediate issue.  However, on the next power cycle the record will be defaulted since the CRC is going to be bad
+    CPL_SYSTEM_TRACE_MSG( SECT_, ( "Record Changed: mp=%s", point.getName() ) );
     m_chunkHandler.updateData( *this );
+}
+
+void Record::request( FlushMsg& msg )
+{
+    msg.getPayload().m_success = m_chunkHandler.updateData( *this );
+    CPL_SYSTEM_TRACE_MSG( SECT_, ( "Flush Request. mp[0]=%s. success=%d", m_items[0].mpPtr->getName(), msg.getPayload().m_success ) );
+    msg.returnToSender();
+}
+
+void Record::request( EraseMsg& msg )
+{
+    msg.getPayload().m_success = m_chunkHandler.updateData( *this, 0, true );
+    CPL_SYSTEM_TRACE_MSG( SECT_, ( "Erase Request. mp[0]=%s. success=%d", m_items[0].mpPtr->getName(), msg.getPayload().m_success ) );
+    msg.returnToSender();
+}
+
+bool Record::flush( Cpl::Persistent::RecordServer& myRecordsServer ) noexcept
+{
+    Cpl::Dm::Persistent::FlushRequest::Payload      payload;
+    Cpl::Itc::SyncReturnHandler                     srh;
+    Cpl::Dm::Persistent::FlushRequest::FlushMsg     msg( *this, payload, srh );
+    myRecordsServer.postSync( msg );
+    return payload.m_success;
+}
+
+bool Record::erase( Cpl::Persistent::RecordServer& myRecordsServer ) noexcept
+{
+    Cpl::Dm::Persistent::EraseRequest::Payload    payload;
+    Cpl::Itc::SyncReturnHandler                   srh;
+    Cpl::Dm::Persistent::EraseRequest::EraseMsg   msg( *this, payload, srh );
+    myRecordsServer.postSync( msg );
+    return payload.m_success;
 }

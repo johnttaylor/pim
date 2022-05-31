@@ -35,7 +35,7 @@ namespace Dm {
     The toJSON()/fromJSON format is:
     \code
 
-    { name:"<mpname>", type:"<mptypestring>", invalid:nn, seqnum:nnnn, locked:true|false, val:{"active":"true|false, "ack":true|false, "critical":true|false} }
+    { name:"<mpname>", type:"<mptypestring>", valid:true|false, seqnum:nnnn, locked:true|false, val:{"active":"true|false, "ack":true|false, "critical":true|false} }
 
     \endcode
 
@@ -48,12 +48,12 @@ class MpSimpleAlarm : public Cpl::Dm::ModelPointCommon_
 public:
     /** The MP's Data container.
      */
-    typedef struct
+    struct Data
     {
         bool active;        //!< When set to true, the alarm is 'active'
         bool acked;         //!< When set to true, the alarm has been acknowledged.  When active is false, this field has no meaning
         bool critical;      //!< When set to true, the system is/was forced to the its 'off state'
-    } Data;
+    };
 
 protected:
     /// Storage for the MP's data
@@ -61,80 +61,59 @@ protected:
 
 public:
     /// Constructor.  Valid MP - sets all fields to false (i.e. no-alarms/no-acks state)
-    MpSimpleAlarm( Cpl::Dm::ModelDatabase& myModelBase, Cpl::Dm::StaticInfo& staticInfo );
-
-public:
-    /// See Cpl::Dm::ModelPoint
-    uint16_t setInvalidState( int8_t newInvalidState, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    MpSimpleAlarm( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName );
 
 public:
     /// Type safe read. See Cpl::Dm::ModelPoint
-    virtual int8_t read( Data& dstData, uint16_t* seqNumPtr=0 ) const noexcept;
+    inline bool read( Data& dstData, uint16_t* seqNumPtr=0 ) const noexcept
+    {
+        return  ModelPointCommon_::read( &dstData, sizeof( Data ), seqNumPtr );
+    }
 
     /// Type safe write. See Cpl::Dm::ModelPoint
-    virtual uint16_t write( const Data& srcData, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    inline uint16_t write( const Data& srcData, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        return ModelPointCommon_::write( &srcData, sizeof( Data ), lockRequest );
+    }
 
     /// Sets the Alarm state
-    virtual uint16_t setAlarm( bool active, bool isCritical=false, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    uint16_t setAlarm( bool active, bool isCritical=false, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
     /// Acknowledges the alarm
-    virtual uint16_t acknowledgeAlarm( LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    uint16_t acknowledgeAlarm( LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
 
-    /// Type safe read-modify-write client callback interface
-    typedef Cpl::Dm::ModelPointRmwCallback<Data> Client;
-
-    /** Type safe read-modify-write. See Cpl::Dm::ModelPoint
-
-       NOTE: THE USE OF THIS METHOD IS STRONGLY DISCOURAGED because it has
-             potential to lockout access to the ENTIRE Model Base for an
-             indeterminate amount of time.  And alternative is to have the
-             concrete Model Point leaf classes provide the application
-             specific read, write, read-modify-write methods in addition or in
-             lieu of the read/write methods in this interface.
-     */
-    virtual uint16_t readModifyWrite( Client& callbackClient, LockRequest_T lockRequest = eNO_REQUEST );
+public:
+    /// Updates the MP with the valid-state/data from 'src'. Note: the src.lock state is NOT copied
+    inline uint16_t copyFrom( const MpSimpleAlarm& src, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        return ModelPointCommon_::copyFrom( src, lockRequest );
+    }
 
 public:
     /// Type safe subscriber
     typedef Cpl::Dm::Subscriber<MpSimpleAlarm> Observer;
 
     /// Type safe register observer
-    virtual void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept;
+    void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept;
 
     /// Type safe un-register observer
-    virtual void detach( Observer& observer ) noexcept;
+    void detach( Observer& observer ) noexcept;
 
 
 public:
-    /// See Cpl::Dm::Point.  
-    bool toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose=true ) noexcept;
-
-    ///  See Cpl::Dm::ModelPoint.
+    /// See Cpl::Dm::ModelPoint.
     const char* getTypeAsText() const noexcept;
 
-    /// See Cpl::Dm::ModelPoint.  Note: the returned sized does DOES NOT the null terminator
-    size_t getSize() const noexcept;
-
-
-public:
     /// See Cpl::Dm::Point.  
     bool fromJSON_( JsonVariant& src, LockRequest_T lockRequest, uint16_t& retSequenceNumber, Cpl::Text::String* errorMsg ) noexcept;
 
-    /// See Cpl::Dm::ModelPoint. 
-    void copyDataTo_( void* dstData, size_t dstSize ) const noexcept;
+protected:
+    /// See Cpl::Dm::Point.  
+    void setJSONVal( JsonDocument& doc ) noexcept;
 
-    /// See Cpl::Dm::ModelPoint.  
-    void copyDataFrom_( const void* srcData, size_t srcSize ) noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    bool isDataEqual_( const void* otherData ) const noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    const void* getImportExportDataPointer_() const noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    size_t getInternalDataSize_() const noexcept;
+    /// Set valid default values when the MP is invalidated
+    void hookSetInvalid() noexcept;
 };
 
 

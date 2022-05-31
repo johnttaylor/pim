@@ -2,20 +2,19 @@
 """
 import pexpect
 from pexpect.popen_spawn import PopenSpawn
-from pexpect_serial import SerialSpawn
 
 #------------------------------------------------------------------------------
 class ExpectWindowsConsole(object):
     def __init__( self, exename, logfile =None ):
         self.exename    = exename
         self.logfile    = logfile
-        self.child      = pexpect.popen_spawn.PopenSpawn(exename,logfile=logfile,maxread=1)
+        self.child      = pexpect.popen_spawn.PopenSpawn(exename,logfile=logfile,maxread=4096)
 
     def is_detached_uut(self):
         return False;
 
     def respawn( self ):
-        self.child = pexpect.popen_spawn.PopenSpawn(self.exename,logfile=self.logfile,maxread=1)
+        self.child = pexpect.popen_spawn.PopenSpawn(self.exename,logfile=self.logfile,maxread=4096)
 
     def sendline( self, s ):
         self.child.sendline(s)
@@ -98,48 +97,6 @@ class ExpectLinuxConsole(object):
         except:
             pass
 
-#------------------------------------------------------------------------------
-class ExpectSerial(object):
-    def __init__( self, serial, logfile=None ):
-        self.logfile     = logfile
-        self.serial      = serial
-        self.child       = SerialSpawn(serial,logfile=logfile,maxread=1)
-
-    def respawn( self ):
-        self.child = SerialSpawn(self.serial,logfile=self.logfile,maxread=1)
-
-    def is_detached_uut(self):
-        return True;
-
-    def sendline( self, s ):
-        self.child.sendline(s)
-
-    def flush( self ):
-        self.child.flush()
-
-    def read_nonblocking( self, size=1, timeout=-1 ):
-        return self.child.read_nonblocking( size, timeout )
-
-    def expect( self, regex_list, timeout=-1, searchwindowsize=-1 ):
-        return self.child.expect( regex_list, timeout=timeout, searchwindowsize=searchwindowsize )
-
-    def expect_str( self, string_list, timeout=-1, searchwindowsize=-1 ):
-        return self.child.expect_exact( string_list, timeout=timeout, searchwindowsize=searchwindowsize )
-
-    def get_before( self ):
-        r =  self.child.before
-        if ( isinstance(r,bytes) == True ):
-            r = str(r,'utf-8')
-        return r
-
-    def get_after( self ):
-        r =  self.child.after
-        if ( isinstance(r,bytes) == True ):
-            r = str(r,'utf-8')
-        return r
-
-    def close( self ):
-        self.child.close()
 
 #------------------------------------------------------------------------------
 class ExpectNullConsole(object):

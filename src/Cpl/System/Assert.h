@@ -12,6 +12,8 @@
 *----------------------------------------------------------------------------*/
 /** @file */
 
+#include "colony_config.h"
+#include "colony_map.h"
 
 #ifdef USE_CPL_SYSTEM_ASSERT_MACROS
 

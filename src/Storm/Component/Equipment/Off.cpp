@@ -43,7 +43,7 @@ bool Off::executeOff( Args_T& args ) noexcept
     return true;
 }
 
-bool Off::start( Cpl::System::ElapsedTime::Precision_T intervalTime ) noexcept
+bool Off::start( Cpl::System::ElapsedTime::Precision_T& intervalTime ) noexcept
 {
     // Nothing needed/required
     return true;

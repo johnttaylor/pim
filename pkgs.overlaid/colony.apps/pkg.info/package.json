@@ -2,22 +2,6 @@
   "dependencies": {
     "strong": [
       {
-        "pkgname": "colony.core",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Dec  5 14:31:44 2021",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "2.0.2",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.0.2"
-        },
-        "repo": {
-          "name": "colony.core",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "colony.bsp",
         "pkgtype": "overlay",
         "adoptedDate": "Sun Dec  5 14:33:52 2021",
@@ -48,21 +32,19 @@
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
-      }
-    ],
-    "weak": [
+      },
       {
-        "pkgname": "catch",
+        "pkgname": "colony.core",
         "pkgtype": "overlay",
-        "adoptedDate": "Sun Dec  5 14:33:17 2021",
+        "adoptedDate": "Mon May 30 18:37:22 2022",
         "parentDir": null,
         "version": {
-          "semanticVersion": "2.13.7",
+          "semanticVersion": "3.0.0",
           "branch": null,
-          "tag": "OUTCAST2-main-2.13.7"
+          "tag": "OUTCAST2-main-3.0.0"
         },
         "repo": {
-          "name": "catch",
+          "name": "colony.core",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
@@ -70,12 +52,12 @@
       {
         "pkgname": "nqbp",
         "pkgtype": "foreign",
-        "adoptedDate": "Sun Dec  5 14:40:52 2021",
+        "adoptedDate": "Mon May 30 18:39:32 2022",
         "parentDir": "xsrc",
         "version": {
-          "semanticVersion": "2.2.0",
+          "semanticVersion": "2.2.1",
           "branch": null,
-          "tag": "OUTCAST2-main-2.2.0"
+          "tag": "OUTCAST2-main-2.2.1"
         },
         "repo": {
           "name": "nqbp",
@@ -85,21 +67,38 @@
       },
       {
         "pkgname": "ratt",
-        "pkgtype": "foreign",
-        "adoptedDate": "Sun Dec  5 20:28:28 2021",
+        "pkgtype": "readonly",
+        "adoptedDate": "Mon May 30 18:42:13 2022",
         "parentDir": "xsrc",
         "version": {
-          "semanticVersion": "1.0.0",
+          "semanticVersion": "1.0.1",
           "branch": null,
-          "tag": "OUTCAST2-main-1.0.0"
+          "tag": "OUTCAST2-main-1.0.1"
         },
         "repo": {
           "name": "ratt",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
+      },
+      {
+        "pkgname": "catch",
+        "pkgtype": "overlay",
+        "adoptedDate": "Mon May 30 18:52:19 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "2.13.7b",
+          "branch": null,
+          "tag": "OUTCAST2-main-2.13.7b"
+        },
+        "repo": {
+          "name": "catch",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
       }
-    ]
+    ],
+    "weak": []
   },
   "directories": {
     "primary": [
@@ -126,11 +125,18 @@
   },
   "publish": {
     "current": {
-      "comment": "Publish as an Outcast2 package",
-      "version": "1.0.0",
-      "date": "Sun Dec  5 18:54:30 2021",
-      "timestamp": 1638730470
+      "comment": "Pickup latest Model Point changes (from Colony.core - this is breaking change)",
+      "version": "2.0.0",
+      "date": "Mon May 30 19:39:37 2022",
+      "timestamp": 1653939577
     },
-    "history": []
+    "history": [
+      {
+        "comment": "Publish as an Outcast2 package",
+        "version": "1.0.0",
+        "date": "Sun Dec  5 18:54:30 2021",
+        "timestamp": 1638730470
+      }
+    ]
   }
 }

@@ -49,7 +49,7 @@ OperatingMode::OperatingMode( struct Input_T ins, struct Output_T outs )
     CPL_SYSTEM_ASSERT( m_out.userConfigModeAlarm);
 }
 
-bool OperatingMode::start( Cpl::System::ElapsedTime::Precision_T intervalTime )
+bool OperatingMode::start( Cpl::System::ElapsedTime::Precision_T& intervalTime )
 {
     // Initialize my data
     m_prevOperatingMode  = Storm::Type::OperatingMode::eUNKNOWN;
@@ -78,9 +78,9 @@ bool OperatingMode::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     float                                 coolSetpt         = 0.0F;
     bool                                  systemOn          = false;
     Storm::Dm::MpEquipmentConfig::Data    equipmentCfg      = { 0, };
-    Storm::Type::EquipmentTimes_T         equipmentTimes    = { 0, };
+    Storm::Type::EquipmentTimes_T         equipmentTimes;
     Storm::Type::ThermostatMode           userMode          = Storm::Type::ThermostatMode::eOFF;
-    Storm::Type::ComfortConfig_T          comfortConfig     = { 0, };
+    Storm::Type::ComfortConfig_T          comfortConfig;
     int8_t                                validIdt          = m_in.idt->read( idt );
     int8_t                                validUserMode     = m_in.userMode->read( userMode );
     int8_t                                validSetpoints    = m_in.setpoints->read( coolSetpt, heatSetpt );
@@ -88,13 +88,13 @@ bool OperatingMode::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     int8_t                                validEquipTimes   = m_in.equipmentBeginTimes->read( equipmentTimes );
     int8_t                                validComfort      = m_in.comfortConfig->read( comfortConfig );
     int8_t                                validEquipment    = m_in.equipmentConfig->read( equipmentCfg );
-    if ( Cpl::Dm::ModelPoint::IS_VALID( validIdt ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validUserMode ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validSetpoints ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validSystemOn ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validEquipTimes ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validComfort ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validEquipment ) == false )
+    if ( validIdt == false ||
+         validUserMode == false ||
+         validSetpoints == false ||
+         validSystemOn == false ||
+         validEquipTimes == false ||
+         validComfort == false ||
+         validEquipment == false )
     {
         badInputs = true;
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "OperatingMode::execute. One or more invalid MPs (idt=%d, userMode=%d, setpts=%d, sysOn=%d, equipTimes=%d, comfort=%d, equipCfg=%d", validIdt, validUserMode, validSetpoints, validSystemOn, validEquipTimes, validComfort, validEquipment ) );
@@ -132,7 +132,7 @@ bool OperatingMode::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
         //       that method can force the system off (with a noActiveConditioningAlarm)
         uint32_t forceOffRefCnt = 0;
         int8_t   validForceOff  = m_in.systemForcedOffRefCnt->read( forceOffRefCnt );
-        if ( !Cpl::Dm::ModelPoint::IS_VALID( validForceOff ) || forceOffRefCnt > 0 )
+        if ( !validForceOff || forceOffRefCnt > 0 )
         {
             setNewOperatingMode( Storm::Type::OperatingMode::eOFF, haveHeatPump, equipmentCfg, comfortConfig );
         }

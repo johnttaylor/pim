@@ -97,7 +97,7 @@ public:
     OperatingMode( struct Input_T ins, struct Output_T outs );
 
     /// Component specific initialization
-    bool start( Cpl::System::ElapsedTime::Precision_T newInterval );
+    bool start( Cpl::System::ElapsedTime::Precision_T& newInterval );
 
 protected:
     /// Inputs

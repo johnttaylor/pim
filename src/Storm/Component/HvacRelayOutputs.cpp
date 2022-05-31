@@ -38,7 +38,7 @@ HvacRelayOutputs::HvacRelayOutputs( struct Input_T ins, struct Output_T outs )
     CPL_SYSTEM_ASSERT( m_out.relayOutputs );
 }
 
-bool HvacRelayOutputs::start( Cpl::System::ElapsedTime::Precision_T intervalTime )
+bool HvacRelayOutputs::start( Cpl::System::ElapsedTime::Precision_T& intervalTime )
 {
     // Initialize parent class
     return Base::start( intervalTime );
@@ -58,17 +58,17 @@ bool HvacRelayOutputs::execute( Cpl::System::ElapsedTime::Precision_T currentTic
     // Get my inputs
     bool                            failOff         = false;
     Storm::Type::VirtualOutputs_T   outputs         = { 0, };
-    Storm::Type::EquipmentTimes_T   equipTimes      = { 0, };
+    Storm::Type::EquipmentTimes_T   equipTimes;
     bool                            systemOn        = false;
     uint32_t                        forcedOffRefCnt = 0;
     int8_t                          validOutputs    = m_in.vOutputs->read( outputs );
     int8_t                          validEquipment  = m_in.equipmentBeginTimes->read( equipTimes );
     int8_t                          validForceCnt   = m_in.systemForcedOffRefCnt->read( forcedOffRefCnt );
     int8_t                          ValidSysOn      = m_in.systemOn->read( systemOn );
-    if ( Cpl::Dm::ModelPoint::IS_VALID( validForceCnt ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validOutputs ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( ValidSysOn ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validEquipment ) == false )
+    if ( validForceCnt == false ||
+         validOutputs == false ||
+         ValidSysOn == false ||
+         validEquipment == false )
     {
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "HvacRelayOutputs::execute. One or more invalid MPs (forceCnd=%d, vOutputs=%d equipTimes=%d, sysOn=%d", validForceCnt, validOutputs, validEquipment, ValidSysOn ) );
 

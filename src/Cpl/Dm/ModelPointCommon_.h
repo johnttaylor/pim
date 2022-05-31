@@ -18,7 +18,7 @@
 #include "Cpl/Dm/Subscriber.h"
 #include "Cpl/Container/DList.h"
 #include <stdint.h>
-
+#include <stdlib.h>
 
 ///
 namespace Cpl {
@@ -31,35 +31,19 @@ namespace Dm {
 class ModelPointCommon_ : public Cpl::Dm::ModelPoint
 {
 protected:
-    /// List of Active Subscribers
-    Cpl::Container::DList<SubscriberApi>    m_subscribers;
-
-    /// Pointer to the Model Point's static information
-    const StaticInfo&                       m_staticInfo;
-
-    /// Reference to the containing Model Base
-    ModelDatabase&                          m_modelDatabase;
-
-    /// Reference to my Data
-    void*                                   m_dataPtr;
-
-    /// Sequence number used for tracking changes in the Point data
-    uint16_t                                m_seqNum;
-
-    /// Locked state
-    bool                                    m_locked;
-
-    /// Internal valid/invalid state
-    int8_t                                  m_validState;
-
-
-protected:
     /// Constructor
-    ModelPointCommon_( ModelDatabase& myModelBase, void* myDataPtr, StaticInfo& staticInfo, int8_t validState = OPTION_CPL_DM_MODEL_POINT_STATE_INVALID );
+    ModelPointCommon_( ModelDatabase& myModelBase,
+                       const char*    symbolicName,
+                       void*          myDataPtr,
+                       size_t         dataSizeInBytes,
+                       bool           isValid = false );
 
 public:
     /// See Cpl::Dm::ModelPoint
     const char* getName() const noexcept;
+
+    /// See Cpl::Dm::ModelPoint.  This method IS thread safe.
+    size_t getSize() const noexcept;
 
     /// See Cpl::Dm::ModelPoint
     uint16_t getSequenceNumber() const noexcept;
@@ -68,10 +52,10 @@ public:
     uint16_t touch() noexcept;
 
     /// See Cpl::Dm::ModelPoint
-    uint16_t setInvalidState( int8_t newInvalidState, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    uint16_t setInvalid( LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
     /// See Cpl::Dm::ModelPoint
-    int8_t getValidState( void ) const noexcept;
+    bool isNotValid() const noexcept;
 
     /// See Cpl::Dm::ModelPoint
     bool isLocked() const noexcept;
@@ -94,15 +78,18 @@ public:
     /// See Cpl::Dm::ModelPoint
     void genericDetach( SubscriberApi& observer ) noexcept;
 
+    /// See Cpl::Dm::ModelPoint
+    bool toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose=true, bool pretty=false ) noexcept;
+
 protected:
     /// See Cpl::Dm::ModelPoint
-    int8_t read( void* dstData, size_t dstSize, uint16_t* seqNumPtr=0 ) const noexcept;
+    bool read( void* dstData, size_t dstSize, uint16_t* seqNumPtr=0 ) const noexcept;
 
     /// See Cpl::Dm::ModelPoint
     uint16_t write( const void* srcData, size_t srcSize, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
-    /// See Cpl::Dm::ModelPoint
-    uint16_t readModifyWrite( GenericRmwCallback& callbackClient, LockRequest_T lockRequest = eNO_REQUEST );
+    /// Updates the MP with the valid-state/data from 'src'. Note: the src.lock state is NOT copied
+    uint16_t copyFrom( const ModelPointCommon_& src, LockRequest_T lockRequest ) noexcept;
 
     /// See Cpl::Dm::ModelPoint
     void attach( SubscriberApi& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept;
@@ -110,10 +97,22 @@ protected:
     /// See Cpl::Dm::ModelPoint 
     void detach( SubscriberApi& observer ) noexcept;
 
+    /// See Cpl::Dm::ModelPoint
+    void copyDataTo_( void* dstData, size_t dstSize ) const noexcept;
 
-public:
-    /// See Cpl::Container::DictItem
-    const Cpl::Container::Key& getKey() const noexcept;
+    /// See Cpl::Dm::ModelPoint
+    void copyDataFrom_( const void* srcData, size_t srcSize ) noexcept;
+
+    
+    /// See Cpl::Dm::ModelPoint. Note: This implementation does NOT work if the any of the data content are floats/double data types
+    bool isDataEqual_( const void* otherData ) const noexcept;
+
+    /// See Cpl::Dm::ModelPoint.  
+    const void* getImportExportDataPointer_() const noexcept;
+
+    /// See Cpl::Dm::ModelPoint.  
+    size_t getInternalDataSize_() const noexcept;
+
 
 public:
     /// See Cpl::Dm::ModelPoint
@@ -160,15 +159,6 @@ protected:
     virtual bool testAndUpdateLock( LockRequest_T lockRequest ) noexcept;
 
 
-    /** Internal helper method that completes the data update process as well
-        as ensuring any change notifications get generated AFTER a read-modify-
-        write callback.
-
-        This method is NOT thread safe.
-     */
-    virtual void processRmwCallbackResult( RmwCallbackResult_T result ) noexcept;
-
-
 protected:
     /// Helper FSM method
     virtual void transitionToNotifyPending( SubscriberApi& subscriber ) noexcept;
@@ -177,12 +167,42 @@ protected:
     virtual void transitionToSubscribed( SubscriberApi& subscriber ) noexcept;
 
     /// Helper method when converting MP to a JSON string
-    virtual JsonDocument& beginJSON( int8_t validState, bool locked, uint16_t seqnum, bool verbose=true ) noexcept;
+    virtual JsonDocument& beginJSON( bool isValid, bool locked, uint16_t seqnum, bool verbose=true ) noexcept;
 
     /// Helper method when converting MP to a JSON string
-    virtual void endJSON( char* dst, size_t dstSize, bool& truncated, bool verbose=true ) noexcept;
+    virtual void endJSON( char* dst, size_t dstSize, bool& truncated, bool verbose=true, bool pretty=false ) noexcept;
+
+    /** Helper method that a child a class can override to change behavior when
+        an MP is set to the invalid state.  The default behavior is to zero out
+        the data (i.e. perform a memset(m_dataPtr,0, m_dataSize) call on the data)
+     */
+    virtual void hookSetInvalid() noexcept;
 
 
+protected:
+    /// List of Active Subscribers
+    Cpl::Container::DList<SubscriberApi>    m_subscribers;
+
+    /// The model point's symbolic name
+    const char*                             m_name;
+
+    /// Reference to the containing Model Base
+    ModelDatabase&                          m_modelDatabase;
+
+    /// Reference to my Data
+    void*                                   m_dataPtr;
+
+    /// Size of my data
+    size_t                                  m_dataSize;
+
+    /// Sequence number used for tracking changes in the Point data
+    uint16_t                                m_seqNum;
+
+    /// Locked state
+    bool                                    m_locked;
+
+    /// valid/invalid state
+    bool                                    m_valid;
 };
 
 };      // end namespaces

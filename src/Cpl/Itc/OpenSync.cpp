@@ -24,9 +24,9 @@ OpenSync::OpenSync( PostApi& myMbox ) noexcept
 
 
 ///////////////////
-bool OpenSync::open( void )
+bool OpenSync::open( void* args )
 {
-    OpenPayload         payload;
+    OpenPayload         payload(args);
     SyncReturnHandler   srh;
     OpenMsg 	        msg( *this, payload, srh );
     m_mbox.postSync( msg );

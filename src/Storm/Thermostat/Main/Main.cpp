@@ -129,9 +129,9 @@ void initializeModelPoints() noexcept
     mp_pvInhibited.write( false );
     Storm::Type::VirtualOutputs_T zeroVOutputs = { 0, };
     mp_vOutputs.write( zeroVOutputs );
-    Storm::Type::CycleInfo_T zeroCycleInfo                = { 0, };
+    Storm::Type::CycleInfo_T zeroCycleInfo;
     mp_cycleInfo.write( zeroCycleInfo );
-    Storm::Type::EquipmentTimes_T zeroEquipmentBeginTimes = { 0, };
+    Storm::Type::EquipmentTimes_T zeroEquipmentBeginTimes;
     mp_equipmentBeginTimes.write( zeroEquipmentBeginTimes );
 }
 

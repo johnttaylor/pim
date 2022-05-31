@@ -54,7 +54,7 @@ public:
         Components typically does not implement and/or override this method -> they
         simply implement the execute() method.
      */
-    bool doWork( bool enabled, Cpl::System::ElapsedTime::Precision_T currentTick );
+    bool doWork( bool enabled, Cpl::System::ElapsedTime::Precision_T& currentTick );
 
 
     /** The default implementation ONLY manages the initial interval timing and
@@ -62,7 +62,7 @@ public:
         processing - it must override  this method to provide it.  However, the
         child class's implementation still MUST call this base method!
      */
-    bool start( Cpl::System::ElapsedTime::Precision_T newInterval );
+    bool start( Cpl::System::ElapsedTime::Precision_T& newInterval );
 
     /** The default implementation ONLY manages the started/stopped state.  If
         the concrete child class has additional processing - it must override

@@ -12,6 +12,7 @@ src/Storm/Component/Equipment
 src/Storm/Component/Equipment/Stage
 
 # infrastructure
+src/Storm/Type
 src/Storm/Dm
 src/Storm/Utils
 src/Storm/TShell

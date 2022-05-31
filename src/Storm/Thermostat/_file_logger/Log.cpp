@@ -44,8 +44,8 @@ Cpl::TShell::Command::Result_T Log::execute( Cpl::TShell::Context_& context, cha
     // Display current status
     if ( numParms == 1 )
     {
-        Cpl::Text::FString<OPTION_LOGGER_MAX_FILE_NAME> fname;
-        if ( Cpl::Dm::ModelPoint::IS_VALID( mp_loggingFileName.read( fname ) ) == false )
+        Cpl::Text::FString<OPTION_STORM_DM_MAX_FILE_NAME> fname;
+        if ( mp_loggingFileName.read( fname ) == false )
         {
             io = context.writeFrame( "Logging disabled." );
         }
@@ -59,7 +59,7 @@ Cpl::TShell::Command::Result_T Log::execute( Cpl::TShell::Context_& context, cha
     // Enable logging
     else if ( numParms == 3 && tokens.getParameter( 1 )[0] == 'e' )
     {
-        mp_loggingFileName.write( tokens.getParameter(2) );
+        mp_loggingFileName.write( tokens.getParameter( 2 ) );
         outtext.format( "Logging ENABLED. Filename=%s", tokens.getParameter( 2 ) );
         io = context.writeFrame( outtext.getString() );
     }

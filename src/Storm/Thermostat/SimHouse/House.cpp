@@ -63,10 +63,10 @@ void House::executeSimulation()
     Storm::Type::SystemConfig_T     sysCfg;
     Storm::Type::HvacRelayOutputs_T relays;
     bool                            simEnabled;
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_outdoorTemp.read( odt ) ) == true &&
-         Cpl::Dm::ModelPoint::IS_VALID( mp_systemConfig.read( sysCfg ) ) == true &&
-         Cpl::Dm::ModelPoint::IS_VALID( mp_relayOutputs.read( relays ) ) == true &&
-         Cpl::Dm::ModelPoint::IS_VALID( mp_houseSimEnabled.read( simEnabled ) ) == true && simEnabled )
+    if ( mp_outdoorTemp.read( odt ) == true &&
+         mp_systemConfig.read( sysCfg ) == true &&
+         mp_relayOutputs.read( relays ) == true &&
+         mp_houseSimEnabled.read( simEnabled ) == true && simEnabled )
     {
         double capacity = 0.0;
         bool   cooling  = true;
@@ -88,9 +88,9 @@ void House::executeSimulation()
             cooling = false;
 
             // HeatPump with Electric heat
-            if ( sysCfg.indoorUnitType == Storm::Type::IduType::eAIR_HANDLER && ( sysCfg.numCompressorStages + sysCfg.numIndoorStages != 0) )
+            if ( sysCfg.indoorUnitType == Storm::Type::IduType::eAIR_HANDLER && (sysCfg.numCompressorStages + sysCfg.numIndoorStages != 0) )
             {
-                double stageCapacity = 1.0 / ( sysCfg.numCompressorStages + sysCfg.numIndoorStages );
+                double stageCapacity = 1.0 / (sysCfg.numCompressorStages + sysCfg.numIndoorStages);
                 capacity += relays.y1 ? stageCapacity : 0.0;
                 if ( sysCfg.numCompressorStages > 1 )
                 {
@@ -111,7 +111,7 @@ void House::executeSimulation()
             }
 
             // DUAL fuel
-            else  if ( sysCfg.indoorUnitType == Storm::Type::IduType::eFURNACE && sysCfg.numCompressorStages != 0)
+            else  if ( sysCfg.indoorUnitType == Storm::Type::IduType::eFURNACE && sysCfg.numCompressorStages != 0 )
             {
                 // TODO
             }

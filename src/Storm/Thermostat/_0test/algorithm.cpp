@@ -100,7 +100,7 @@ void initializeModelPoints() noexcept
     mp_equipmentConfig.writeIndoorHeatingStages( 1 );
     mp_equipmentConfig.writeIndoorType( Storm::Type::IduType::eFURNACE );
     mp_equipmentConfig.writeOutdoorType( Storm::Type::OduType::eAC );
-    Storm::Type::ComfortStageParameters_T configConfig = { Storm::Type::Cph::e3CPH, 5 * 60, 5 * 50 };
+    Storm::Type::ComfortStageParameters_T configConfig = { 5 * 60, 5 * 50,  Storm::Type::Cph::e3CPH };
     mp_comfortConfig.writeCompressorCooling( configConfig );
     mp_comfortConfig.writeCompressorHeating( configConfig );
     mp_comfortConfig.writeIndoorHeating( configConfig );
@@ -120,9 +120,9 @@ void initializeModelPoints() noexcept
     mp_pvInhibited.write( false );
     Storm::Type::VirtualOutputs_T zeroVOutputs = { 0, };
     mp_vOutputs.write( zeroVOutputs );
-    Storm::Type::CycleInfo_T zeroCycleInfo = { 0, };
+    Storm::Type::CycleInfo_T zeroCycleInfo;
     mp_cycleInfo.write( zeroCycleInfo );
-    Storm::Type::EquipmentTimes_T zeroEquipmentBeginTimes = { 0, };
+    Storm::Type::EquipmentTimes_T zeroEquipmentBeginTimes;
     mp_equipmentBeginTimes.write( zeroEquipmentBeginTimes );
 
     mp_houseSimEnabled.write( false );

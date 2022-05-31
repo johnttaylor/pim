@@ -53,7 +53,7 @@ public:
 
 
 public:
-    ///
+    /// Traverses a directory
     bool traverse( Api::DirectoryWalker& callback );
 };
 

@@ -40,9 +40,11 @@ public:
         /// Pass/Fail result of the open request
         bool m_success;
 
+        /// Optional arguments
+        void* m_args;
     public:
         /// Constructor
-        OpenPayload():m_success( true ) {}
+        OpenPayload( void* args = nullptr ):m_success( true ), m_args(args) {}
     };
 
 

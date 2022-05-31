@@ -36,7 +36,7 @@ AirFilterMonitor::AirFilterMonitor( struct AirFilterMonitor::Input_T ins, struct
     CPL_SYSTEM_ASSERT( m_out.airFilterOperationTime );
 }
 
-bool AirFilterMonitor::start( Cpl::System::ElapsedTime::Precision_T intervalTime )
+bool AirFilterMonitor::start( Cpl::System::ElapsedTime::Precision_T& intervalTime )
 {
     // House keeping
     m_blowerWasOn = false;
@@ -59,17 +59,17 @@ bool AirFilterMonitor::execute( Cpl::System::ElapsedTime::Precision_T currentTic
     // Get my                             inputs
     Storm::Dm::MpSimpleAlarm::Data        alert         ={ 0, };
     uint32_t                              maxHours      = 0;
-    Cpl::System::ElapsedTime::Precision_T elapsedTime   ={ 0, };
+    Cpl::System::ElapsedTime::Precision_T elapsedTime;
     Storm::Type::VirtualOutputs_T         outputs       ={ 0, };
     int8_t                                validAlert    = m_in.airFilterAlert->read( alert );
     int8_t                                validHours    = m_in.maxAirFilterHours->read( maxHours );
     int8_t                                validElapsed  = m_in.airFilterOperationTime->read( elapsedTime );
     int8_t                                validOutputs  = m_in.vOutputs->read( outputs );
 
-    if ( Cpl::Dm::ModelPoint::IS_VALID( validAlert ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validHours ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validElapsed ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validOutputs ) == false )
+    if ( validAlert == false ||
+         validHours == false ||
+         validElapsed == false ||
+         validOutputs == false )
     {
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "AirFilterMonitor::execute. One or more invalid MPs (alert=%d, hours=%d, elapsed=%d vOutput=%d", validAlert, validHours, validElapsed, validOutputs ) );
 

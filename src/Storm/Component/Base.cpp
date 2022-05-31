@@ -39,7 +39,7 @@ void Base::setTimeMarker( Cpl::System::ElapsedTime::Precision_T currentTick )
 }
 
 ///////////////////////////////
-bool Base::doWork( bool enabled, Cpl::System::ElapsedTime::Precision_T currentTick )
+bool Base::doWork( bool enabled, Cpl::System::ElapsedTime::Precision_T& currentTick )
 {
     // Check if my interval time has expired (or first time)
     if ( !m_timeMarkValid || Cpl::System::ElapsedTime::expiredPrecision( m_timeMark, m_interval, currentTick ) )
@@ -83,7 +83,7 @@ bool Base::doWork( bool enabled, Cpl::System::ElapsedTime::Precision_T currentTi
 
 
 ///////////////////////////////
-bool Base::start( Cpl::System::ElapsedTime::Precision_T intervalTime )
+bool Base::start( Cpl::System::ElapsedTime::Precision_T& intervalTime )
 {
     m_interval      = intervalTime;
     m_timeMarkValid = false;

@@ -10,6 +10,7 @@
 *----------------------------------------------------------------------------*/
 #include "atob.h"
 #include "strip.h"
+#include "misc.h"
 #include <stdint.h>
 #include <string.h>
 #include "Cpl/System/Assert.h"
@@ -250,14 +251,11 @@ long Cpl::Text::asciiHexToBuffer( void* dstBinary, const char* srcP, size_t dstM
         return -1;
     }
 
-    char        temp[3] = { '\0', };
-    uint8_t*    dstP    = ( uint8_t*) dstBinary;
-    size_t      len     = strlen( srcP );
-    unsigned    rawByte;
-    size_t      i;
+    uint8_t* dstP = (uint8_t*) dstBinary;
+    size_t   len  = strlen( srcP );
 
     // Length must be even
-    if ( ( len & 1 ) == 1 )
+    if ( (len & 1) == 1 )
     {
         return -1;
     }
@@ -268,22 +266,54 @@ long Cpl::Text::asciiHexToBuffer( void* dstBinary, const char* srcP, size_t dstM
         return -1;
     }
 
-    // Walk the entire string
-    for ( i=0; i < len; i+=2 )
+    // Convert the string
+    if ( !unhex( srcP, len, dstP ) )
     {
-        // Convert the data
-        temp[0] = *srcP++;
-        temp[1] = *srcP++;
-        if ( !a2ui( rawByte, temp, 16 ) )
-        {
-            // Error -->end conversion
-            return -1;
-        }
-
-        *dstP++ = ( uint8_t) rawByte;
+        // Error -->end conversion
+        return -1;
     }
 
     return len / 2;
+}
+
+long Cpl::Text::asciiBinaryToBuffer( void* dstBinary, const char* srcP, size_t dstMaxLen, bool reverse )
+{
+    if ( !dstBinary || !srcP || dstMaxLen == 0 )
+    {
+        return -1;
+    }
+
+    // Calculate the 'start' and 'end' of the data
+    size_t inputCharLen = strlen( srcP );
+    size_t inputBinLen  = ( inputCharLen + 7 ) / 8;
+    dstMaxLen           = inputBinLen > dstMaxLen ? dstMaxLen : inputBinLen;
+    uint8_t* ptr        = reverse ? ( (uint8_t*) dstBinary ) + dstMaxLen - 1 :(uint8_t*) dstBinary ;
+    int      direction  = reverse ? -1 : 1;
+
+    // Loop through the string.  Note: for each 'byte' in the string - MSb ordering is assumed
+    long convertedBits = 0;
+    while ( *srcP != '\0' && dstMaxLen )
+    {
+        uint8_t mask = 0x80;
+        uint8_t data = 0;
+        for ( int i=0; i < 8 && *srcP != '\0'; i++, mask >>= 1, srcP++, convertedBits++ )
+        {
+            if ( *srcP == '1' )
+            {
+                data |= mask;
+            }
+            else if ( *srcP != '0' )
+            {
+                return -1;
+            }
+        }
+
+        *ptr = data;
+        ptr += direction;
+        dstMaxLen--;
+    }
+
+    return convertedBits;
 }
 
 ////////////////////////////////////////////

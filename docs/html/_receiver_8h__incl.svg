@@ -20,7 +20,7 @@
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="_driver_2_uart_2_hal_8h.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="_driver_2_uart_2_hal_8h.html" target="_top" xlink:title="This file defines a hardware abstraction layer (HAL) for accessing a hardware register based UART.">
 <polygon fill="white" stroke="black" points="150.5,-112.5 150.5,-131.5 239.5,-131.5 239.5,-112.5 150.5,-112.5"/>
 <text text-anchor="middle" x="195" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">Driver/Uart/Hal.h</text>
 </a>

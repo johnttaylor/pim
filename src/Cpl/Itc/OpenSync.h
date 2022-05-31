@@ -41,7 +41,7 @@ public:
 
 public:
     /// See OpenApi
-    bool open( void );
+    bool open( void* args = nullptr );
 };
 
 

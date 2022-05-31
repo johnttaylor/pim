@@ -329,19 +329,28 @@ def cleanup_trace( cppfile, namespaces, base, oldfsm, old_trace_headerfile, new_
     newstate = 'stateVars = stateVarsCopy;'
     newcount = 0
     
+    # Update the state machine .cpp file with Tracing tweaks
+    prev_line = ''
     with open( cppfile ) as inf:
         with open( tmpfile, "w") as outf:  
             for line in inf:
-                outf.write( line )
-                if ( line.find( '#include "{}"'.format(oldfsm) ) != -1):
-                    outf.write( '#include "{}{}"\n'.format(path, new_trace_headerfile) )
-                    
-                # Add trace for transitioned TO state (but skip the initialize() method because trace + staticly created instance DON'T mix)    
-                elif ( line.find( newstate ) != -1 ):
-                    newcount += 1
-                    if ( newcount > 1 ):
-                        outf.write( '    CPL_SYSTEM_TRACE_MSG( SECT_, ( "New State=%s", getNameByState(getInnermostActiveState()) ));\n' )
-    
+                # Remove Trace call from the initialize method
+                if ( f"{base}TraceEvent(" in line and f"{base}::initialize()" in prev_line ):
+                    pass
+                
+                # Keep the current line...
+                else:
+                    outf.write( line )
+                    if ( line.find( '#include "{}"'.format(oldfsm) ) != -1):
+                        outf.write( '#include "{}{}"\n'.format(path, new_trace_headerfile) )
+                        
+
+                    # Add trace for transitioned TO state (but skip the initialize() method because trace + statically created instance DON'T mix)    
+                    elif ( line.find( newstate ) != -1 ):
+                        newcount += 1
+                        if ( newcount > 1 ):
+                            outf.write( '    CPL_SYSTEM_TRACE_MSG( SECT_, ( "  New State=%s", getNameByState(getInnermostActiveState()) ));\n' )
+                prev_line = line
     os.remove( cppfile )
     os.rename( tmpfile, cppfile )
 
@@ -364,7 +373,7 @@ def cleanup_trace( cppfile, namespaces, base, oldfsm, old_trace_headerfile, new_
                     outf.write( '#define SECT_ "{}::{}"\n'.format( "::".join(namespaces), base ) )
                     outf.write( '\n' )
                 elif ( line.find( trace_fn ) != -1 ):
-                    outf.write( '#define {}TraceEvent(a) CPL_SYSTEM_TRACE_MSG( SECT_, ( "Old State=%s, Event=%s", getNameByState(getInnermostActiveState()), {}TraceEvents[a] ));\n'.format( base, base) )
+                    outf.write( '#define {}TraceEvent(a) CPL_SYSTEM_TRACE_MSG( SECT_, ( "  Old State=%s, Event=%s", getNameByState(getInnermostActiveState()), {}TraceEvents[a] ));\n'.format( base, base) )
                 elif ( line.find( enum ) != -1 ):
                     pass
                 elif ( line.find( comment ) != -1 ):
@@ -558,7 +567,7 @@ def generateEventClass( class_name, namespaces,  parent_class, parent_header, de
         f.write( "                {\n" )
         f.write( '                CPL_SYSTEM_TRACE_MSG( SECT_, ("  Event IGNORED:= %s", getNameByEvent(msg)) );\n' )
         f.write( "                }\n" )
-        f.write( '            CPL_SYSTEM_TRACE_MSG( SECT_, ("Event Completed:=  %s, end state=%s", getNameByEvent(msg), getNameByState(getInnermostActiveState())) );\n' )
+        f.write( '            CPL_SYSTEM_TRACE_MSG( SECT_, ("  Event Completed:=  %s, end state=%s", getNameByEvent(msg), getNameByState(getInnermostActiveState())) );\n' )
         f.write( "            }\n" )
         f.write( "\n" )
         f.write( "        m_processingFsmEvent = false;\n" )

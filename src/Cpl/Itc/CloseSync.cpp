@@ -24,9 +24,9 @@ CloseSync::CloseSync( PostApi& myMbox ) noexcept
 
 
 ///////////////////
-bool CloseSync::close( void )
+bool CloseSync::close( void* args )
 {
-    ClosePayload        payload;
+    ClosePayload        payload(args);
     SyncReturnHandler   srh;
     CloseMsg 	        msg( *this, payload, srh );
     m_mbox.postSync( msg );

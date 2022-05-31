@@ -27,36 +27,14 @@
 using namespace Storm::Dm;
 
 ///////////////////////////////////////////////////////////////////////////////
-MpVirtualOutputs::MpVirtualOutputs( Cpl::Dm::ModelDatabase& myModelBase, Cpl::Dm::StaticInfo& staticInfo )
-    :ModelPointCommon_( myModelBase, &m_data, staticInfo, MODEL_POINT_STATE_VALID )
+MpVirtualOutputs::MpVirtualOutputs( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
+    : ModelPointCommon_( myModelBase, symbolicName, &m_data, sizeof( m_data ), true )
 {
-    memset( &m_data, 0, sizeof( m_data ) );
+    hookSetInvalid();   // Default everything to OFF (and the SOV in cooling)
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
-uint16_t MpVirtualOutputs::setInvalidState( int8_t newInvalidState, LockRequest_T lockRequest ) noexcept
-{
-    // Set all outputs to off when invalidating the Model Point
-    m_modelDatabase.lock_();
-    memset( &m_data, 0, sizeof( m_data ) );
-    uint16_t result = ModelPointCommon_::setInvalidState( newInvalidState, lockRequest );
-    m_modelDatabase.unlock_();
-    return result;
-}
-
-int8_t MpVirtualOutputs::read( Storm::Type::VirtualOutputs_T& dstData, uint16_t* seqNumPtr ) const noexcept
-{
-    return ModelPointCommon_::read( &dstData, sizeof( Storm::Type::VirtualOutputs_T ), seqNumPtr );
-}
-
-uint16_t MpVirtualOutputs::write( const Storm::Type::VirtualOutputs_T& srcData, LockRequest_T lockRequest ) noexcept
-{
-    Storm::Type::VirtualOutputs_T newData = srcData;
-    validate( newData );
-    return ModelPointCommon_::write( &newData, sizeof( Storm::Type::VirtualOutputs_T ), lockRequest );
-}
-
 uint16_t MpVirtualOutputs::setIndoorFanOutput( uint16_t fanSpeed, LockRequest_T lockRequest ) noexcept
 {
     Storm::Type::VirtualOutputs_T newData;
@@ -91,7 +69,7 @@ uint16_t MpVirtualOutputs::setIndoorStageOutput( uint8_t stageIndex, uint16_t st
     // Trap out-of-range stage index value
     if ( stageIndex >= STORM_MAX_INDOOR_STAGES )
     {
-        CPL_SYSTEM_TRACE_MSG( SECT_, ( "MpVirtualOutputs::MpVirtualOutputs() Invalid INDOOR stage index=%d (num stages=%d)", stageIndex, STORM_MAX_OUTDOOR_STAGES ) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ("MpVirtualOutputs::MpVirtualOutputs() Invalid INDOOR stage index=%d (num stages=%d)", stageIndex, STORM_MAX_OUTDOOR_STAGES) );
         return getSequenceNumber();
     }
 
@@ -127,7 +105,7 @@ uint16_t MpVirtualOutputs::setOutdoorStageOutput( uint8_t stageIndex, uint16_t s
     // Trap out-of-range stage index value
     if ( stageIndex >= STORM_MAX_OUTDOOR_STAGES )
     {
-        CPL_SYSTEM_TRACE_MSG( SECT_, ( "MpVirtualOutputs::MpVirtualOutputs() Invalid OUTDOOR stage index=%d (num stages=%d)", stageIndex, STORM_MAX_OUTDOOR_STAGES ) );
+        CPL_SYSTEM_TRACE_MSG( SECT_, ("MpVirtualOutputs::MpVirtualOutputs() Invalid OUTDOOR stage index=%d (num stages=%d)", stageIndex, STORM_MAX_OUTDOOR_STAGES) );
         return getSequenceNumber();
     }
 
@@ -223,11 +201,6 @@ uint16_t MpVirtualOutputs::setSafeAllOff( LockRequest_T lockRequest ) noexcept
 }
 
 
-uint16_t MpVirtualOutputs::readModifyWrite( Client& callbackClient, LockRequest_T lockRequest )
-{
-    return ModelPointCommon_::readModifyWrite( callbackClient, lockRequest );
-}
-
 void MpVirtualOutputs::attach( Observer& observer, uint16_t initialSeqNumber ) noexcept
 {
     ModelPointCommon_::attach( observer, initialSeqNumber );
@@ -238,25 +211,6 @@ void MpVirtualOutputs::detach( Observer& observer ) noexcept
     ModelPointCommon_::detach( observer );
 }
 
-bool MpVirtualOutputs::isDataEqual_( const void* otherData ) const noexcept
-{
-    return  memcmp( &m_data, otherData, sizeof( m_data ) ) == 0;
-}
-
-void MpVirtualOutputs::copyDataTo_( void* dstData, size_t dstSize ) const noexcept
-{
-    CPL_SYSTEM_ASSERT( dstSize == sizeof( Storm::Type::VirtualOutputs_T ) );
-    Storm::Type::VirtualOutputs_T* dstDataPtr = ( Storm::Type::VirtualOutputs_T* ) dstData;
-    *dstDataPtr = m_data;
-}
-
-void MpVirtualOutputs::copyDataFrom_( const void* srcData, size_t srcSize ) noexcept
-{
-    CPL_SYSTEM_ASSERT( srcSize == sizeof( Storm::Type::VirtualOutputs_T ) );
-    Storm::Type::VirtualOutputs_T* dataSrcPtr = ( Storm::Type::VirtualOutputs_T* ) srcData;
-    m_data = *dataSrcPtr;
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////
 const char* MpVirtualOutputs::getTypeAsText() const noexcept
@@ -264,64 +218,30 @@ const char* MpVirtualOutputs::getTypeAsText() const noexcept
     return "Storm::Dm::MpVirtualOutputs";
 }
 
-size_t MpVirtualOutputs::getSize() const noexcept
+
+void MpVirtualOutputs::setJSONVal( JsonDocument& doc ) noexcept
 {
-    return sizeof( Storm::Type::VirtualOutputs_T );
-}
+    JsonObject valObj   = doc.createNestedObject( "val" );
+    valObj["idFan"]     = m_data.indoorFan;
+    valObj["idFanCont"] = m_data.indoorFanCont;
+    valObj["odFan"]     = m_data.outdoorFan;
+    valObj["sovHeat"]   = m_data.sovInHeating;
 
-size_t MpVirtualOutputs::getInternalDataSize_() const noexcept
-{
-    return sizeof( Storm::Type::VirtualOutputs_T );
-}
-
-
-const void* MpVirtualOutputs::getImportExportDataPointer_() const noexcept
-{
-    return &m_data;
-}
-
-bool MpVirtualOutputs::toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose ) noexcept
-{
-    // Get my state
-    m_modelDatabase.lock_();
-    uint16_t seqnum = m_seqNum;
-    int8_t   valid  = m_validState;
-    bool     locked = m_locked;
-
-    // Start the conversion
-    JsonDocument& doc = beginJSON( valid, locked, seqnum, verbose );
-
-    // Construct the 'val' key/value pair 
-    if ( IS_VALID( valid ) )
+    JsonArray  idStages = valObj.createNestedArray( "idStages" );
+    for ( int i=0; i < STORM_MAX_INDOOR_STAGES; i++ )
     {
-        JsonObject valObj   = doc.createNestedObject( "val" );
-        valObj["idFan"]     = m_data.indoorFan;
-        valObj["idFanCont"] = m_data.indoorFanCont;
-        valObj["odFan"]     = m_data.outdoorFan;
-        valObj["sovHeat"]   = m_data.sovInHeating;
-
-        JsonArray  idStages = valObj.createNestedArray( "idStages" );
-        for ( int i=0; i < STORM_MAX_INDOOR_STAGES; i++ )
-        {
-            JsonObject elemObj  = idStages.createNestedObject();
-            elemObj["stage"]    = i + 1;
-            elemObj["capacity"] = m_data.indoorStages[i];
-        }
-
-        JsonArray  odStages = valObj.createNestedArray( "odStages" );
-        for ( int i=0; i < STORM_MAX_OUTDOOR_STAGES; i++ )
-        {
-            JsonObject elemObj  = odStages.createNestedObject();
-            elemObj["stage"]    = i + 1;
-            elemObj["capacity"] = m_data.outdoorStages[i];
-        }
+        JsonObject elemObj  = idStages.createNestedObject();
+        elemObj["stage"]    = i + 1;
+        elemObj["capacity"] = m_data.indoorStages[i];
     }
 
-    // End the conversion
-    endJSON( dst, dstSize, truncated, verbose );
-
-    m_modelDatabase.unlock_();
-    return true;
+    JsonArray  odStages = valObj.createNestedArray( "odStages" );
+    for ( int i=0; i < STORM_MAX_OUTDOOR_STAGES; i++ )
+    {
+        JsonObject elemObj  = odStages.createNestedObject();
+        elemObj["stage"]    = i + 1;
+        elemObj["capacity"] = m_data.outdoorStages[i];
+    }
 }
 
 
@@ -329,51 +249,60 @@ bool MpVirtualOutputs::fromJSON_( JsonVariant& src, LockRequest_T lockRequest, u
 {
     Storm::Type::VirtualOutputs_T updatedData = m_data;
 
-    // Parameters
-    updatedData.indoorFan     = src["idFan"] | updatedData.indoorFan;
-    updatedData.indoorFanCont = src["idFanCont"] | updatedData.indoorFanCont;
-    updatedData.outdoorFan    = src["odFan"] | updatedData.outdoorFan;
-    updatedData.sovInHeating  = src["sovHeat"] | updatedData.sovInHeating;
-
-    // Indoor Output stages
-    JsonArray idStages = src["idStages"];
-    for ( unsigned i=0; i < idStages.size(); i++ )
+    if ( src.is<JsonObject>() )
     {
-        int stageNum = idStages[i]["stage"];
-        if ( stageNum < 1 || stageNum > STORM_MAX_INDOOR_STAGES )
+        // Parameters
+        updatedData.indoorFan     = src["idFan"] | updatedData.indoorFan;
+        updatedData.indoorFanCont = src["idFanCont"] | updatedData.indoorFanCont;
+        updatedData.outdoorFan    = src["odFan"] | updatedData.outdoorFan;
+        updatedData.sovInHeating  = src["sovHeat"] | updatedData.sovInHeating;
+
+        // Indoor Output stages
+        if ( src["idStages"].is<JsonArray>() )
         {
-            if ( errorMsg )
+            JsonArray idStages = src["idStages"];
+            for ( unsigned i=0; i < idStages.size(); i++ )
             {
-                errorMsg->format( "Invalid indoor stage number (%d)", stageNum );
+                if ( idStages[i]["stage"].is<unsigned>() )
+                {
+                    unsigned stageNum = idStages[i]["stage"];
+                    if ( stageNum > 0 && stageNum <= STORM_MAX_INDOOR_STAGES )
+                    {
+                        updatedData.indoorStages[stageNum - 1] = idStages[i]["capacity"] | updatedData.indoorStages[stageNum - 1];
+                    }
+                }
             }
-            return false;
         }
 
-        updatedData.indoorStages[stageNum - 1] = idStages[i]["capacity"] | updatedData.indoorStages[stageNum - 1];
-    }
-
-    // Outdoor Output stages
-    JsonArray odStages = src["odStages"];
-    for ( unsigned i=0; i < odStages.size(); i++ )
-    {
-        int stageNum = odStages[i]["stage"];
-        if ( stageNum < 1 || stageNum > STORM_MAX_OUTDOOR_STAGES )
+        // Outdoor Output stages
+        if ( src["odStages"].is<JsonArray>() )
         {
-            if ( errorMsg )
+            JsonArray odStages = src["odStages"];
+            for ( unsigned i=0; i < odStages.size(); i++ )
             {
-                errorMsg->format( "Invalid outdoor stage number (%d)", stageNum );
+                if ( odStages[i]["stage"].is<unsigned>() )
+                {
+                    int stageNum = odStages[i]["stage"];
+                    if ( stageNum > 0 && stageNum <= STORM_MAX_OUTDOOR_STAGES )
+                    {
+                        updatedData.outdoorStages[stageNum - 1] = odStages[i]["capacity"] | updatedData.outdoorStages[stageNum - 1];
+                    }
+                }
             }
-            return false;
         }
 
-        updatedData.outdoorStages[stageNum - 1] = odStages[i]["capacity"] | updatedData.outdoorStages[stageNum - 1];
+        retSequenceNumber = write( updatedData, lockRequest );
+        return true;
     }
 
-    retSequenceNumber = write( updatedData, lockRequest );
-    return true;
+    if ( errorMsg )
+    {
+        errorMsg->format( "Invalid key/value pair" );
+    }
+    return false;
 }
 
-void MpVirtualOutputs::validate( Storm::Type::VirtualOutputs_T& newValues ) const noexcept
+void MpVirtualOutputs::validate( Storm::Type::VirtualOutputs_T & newValues ) const noexcept
 {
     if ( newValues.indoorFan > MAX_OUTPUT )
     {
@@ -406,7 +335,7 @@ void MpVirtualOutputs::validate( Storm::Type::VirtualOutputs_T& newValues ) cons
 
 
 ///////////////////////////////////////////////////////////////////////////////
-bool MpVirtualOutputs::areStagesOn( const Storm::Type::VirtualOutputs_T& outputs )
+bool MpVirtualOutputs::areStagesOn( const Storm::Type::VirtualOutputs_T & outputs )
 {
     for ( int i=0; i < STORM_MAX_INDOOR_STAGES; i++ )
     {
@@ -427,12 +356,11 @@ bool MpVirtualOutputs::areStagesOn( const Storm::Type::VirtualOutputs_T& outputs
     return false;
 }
 
-void MpVirtualOutputs::setSafeAllOff( Storm::Type::VirtualOutputs_T& outputs )
+void MpVirtualOutputs::setSafeAllOff( Storm::Type::VirtualOutputs_T & outputs )
 {
-    memset( outputs.indoorStages, 0, sizeof( outputs.indoorStages ) );
-    memset( outputs.outdoorStages, 0, sizeof( outputs.outdoorStages ) );
-    outputs.indoorFan      = STORM_DM_MP_VIRTUAL_OUTPUTS_OFF;
-    outputs.indoorFanCont  = STORM_DM_MP_VIRTUAL_OUTPUTS_OFF;
-    outputs.outdoorFan     = STORM_DM_MP_VIRTUAL_OUTPUTS_OFF;
+    // Set everything to ZERO, but preserve the SOV setting
+    bool sov = outputs.sovInHeating;
+    memset( &outputs, 0, sizeof( Storm::Type::VirtualOutputs_T ) );
+    outputs.sovInHeating = sov;
 }
 

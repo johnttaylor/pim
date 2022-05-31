@@ -41,7 +41,7 @@ Control::Control( Control::Equipment& controlLogic, struct Input_T ins, struct O
     CPL_SYSTEM_ASSERT( m_out.vOutputs );
 }
 
-bool Control::start( Cpl::System::ElapsedTime::Precision_T intervalTime )
+bool Control::start( Cpl::System::ElapsedTime::Precision_T& intervalTime )
 {
     // Initialize parent class
     bool result = Base::start( intervalTime );
@@ -68,14 +68,14 @@ bool Control::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     int8_t                          validCycleInfo = m_in.cycleInfo->read( args.cycleInfo );
     int8_t                          validOpModeChg = m_in.operatingModeChanged->read( operatingModeChanged );
     int8_t                          validWhiteBox  = m_in.whiteBox->read( args.whiteBox );
-    if ( Cpl::Dm::ModelPoint::IS_VALID( validSystem ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validOutputs ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validEquipment ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validSystemOn ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validCycleInfo ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validOpModeChg ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validWhiteBox ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validPvOut ) == false )
+    if ( validSystem == false ||
+         validOutputs == false ||
+         validEquipment == false ||
+         validSystemOn == false ||
+         validCycleInfo == false ||
+         validOpModeChg == false ||
+         validWhiteBox == false ||
+         validPvOut == false )
     {
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "Control::execute. One or more invalid MPs (system=%d, pvOut=%d, vOutputs=%d equipTimes=%d, systemOn=%d, cycle=%d, opModeChg=%d, whiteBox=%d", validSystem, validPvOut, validOutputs, validEquipment, validSystemOn, validCycleInfo, validOpModeChg, validWhiteBox ) );
 

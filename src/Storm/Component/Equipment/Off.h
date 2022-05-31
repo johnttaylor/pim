@@ -40,7 +40,7 @@ public:
     bool executeOff( Args_T& args ) noexcept;
 
     /// See Storm::Component::Control::Equipment
-    bool start( Cpl::System::ElapsedTime::Precision_T intervalTime ) noexcept;
+    bool start( Cpl::System::ElapsedTime::Precision_T& intervalTime ) noexcept;
 
     /// See Storm::Component::Control::Equipment
     void reset() noexcept;

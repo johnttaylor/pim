@@ -42,20 +42,23 @@ public:
     void stop() noexcept;
 
     /// See Cpl::Persistent::Chunk
-    bool loadData( Payload& dstHandler ) noexcept;
+    bool loadData( Payload& dstHandler, size_t index=0  ) noexcept;
 
     /// See Cpl::Persistent::Chunk
-    bool updateData( Payload& srcHandler ) noexcept;
+    bool updateData( Payload& srcHandler, size_t index=0, bool invalidate=false  ) noexcept;
+
+    /// See Cpl::Persistent::Chunk
+    size_t getMetadataLength() const noexcept;
 
 protected:
     /// Helper method.  If the region is 'corrupt' a transaction ID of zero is returned
-    uint64_t getTransactionId( RegionMedia& region, size_t& dataLen );
+    uint64_t virtual getTransactionId( RegionMedia& region, size_t& dataLen, size_t index=0  );
 
     /// Helper method. Encapsulates pushing data to the record
     virtual bool pushToRecord(Payload& dstHandler);
 
-    /// Helper method. Encapsulates retrieving data from the record
-    virtual bool pullFromRecord(Payload& srcHandler);
+    /// Helper method. Encapsulates retrieving data from the record. Returns the length of the data
+    virtual size_t pullFromRecord( Payload& srcHandler );
 
     /// Helper method. Encapsulates actions that occur when there is NO VALID data
     virtual void reset();

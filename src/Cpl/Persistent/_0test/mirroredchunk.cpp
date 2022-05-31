@@ -93,7 +93,9 @@ public:
 
 static MyPayload    payload1_( "Hello" );
 static MyPayload    payload2_( "World" );
-static RecordServer mockEvents_( { 0 } );
+static Record*      records_[] ={ 0 };
+
+static RecordServer mockEvents_( records_ );
 
 #define FILE_NAME_REGION1   "region1.nvram"
 #define FILE_NAME_REGION2   "region2.nvram"
@@ -122,8 +124,6 @@ TEST_CASE( "MirroredChunk" )
 
     SECTION( "Load/update" )
     {
-        uut.start( mockEvents_ );
-    
         // Delete files
         Cpl::Io::File::Api::remove( FILE_NAME_REGION1 );
         Cpl::Io::File::Api::remove( FILE_NAME_REGION2 );

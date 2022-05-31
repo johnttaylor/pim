@@ -58,12 +58,12 @@ TEST_CASE( "PI" )
 
         float pvOut, sumError;
         bool  pvInhibited;
-        int8_t validPvOut = mp_pvOut.read( pvOut );
-        int8_t validSumErr = mp_sumError.read( sumError );
-        int8_t validPvInhibit = mp_pvInhibited.read( pvInhibited );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvOut ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validSumErr ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvInhibit ) == true );
+        bool validPvOut = mp_pvOut.read( pvOut );
+        bool validSumErr = mp_sumError.read( sumError );
+        bool validPvInhibit = mp_pvInhibited.read( pvInhibited );
+        REQUIRE( validPvOut == true );
+        REQUIRE( validSumErr == true );
+        REQUIRE( validPvInhibit == true );
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "pvOut=%g, sumError=%g", pvOut, sumError ) );
         REQUIRE( Cpl::Math::areFloatsEqual( pvOut, 10.1F ) == true );
         REQUIRE( Cpl::Math::areFloatsEqual( sumError, 1.0F ) == true );
@@ -95,12 +95,12 @@ TEST_CASE( "PI" )
 
         float pvOut, sumError;
         bool  pvInhibited;
-        int8_t validPvOut = mp_pvOut.read( pvOut );
-        int8_t validSumErr = mp_sumError.read( sumError );
-        int8_t validPvInhibit = mp_pvInhibited.read( pvInhibited );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvOut ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validSumErr ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvInhibit ) == true );
+        bool validPvOut = mp_pvOut.read( pvOut );
+        bool validSumErr = mp_sumError.read( sumError );
+        bool validPvInhibit = mp_pvInhibited.read( pvInhibited );
+        REQUIRE( validPvOut == true );
+        REQUIRE( validSumErr == true );
+        REQUIRE( validPvInhibit == true );
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "pvOut=%g, sumError=%g", pvOut, sumError ) );
         REQUIRE( Cpl::Math::areFloatsEqual( pvOut, 10.1F ) == true );
         REQUIRE( Cpl::Math::areFloatsEqual( sumError, 1.0F ) == true );
@@ -161,12 +161,12 @@ TEST_CASE( "PI" )
 
         float pvOut, sumError;
         bool  pvInhibited;
-        int8_t validPvOut = mp_pvOut.read( pvOut );
-        int8_t validSumErr = mp_sumError.read( sumError );
-        int8_t validPvInhibit = mp_pvInhibited.read( pvInhibited );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvOut ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validSumErr ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvInhibit ) == true );
+        bool validPvOut = mp_pvOut.read( pvOut );
+        bool validSumErr = mp_sumError.read( sumError );
+        bool validPvInhibit = mp_pvInhibited.read( pvInhibited );
+        REQUIRE( validPvOut == true );
+        REQUIRE( validSumErr == true );
+        REQUIRE( validPvInhibit == true );
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "pvOut=%g, sumError=%g", pvOut, sumError ) );
         REQUIRE( Cpl::Math::areFloatsEqual( pvOut, 10.1F ) == true );
         REQUIRE( Cpl::Math::areFloatsEqual( sumError, 1.0F ) == true );
@@ -227,12 +227,12 @@ TEST_CASE( "PI" )
 
         float pvOut, sumError;
         bool  pvInhibited;
-        int8_t validPvOut = mp_pvOut.read( pvOut );
-        int8_t validSumErr = mp_sumError.read( sumError );
-        int8_t validPvInhibit = mp_pvInhibited.read( pvInhibited );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvOut ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validSumErr ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvInhibit ) == true );
+        bool validPvOut = mp_pvOut.read( pvOut );
+        bool validSumErr = mp_sumError.read( sumError );
+        bool validPvInhibit = mp_pvInhibited.read( pvInhibited );
+        REQUIRE( validPvOut == true );
+        REQUIRE( validSumErr == true );
+        REQUIRE( validPvInhibit == true );
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "pvOut=%g, sumError=%g", pvOut, sumError ) );
         REQUIRE( Cpl::Math::areFloatsEqual( pvOut, 200.0F ) == true );
         REQUIRE( Cpl::Math::areFloatsEqual( sumError, 0.0F ) == true );
@@ -248,12 +248,12 @@ TEST_CASE( "PI" )
 
         float pvOut, sumError;
         bool  pvInhibited;
-        int8_t validPvOut = mp_pvOut.read( pvOut );
-        int8_t validSumErr = mp_sumError.read( sumError );
-        int8_t validPvInhibit = mp_pvInhibited.read( pvInhibited );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvOut ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validSumErr ) == true );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( validPvInhibit ) == true );
+        bool validPvOut = mp_pvOut.read( pvOut );
+        bool validSumErr = mp_sumError.read( sumError );
+        bool validPvInhibit = mp_pvInhibited.read( pvInhibited );
+        REQUIRE( validPvOut == true );
+        REQUIRE( validSumErr == true );
+        REQUIRE( validPvInhibit == true );
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "pvOut=%g, sumError=%g", pvOut, sumError ) );
         REQUIRE( Cpl::Math::areFloatsEqual( pvOut, 0.0F ) == true );
         REQUIRE( Cpl::Math::areFloatsEqual( sumError, 0.0F ) == true );

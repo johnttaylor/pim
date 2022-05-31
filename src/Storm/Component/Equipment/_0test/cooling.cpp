@@ -46,7 +46,8 @@ TEST_CASE( "Cooling" )
 
     // start() and reset()
     REQUIRE( stage1.m_countRequestModeToOff == 0 );
-    uut.start( { 0, 100 } );
+    Cpl::System::ElapsedTime::Precision_T tick = { 0,100 };
+    uut.start( tick );
     REQUIRE( stage1.m_countRequestModeToOff == 1 );
     uut.executeOff( args );
     REQUIRE( stage1.m_countRequestModeToOff == 2 );

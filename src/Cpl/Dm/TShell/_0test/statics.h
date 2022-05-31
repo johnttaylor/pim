@@ -15,7 +15,6 @@
 #include "Cpl/Dm/TShell/Dm.h"
 #include "Cpl/Dm/ModelDatabase.h"
 #include "Cpl/Dm/Mp/Int32.h"
-#include "Cpl/Dm/Mp/String.h"
 
 
 
@@ -41,11 +40,6 @@ static Cpl::Dm::ModelDatabase   modelDb_( "ignoreThisParameter_usedToInvokeTheSt
 static Cpl::Dm::TShell::Dm		dmCmd_( cmdlist, modelDb_, "dm" );
 
 // Allocate my Model Points
-static Cpl::Dm::StaticInfo      info_mp_apple_( "APPLE" );
-static Cpl::Dm::Mp::Int32       mp_apple_( modelDb_, info_mp_apple_ );
+static Cpl::Dm::Mp::Int32       mp_apple_( modelDb_, "APPLE"  );
 
-static Cpl::Dm::StaticInfo      info_mp_orange_( "ORANGE" );
-static Cpl::Dm::Mp::Int32       mp_orange_( modelDb_, info_mp_orange_, 32, false );
-
-static Cpl::Dm::StaticInfo      info_mp_plum_( "PLUM" );
-static Cpl::Dm::Mp::String      mp_plum_( modelDb_, info_mp_plum_, 64, "hello bob" );
+static Cpl::Dm::Mp::Int32       mp_orange_( modelDb_, "ORANGE", 32 );

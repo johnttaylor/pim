@@ -37,7 +37,7 @@ public:
     /** Synchronously opens/initializes the called object. Returns true
         if the open operation was successful
      */
-    virtual bool open( void ) = 0;
+    virtual bool open( void* args = nullptr ) = 0;
 
 
 public:

@@ -145,11 +145,11 @@ void Storm::Thermostat::Outputs::updateHVACOutputs()
     uint16_t                        seqNumUserCfgMode;
     uint16_t                        seqNumIdtAlarms;
     uint16_t                        seqNumAirFilterAlert;
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_relayOutputs.read( relays, &seqNumRelays ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_noActiveConditioningAlarm.read( noActiveCond, &seqNumNoActiveCond ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_userCfgModeAlarm.read( userCfgMode, &seqNumUserCfgMode ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_airFilterAlert.read( airFilterAlert, &seqNumAirFilterAlert ) ) == false ||
-        Cpl::Dm::ModelPoint::IS_VALID( mp_idtAlarms.read( idt, &seqNumIdtAlarms ) ) == false )
+    if ( mp_relayOutputs.read( relays, &seqNumRelays ) == false ||
+         mp_noActiveConditioningAlarm.read( noActiveCond, &seqNumNoActiveCond ) == false ||
+         mp_userCfgModeAlarm.read( userCfgMode, &seqNumUserCfgMode ) == false ||
+         mp_airFilterAlert.read( airFilterAlert, &seqNumAirFilterAlert ) == false ||
+         mp_idtAlarms.read( idt, &seqNumIdtAlarms ) == false )
     {
         if ( HAS_CHANGED() )
         {

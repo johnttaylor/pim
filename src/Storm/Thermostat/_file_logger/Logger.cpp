@@ -36,17 +36,17 @@ void Logger::recordSystemData( Cpl::System::ElapsedTime::Precision_T currentInte
         Storm::Type::SystemConfig_T     sysCfg;
         Storm::Type::ThermostatMode     thermostatMode = Storm::Type::ThermostatMode::eOFF;
         Storm::Type::FanMode            fanMode = Storm::Type::FanMode::eAUTO;
-        if ( Cpl::Dm::ModelPoint::IS_VALID( mp_activeIdt.read( idt ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_outdoorTemp.read( odt ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_pvOut.read( pvOut ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_sumError.read( pvSum ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_deltaIdtError.read( err ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_relayOutputs.read( relays ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_setpoints.read( cool, heat ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_systemOn.read( systemOn ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_systemConfig.read( sysCfg ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_userMode.read( thermostatMode ) ) == true &&
-             Cpl::Dm::ModelPoint::IS_VALID( mp_fanMode.read( fanMode ) ) == true )
+        if ( mp_activeIdt.read( idt ) == true &&
+             mp_outdoorTemp.read( odt ) == true &&
+             mp_pvOut.read( pvOut ) == true &&
+             mp_sumError.read( pvSum ) == true &&
+             mp_deltaIdtError.read( err ) == true &&
+             mp_relayOutputs.read( relays ) == true &&
+             mp_setpoints.read( cool, heat ) == true &&
+             mp_systemOn.read( systemOn ) == true &&
+             mp_systemConfig.read( sysCfg ) == true &&
+             mp_userMode.read( thermostatMode ) == true &&
+             mp_fanMode.read( fanMode ) == true )
         {
             // HEADER: "TimeMs,TimeSec,TimeMin,TimeHrs Idt,Odt,Err, pvOut,pvSum, sysOn, G,BK,Y1,Y2,W1,W2,W3,SovIsCool, CoolSetpt,HeatSetpt, OpMode,UserMode,FanMode" 
             unsigned long timeMs = currentInterval.m_seconds * 1000 + currentInterval.m_thousandths;
@@ -67,11 +67,11 @@ void Logger::recordSystemData( Cpl::System::ElapsedTime::Precision_T currentInte
 
 bool isLoggingEnabled()
 {
-    Cpl::Text::FString<OPTION_LOGGER_MAX_FILE_NAME> fname;
-    int8_t valid = mp_loggingFileName.read( fname );
+    Cpl::Text::FString<OPTION_STORM_DM_MAX_FILE_NAME> fname;
+    bool valid = mp_loggingFileName.read( fname );
 
     // Transition to valid -->Start Logging
-    if ( fd_ == nullptr && Cpl::Dm::ModelPoint::IS_VALID( valid ) == true )
+    if ( fd_ == nullptr && valid == true )
     {
         fd_ = new( std::nothrow ) Cpl::Io::File::Output( fname.getString(), true, true );
         if ( fd_ == nullptr )
@@ -86,7 +86,7 @@ bool isLoggingEnabled()
     }
 
     // Transition to invalid -->Turn OFF logging
-    else if ( fd_ && Cpl::Dm::ModelPoint::IS_VALID( valid ) == false )
+    else if ( fd_ && valid == false )
     {
         fd_->close();
         delete fd_;

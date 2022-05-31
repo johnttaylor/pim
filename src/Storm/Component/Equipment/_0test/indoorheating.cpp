@@ -56,7 +56,8 @@ TEST_CASE( "Indoor Heating" )
         REQUIRE( stage1.m_countRequestModeToOff == 0 );
         REQUIRE( stage2.m_countRequestModeToOff == 0 );
         REQUIRE( stage3.m_countRequestModeToOff == 0 );
-        uut.start( { 0, 100 } );
+        Cpl::System::ElapsedTime::Precision_T tick ={ 0,100 };
+        uut.start( tick );
         REQUIRE( stage1.m_countRequestModeToOff == 1 );
         REQUIRE( stage2.m_countRequestModeToOff == 1 );
         REQUIRE( stage3.m_countRequestModeToOff == 1 );
@@ -162,7 +163,8 @@ TEST_CASE( "Indoor Heating" )
         REQUIRE( stage1.m_countRequestModeToOff == 0 );
         REQUIRE( stage2.m_countRequestModeToOff == 0 );
         REQUIRE( stage3.m_countRequestModeToOff == 0 );
-        uut.start( { 0, 100 } );
+        Cpl::System::ElapsedTime::Precision_T tick ={ 0,100 };
+        uut.start( tick );
         REQUIRE( stage1.m_countRequestModeToOff == 1 );
         REQUIRE( stage2.m_countRequestModeToOff == 1 );
         REQUIRE( stage3.m_countRequestModeToOff == 1 );
@@ -290,7 +292,8 @@ TEST_CASE( "Indoor Heating" )
         REQUIRE( stage1.m_countRequestModeToOff == 0 );
         REQUIRE( stage2.m_countRequestModeToOff == 0 );
         REQUIRE( stage3.m_countRequestModeToOff == 0 );
-        uut.start( { 0, 100 } );
+        Cpl::System::ElapsedTime::Precision_T tick ={ 0,100 };
+        uut.start( tick );
         REQUIRE( stage1.m_countRequestModeToOff == 1 );
         REQUIRE( stage2.m_countRequestModeToOff == 1 );
         REQUIRE( stage3.m_countRequestModeToOff == 1 );

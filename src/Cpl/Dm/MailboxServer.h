@@ -45,7 +45,8 @@ public:
     /** Constructor.  The argument 'timingTickInMsec' specifies the timing
         resolution that will be used for Cpl::Timer::Local Timers.
      */
-    MailboxServer( unsigned long timingTickInMsec = OPTION_CPL_SYSTEM_EVENT_LOOP_TIMEOUT_PERIOD ) noexcept;
+    MailboxServer( unsigned long                       timingTickInMsec = OPTION_CPL_SYSTEM_EVENT_LOOP_TIMEOUT_PERIOD,
+                   Cpl::System::SharedEventHandlerApi* eventHandler     = 0 ) noexcept;
 
 public:
     /// See Cpl::System::Runnable

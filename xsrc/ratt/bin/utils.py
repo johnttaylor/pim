@@ -6,7 +6,6 @@ import os
 import sys
 import imp
 from time import strftime
-import serial
 import config
 import subprocess
 
@@ -40,68 +39,6 @@ def run_shell( cmd, stdout=False, on_err_msg=None ):
     r1 = r[1].decode().rstrip() if r[1] != None else ""
             
     return (p.returncode, "{} {}".format(r0,r1) )
-
-#------------------------------------------------------------------------------
-def get_available_serial_ports( platform="Windows" ):
-    """ Generates list of available/unused Serial ports.
-        Current only support enumerating the COM ports under Windoze
-    """
-
-    result = []
-
-    # Find all available COM Ports on a Windoze box
-    if ( platform == "Windows"):
-        ports = ['COM%s' % (i + 1) for i in range(256)]
-        for port in ports:
-            try:
-                s = serial.Serial(port)
-                s.close()
-                result.append(port)
-            except (OSError, serial.SerialException):
-                pass
-    else:
-        result.append( "Feature not supported on platform: {}".format( platform ))
-
-    return result;
-
-#
-def string_to_parity_enum( s ):
-    if ( s[:1] == 'e' or s[:1] == 'E' ):
-        return serial.PARITY_EVEN
-    if ( s[:1] == 'o' or s[:1] == 'O' ):
-        return serial.PARITY_ODD
-
-    return serial.PARITY_NONE
-
-#
-def int_to_stopbits_enum( numbits ):
-    if ( numbits == 1):
-        return serial.STOPBITS_TWO
-    
-    return serial.STOPBITS_ONE
-
-#
-def int_to_databits_enum( numbits ):
-    if ( numbits == 7 ):
-        return serial.SEVENBITS
-    if ( numbits == 6):
-        return serial.SIXBITS
-
-    return serial.EIGHTBITS
-
-#
-def open_serial_port(serialPort, baudrate=115200, parity="none", stopbits=1, bytesize=8, timeout=None, platform="Windows"):
-    # Open a Windows COM Port
-    if ( platform == "Windows"):
-        try:
-            serialConnection = serial.Serial( port=serialPort, baudrate=baudrate, parity=string_to_parity_enum(parity), stopbits=int_to_stopbits_enum(stopbits), bytesize=int_to_databits_enum(bytesize), timeout=timeout )
-        except Exception as e:
-            sys.exit("Failed to open serial port ({}). Error={}".format( serialPort, str(e)) )
-
-        return serialConnection
-
-    else:
-        return None
 
 
 #------------------------------------------------------------------------------

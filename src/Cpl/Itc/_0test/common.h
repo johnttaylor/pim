@@ -100,10 +100,7 @@ public:
             CPL_SYSTEM_TRACE_MSG( SECT_, ("----- End Sequence#: %d.", i + 1) );
 
             // Handshake with the supervising thread to validate sequence results
-            if ( !m_simulation )
-            {
-                m_waiter.signal(); // I don't have to wake up the test harness when using sim ticks
-            }
+            m_waiter.signal();
             Cpl::System::Thread::wait();
         }
 

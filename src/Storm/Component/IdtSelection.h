@@ -52,7 +52,7 @@ public:
     };
 
     /// Component specific initialization
-    bool start( Cpl::System::ElapsedTime::Precision_T newInterval );
+    bool start( Cpl::System::ElapsedTime::Precision_T& newInterval );
 
 protected:
     /// My Model Point inputs

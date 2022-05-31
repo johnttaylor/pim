@@ -75,7 +75,7 @@ public:
         successful; else false is returned, i.e. the Buffer was full prior to
         the attempted add().
      */
-    bool add( ITEM& item ) noexcept;
+    bool add( const ITEM& item ) noexcept;
 
 
     /** Returns a pointer to the first item in the Buffer.
@@ -152,7 +152,7 @@ inline void RingBuffer<ITEM>::clearTheBuffer() noexcept
 
 
 template <class ITEM>
-inline bool RingBuffer<ITEM>::add( ITEM& item ) noexcept
+inline bool RingBuffer<ITEM>::add( const ITEM& item ) noexcept
 {
     if ( isFull() )
     {

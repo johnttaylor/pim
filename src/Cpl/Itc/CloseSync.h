@@ -39,7 +39,7 @@ public:
 
 public:
     /// See CloseSync
-    bool close();
+    bool close( void* args = nullptr );
 };
 
 

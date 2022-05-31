@@ -44,7 +44,7 @@ Cpl::TShell::Command::Result_T WhiteBox::execute( Cpl::TShell::Context_& context
     }
 
     Storm::Type::WhiteBox_T settings;
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_whiteBox.read( settings ) ) == false )
+    if ( mp_whiteBox.read( settings )  == false )
     {
         context.writeFrame( "The 'whiteBox' model point is NOT in the valid state" );
         return Cpl::TShell::Command::eERROR_FAILED;

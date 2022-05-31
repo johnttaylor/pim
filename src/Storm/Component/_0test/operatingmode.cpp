@@ -52,29 +52,29 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         Storm::Type::SystemConfig_T sysCfg;
-        int8_t valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        bool valid = mp_systemConfig.read( sysCfg );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         bool changed;
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         bool reset;
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
         mp_resetPiPulse.write( false );
 
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == false );
 
         mp_userMode.write( Storm::Type::ThermostatMode::eHEATING );
@@ -82,26 +82,26 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
         mp_resetPiPulse.write( false );
 
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == false );
 
         mp_userMode.write( Storm::Type::ThermostatMode::eOFF );
@@ -109,26 +109,26 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eOFF );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
         mp_resetPiPulse.write( false );
 
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eOFF );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == false );
     }
 
@@ -140,36 +140,36 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         Storm::Type::SystemConfig_T sysCfg;
-        int8_t valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        bool valid = mp_systemConfig.read( sysCfg );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eOFF );
         bool changed;
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
         bool reset;
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
 
         mp_resetPiPulse.write( false );
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == false );
 
         mp_activeIdt.write( 80.0F );
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
 
         // Forced Off
@@ -178,13 +178,13 @@ TEST_CASE( "Operating Mode" )
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eOFF );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
 
         // Forced released
@@ -193,13 +193,13 @@ TEST_CASE( "Operating Mode" )
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
     }
 
@@ -213,29 +213,29 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         Storm::Type::SystemConfig_T sysCfg;
-        int8_t valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        bool valid = mp_systemConfig.read( sysCfg );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         bool changed;
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         bool reset;
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
         mp_resetPiPulse.write( false );
 
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == false );
 
         // Turn off
@@ -243,13 +243,13 @@ TEST_CASE( "Operating Mode" )
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eOFF );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
         mp_resetPiPulse.write( false );
 
@@ -261,26 +261,26 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
         mp_resetPiPulse.write( false );
 
         time.m_seconds += 1;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == false );
     }
 
@@ -294,16 +294,16 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         Storm::Type::SystemConfig_T sysCfg;
-        int8_t valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        bool valid = mp_systemConfig.read( sysCfg );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
         bool changed;
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         bool reset;
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
         mp_resetPiPulse.write( false );
         mp_equipmentBeginTimes.setSystemBeginOffTime( time );
@@ -314,13 +314,13 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == false );
 
         // Elapsed enough time for the change
@@ -328,13 +328,13 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
         mp_resetPiPulse.write( false );
     }
@@ -349,16 +349,16 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         Storm::Type::SystemConfig_T sysCfg;
-        int8_t valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        bool valid = mp_systemConfig.read( sysCfg );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         bool changed;
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         bool reset;
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
         mp_resetPiPulse.write( false );
         mp_equipmentBeginTimes.setIndoorUnitBeginOffTime( time );
@@ -369,13 +369,13 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == false );
 
         // Elapsed enough time for the change (but still not heating criteria)
@@ -383,13 +383,13 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == false );
 
         // Meet the heating criteria)
@@ -398,13 +398,13 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
         valid = mp_operatingModeChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
         valid = mp_resetPiPulse.read( reset );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( reset == true );
     }
 
@@ -417,8 +417,8 @@ TEST_CASE( "Operating Mode" )
         component.doWork( true, time );
 
         Storm::Type::SystemConfig_T sysCfg;
-        int8_t valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        bool valid = mp_systemConfig.read( sysCfg );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eOFF );
         Storm::Dm::MpSimpleAlarm::Data alarm;
         valid = mp_systemConfig.read( sysCfg );
@@ -432,7 +432,7 @@ TEST_CASE( "Operating Mode" )
 
         sysCfg.currentOpMode = Storm::Type::OperatingMode::eCOOLING;
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         mp_userCfgModeAlarm.read( alarm );
         REQUIRE( alarm.active == false );
@@ -446,7 +446,7 @@ TEST_CASE( "Operating Mode" )
 
         sysCfg.currentOpMode = Storm::Type::OperatingMode::eCOOLING;
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eOFF );
         mp_userCfgModeAlarm.read( alarm );
         REQUIRE( alarm.active == true );
@@ -458,7 +458,7 @@ TEST_CASE( "Operating Mode" )
 
         sysCfg.currentOpMode = Storm::Type::OperatingMode::eCOOLING;
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
         mp_userCfgModeAlarm.read( alarm );
         REQUIRE( alarm.active == false );
@@ -472,7 +472,7 @@ TEST_CASE( "Operating Mode" )
 
         sysCfg.currentOpMode = Storm::Type::OperatingMode::eCOOLING;
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
         mp_userCfgModeAlarm.read( alarm );
         REQUIRE( alarm.active == false );
@@ -487,7 +487,7 @@ TEST_CASE( "Operating Mode" )
 
         sysCfg.currentOpMode = Storm::Type::OperatingMode::eCOOLING;
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
         mp_userCfgModeAlarm.read( alarm );
         REQUIRE( alarm.active == false );
@@ -500,12 +500,12 @@ TEST_CASE( "Operating Mode" )
         mp_equipmentConfig.setInvalid();
         component.doWork( true, time );
         Storm::Type::SystemConfig_T sysCfg;
-        int8_t valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        bool valid = mp_systemConfig.read( sysCfg );
+        REQUIRE( valid == true );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eOFF );
         Storm::Dm::MpSimpleAlarm::Data alarm;
         valid = mp_noActiveConditioningAlarm.read( alarm );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( alarm.active == true );
         uint32_t refCount;
         mp_systemForcedOffRefCnt.read( refCount );
@@ -521,7 +521,7 @@ TEST_CASE( "Operating Mode" )
         time.m_seconds += 10 * 60;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         mp_noActiveConditioningAlarm.read( alarm );
         REQUIRE( alarm.active == false );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eCOOLING );
@@ -544,7 +544,7 @@ TEST_CASE( "Operating Mode" )
         time.m_seconds += 10 * 60;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         mp_noActiveConditioningAlarm.read( alarm );
         REQUIRE( alarm.active == false );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
@@ -567,7 +567,7 @@ TEST_CASE( "Operating Mode" )
         time.m_seconds += 10 * 60;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         mp_noActiveConditioningAlarm.read( alarm );
         REQUIRE( alarm.active == false );
         REQUIRE( sysCfg.currentOpMode == +Storm::Type::OperatingMode::eID_HEATING );
@@ -589,7 +589,7 @@ TEST_CASE( "Operating Mode" )
         time.m_seconds += 10 * 60;
         component.doWork( true, time );
         valid = mp_systemConfig.read( sysCfg );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         Storm::Type::SystemConfig_T expectedVal;
         Storm::Dm::MpSystemConfig::setToOff( expectedVal );
         REQUIRE( sysCfg.currentOpMode == expectedVal.currentOpMode );

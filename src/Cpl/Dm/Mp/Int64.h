@@ -13,7 +13,7 @@
 /** @file */
 
 
-#include "Cpl/Dm/Mp/Basic.h"
+#include "Cpl/Dm/Mp/Numeric.h"
 
 ///
 namespace Cpl {
@@ -27,77 +27,43 @@ namespace Mp {
 	int64_t.
 
 	The toJSON()/fromJSON format is:
-	\code
+		\code
 
-	{ name:"<mpname>", type:"<mptypestring>", invalid:nn, seqnum:nnnn, locked:true|false, val:<numvalue> }
+		{ name:"<mpname>", type:"<mptypestring>", valid:true|false, seqnum:nnnn, locked:true|false, val:<numvalue> }
 
-	where <numvalue> is decimal numeric OR a quoted HEX string (when the MP
-	instance was constructed with 'decimalFormat':=false).  For example:
+		where <numvalue> is integer numeric
 
-	val:1234  or val:"4D2"
+		\endcode
 
-	\endcode
-
-	NOTE: All methods in this class ARE thread Safe unless explicitly
+ NOTE: All methods in this class ARE thread Safe unless explicitly
 		  documented otherwise.
  */
-class Int64 : public BasicInteger<int64_t>
+class Int64 : public Numeric<int64_t, Int64>
 {
 public:
-	/** Constructor. Invalid MP.  Note: the 'decimalFormat' argument applies to the
-		toString()/fromString() methods.   When set to true, the input/output
-		values must be decimal numbers; else hexadecimal numbers.
+	/** Constructor. Invalid MP.
 	 */
-	Int64( Cpl::Dm::ModelDatabase& myModelBase, StaticInfo& staticInfo, bool decimalFormat=true )
-		:BasicInteger<int64_t>( myModelBase, staticInfo, decimalFormat )
+	Int64( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
+		: Numeric<int64_t, Int64>( myModelBase, symbolicName )
 	{
 	}
 
 	/// Constructor. Valid MP.  Requires an initial value
-	Int64( Cpl::Dm::ModelDatabase& myModelBase, StaticInfo& staticInfo, int64_t initialValue, bool decimalFormat=true )
-		:BasicInteger<int64_t>( myModelBase, staticInfo, initialValue, decimalFormat )
+	Int64( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName, int64_t initialValue )
+		: Numeric<int64_t, Int64>( myModelBase, symbolicName, initialValue )
 	{
-	}
-
-
-public:
-	/// Type safe read-modify-write client callback interface
-	typedef Cpl::Dm::ModelPointRmwCallback<int64_t> Client;
-
-	/** Type safe read-modify-write. See Cpl::Dm::ModelPoint
-
-	   NOTE: THE USE OF THIS METHOD IS STRONGLY DISCOURAGED because it has
-			 potential to lockout access to the ENTIRE Model Base for an
-			 indeterminate amount of time.  And alternative is to have the
-			 concrete Model Point leaf classes provide the application
-			 specific read, write, read-modify-write methods in addition or in
-			 lieu of the read/write methods in this interface.
-	 */
-	virtual uint16_t readModifyWrite( Client& callbackClient, LockRequest_T lockRequest = eNO_REQUEST )
-	{
-		return ModelPointCommon_::readModifyWrite( callbackClient, lockRequest );
 	}
 
 public:
 	/// Type safe subscriber
 	typedef Cpl::Dm::Subscriber<Int64> Observer;
 
-	/// Type safe register observer
-	virtual void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept
-	{
-		ModelPointCommon_::attach( observer, initialSeqNumber );
-	}
-	/// Type safe un-register observer
-	virtual void detach( Observer& observer ) noexcept
-	{
-		ModelPointCommon_::detach( observer );
-	}
 
 public:
 	///  See Cpl::Dm::ModelPoint.
 	const char* getTypeAsText() const noexcept
 	{
-		return m_decimal ? "Cpl::Dm::Mp::Int64-dec" : "Cpl::Dm::Mp::Int64-hex";
+		return "Cpl::Dm::Mp::Int64";
 	}
 };
 

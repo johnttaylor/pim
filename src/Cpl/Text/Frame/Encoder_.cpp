@@ -66,7 +66,7 @@ bool Encoder_::output( char src ) noexcept
 		if ( m_esc != '\0' && ( src == m_esc || src == m_eof ) )
 		{
 			bool result = append( m_esc );
-			result     &= append( src );
+			result     &= append( encodeChar(src) );
 			return result;
 		}
 		else
@@ -141,4 +141,9 @@ bool Encoder_::endFrame() noexcept
 	}
 
 	return false;
+}
+
+char Encoder_::encodeChar( char charToBeEscaped )
+{
+	return charToBeEscaped;
 }

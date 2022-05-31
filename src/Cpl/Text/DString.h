@@ -14,7 +14,7 @@
 
 #include "Cpl/Text/String_.h"
 #include "colony_config.h"
-
+#include <new>
 
 ///
 namespace Cpl {

@@ -19,8 +19,10 @@
 using namespace Cpl::Persistent;
 
 /////////////////////
-RecordServer::RecordServer( Record* recordList[], unsigned long timingTickInMsec ) noexcept
-    : Cpl::Dm::MailboxServer( timingTickInMsec )
+RecordServer::RecordServer( Record*                             recordList[], 
+                            unsigned long                       timingTickInMsec,
+                            Cpl::System::SharedEventHandlerApi* eventHandler ) noexcept
+    : Cpl::Dm::MailboxServer( timingTickInMsec, eventHandler )
     , Cpl::Itc::CloseSync( *((Cpl::Itc::PostApi*)this) )
     , m_records( recordList )
     , m_opened( false )

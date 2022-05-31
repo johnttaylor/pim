@@ -101,12 +101,14 @@ src/Driver
 src/Driver/Uart
 src/Driver/Uart/Stream
 src/Driver/Uart/Stream/_0test
+tests
 tests/Bsp/UserSpace/_0test
 tests/Bsp/UserSpace/_0test/linux
 tests/Bsp/UserSpace/_0test/linux/gcc
 tests/Bsp/UserSpace/_0test/windows
 tests/Bsp/UserSpace/_0test/windows/mingw_w64
 tests/Bsp/UserSpace/_0test/windows/vc12
+tests/Cpl
 tests/Cpl/Checksum/_0test
 tests/Cpl/Checksum/_0test/aladdin/windows
 tests/Cpl/Checksum/_0test/aladdin/windows/vc12

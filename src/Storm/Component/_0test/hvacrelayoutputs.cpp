@@ -33,7 +33,7 @@ TEST_CASE( "HvacRelayOutputs" )
     HvacRelayOutputs::Input_T  ins  = { &mp_vOutputs, &mp_equipmentBeginTimes, &mp_systemForcedOffRefCnt, &mp_systemOn };
     HvacRelayOutputs::Output_T outs = { &mp_equipmentBeginTimes, &mp_relayOutputs };
 
-    Storm::Type::EquipmentTimes_T    equipTimes = { 0, };
+    Storm::Type::EquipmentTimes_T    equipTimes;
     Storm::Type::HvacRelayOutputs_T  relays;
     Storm::Type::HvacRelayOutputs_T  val;
     memset( &relays, 0, sizeof( relays ) );

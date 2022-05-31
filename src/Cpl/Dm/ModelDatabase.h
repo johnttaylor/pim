@@ -15,7 +15,7 @@
 #include "colony_config.h"
 #include "Cpl/Dm/ModelDatabaseApi.h"
 #include "Cpl/System/Mutex.h"
-#include "Cpl/Container/Map.h"
+#include "Cpl/Container/SList.h"
 #include "Cpl/Json/Arduino.h"
 
 
@@ -27,13 +27,6 @@
 #define OPTION_CPL_DM_MODEL_DATABASE_MAX_CAPACITY_JSON_DOC          (1024*2)
 #endif
 
-/** This symbol defines the size, in bytes, of temporary storage allocated for
-    use by the fromJSON_() method (e.g. create a temporary array instance)
- */
-#ifndef OPTION_CPL_DM_MODEL_DATABASE_TEMP_STORAGE_SIZE
-#define OPTION_CPL_DM_MODEL_DATABASE_TEMP_STORAGE_SIZE              (1024*2)
-#endif
-
 
 ///
 namespace Cpl {
@@ -41,7 +34,17 @@ namespace Cpl {
 namespace Dm {
 
 
-/** This concrete class implements a simple Model Database.
+/** This concrete class implements a simple Model Database.  
+
+    Note: The model point instances are contained in SList. This is to reduce 
+          the RAM overhead on each Model Point instance (e.g. a MapItem has 32 
+          bytes of overhead vs. 8 bytes for Item).  This means that looking up 
+          a model point by name is not efficient.  However, the typically use
+          case for the look-up function is when reading/writing model point
+          via the TShell command shell the performance impact should not be
+          noticeable.  
+
+          The SList is sorted alphabetically on the first call to getFirstByName().
  
     Note: All of the methods are thread safe.  However, since the Model Database
           instances are typically created statically and statically allocated
@@ -71,7 +74,7 @@ public:
 
 public:
     /// See Cpl::Dm::ModelDatabaseApi
-    ModelPoint * lookupModelPoint( const char* modelPointName ) noexcept;
+    ModelPoint* lookupModelPoint( const char* modelPointName ) noexcept;
 
     /// See Cpl::Dm::ModelDatabaseApi
     ModelPoint* getFirstByName() noexcept;
@@ -84,10 +87,10 @@ public:
 
 public:
     /** This method has 'PACKAGE Scope' in that is should only be called by
-       other classes in the Cpl::Dm namespace.  It is ONLY public to avoid
-       the tight coupling of C++ friend mechanism.
-
-       This method inserts a new Model Point into the Model Database.
+        other classes in the Cpl::Dm namespace.  It is ONLY public to avoid
+        the tight coupling of C++ friend mechanism.
+        
+        This method inserts a new Model Point into the Model Database.
    */
     void insert_( ModelPoint& mpToAdd ) noexcept;
 
@@ -141,27 +144,26 @@ public:
      */
     static StaticJsonDocument<OPTION_CPL_DM_MODEL_DATABASE_MAX_CAPACITY_JSON_DOC> g_doc_;
 
-    /** This variable has 'PACKAGE Scope' in that is should only be called by
-        other classes in the Cpl::Dm namespace.  It is ONLY public to avoid
-        the tight coupling of C++ friend mechanism.
-
-        Global temporary buffer. Model Point's need to have acquired the global 
-        lock before using this buffer
-     */
-    static uint8_t   g_tempBuffer_[OPTION_CPL_DM_MODEL_DATABASE_TEMP_STORAGE_SIZE];
-
 
 protected:
     /// Helper method to create the database lock
     bool createLock();
 
+    /// Helper method to sort the model point list alphabetical
+    virtual void sortList() noexcept;
+
+    /// Helper method to find a point by name
+    virtual ModelPoint* find( const char* name ) noexcept;
+
 protected:
     /// Map to the store the Model Points
-    Cpl::Container::Map<ModelPoint> m_map;
+    Cpl::Container::SList<ModelPoint> m_list;
 
     /// Mutex for making the Database thread safe
     Cpl::System::Mutex*  m_lock;
 
+    /// Keep track if the point list has beed sorted
+    bool m_listSorted;
 
 private:
     /// Prevent access to the copy constructor -->Model Databases can not be copied!

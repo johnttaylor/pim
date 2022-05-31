@@ -13,4 +13,3 @@
 #include "ModelPoint.h"
 
 const uint16_t Cpl::Dm::ModelPoint::SEQUENCE_NUMBER_UNKNOWN = 0;
-const int8_t   Cpl::Dm::ModelPoint::MODEL_POINT_STATE_VALID = 0;

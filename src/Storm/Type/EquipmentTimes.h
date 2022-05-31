@@ -24,7 +24,7 @@ namespace Type {
     Outdoor HVAC equipment.  This information is used to enforce minimum equipment
     on/off times.
  */
-typedef struct
+struct EquipmentTimes_T
 {
     Cpl::System::ElapsedTime::Precision_T   outdoorUnitBeginOnTime;     //!< The starting time of when the Outdoor unit (aka the compressor) was turned on
     Cpl::System::ElapsedTime::Precision_T   outdoorUnitBeginOffTime;    //!< The starting time of when the Outdoor unit (aka the compressor) was turned off
@@ -32,7 +32,26 @@ typedef struct
     Cpl::System::ElapsedTime::Precision_T   indoorUnitBeginOffTime;     //!< The starting time of when the Indoor unit (aka indoor heat) was turned off
     Cpl::System::ElapsedTime::Precision_T   systemBeginOnTime;          //!< The starting time of when at least one 'stage' of the SYSTEM was turned on
     Cpl::System::ElapsedTime::Precision_T   systemBeginOffTime;         //!< The starting time of when ALL 'stages' of the SYSTEM was turned off
-} EquipmentTimes_T;
+
+    /// Constructor (to ensure any pad bytes get zero'd)
+    EquipmentTimes_T()
+    {
+        memset( (void*) this, 0, sizeof( EquipmentTimes_T ) );
+    }
+
+    /// Copy Constructor (to ensure any pad bytes get zero'd)
+    EquipmentTimes_T( EquipmentTimes_T& other )
+    {
+        memcpy( (void*) this, (void*) &other, sizeof( EquipmentTimes_T ) );
+    }
+
+    /// Copy operator
+    EquipmentTimes_T& operator =( const EquipmentTimes_T& other )
+    {
+        memcpy( (void*) this, (void*) &other, sizeof( EquipmentTimes_T ) );
+        return *this;
+    }
+};
 
 
 };      // end namespaces

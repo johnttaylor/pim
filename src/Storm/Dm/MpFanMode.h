@@ -14,8 +14,7 @@
 
 
 #include "Storm/Type/FanMode.h"
-#include "Cpl/Dm/Mp/Enum.h"
-#include "Cpl/Dm/Subscriber.h"
+#include "Cpl/Dm/Mp/Enum_.h"
 
 ///
 namespace Storm {
@@ -23,42 +22,30 @@ namespace Dm {
 
 /** Concrete Model Point the FanMode Enum
  */
-class MpFanMode : public Cpl::Dm::Mp::Enum<Storm::Type::FanMode>
+class MpFanMode : public Cpl::Dm::Mp::Enum_<Storm::Type::FanMode, MpFanMode>
 {
 public:
     /// Constructor. 
-    MpFanMode( Cpl::Dm::ModelDatabase& myModelBase, Cpl::Dm::StaticInfo& staticInfo )
-		:Cpl::Dm::Mp::Enum<Storm::Type::FanMode>( myModelBase, staticInfo )
-	{
-	}
+    MpFanMode( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
+        :Cpl::Dm::Mp::Enum_<Storm::Type::FanMode, MpFanMode>( myModelBase, symbolicName )
+    {
+    }
 
     /// Constructor. 
-    MpFanMode( Cpl::Dm::ModelDatabase& myModelBase, Cpl::Dm::StaticInfo& staticInfo, Storm::Type::FanMode initialValue )
-		: Cpl::Dm::Mp::Enum<Storm::Type::FanMode>( myModelBase, staticInfo, initialValue )
-	{
-	}
+    MpFanMode( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName, Storm::Type::FanMode initialValue )
+        : Cpl::Dm::Mp::Enum_<Storm::Type::FanMode, MpFanMode>( myModelBase, symbolicName, initialValue )
+    {
+    }
 
     /// Type
     const char* getTypeAsText() const noexcept
-	{
-		return "Storm::Dm::MpFanMode";
-	}
+    {
+        return "Storm::Dm::MpFanMode";
+    }
 
 public:
     /// Type safe subscriber
     typedef Cpl::Dm::Subscriber<MpFanMode> Observer;
-
-    /// Type safe register observer
-    void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept
-	{
-		ModelPointCommon_::attach( observer, initialSeqNumber );
-	}
-
-    /// Type safe un-register observer
-    void detach( Observer& observer ) noexcept
-	{
-		ModelPointCommon_::detach( observer );
-	}
 };
 
 

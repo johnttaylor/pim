@@ -53,7 +53,7 @@ public:
 
 public:
     /// See Cpl::Dm::Persistent::Record
-    void resetData() noexcept
+    bool resetData() noexcept
     {
         mp_enabledSecondaryIdt.write( OPTION_STORM_DEFAULT_REMOTE_SENSOR_ENABLED_STATE );
         Storm::Dm::MpEquipmentConfig::Data equipment =
@@ -67,11 +67,13 @@ public:
         mp_equipmentConfig.write( equipment );
         Storm::Type::ComfortConfig_T comfort =
         {
-            { OPTION_STORM_DEFAULT_CPH, OPTION_STORM_DEFAULT_MIN_ON_CYCLE_TIME, OPTION_STORM_DEFAULT_MIN_OFF_CYCLE_TIME },
-            { OPTION_STORM_DEFAULT_CPH, OPTION_STORM_DEFAULT_MIN_ON_CYCLE_TIME, OPTION_STORM_DEFAULT_MIN_OFF_CYCLE_TIME },
-            { OPTION_STORM_DEFAULT_CPH, OPTION_STORM_DEFAULT_MIN_ON_CYCLE_TIME, OPTION_STORM_DEFAULT_MIN_OFF_CYCLE_TIME }
+            { OPTION_STORM_DEFAULT_MIN_ON_CYCLE_TIME, OPTION_STORM_DEFAULT_MIN_OFF_CYCLE_TIME, OPTION_STORM_DEFAULT_CPH },
+            { OPTION_STORM_DEFAULT_MIN_ON_CYCLE_TIME, OPTION_STORM_DEFAULT_MIN_OFF_CYCLE_TIME, OPTION_STORM_DEFAULT_CPH },
+            { OPTION_STORM_DEFAULT_MIN_ON_CYCLE_TIME, OPTION_STORM_DEFAULT_MIN_OFF_CYCLE_TIME, OPTION_STORM_DEFAULT_CPH }
         };
         mp_comfortConfig.write( comfort );
+
+        return true;
     }
 
 protected:

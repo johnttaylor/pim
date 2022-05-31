@@ -43,8 +43,8 @@ TEST_CASE( "IDT Selection" )
         mp_enabledSecondaryIdt.write( true );
         component.doWork( true, time );
         float  value;
-        int8_t valid = mp_activeIdt.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        bool valid = mp_activeIdt.read( value );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 20.0F ) == true );
 
         // Default to primary when the secondary is bad
@@ -52,7 +52,7 @@ TEST_CASE( "IDT Selection" )
         time.m_thousandths += 1;
         component.doWork( true, time );
         valid = mp_activeIdt.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 30.0F ) == true );
 
         // Use secondary when primary is bad
@@ -61,7 +61,7 @@ TEST_CASE( "IDT Selection" )
         time.m_thousandths += 1;
         component.doWork( true, time );
         valid = mp_activeIdt.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 21.0F ) == true );
 
         // Use primary (no secondary available)
@@ -70,7 +70,7 @@ TEST_CASE( "IDT Selection" )
         time.m_thousandths += 1;
         component.doWork( true, time );
         valid = mp_activeIdt.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 31.0F ) == true );
     }
 
@@ -83,8 +83,8 @@ TEST_CASE( "IDT Selection" )
         mp_primaryRawIdt.setInvalid();
         component.doWork( true, time );
         Storm::Dm::MpIdtAlarm::Data value;
-        int8_t valid = mp_idtAlarms.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        bool valid = mp_idtAlarms.read( value );
+        REQUIRE( valid == true );
         REQUIRE( value.critical == true );
         REQUIRE( value.primaryAlarm == true );
         REQUIRE( value.secondaryAlarm == false );
@@ -92,7 +92,7 @@ TEST_CASE( "IDT Selection" )
         REQUIRE( value.secondaryAck == false );
         uint32_t refCounter;
         valid = mp_systemForcedOffRefCnt.read( refCounter );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( refCounter == 1 );
 
         // Recovery
@@ -100,12 +100,12 @@ TEST_CASE( "IDT Selection" )
         time.m_thousandths += 1;
         component.doWork( true, time );
         valid = mp_idtAlarms.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( value.critical == false );
         REQUIRE( value.primaryAlarm == false );
         REQUIRE( value.secondaryAlarm == false );
         valid = mp_systemForcedOffRefCnt.read( refCounter );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( refCounter == 0 );
 
         // Secondary Failure, but good primary
@@ -114,12 +114,12 @@ TEST_CASE( "IDT Selection" )
         time.m_thousandths += 1;
         component.doWork( true, time );
         valid = mp_idtAlarms.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( value.critical == false );
         REQUIRE( value.primaryAlarm == false );
         REQUIRE( value.secondaryAlarm == true );
         valid = mp_systemForcedOffRefCnt.read( refCounter );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( refCounter == 0 );
 
         // Secondary and Primary failure
@@ -127,12 +127,12 @@ TEST_CASE( "IDT Selection" )
         time.m_thousandths += 1;
         component.doWork( true, time );
         valid = mp_idtAlarms.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( value.critical == true );
         REQUIRE( value.primaryAlarm == true );
         REQUIRE( value.secondaryAlarm == true );
         valid = mp_systemForcedOffRefCnt.read( refCounter );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( refCounter == 1 );
 
         // Primary Failure, Secondary good
@@ -140,12 +140,12 @@ TEST_CASE( "IDT Selection" )
         time.m_thousandths += 1;
         component.doWork( true, time );
         valid = mp_idtAlarms.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( value.critical == false );
         REQUIRE( value.primaryAlarm == true );
         REQUIRE( value.secondaryAlarm == false );
         valid = mp_systemForcedOffRefCnt.read( refCounter );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( refCounter == 0 );
     }
 

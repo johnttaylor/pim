@@ -100,7 +100,7 @@ Cpl::TShell::Command::Result_T Dm::execute( Cpl::TShell::Context_& context, char
 		int					outlen;
 		Cpl::Text::String&	outtext    = context.getOutputBuffer();
 		char*				outptr     = outtext.getBuffer( outlen );
-		if ( point->toJSON( outptr, outlen, truncated ) == false )
+		if ( point->toJSON( outptr, outlen, truncated, true, true ) == false )
 		{
 			return Command::eERROR_FAILED;
 		}

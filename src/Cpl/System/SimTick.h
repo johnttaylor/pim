@@ -19,14 +19,6 @@
 #include "Cpl/Container/Item.h"
 
 
-/** The amount of (real) time, in milliseconds, for the simulated-tick engine to
-    wait for at least one response from a simulated-tick-thread before aborting
-    an advance() command (i.e. declaring all threads terminated OR deadlocked)
- */
-#ifndef OPTION_CPL_SYSTEM_SIM_TICK_NO_ACTIVITY_LIMIT
-#define OPTION_CPL_SYSTEM_SIM_TICK_NO_ACTIVITY_LIMIT    (2*1000)
-#endif
-
 /** Minimum number of ticks required to advance the simulated time.  This
     parameter is a work-around for a non-Real Time OS (such as Windoze) which
     can not actually sleep/wait for 1msec.  The parameter is defaulted to

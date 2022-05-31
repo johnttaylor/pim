@@ -34,7 +34,7 @@ FanControl::FanControl( struct Input_T ins, struct Output_T outs )
     CPL_SYSTEM_ASSERT( m_out.vOutputs );
 }
 
-bool FanControl::start( Cpl::System::ElapsedTime::Precision_T intervalTime )
+bool FanControl::start( Cpl::System::ElapsedTime::Precision_T& intervalTime )
 {
     // Initialize parent class
     return Base::start( intervalTime );
@@ -55,15 +55,15 @@ bool FanControl::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     Storm::Type::FanMode            fanMode        = Storm::Type::FanMode::eAUTO;
     Storm::Type::SystemConfig_T     sysCfg         = { 0, };
     Storm::Type::VirtualOutputs_T   outputs        = { 0, };
-    Storm::Type::EquipmentTimes_T   equipTimes     = { 0, };
+    Storm::Type::EquipmentTimes_T   equipTimes;
     int8_t                          validMode      = m_in.fanMode->read( fanMode );
     int8_t                          validSystem    = m_in.systemConfig->read( sysCfg );
     int8_t                          validOutputs   = m_in.vOutputs->read( outputs );
     int8_t                          validEquipment = m_in.equipmentBeginTimes->read( equipTimes );
-    if ( Cpl::Dm::ModelPoint::IS_VALID( validMode ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validSystem ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validOutputs ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validEquipment ) == false )
+    if ( validMode == false ||
+         validSystem == false ||
+         validOutputs == false ||
+         validEquipment == false )
     {
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "FanControl::execute. One or more invalid MPs (FanMode=%d, system=%d, vOutputs=%d equipTimes=%d", validMode, validSystem, validOutputs, validEquipment ) );
 

@@ -24,9 +24,10 @@
 using namespace Cpl::Itc;
 
 /////////////////////
-MailboxServer::MailboxServer( unsigned long timingTickInMsec ) noexcept
-    :Mailbox( *((Cpl::System::EventLoop*)this) )
-    , Cpl::System::EventLoop( timingTickInMsec )
+MailboxServer::MailboxServer( unsigned long                       timingTickInMsec,
+                              Cpl::System::SharedEventHandlerApi* eventHandler ) noexcept
+    : Mailbox( *((Cpl::System::EventLoop*)this) )
+    , Cpl::System::EventLoop( timingTickInMsec, eventHandler )
 {
 }
 
@@ -44,5 +45,6 @@ void MailboxServer::appRun()
             processMessages();
         }
     }
+    stopEventLoop();
 }
 

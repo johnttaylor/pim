@@ -68,12 +68,14 @@ public:
 
 public:
     /// See Cpl::Dm::Persistent::Record
-    void resetData() noexcept
+    bool resetData() noexcept
     {
         mp_setpoints.write( OPTION_STORM_DM_MP_SETPOINTS_DEFAULT_COOLING, OPTION_STORM_DM_MP_SETPOINTS_DEFAULT_HEATING );
         mp_userMode.write( OPTION_STORM_THERMOSTAT_DEFAULT_USER_MODE );
         mp_fanMode.write( OPTION_STORM_THERMOSTAT_DEFAULT_FAN_MODE );
         mp_maxAirFilterHours.write( OPTION_STORM_THERMOSTAT_DEFAULT_AIR_FILTER_HOURS );
+
+        return true;
     }
 
 protected:

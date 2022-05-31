@@ -17,7 +17,6 @@
 #include "Cpl/System/Trace.h"
 #include <string.h>
 
-#define INVALID_VALUE   9999
 #define MAX_OUTPUT      100
 
 #define SECT_   "Storm::Dm"
@@ -27,55 +26,14 @@
 using namespace Storm::Dm;
 
 ///////////////////////////////////////////////////////////////////////////////
-MpHvacRelayOutputs::MpHvacRelayOutputs( Cpl::Dm::ModelDatabase& myModelBase, Cpl::Dm::StaticInfo& staticInfo )
-    :ModelPointCommon_( myModelBase, &m_data, staticInfo, MODEL_POINT_STATE_VALID )
+MpHvacRelayOutputs::MpHvacRelayOutputs( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
+    :ModelPointCommon_( myModelBase, symbolicName, &m_data, sizeof(m_data), true )
 {
     memset( &m_data, 0, sizeof( m_data ) );
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
-uint16_t MpHvacRelayOutputs::setInvalidState( int8_t newInvalidState, LockRequest_T lockRequest ) noexcept
-{
-    // Set all outputs to off when invalidating the Model Point
-    m_modelDatabase.lock_();
-    memset( &m_data, 0, sizeof( m_data ) );
-    uint16_t result = ModelPointCommon_::setInvalidState( newInvalidState, lockRequest );
-    m_modelDatabase.unlock_();
-    return result;
-}
-
-int8_t MpHvacRelayOutputs::read( Storm::Type::HvacRelayOutputs_T& dstData, uint16_t* seqNumPtr ) const noexcept
-{
-    return ModelPointCommon_::read( &dstData, sizeof( Storm::Type::HvacRelayOutputs_T ), seqNumPtr );
-}
-
-uint16_t MpHvacRelayOutputs::write( const Storm::Type::HvacRelayOutputs_T& srcData, LockRequest_T lockRequest ) noexcept
-{
-    Storm::Type::HvacRelayOutputs_T newData = srcData;
-    validate( newData );
-    return ModelPointCommon_::write( &newData, sizeof( Storm::Type::HvacRelayOutputs_T ), lockRequest );
-}
-
-
-uint16_t MpHvacRelayOutputs::setSafeAllOff( LockRequest_T lockRequest ) noexcept
-{
-    Storm::Type::HvacRelayOutputs_T newData;
-    setSafeAllOff( newData );
-
-    m_modelDatabase.lock_();
-    newData.o = m_data.o;
-    uint16_t result = write( newData, lockRequest );
-    m_modelDatabase.unlock_();
-
-    return result;
-}
-
-
-uint16_t MpHvacRelayOutputs::readModifyWrite( Client& callbackClient, LockRequest_T lockRequest )
-{
-    return ModelPointCommon_::readModifyWrite( callbackClient, lockRequest );
-}
 
 void MpHvacRelayOutputs::attach( Observer& observer, uint16_t initialSeqNumber ) noexcept
 {
@@ -87,25 +45,6 @@ void MpHvacRelayOutputs::detach( Observer& observer ) noexcept
     ModelPointCommon_::detach( observer );
 }
 
-bool MpHvacRelayOutputs::isDataEqual_( const void* otherData ) const noexcept
-{
-    return  memcmp( &m_data, otherData, sizeof( m_data ) ) == 0;
-}
-
-void MpHvacRelayOutputs::copyDataTo_( void* dstData, size_t dstSize ) const noexcept
-{
-    CPL_SYSTEM_ASSERT( dstSize == sizeof( Storm::Type::HvacRelayOutputs_T ) );
-    Storm::Type::HvacRelayOutputs_T* dstDataPtr = ( Storm::Type::HvacRelayOutputs_T* ) dstData;
-    *dstDataPtr = m_data;
-}
-
-void MpHvacRelayOutputs::copyDataFrom_( const void* srcData, size_t srcSize ) noexcept
-{
-    CPL_SYSTEM_ASSERT( srcSize == sizeof( Storm::Type::HvacRelayOutputs_T ) );
-    Storm::Type::HvacRelayOutputs_T* dataSrcPtr = ( Storm::Type::HvacRelayOutputs_T* ) srcData;
-    m_data = *dataSrcPtr;
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////
 const char* MpHvacRelayOutputs::getTypeAsText() const noexcept
@@ -113,52 +52,17 @@ const char* MpHvacRelayOutputs::getTypeAsText() const noexcept
     return "Storm::Dm::MpHvacRelayOutputs";
 }
 
-size_t MpHvacRelayOutputs::getSize() const noexcept
+void MpHvacRelayOutputs::setJSONVal( JsonDocument& doc ) noexcept
 {
-    return sizeof( Storm::Type::HvacRelayOutputs_T );
-}
-
-size_t MpHvacRelayOutputs::getInternalDataSize_() const noexcept
-{
-    return sizeof( Storm::Type::HvacRelayOutputs_T );
-}
-
-
-const void* MpHvacRelayOutputs::getImportExportDataPointer_() const noexcept
-{
-    return &m_data;
-}
-
-bool MpHvacRelayOutputs::toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose ) noexcept
-{
-    // Get my state
-    m_modelDatabase.lock_();
-    uint16_t seqnum = m_seqNum;
-    int8_t   valid  = m_validState;
-    bool     locked = m_locked;
-
-    // Start the conversion
-    JsonDocument& doc = beginJSON( valid, locked, seqnum, verbose );
-
-    // Construct the 'val' key/value pair 
-    if ( IS_VALID( valid ) )
-    {
-        JsonObject valObj  = doc.createNestedObject( "val" );
-        valObj["g"]   = m_data.g;
-        valObj["bk"]  = m_data.bk;
-        valObj["w1"]  = m_data.w1;
-        valObj["w2"]  = m_data.w2;
-        valObj["w3"]  = m_data.w3;
-        valObj["y1"]  = m_data.y1;
-        valObj["y2"]  = m_data.y2;
-        valObj["o"]   = m_data.o ? "COOL" : "HEAT";
-    }
-
-    // End the conversion
-    endJSON( dst, dstSize, truncated, verbose );
-
-    m_modelDatabase.unlock_();
-    return true;
+    JsonObject valObj  = doc.createNestedObject( "val" );
+    valObj["g"]        = m_data.g;
+    valObj["bk"]       = m_data.bk;
+    valObj["w1"]       = m_data.w1;
+    valObj["w2"]       = m_data.w2;
+    valObj["w3"]       = m_data.w3;
+    valObj["y1"]       = m_data.y1;
+    valObj["y2"]       = m_data.y2;
+    valObj["o"]        = m_data.o ? "COOL" : "HEAT";
 }
 
 
@@ -168,14 +72,8 @@ bool MpHvacRelayOutputs::fromJSON_( JsonVariant& src, LockRequest_T lockRequest,
 
     if ( src.is<JsonObject>() )
     {
-        // Blower speed
-        unsigned bk = src["bk"] | INVALID_VALUE;
-        if ( bk != INVALID_VALUE )
-        {
-            updatedData.bk = bk;
-        }
-
         // Relay outputs
+        updatedData.bk = src["bk"] | updatedData.bk;
         updatedData.g  = src["g"] | updatedData.g;
         updatedData.w1 = src["w1"] | updatedData.w1;
         updatedData.w2 = src["w2"] | updatedData.w2;
@@ -195,12 +93,18 @@ bool MpHvacRelayOutputs::fromJSON_( JsonVariant& src, LockRequest_T lockRequest,
             {
                 updatedData.o = false;
             }
-
         }
+
+        validate( updatedData );
+        retSequenceNumber = write( updatedData, lockRequest );
+        return true;
     }
 
-    retSequenceNumber = write( updatedData, lockRequest );
-    return true;
+    if ( errorMsg )
+    {
+        errorMsg->format( "Invalid key/value for 'val'" );
+    }
+    return false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -210,7 +114,6 @@ void MpHvacRelayOutputs::validate( Storm::Type::HvacRelayOutputs_T& newValues ) 
     {
         newValues.bk = MAX_OUTPUT;
     }
-
 }
 
 void MpHvacRelayOutputs::setSafeAllOff( Storm::Type::HvacRelayOutputs_T& outputs )
@@ -223,4 +126,3 @@ void MpHvacRelayOutputs::setSafeAllOff( Storm::Type::HvacRelayOutputs_T& outputs
     outputs.y1 = false;
     outputs.y2 = false;
 }
-

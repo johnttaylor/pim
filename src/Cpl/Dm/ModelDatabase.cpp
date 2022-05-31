@@ -24,14 +24,16 @@ StaticJsonDocument<OPTION_CPL_DM_MODEL_DATABASE_MAX_CAPACITY_JSON_DOC> ModelData
 
 //////////////////////////////////////////////
 ModelDatabase::ModelDatabase() noexcept
-    : m_map()
+    : m_list()
     , m_lock( 0 )
+    , m_listSorted( false )
 {
     createLock();
 }
 
 ModelDatabase::ModelDatabase( const char* ignoreThisParameter_usedToCreateAUniqueConstructor ) noexcept
-    : m_map( ignoreThisParameter_usedToCreateAUniqueConstructor )
+    : m_list( ignoreThisParameter_usedToCreateAUniqueConstructor )
+    , m_listSorted( false )
 {
 }
 
@@ -53,9 +55,8 @@ bool ModelDatabase::createLock()
 
 ModelPoint * ModelDatabase::lookupModelPoint( const char* modelPointName ) noexcept
 {
-    Cpl::Container::KeyLiteralString myKey( modelPointName );
     lock_();
-    ModelPoint* result = m_map.find( myKey );
+    ModelPoint* result = find( modelPointName );
     unlock_();
     return result;
 }
@@ -63,7 +64,12 @@ ModelPoint * ModelDatabase::lookupModelPoint( const char* modelPointName ) noexc
 ModelPoint* ModelDatabase::getFirstByName() noexcept
 {
     lock_();
-    ModelPoint* result = m_map.first();
+    if ( !m_listSorted )
+    {
+        sortList();
+        m_listSorted = true;
+    }
+    ModelPoint* result = m_list.first();
     unlock_();
     return result;
 }
@@ -71,7 +77,7 @@ ModelPoint* ModelDatabase::getFirstByName() noexcept
 ModelPoint* ModelDatabase::getNextByName( ModelPoint& currentModelPoint ) noexcept
 {
     lock_();
-    ModelPoint* result = m_map.next( currentModelPoint );
+    ModelPoint* result = m_list.next( currentModelPoint );
     unlock_();
     return result;
 }
@@ -79,7 +85,7 @@ ModelPoint* ModelDatabase::getNextByName( ModelPoint& currentModelPoint ) noexce
 void ModelDatabase::insert_( ModelPoint& mpToAdd ) noexcept
 {
     lock_();
-    m_map.insert( mpToAdd );
+    m_list.putFirst( mpToAdd );
     unlock_();
 }
 
@@ -132,8 +138,6 @@ bool ModelDatabase::fromJSON( const char* src, Cpl::Text::String* errorMsg, Mode
         return false;
     }
 
-    //    { name="<mpname>", type="<mptypestring>", valid=nn, seqnum:nnnn, locked:true|false val:<value> }
-
     // Valid JSON... Parse the Model Point name
     const char* name = ModelDatabase::g_doc_["name"];
     if ( name == nullptr )
@@ -157,20 +161,26 @@ bool ModelDatabase::fromJSON( const char* src, Cpl::Text::String* errorMsg, Mode
     }
 
     // Attempt to parse the key/value pairs of interest
-    int8_t                    valid      = ModelDatabase::g_doc_["invalid"] | -1;
-    JsonVariant               locked     = ModelDatabase::g_doc_["locked"];
+    JsonVariant               validElem  = ModelDatabase::g_doc_["valid"];
+    JsonVariant               lockedElem = ModelDatabase::g_doc_["locked"];
     JsonVariant               valElem    = ModelDatabase::g_doc_["val"];
+    uint16_t                  seqnum     = 0;
     ModelPoint::LockRequest_T lockAction = ModelPoint::eNO_REQUEST;
-    if ( locked.isNull() == false )
+    bool                      parsed     = false;
+
+    // Lock/Unlock the MP
+    if ( !lockedElem.isNull() )
     {
-        lockAction = locked.as<bool>() ? ModelPoint::eLOCK : ModelPoint::eUNLOCK;
+        lockAction = lockedElem.as<bool>() ? ModelPoint::eLOCK : ModelPoint::eUNLOCK;
+        seqnum     = mp->setLockState( lockAction ); // Note: This handles the use case of locking/unlock when the 'val' key/pair was not specified
+        parsed     = true;
     }
 
     // Request to invalidate the MP
-    uint16_t seqnum = 0;
-    if ( valid > 0 )
+    if ( !validElem.isNull() && validElem.as<bool>() == false )
     {
-        seqnum = mp->setInvalidState( valid, lockAction );
+        seqnum = mp->setInvalid( lockAction );
+        parsed     = true;
     }
 
     // Write a valid value to the MP
@@ -180,16 +190,11 @@ bool ModelDatabase::fromJSON( const char* src, Cpl::Text::String* errorMsg, Mode
         {
             return false;
         }
-    }
-
-    // Just lock/unlock the MP
-    else if ( locked.isNull() == false )
-    {
-        seqnum = mp->setLockState( lockAction );
+        parsed = true;
     }
 
     // Bad Syntax
-    else
+    if ( !parsed )
     {
         if ( errorMsg )
         {
@@ -214,4 +219,73 @@ bool ModelDatabase::fromJSON( const char* src, Cpl::Text::String* errorMsg, Mode
     }
 
     return true;
+}
+
+void ModelDatabase::sortList() noexcept
+{
+    // This a BRUTE force sort, because I am lazy (well just in hurry for change)
+
+    // Seed the sorted list with it
+    Cpl::Container::SList<ModelPoint> sortedList;
+    ModelPoint* item  = m_list.getFirst();
+    if ( item == nullptr )
+    {
+        return; // the unsorted list is empty
+    }
+    sortedList.putFirst( *item );
+
+
+    // Walk the unsorted list
+    item = m_list.getFirst();
+    while ( item )
+    {
+        bool        moved          = false;
+        ModelPoint* prevSortedItem = nullptr;
+        ModelPoint* sortedItem     = sortedList.first();
+        while ( sortedItem )
+        {
+            // Insert before if new item is 'smaller' then the current sorted item
+            if ( strcmp( item->getName(), sortedItem->getName() ) < 0 )
+            {
+                if ( prevSortedItem )
+                {
+                    sortedList.insertAfter( *prevSortedItem, *item );
+                }
+                else
+                {
+                    sortedList.putFirst( *item );
+                }
+                moved = true;
+                break;
+            }
+            prevSortedItem = sortedItem;
+            sortedItem     = m_list.next( *sortedItem );
+        }
+
+        // new item is 'larger' than all items in the sorted listed
+        if ( !moved )
+        {
+            sortedList.putLast( *item );
+        }
+
+        item = m_list.getFirst();
+    }
+
+    // Make the unsorted list THE list
+    sortedList.move( m_list );
+}
+
+ModelPoint* ModelDatabase::find( const char* name ) noexcept
+{
+    ModelPoint* item  = m_list.first();
+    while ( item )
+    {
+        if ( strcmp( item->getName(), name ) == 0 )
+        {
+            return item;
+        }
+        item = m_list.next( *item );
+    }
+
+    return nullptr;
 }

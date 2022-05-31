@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-102 334,-102 334,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="This file provides the mappings for Platform specific types, etc.">
 <polygon fill="#bfbfbf" stroke="black" points="93,-67.5 93,-97.5 210,-97.5 210,-67.5 93,-67.5"/>
 <text text-anchor="start" x="101" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl/System/FreeRTOS</text>
 <text text-anchor="middle" x="151.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/mappings_.h</text>

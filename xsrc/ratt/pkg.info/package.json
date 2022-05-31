@@ -21,11 +21,18 @@
   },
   "publish": {
     "current": {
-      "comment": "Publish as Outcast2 package",
-      "version": "1.0.0",
-      "date": "Sun Nov 28 20:26:32 2021",
-      "timestamp": 1638131192
+      "comment": "remove native support for serial ports (was not portable in python)",
+      "version": "1.0.1",
+      "date": "Sun May 29 17:01:20 2022",
+      "timestamp": 1653843680
     },
-    "history": []
+    "history": [
+      {
+        "comment": "Publish as Outcast2 package",
+        "version": "1.0.0",
+        "date": "Sun Nov 28 20:26:32 2021",
+        "timestamp": 1638131192
+      }
+    ]
   }
 }

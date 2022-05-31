@@ -46,7 +46,7 @@
 </g>
 <!-- Node7 -->
 <g id="node7" class="node"><title>Node7</title>
-<g id="a_node7"><a xlink:href="_model_points_8h.html" target="_top" xlink:title=" ">
+<g id="a_node7"><a xlink:href="_model_points_8h.html" target="_top" xlink:title="This file defines all of the Model Points for the Thermostat Application.">
 <polygon fill="white" stroke="black" points="509.5,-129 509.5,-148 670.5,-148 670.5,-129 509.5,-129"/>
 <text text-anchor="middle" x="590" y="-136" font-family="Helvetica,sans-Serif" font-size="10.00">Storm/Thermostat/ModelPoints.h</text>
 </a>

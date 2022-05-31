@@ -2,14 +2,14 @@
 """
 Script to build projects using NQBP
 ===============================================================================
-usage: bob [options] here [<nqbp-opts>...]
-       bob [options] PATTERN [<nqbp-opts>...]
+usage: bob [options] here [<build-opts>...]
+       bob [options] PATTERN [<build-opts>...]
        bob [options] --file BLDLIST
 
 Options:
     here                 Builds all NQBP projects starting from the current 
                          working directory.
-    <nqbp-opts>          Option(s) to be passed directly to NQBP
+    <build-opts>         Option(s) to be passed directly to build script
     PATTERN              If a subdir under PRJDIR matches PATTERN, then that
                          directory is built.  Standard Python wildcards can
                          be used in the PATTERN.
@@ -37,6 +37,7 @@ Options:
                          config/setup is required.
     --config SCRIPT      Same as the '--xconfig' option, but the name and path 
                          are relative to the package root directory
+    -x SCRIPT            Build using SCRIPT [Default: nqbp.py]
     -2                   Run two builds at the same time
     -4                   Run four builds at the same time
     -v                   Be verbose 
@@ -50,6 +51,10 @@ Examples:
     
     ; Builds the projects listed in the file 'mybuild.lst'
     bob.py --file mybuild.lst
+
+    ; Builds all 'mybuild' projects (with the '-s' option) under the current 
+    ; working directory
+    bob.py -x mybuild.bat here -s
     
 """
 
@@ -86,7 +91,7 @@ def _filter_prj_list( all_prj, pattern, pkgroot, exclude=None, exclude2=None, ex
 
     return list
     
-def _build_project( prjdir, verbose, bldopts, config, xconfig, pkgroot ):
+def _build_project( full_path_of_build_script, verbose, bldopts, config, xconfig, pkgroot ):
     # reconcile config options
     cfg = None
     if ( config ):
@@ -95,12 +100,12 @@ def _build_project( prjdir, verbose, bldopts, config, xconfig, pkgroot ):
         cfg = xconfig
     
     # Build the project
-    utils.push_dir( os.path.dirname(prjdir) )
-    print( "BUILDING: "+ prjdir )
-    cmd = '.' + os.path.sep + 'nqbp.py ' + " ".join(bldopts)
+    utils.push_dir( os.path.dirname(full_path_of_build_script) )
+    cmd = full_path_of_build_script + ' ' + " ".join(bldopts)
+    print( "BUILDING: "+ cmd )
     if ( config ):
         cmd = utils.concatenate_commands( cfg, cmd )
-    utils.run_shell2( cmd, verbose, "ERROR: Build failure ({})".format(cmd) )
+    utils.run_shell2( cmd, verbose, f"ERROR: Build failure ({cmd})" )
     utils.pop_dir()
 
 
@@ -124,11 +129,15 @@ if __name__ == '__main__':
         ppath = args['--path']
 
     
+    # Set which build engine to use
+    build_script = args['-x']
+
+
     # Get superset of projects to build
     utils.push_dir( ppath )
     utils.set_pkg_and_wrkspace_roots( ppath )    
     pkgroot = NQBP_PKG_ROOT()
-    all_prjs = utils.walk_file_list( "nqbp???", ppath )
+    all_prjs = utils.walk_file_list( build_script, ppath )
 
     # Get project list from a file
     if ( args['--file'] ):
@@ -171,7 +180,7 @@ if __name__ == '__main__':
         # Run the Jobs serially
         if ( not args['-2'] and not args['-4'] ):
             for p in jobs:
-                _build_project(p, args['-v'], args['<nqbp-opts>'], args['--config'], args['--xconfig'], pkgroot )
+                _build_project(p, args['-v'], args['<build-opts>'], args['--config'], args['--xconfig'], pkgroot )
 
         # Run the Jobs in PARALLEL
         else:
@@ -191,7 +200,7 @@ if __name__ == '__main__':
                         j         = jobs[index]
                         index     += 1
                         busy      += 1
-                        handles[i] = Process(target=_build_project, args=(j, args['-v'], args['<nqbp-opts>'], args['--config'], args['--xconfig'], pkgroot) )
+                        handles[i] = Process(target=_build_project, args=(j, args['-v'], args['<build-opts>'], args['--config'], args['--xconfig'], pkgroot) )
                         handles[i].start()
 
                 # Poll for processes being done

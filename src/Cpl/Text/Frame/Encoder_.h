@@ -95,6 +95,11 @@ protected:
 
 	/// Helper method - implemented by the child class
 	virtual bool append( char src ) noexcept = 0;
+
+	/** Returns the encoded/escaped value for the specified special character.  
+		The default implementation simply returns 'charToBeEscaped'
+	 */
+	virtual char encodeChar( char charToBeEscaped );
 };
 
 

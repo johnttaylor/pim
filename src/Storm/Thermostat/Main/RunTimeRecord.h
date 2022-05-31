@@ -57,10 +57,12 @@ public:
 
 public:
     /// See Cpl::Dm::Persistent::Record
-    void resetData() noexcept
+    bool resetData() noexcept
     {
         mp_airFilterAlert.write( { false, false, false } );
         mp_airFilterOperationTime.write( { 0,0 } );
+
+        return true;
     }
 
     /// See Cpl::Persistent::Record

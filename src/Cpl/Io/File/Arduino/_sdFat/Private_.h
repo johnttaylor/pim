@@ -21,6 +21,7 @@
 
 #include <SdFat.h>
 
+/// Global handle to the file system
 extern FatFileSystem g_arduino_sdfat_fs;
 
 

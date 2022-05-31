@@ -19,7 +19,6 @@
 #include <time.h>
 
 
-
 ///
 namespace Cpl { namespace Io { namespace File {
 

@@ -13,6 +13,7 @@
 #include "MailboxServer.h"
 #include "Cpl/Text/strip.h"
 #include "Cpl/Text/atob.h"
+#include "Cpl/System/Assert.h"
 
 ///
 using namespace Cpl::Dm;
@@ -29,22 +30,39 @@ enum State_T
 
 
 ////////////////////////
-ModelPointCommon_::ModelPointCommon_( ModelDatabase& myModelBase, void* myDataPtr, StaticInfo& staticInfo, int8_t validState )
-    : m_staticInfo( staticInfo )
+ModelPointCommon_::ModelPointCommon_( ModelDatabase& myModelBase, 
+                                      const char*    symbolicName, 
+                                      void*          myDataPtr, 
+                                      size_t         dataSizeInBytes, 
+                                      bool           isValid )
+    : m_name( symbolicName )
     , m_modelDatabase( myModelBase )
     , m_dataPtr( myDataPtr )
-    , m_seqNum( SEQUENCE_NUMBER_UNKNOWN + 1 )
+    , m_dataSize( dataSizeInBytes )
+    , m_seqNum( SEQUENCE_NUMBER_UNKNOWN + 1          )
     , m_locked( false )
-    , m_validState( validState )
+    , m_valid( isValid )
 {
     // Automagically add myself to the Model Database
     myModelBase.insert_( *this );
+
+
+    // Make sure that I process the 'transition' to the invalid state
+    if ( !m_valid )
+    {
+        hookSetInvalid();  
+    }
 }
 
 /////////////////
 const char* ModelPointCommon_::getName() const noexcept
 {
-    return m_staticInfo.getName();
+    return m_name;
+}
+
+size_t ModelPointCommon_::getSize() const noexcept
+{
+    return m_dataSize;
 }
 
 uint16_t ModelPointCommon_::getSequenceNumber() const noexcept
@@ -55,35 +73,25 @@ uint16_t ModelPointCommon_::getSequenceNumber() const noexcept
     return result;
 }
 
-int8_t ModelPointCommon_::getValidState( void ) const noexcept
+bool ModelPointCommon_::isNotValid( void ) const noexcept
 {
     m_modelDatabase.lock_();
-    int8_t result = m_validState;
+    bool result = m_valid;
     m_modelDatabase.unlock_();
-    return result;
+    return !result;
 }
 
-uint16_t ModelPointCommon_::setInvalidState( int8_t newInvalidState, LockRequest_T lockRequest ) noexcept
+uint16_t ModelPointCommon_::setInvalid( LockRequest_T lockRequest ) noexcept
 {
-    // Force a 'valid Invalid State value
-    if ( newInvalidState <= 0 )
-    {
-        newInvalidState = OPTION_CPL_DM_MODEL_POINT_STATE_INVALID;
-    }
 
     m_modelDatabase.lock_();
     if ( testAndUpdateLock( lockRequest ) )
     {
-        if ( IS_VALID( m_validState ) )
+        if ( m_valid )
         {
-            m_validState = newInvalidState;
+            m_valid = false;
+            hookSetInvalid();
             processChangeNotifications();
-        }
-
-        // Note: Update my state even if there was NO valid-->invalid transition - since there are many 'invalid states'
-        else
-        {
-            m_validState = newInvalidState;
         }
     }
 
@@ -92,11 +100,18 @@ uint16_t ModelPointCommon_::setInvalidState( int8_t newInvalidState, LockRequest
     return result;
 }
 
-int8_t ModelPointCommon_::read( void* dstData, size_t dstSize, uint16_t* seqNumPtr ) const noexcept
+void ModelPointCommon_::hookSetInvalid() noexcept
+{
+    // Set the data to a known state so that transition from the invalid to the 
+    // valid state when using read-modify-write operation is consistent in its behavior
+    memset( m_dataPtr, 0, m_dataSize );
+}
+
+bool ModelPointCommon_::read( void* dstData, size_t dstSize, uint16_t* seqNumPtr ) const noexcept
 {
     m_modelDatabase.lock_();
-    int8_t validState = m_validState;
-    if ( dstData && IS_VALID( validState ) )
+    bool valid = m_valid;
+    if ( dstData && valid )
     {
         copyDataTo_( dstData, dstSize );
     }
@@ -106,7 +121,7 @@ int8_t ModelPointCommon_::read( void* dstData, size_t dstSize, uint16_t* seqNumP
     }
     m_modelDatabase.unlock_();
 
-    return validState;
+    return valid;
 }
 
 uint16_t ModelPointCommon_::write( const void* srcData, size_t srcSize, LockRequest_T lockRequest ) noexcept
@@ -114,7 +129,7 @@ uint16_t ModelPointCommon_::write( const void* srcData, size_t srcSize, LockRequ
     m_modelDatabase.lock_();
     if ( srcData && testAndUpdateLock( lockRequest ) )
     {
-        if ( !IS_VALID( m_validState ) || isDataEqual_( srcData ) == false )
+        if ( !m_valid || isDataEqual_( srcData ) == false )
         {
             copyDataFrom_( srcData, srcSize );
             processDataUpdated();
@@ -126,42 +141,18 @@ uint16_t ModelPointCommon_::write( const void* srcData, size_t srcSize, LockRequ
     return result;
 }
 
-uint16_t ModelPointCommon_::readModifyWrite( GenericRmwCallback& callbackClient, LockRequest_T lockRequest )
+uint16_t ModelPointCommon_::copyFrom( const ModelPointCommon_& src, LockRequest_T lockRequest ) noexcept
 {
+    // Handle the src.invalid case
+    if ( src.isNotValid() )
+    {
+        return setInvalid();
+    }
+
     m_modelDatabase.lock_();
-    if ( testAndUpdateLock( lockRequest ) )
-    {
-        // Invoke the client's callback function
-        processRmwCallbackResult( callbackClient.genericCallback( m_dataPtr, m_validState ) );
-    }
-
-    uint16_t result = m_seqNum;
+    uint16_t seqNum = write( src.m_dataPtr, src.m_dataSize, lockRequest );
     m_modelDatabase.unlock_();
-
-    return result;
-}
-
-void ModelPointCommon_::processRmwCallbackResult( RmwCallbackResult_T result ) noexcept
-{
-    // Do nothing if the callback did not change anything
-    if ( result != RmwCallbackResult_T::eNO_CHANGE )
-    {
-        // Handle request to invalidate the MP data
-        if ( result == RmwCallbackResult_T::eINVALIDATE )
-        {
-            if ( IS_VALID( m_validState ) )
-            {
-                m_validState = OPTION_CPL_DM_MODEL_POINT_STATE_INVALID;
-                processChangeNotifications();
-            }
-        }
-
-        // Handle the CHANGED use case
-        else
-        {
-            processDataUpdated();
-        }
-    }
+    return seqNum;
 }
 
 uint16_t ModelPointCommon_::touch() noexcept
@@ -173,6 +164,53 @@ uint16_t ModelPointCommon_::touch() noexcept
     return result;
 }
 
+void ModelPointCommon_::copyDataTo_( void* dstData, size_t dstSize ) const noexcept
+{
+    CPL_SYSTEM_ASSERT( dstSize <= m_dataSize);
+    memcpy( dstData, m_dataPtr, dstSize );
+}
+
+void ModelPointCommon_::copyDataFrom_( const void* srcData, size_t srcSize ) noexcept
+{
+    CPL_SYSTEM_ASSERT( srcSize <= m_dataSize );
+    memcpy( m_dataPtr, srcData, m_dataSize );
+}
+
+bool ModelPointCommon_::isDataEqual_( const void* otherData ) const noexcept
+{
+    return memcmp( m_dataPtr, otherData, m_dataSize ) == 0;
+}
+
+const void* ModelPointCommon_::getImportExportDataPointer_() const noexcept
+{
+    return m_dataPtr;
+}
+
+size_t ModelPointCommon_::getInternalDataSize_() const noexcept
+{
+    return getSize();
+}
+
+/////////////////
+bool ModelPointCommon_::toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose, bool pretty ) noexcept
+{
+    // Get a snapshot of the my data and state
+    m_modelDatabase.lock_();
+
+    // Start the conversion
+    JsonDocument& doc = beginJSON( m_valid, m_locked, m_seqNum, verbose );
+
+    // Construct the 'val' key/value pair (as a simple numeric)
+    if ( m_valid )
+    {
+        setJSONVal( doc );
+    }
+
+    // End the conversion
+    endJSON( dst, dstSize, truncated, verbose, pretty );
+    m_modelDatabase.unlock_();
+    return true;
+}
 
 /////////////////
 uint16_t ModelPointCommon_::setLockState( LockRequest_T lockRequest ) noexcept
@@ -221,12 +259,12 @@ size_t ModelPointCommon_::exportData( void* dstDataStream, size_t maxDstLength, 
                 memcpy( dstPtr, getImportExportDataPointer_(), dataSize );
 
                 // Export Valid State
-                memcpy( dstPtr + dataSize, &m_validState, sizeof( m_validState ) );
+                memcpy( dstPtr + dataSize, &m_valid, sizeof( m_valid ) );
 
                 // Export Locked state
                 if ( includeLockedState )
                 {
-                    memcpy( dstPtr + dataSize + sizeof( m_validState ), &m_locked, sizeof( m_locked ) );
+                    memcpy( dstPtr + dataSize + sizeof( m_valid ), &m_locked, sizeof( m_locked ) );
                 }
 
                 // Return the Sequence number when requested
@@ -264,12 +302,12 @@ size_t ModelPointCommon_::importData( const void* srcDataStream, size_t srcLengt
                 memcpy( (void*)getImportExportDataPointer_(), srcPtr, dataSize );
 
                 // Import Valid State
-                memcpy( &m_validState, srcPtr + dataSize, sizeof( m_validState ) );
+                memcpy( &m_valid, srcPtr + dataSize, sizeof( m_valid ) );
 
                 // Import Locked state
                 if ( includeLockedState )
                 {
-                    memcpy( &m_locked, srcPtr + dataSize + sizeof( m_validState ), sizeof( m_locked ) );
+                    memcpy( &m_locked, srcPtr + dataSize + sizeof( m_valid ), sizeof( m_locked ) );
                 }
 
                 // Generate change notifications and return the Sequence number when requested
@@ -290,24 +328,16 @@ size_t ModelPointCommon_::importData( const void* srcDataStream, size_t srcLengt
 
 size_t ModelPointCommon_::getExternalSize( bool includeLockedState ) const noexcept
 {
-    size_t baseSize =  getInternalDataSize_() + sizeof( m_validState );
+    size_t baseSize =  getInternalDataSize_() + sizeof( m_valid );
     return includeLockedState ? baseSize + sizeof( m_locked ) : baseSize;
 }
 
 
-/////////////////
-const Cpl::Container::Key& ModelPointCommon_::getKey() const noexcept
-{
-    return m_staticInfo;
-}
-
-
-
-/////////////////
+/////////////////////////////////////
 void ModelPointCommon_::processDataUpdated() noexcept
 {
     // By definition - Point now has valid date
-    m_validState = MODEL_POINT_STATE_VALID;
+    m_valid = true;
     processChangeNotifications();
 }
 
@@ -534,35 +564,41 @@ bool ModelPointCommon_::testAndUpdateLock( LockRequest_T lockRequest ) noexcept
 }
 
 /////////////////
-JsonDocument& ModelPointCommon_::beginJSON( int8_t validState, bool locked, uint16_t seqnum, bool verbose ) noexcept
+JsonDocument& ModelPointCommon_::beginJSON( bool isValid, bool locked, uint16_t seqnum, bool verbose ) noexcept
 {
     // Get access to the Global JSON document
     ModelDatabase::globalLock_();
     ModelDatabase::g_doc_.clear();  // Make sure the JSON document is starting "empty"
 
     // Construct the JSON
-    ModelDatabase::g_doc_["name"]      = getName();
-    ModelDatabase::g_doc_["invalid"]   = validState;
+    ModelDatabase::g_doc_["name"]  = getName();
+    ModelDatabase::g_doc_["valid"] = isValid;
     if ( verbose )
     {
         ModelDatabase::g_doc_["type"]      = getTypeAsText();
         ModelDatabase::g_doc_["seqnum"]    = seqnum;
         ModelDatabase::g_doc_["locked"]    = locked;
-
-        if (m_staticInfo.hasJSONFormatter())
-        {
-            JsonObject obj = ModelDatabase::g_doc_.createNestedObject("info");
-            m_staticInfo.toJSON( obj );
-        }
     }
     return ModelDatabase::g_doc_;
 }
 
-void ModelPointCommon_::endJSON( char* dst, size_t dstSize, bool& truncated, bool verbose ) noexcept
+void ModelPointCommon_::endJSON( char* dst, size_t dstSize, bool& truncated, bool verbose, bool pretty ) noexcept
 {
+    size_t jsonLen;
+    size_t outputLen;
+
     // Generate the actual output string 
-    size_t num = serializeJson( ModelDatabase::g_doc_, dst, dstSize );
-    truncated = num == dstSize ? true : false;
+    if ( !pretty )
+    {
+        jsonLen   = measureJson( ModelDatabase::g_doc_ );
+        outputLen = serializeJson( ModelDatabase::g_doc_, dst, dstSize );
+    }
+    else
+    {
+        jsonLen   = measureJsonPretty( ModelDatabase::g_doc_ );
+        outputLen = serializeJsonPretty( ModelDatabase::g_doc_, dst, dstSize );
+    }
+    truncated = outputLen == jsonLen ? false : true;
 
     // Release the Global JSON document
     ModelDatabase::globalUnlock_();

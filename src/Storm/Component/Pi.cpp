@@ -37,7 +37,7 @@ Pi::Pi( struct Input_T ins, struct Output_T outs )
     CPL_SYSTEM_ASSERT( m_out.sumError );
 }
 
-bool Pi::start( Cpl::System::ElapsedTime::Precision_T intervalTime )
+bool Pi::start( Cpl::System::ElapsedTime::Precision_T& intervalTime )
 {
     // Initialize my data
     m_dt           = ( float) (intervalTime.m_thousandths + intervalTime.m_seconds * 1000);
@@ -72,11 +72,11 @@ bool Pi::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     int8_t                                validSystem        = m_in.systemConfig->read( sysCfg );
     int8_t                                validFreezeRefCnt  = m_in.freezePiRefCnt->read( freezeRefCnt );
     int8_t                                validInhibitRefCnt = m_in.inhibitfRefCnt->read( inhibitRefCnt );
-    if ( Cpl::Dm::ModelPoint::IS_VALID( validResetPi ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validDeltaError ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validSystem ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validFreezeRefCnt ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( validInhibitRefCnt ) == false )
+    if ( validResetPi == false ||
+         validDeltaError == false ||
+         validSystem == false ||
+         validFreezeRefCnt == false ||
+         validInhibitRefCnt == false )
     {
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "Pi::execute. One or more invalid MPs (resetPi=%d, deltaError=%d, system=%d, freezeRefCnt=%d, inhibitRefCnt=%d", validResetPi, validDeltaError, validSystem, validFreezeRefCnt, validInhibitRefCnt ) );
 

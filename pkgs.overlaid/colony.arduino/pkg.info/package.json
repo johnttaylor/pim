@@ -95,11 +95,18 @@
   },
   "publish": {
     "current": {
-      "comment": "Publish as an Outcast2 package",
-      "version": "1.0.1",
-      "date": "Sun Nov 28 20:11:42 2021",
-      "timestamp": 1638130302
+      "comment": "Fix doxgyen errors",
+      "version": "1.0.2",
+      "date": "Mon May 30 20:03:36 2022",
+      "timestamp": 1653941016
     },
-    "history": []
+    "history": [
+      {
+        "comment": "Publish as an Outcast2 package",
+        "version": "1.0.1",
+        "date": "Sun Nov 28 20:11:42 2021",
+        "timestamp": 1638130302
+      }
+    ]
   }
 }

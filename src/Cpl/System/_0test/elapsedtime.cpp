@@ -42,7 +42,9 @@ TEST_CASE( "elaspedtime", "[elaspedtime]" )
     precision = ElapsedTime::precision();
 
     // Sleep at least 1.5 second
-    Api::sleep( 1500 );
+    Api::sleep( 1510 );
+    //unsigned long n = ElapsedTime::milliseconds();
+    //printf( "now=%lu, msec=%lu, delta=%lu\n", n, msecs, n - msecs );
 
     // Verify delta time
     REQUIRE( ElapsedTime::expiredMilliseconds( msecs, 1500 ) == true );
@@ -63,7 +65,7 @@ TEST_CASE( "elaspedtime", "[elaspedtime]" )
     msecs     = ElapsedTime::milliseconds();
 
     // Sleep at least 1.0 second
-    Api::sleep( 1000 );
+    Api::sleep( 1010 );
 
     // Verify delta time
     REQUIRE( ElapsedTime::expiredMilliseconds( msecs, 1000 ) == true );
@@ -79,7 +81,7 @@ TEST_CASE( "elaspedtime", "[elaspedtime]" )
     precision = ElapsedTime::precision();
 
     // Sleep at least 3.7 second
-    Api::sleep( 3700 );
+    Api::sleep( 3710 );
 
     // Verify delta time
     REQUIRE( ElapsedTime::expiredMilliseconds( msecs, 3700 ) == true );

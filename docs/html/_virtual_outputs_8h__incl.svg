@@ -19,7 +19,7 @@
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="_constants_8h.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="_constants_8h.html" target="_top" xlink:title="This file provides magic constants that NOT component specific, i.e.">
 <polygon fill="white" stroke="black" points="0,-56.5 0,-75.5 98,-75.5 98,-56.5 0,-56.5"/>
 <text text-anchor="middle" x="49" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">Storm/Constants.h</text>
 </a>

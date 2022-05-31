@@ -19,199 +19,166 @@
 using namespace Cpl::Dm::Mp;
 
 ///////////////////////////////////////////////////////////////////////////////
-RefCounter::RefCounter( Cpl::Dm::ModelDatabase& myModelBase, Cpl::Dm::StaticInfo& staticInfo )
-	:Basic<uint32_t>( myModelBase, staticInfo )
+RefCounter::RefCounter( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
+    :Cpl::Dm::ModelPointCommon_( myModelBase, symbolicName, &m_data, sizeof( m_data ), false )
 {
 }
 
-RefCounter::RefCounter( Cpl::Dm::ModelDatabase& myModelBase, Cpl::Dm::StaticInfo& staticInfo, uint32_t initialValue )
-	: Basic<uint32_t>( myModelBase, staticInfo, initialValue )
+/// Constructor. Valid MP.  Requires an initial value
+RefCounter::RefCounter( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName, uint32_t initialValue )
+    : Cpl::Dm::ModelPointCommon_( myModelBase, symbolicName, &m_data, sizeof( m_data ), true )
 {
+    m_data = initialValue;
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
+void RefCounter::updateAndCheckForChangeNotification( uint32_t newValue )
+{
+    // Generate change notices on transition to valid OR zero-to-not-zero OR not-zero-to-zero
+    if ( !m_valid || (m_data == 0 && newValue != 0) || (newValue == 0 && m_data != 0) )
+    {
+        processDataUpdated();
+    }
+    m_data = newValue;
+}
+
+
 uint16_t RefCounter::reset( uint32_t newValue, LockRequest_T lockRequest ) noexcept
 {
-	m_modelDatabase.lock_();
-	if ( testAndUpdateLock( lockRequest ) )
-	{
-		// Increment the counter and prevent overflow
-		uint32_t previous = m_data;
-		m_data            = newValue;
+    m_modelDatabase.lock_();
+    if ( testAndUpdateLock( lockRequest ) )
+    {
+        // Generate change notices on transition to valid OR zero-to-not-zero
+        updateAndCheckForChangeNotification( newValue );
+    }
+    uint16_t result = m_seqNum;
+    m_modelDatabase.unlock_();
 
-		// Generate change notices on transition to valid OR zero-to-not-zero OR not-zero-to-zero
-		if ( !IS_VALID( m_validState ) || ( previous == 0 && m_data != 0 ) || ( m_data == 0 && previous != 0 ) )
-		{
-			processDataUpdated();
-		}
-	}
-	uint16_t result = m_seqNum;
-	m_modelDatabase.unlock_();
-
-	return result;
+    return result;
 }
 
 uint16_t RefCounter::increment( uint32_t incrementAmount, LockRequest_T lockRequest ) noexcept
 {
-	m_modelDatabase.lock_();
-	if ( testAndUpdateLock( lockRequest ) )
-	{
-		// Increment the counter and prevent overflow
-		uint32_t previous = m_data;
-		m_data           += incrementAmount;
-		if ( m_data < previous )
-		{
-			m_data = (uint32_t) -1;
-		}
+    m_modelDatabase.lock_();
+    if ( testAndUpdateLock( lockRequest ) )
+    {
+        // Increment the counter and prevent overflow
+        uint32_t newValue = m_data + incrementAmount;
+        if ( newValue < m_data )
+        {
+            newValue = (uint32_t) -1;
+        }
 
-		// Generate change notices on transition to valid OR zero-to-not-zero
-		if ( !IS_VALID( m_validState ) || ( previous == 0 && m_data != 0 ) )
-		{
-			processDataUpdated();
-		}
-	}
-	uint16_t result = m_seqNum;
-	m_modelDatabase.unlock_();
+        // Generate change notices on transition to valid OR zero-to-not-zero
+        updateAndCheckForChangeNotification( newValue );
+    }
+    uint16_t result = m_seqNum;
+    m_modelDatabase.unlock_();
 
-	return result;
+    return result;
 }
 
 uint16_t RefCounter::decrement( uint32_t decrementAmount, LockRequest_T lockRequest ) noexcept
 {
-	m_modelDatabase.lock_();
-	if ( testAndUpdateLock( lockRequest ) )
-	{
-		// Decrement the counter and prevent underflow
-		uint32_t previous = m_data;
-		m_data           -= decrementAmount;
-		if ( m_data > previous )
-		{
-			m_data = 0;
-		}
+    m_modelDatabase.lock_();
+    if ( testAndUpdateLock( lockRequest ) )
+    {
+        // Decrement the counter and prevent underflow
+        uint32_t newValue = m_data - decrementAmount;
+        if ( newValue > m_data )
+        {
+            newValue = 0;
+        }
 
-		// Generate change notices on transition to valid OR not-zero-to-zero
-		if ( !IS_VALID( m_validState ) || ( m_data == 0 && previous != 0 ) )
-		{
-			processDataUpdated();
-		}
-	}
-	uint16_t result = m_seqNum;
-	m_modelDatabase.unlock_();
+        // Generate change notices on transition to valid OR zero-to-not-zero
+        updateAndCheckForChangeNotification( newValue );
+    }
+    uint16_t result = m_seqNum;
+    m_modelDatabase.unlock_();
 
-	return result;
+    return result;
 }
 
-uint16_t RefCounter::setInvalidState( int8_t newInvalidState, LockRequest_T lockRequest ) noexcept
-{
-	m_modelDatabase.lock_();
-	m_data          = 0;
-	uint16_t result = ModelPointCommon_::setInvalidState( newInvalidState, lockRequest );
-	m_modelDatabase.unlock_();
-	return result;
-}
-
+///////////////////////////////////////////////////////////////////////////////
 void RefCounter::attach( Observer& observer, uint16_t initialSeqNumber ) noexcept
 {
-	ModelPointCommon_::attach( observer, initialSeqNumber );
+    ModelPointCommon_::attach( observer, initialSeqNumber );
 }
 
 void RefCounter::detach( Observer& observer ) noexcept
 {
-	ModelPointCommon_::detach( observer );
+    ModelPointCommon_::detach( observer );
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
 const char* RefCounter::getTypeAsText() const noexcept
 {
-	return "Cpl::Dm::Mp::RefCounter";
+    return "Cpl::Dm::Mp::RefCounter";
 }
 
-bool RefCounter::toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose ) noexcept
+///////////////////////////////////////////////////////////////////////////////
+void RefCounter::setJSONVal( JsonDocument& doc ) noexcept
 {
-	// Get a snapshot of the my data and state
-	m_modelDatabase.lock_();
-	uint32_t value  = m_data;
-	uint16_t seqnum = m_seqNum;
-	int8_t   valid  = m_validState;
-	bool     locked = m_locked;
-	m_modelDatabase.unlock_();
-
-	// Start the conversion
-	JsonDocument& doc = beginJSON( valid, locked, seqnum, verbose );
-
-	// Construct the 'val' key/value pair (as a string)
-	if ( IS_VALID( valid ) )
-	{
-		Cpl::Text::FString<10> tmp = value;
-		doc["val"] = (char*) tmp.getString();
-	}
-
-	// End the conversion
-	Cpl::Dm::ModelPointCommon_::endJSON( dst, dstSize, truncated, verbose );
-	return true;
+    doc["val"] = m_data;
 }
 
 bool RefCounter::fromJSON_( JsonVariant& src, LockRequest_T lockRequest, uint16_t& retSequenceNumber, Cpl::Text::String* errorMsg ) noexcept
 {
-	// Attempt to parse the value key/value pair
-	const char* jsonValue = src;
-	if ( jsonValue == nullptr )
-	{
-		if ( errorMsg )
-		{
-			*errorMsg = "Missing 'val' key/value pair";
-		}
-		return false;
-	}
+    // Parse as a numeric -->i.e. 'set a explicit value'
+    if ( src.is<uint32_t>() )
+    {
+        retSequenceNumber = reset( src.as<uint32_t>(), lockRequest );
+        return true;
+    }
 
-	// Increment action
-	if ( jsonValue[0] == '+' )
-	{
-		unsigned long numValue;
-		if ( Cpl::Text::a2ul( numValue, jsonValue + 1 ) == false )
-		{
-			if ( errorMsg )
-			{
-				*errorMsg = "Invalid/bad syntax for the 'val' key/value pair";
-			}
-			return false;
-		}
-		retSequenceNumber = increment( (uint32_t) numValue, lockRequest );
-	}
+    // Attempt to parse the 'action' -->MUST BE A STRING at this point!
+    const char* jsonValue = src;
+    if ( jsonValue == nullptr )
+    {
+        if ( errorMsg )
+        {
+            *errorMsg = "Missing 'val' key/value pair";
+        }
+        return false;
+    }
 
-	// Decrement action
-	else if ( jsonValue[0] == '-' )
-	{
-		unsigned long numValue;
-		if ( Cpl::Text::a2ul( numValue, jsonValue + 1 ) == false )
-		{
-			if ( errorMsg )
-			{
-				*errorMsg = "Invalid/bad syntax for the 'val' key/value pair";
-			}
-			return false;
-		}
-		retSequenceNumber = decrement( (uint32_t) numValue, lockRequest );
-	}
+    // Increment action
+    if ( jsonValue[0] == '+' )
+    {
+        unsigned long numValue;
+        if ( Cpl::Text::a2ul( numValue, jsonValue + 1 ) == false )
+        {
+            if ( errorMsg )
+            {
+                *errorMsg = "Invalid/bad syntax for the 'val' key/value pair";
+            }
+            return false;
+        }
+        retSequenceNumber = increment( (uint32_t) numValue, lockRequest );
+        return true;
+    }
 
-	// Set/Reset action
-	else
-	{
-		unsigned long numValue;
-		if ( Cpl::Text::a2ul( numValue, jsonValue ) == false )
-		{
-			if ( errorMsg )
-			{
-				*errorMsg = "Invalid/bad syntax for the 'val' key/value pair";
-			}
-			return false;
-		}
-		retSequenceNumber = reset( (uint32_t) numValue, lockRequest );
-	}
+    // Decrement action
+    if ( jsonValue[0] == '-' )
+    {
+        unsigned long numValue;
+        if ( Cpl::Text::a2ul( numValue, jsonValue + 1 ) == false )
+        {
+            if ( errorMsg )
+            {
+                *errorMsg = "Invalid/bad syntax for the 'val' key/value pair";
+            }
+            return false;
+        }
+        retSequenceNumber = decrement( (uint32_t) numValue, lockRequest );
+        return true;
+    }
 
-	return true;
+    // Bad syntax
+    if ( errorMsg )
+    {
+        *errorMsg = "Invalid/bad syntax for the 'val' key/value pair";
+    }
+    return false;
 }
 
 

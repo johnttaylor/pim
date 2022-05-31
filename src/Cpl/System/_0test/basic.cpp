@@ -16,6 +16,7 @@
 #include "Cpl/System/ElapsedTime.h"
 #include "Cpl/System/Tls.h"
 #include "Cpl/System/Trace.h"
+#include "Cpl/System/EventLoop.h"
 #include "Cpl/System/_testsupport/Shutdown_TS.h"
 #include <string.h>
 
@@ -238,6 +239,34 @@ public:
 
 }; // end namespace
 
+////////////////////////////////////////////////////////////////////////////////
+static int counter01 = 0;
+static int counter02 = 0;
+static int counter03 = 2;
+static int counter11 = 0;
+static int counter13 = 2;
+static int counter21 = 0;
+
+static void callback1( void* context )
+{
+    int* ptr = (int*) context;
+    *ptr = *ptr + 1;
+}
+static void callback2( void* context )
+{
+    int* ptr = (int*) context;
+    *ptr = *ptr - 1;
+}
+static void callback3( void* context )
+{
+    int* ptr = (int*) context;
+    *ptr = *ptr + 10;
+}
+
+static Cpl::System::SharedEventHandlerApi::EventCallback_T callbacks1[3] ={ {callback1, &counter01}, {callback2, &counter02}, {callback3, &counter03} };
+static Cpl::System::SharedEventHandlerApi::EventCallback_T callbacks2[3] ={ {callback1, &counter11}, {0,0}, { callback3, &counter13 } };
+static Cpl::System::SharedEventHandlerApi::EventCallback_T callbacks3[1] ={ {callback1, &counter21} };
+
 
 ////////////////////////////////////////////////////////////////////////////////
 TEST_CASE( "basic" )
@@ -304,10 +333,10 @@ TEST_CASE( "basic" )
         Thread::wait();
         REQUIRE( cherryRun.m_tlsCompareResult == 0 );
         REQUIRE( cherryRun.m_waitResult1 == false );
-        REQUIRE( cherryRun.m_delta1 >= 333 - 1 );        // Use a tolerance for the test since the elapsed time and timed semaphore are guaranteed to have the same timing source
+        REQUIRE( cherryRun.m_delta1 >= 333 - 2 );        // Use a tolerance for the test since the elapsed time and timed semaphore are guaranteed to have the same timing source
         REQUIRE( cherryRun.m_waitResult2 == true );
         REQUIRE( cherryRun.m_delta2 < 50 );
-        REQUIRE( cherryRun.m_delta3 >= 333 - 1 );
+        REQUIRE( cherryRun.m_delta3 >= 333 - 2 );
         REQUIRE( cherryRun.m_delta4 < 50 );
 
         Api::sleep( 50 ); // Allow time for the Cherry thread to self terminate
@@ -336,5 +365,63 @@ TEST_CASE( "basic" )
         Api::resumeScheduling();
     }
 
+#define NUM_SEQ_    3
+#define EVENT_FLAGS 4
+
+    SECTION( "events" )
+    {
+        Cpl::System::SharedEventHandler<3> eventHandler1( callbacks1 );
+        Cpl::System::SharedEventHandler<3> eventHandler2( callbacks2 );
+        Cpl::System::SharedEventHandler<1> eventHandler3( callbacks3 );
+
+        Cpl::System::EventLoop fruits( OPTION_CPL_SYSTEM_EVENT_LOOP_TIMEOUT_PERIOD, &eventHandler1 );
+        Cpl::System::EventLoop trees( OPTION_CPL_SYSTEM_EVENT_LOOP_TIMEOUT_PERIOD, &eventHandler2 );
+        Cpl::System::EventLoop flowers( OPTION_CPL_SYSTEM_EVENT_LOOP_TIMEOUT_PERIOD, &eventHandler3 );
+
+        // Create all of the threads
+        Cpl::System::Thread* t1  = Cpl::System::Thread::create( fruits, "FRUITS" );
+        Cpl::System::Thread* t2  = Cpl::System::Thread::create( trees, "TREES" );
+        Cpl::System::Thread* t3  = Cpl::System::Thread::create( flowers, "FLOWERS" );
+
+        // Give time for all of threads to be created before starting the test sequence
+        Cpl::System::Api::sleep( 100 );
+
+        // Run the sequence N times
+        for ( int j=1; j <= NUM_SEQ_; j++ )
+        {
+            // Signal the event flags
+            for ( int i=0; i < EVENT_FLAGS; i++ )
+            {
+                // Start a test sequence
+                fruits.notify( i );
+                flowers.notify( i );
+                trees.notify( i );
+                Cpl::System::Api::sleep( 100 );  // Allow other threads to process
+            }
+
+            REQUIRE( counter01 == j );
+            REQUIRE( counter02 == -j );
+            REQUIRE( counter03 == j * 10 + 2 );
+            REQUIRE( counter11 == j );
+            REQUIRE( counter13 == j * 10 + 2 );
+            REQUIRE( counter21 == j );
+        }
+
+        // Shutdown threads
+        fruits.pleaseStop();
+        trees.pleaseStop();
+        flowers.pleaseStop();
+
+        Cpl::System::Api::sleep( 300 ); // allow time for threads to stop
+        REQUIRE( t1->isRunning() == false );
+        REQUIRE( t2->isRunning() == false );
+        REQUIRE( t3->isRunning() == false );
+
+        Cpl::System::Thread::destroy( *t1 );
+        Cpl::System::Thread::destroy( *t2 );
+        Cpl::System::Thread::destroy( *t3 );
+        Cpl::System::Api::sleep( 300 ); // allow time for threads to stop
+    }
+    
     REQUIRE( Shutdown_TS::getAndClearCounter() == 0u );
 }

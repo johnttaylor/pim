@@ -14,24 +14,12 @@
 
 
 #include "colony_config.h"
-#include "Cpl/Container/MapItem.h"
+#include "Cpl/Container/Item.h"
 #include "Cpl/Text/String.h"
-#include "Cpl/Dm/StaticInfo.h"
 #include "Cpl/Dm/SubscriberApi.h"
 #include "Cpl/Json/Arduino.h"
 #include <stddef.h>
 #include <stdint.h>
-
-
-/** This symbol provides the default 'Invalid' state value for a Model Point.
-    The application is free define/apply its own meaning to the set of
-    'invalid-values'.  NOTE: All 'Invalid' values MUST be greater than zero,
-    i.e. between 1 and 127.  Zero and negative values ARE Reserved by the RTE
-    Engine.
- */
-#ifndef OPTION_CPL_DM_MODEL_POINT_STATE_INVALID
-#define OPTION_CPL_DM_MODEL_POINT_STATE_INVALID            1
-#endif
 
 
  ///
@@ -54,7 +42,7 @@ namespace Dm {
         3) All methods in this class ARE thread Safe unless explicitly
            documented otherwise.
  */
-class ModelPoint : public Cpl::Container::MapItem
+class ModelPoint : public Cpl::Container::Item
 {
 public:
     /// Options related to the Model Point's locked state
@@ -65,28 +53,6 @@ public:
         eUNLOCK,                //!< Request to unlock the MP.  If the MP is already unlocked - the request is ignored and the update operation is completed
     };
 
-    /// Possible results of the read-modify-write callback function
-    enum RmwCallbackResult_T
-    {
-        eNO_CHANGE,             //!< Indicates the callback function has NOT modify the Model Point's data.
-        eCHANGED,               //!< Indicates the callback function has modify the Model Point's data
-        eINVALIDATE,            //!< Request that the Model Point's data state be set to eINVALID
-    };
-
-public:
-    /// Defines the generic, non-type safe read-modify-write client callback interface
-    class GenericRmwCallback
-    {
-    public:
-        /// Generic callback for the readModifyWrite() operation
-        virtual RmwCallbackResult_T genericCallback( void* data,
-                                                     int8_t validState ) noexcept = 0;
-
-    public:
-        /// Virtual destructor
-        ~GenericRmwCallback() {}
-    };
-
 
 public:
     /** Magic value to use when registering for a change notification and
@@ -94,9 +60,6 @@ public:
         Model Point.
      */
     static const uint16_t SEQUENCE_NUMBER_UNKNOWN;
-
-    /// This symbol defines the 'Valid' state value for a Model Point
-    static const int8_t MODEL_POINT_STATE_VALID;
 
 
 public:
@@ -126,15 +89,10 @@ public:
 
 
 public:
-    /** This method sets the invalid state of the Model Point. Any value
-        greater zero indicates represent 'invalid'. If a zero or negative
-        values is specified, the method will treat the value as
-        'OPTION_CPL_DM_MODEL_POINT_STATE_INVALID'.
+    /// This method returns true when the MP data is invalid.
+    virtual bool isNotValid() const noexcept = 0;
 
-        The application is free define/apply its own meaning to the set of
-        'invalid-values'.  The value MUST be greater than zero, i.e. between
-        1 and 127.  Zero and negative values ARE Reserved by the Data Model
-        Engine.
+    /** This method is used to mark the element's data as invalid.
 
         The method returns the Model Point's sequence number after updating
         the valid state.
@@ -149,27 +107,8 @@ public:
               nothing is done. OR
            b) If lockRequest != eNO_REQUEST, the operation is performed and the
               the new lock state is applied
-
      */
-    virtual uint16_t setInvalidState( int8_t        newInvalidState,
-                                      LockRequest_T lockRequest = eNO_REQUEST ) noexcept = 0;
-
-    /// Returns the Model Point's actual Valid/Invalid state value
-    virtual int8_t getValidState( void ) const noexcept = 0;
-
-    /// This method returns true when the MP data is invalid.
-    inline bool isNotValid() const noexcept { return getValidState() != MODEL_POINT_STATE_VALID; }
-
-    /** This method is used to mark the element's data as invalid.  Note: See
-        setInvalidState() for details about the lockRequest.
-     */
-    inline uint16_t setInvalid( LockRequest_T lockRequest = eNO_REQUEST ) noexcept { return setInvalidState( OPTION_CPL_DM_MODEL_POINT_STATE_INVALID, lockRequest ); }
-
-    /** Short-hand method to improve readability for testing the a return invalid
-        state for 'valid'
-     */
-    inline static bool IS_VALID( int8_t validState ) { return validState == MODEL_POINT_STATE_VALID; }
-
+    virtual uint16_t setInvalid( LockRequest_T lockRequest = eNO_REQUEST ) noexcept = 0;
 
 public:
     /** This method converts the Model Point's data to JSON string and
@@ -189,10 +128,10 @@ public:
         The general output format:
         \code
 
-        { name:"<mpname>", type:"<mptypestring>", invalid:nn, seqnum:nnnn, locked:true|false, val:<value> }
+        { name:"<mpname>", type:"<mptypestring>", valid:true|false, seqnum:nnnn, locked:true|false, val:<value> }
 
         Notes:
-            - The MP is in the valid state if/when the 'invalid' value is 0
+            - The MP is in the valid state if/when the 'valid' value is true
             - The 'val' key/value pair is omitted if the MP is in the invalid state
             - The 'val' key/value pair can be a single element, an object, or
               array. etc. -- it is specific to the concrete MP type/class.
@@ -200,10 +139,11 @@ public:
 
         \endcode
      */
-    virtual bool toJSON( char* dst,
+    virtual bool toJSON( char*  dst,
                          size_t dstSize,
-                         bool& truncated,
-                         bool   verbose=true ) noexcept = 0;
+                         bool&  truncated,
+                         bool   verbose = true,
+                         bool   pretty = false ) noexcept = 0;
 
 
     /** This method returns a string identifier for the Model Point's data type.
@@ -261,7 +201,7 @@ public:
         The method optionally return the Model Point's sequence number at the
         time of the export.
      */
-    virtual size_t exportData( void* dstDataStream,
+    virtual size_t exportData( void*     dstDataStream,
                                size_t    maxDstLength,
                                uint16_t* retSequenceNumber=0,
                                bool      includeLockedState = false ) const noexcept = 0;
@@ -287,14 +227,14 @@ public:
      */
     virtual size_t importData( const void* srcDataStream,
                                size_t      srcLength,
-                               uint16_t* retSequenceNumber=0,
+                               uint16_t*   retSequenceNumber=0,
                                bool        includeLockedState = false ) noexcept = 0;
 
     /** Returns the size, in bytes, of the element's data content.
 
         When 'includeLockedState is set to true, the 'externalSize' includes
         space for the MP's locked state; else the returned size only includes
-        space for the MP's value and invalid state..
+        space for the MP's value and valid state..
 
         NOTE: The size returned is the size of the Point data WHEN it
               is being exported/imported - this is NOT the value of
@@ -306,8 +246,8 @@ public:
 
 public:
     /** This method is used to subscribe to on-change notification in a GENERIC
-        manner. This means the on-change callback notification WILL NOT be type 
-        specific.  USE WITH CAUTION - using type specific callbacks is the 
+        manner. This means the on-change callback notification WILL NOT be type
+        specific.  USE WITH CAUTION - using type specific callbacks is the
         preferred usage.
 
         See the attach() method below for additional details of subscribing
@@ -315,8 +255,8 @@ public:
     virtual void genericAttach( SubscriberApi& observer,
                                 uint16_t       initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept = 0;
 
-    /** This is method is used to detach a GENERIC Subscriber from a Model Point.  
-    
+    /** This is method is used to detach a GENERIC Subscriber from a Model Point.
+
         See the detach() method below for additional details of subscribing
      */
     virtual void genericDetach( SubscriberApi& observer ) noexcept = 0;
@@ -328,8 +268,8 @@ protected:
         MP's sequence number is optionally return if 'seqNumPtr' is set to
         a non-zero value.
 
-        If 'validState' indicates that the data is invalid, then contents of
-        'dst' is meaningless.
+        If the method returns false then the MP's the data is invalid and the 
+        contents of 'dst' is meaningless.
 
         Notes:
         1) The assumption is that Model Point's internal data and 'dstData' are
@@ -338,7 +278,7 @@ protected:
            data from the Model Point
         3) The Model Point's sequence number is not changed.
      */
-    virtual int8_t read( void* dstData, size_t dstSize, uint16_t* seqNumPtr=0 ) const noexcept = 0;
+    virtual bool read( void* dstData, size_t dstSize, uint16_t* seqNumPtr=0 ) const noexcept = 0;
 
     /** This method writes the caller Point instance to the Model Point's
         internal data.  The method returns the Model Point's sequence number
@@ -357,43 +297,10 @@ protected:
            of the same type.
         2) The data size of the Model Points data instance is ALWAYS honored
            when coping the data from 'srcData'
-        3)
      */
-    virtual uint16_t write( const void* srcData,
+    virtual uint16_t write( const void*   srcData,
                             size_t        srcSize,
                             LockRequest_T lockRequest = eNO_REQUEST ) noexcept = 0;
-
-    /** This method is used to perform a Read-Modify-Write operation on the
-        Model Point's data.  The method returns the Model Point's sequence
-        number after the method completes.
-
-        The following describe the behavior of the 'lockRequest' argument:
-        1) The callback is always called when 'lockRequest' is equal to
-           eUNLOCK. At the end of the callback, the model point will be put
-           into the unlocked state.
-        2) The callback will be called when 'lockRequest' is eNO_REQUEST and
-           the Model Point is in the unlocked state.
-        3) The callback is always called when 'lockRequest' is eLOCK. At the
-           end of callback, the model point will be put into the locked state.
-
-        This method allows a caller to read, write, read/write all or potions
-        of the Model Point's data. The caller's callback function should be
-        kept as short as possible as the entire Model Base is locked during the
-        callback.
-
-        Typically this method is for an atomic read/write operation or when
-        creating a Point instance on the stack for reading/writing is
-        prohibitive.
-
-        NOTE: THE USE OF THIS METHOD IS STRONGLY DISCOURAGED because it has
-              potential to lockout access to the ENTIRE Model Base for an
-              indeterminate amount of time.  And alternative is to have the
-              concrete Model Point leaf classes provide the application
-              specific read, write, read-modify-write methods in addition or in
-              lieu of the read/write methods in this interface.
-     */
-    virtual uint16_t readModifyWrite( GenericRmwCallback& callbackClient,
-                                      LockRequest_T       lockRequest = eNO_REQUEST ) = 0;
 
 
 protected:
@@ -542,8 +449,8 @@ public:
 
         This method returns the "internal size" of the Model Point's data point.
         This length (when applicable) INCLUDES ANY 'META/EXTRA' DATA that is
-        not exposed to the Model Point consumers - but is used with the
-        internal import()/export() methods.
+        NOT the valid/locked meta-data - but is used with the internal
+        import()/export() methods.
    */
     virtual size_t getInternalDataSize_() const noexcept = 0;
 
@@ -561,7 +468,7 @@ public:
         model points that do not have metadata.
 
         NOTE: The overall size of the destination has been validated with respect
-              holding both the Model Point's metadata and the data - so the 
+              holding both the Model Point's metadata and the data - so the
               no 'dstLength' argument is passed/provided.
     */
     virtual bool exportMetadata_( void* dstDataStream, size_t& bytesAdded ) const noexcept { bytesAdded = 0;  return true; }
@@ -581,7 +488,7 @@ public:
         model points that do not have metadata
 
         NOTE: The overall size of the source has been validated with respect
-              containing both the Model Point's metadata and the data - so the 
+              containing both the Model Point's metadata and the data - so the
               no 'srcLength' argument is passed/provided.
    */
     virtual bool importMetadata_( const void* srcDataStream, size_t& bytesConsumed ) noexcept { bytesConsumed = 0;  return true; }
@@ -597,10 +504,17 @@ public:
 
         See Cpl::Dm::ModelDatabaseApi::fromJSON() method for JSON format.
      */
-    virtual bool fromJSON_( JsonVariant& src,
-                            LockRequest_T      lockRequest,
-                            uint16_t& retSequenceNumber,
-                            Cpl::Text::String* errorMsg ) noexcept = 0;
+    virtual bool fromJSON_( JsonVariant&        src,
+                            LockRequest_T       lockRequest,
+                            uint16_t&           retSequenceNumber,
+                            Cpl::Text::String*  errorMsg ) noexcept = 0;
+
+
+protected:
+    /** This method converts the MP data to a JSON key/value pair.  The key
+        must be 'val' This method is only called when the MP data is valid
+     */
+    virtual void setJSONVal( JsonDocument& doc ) noexcept = 0;
 
 
 public:
@@ -608,33 +522,6 @@ public:
     virtual ~ModelPoint() {}
 };
 
-
-/////////////////////////////////////////////////////////////////////////////
-
-/** This template class defines a type safe Read-Modify Callback handler
-
-    Template Arguments:
-        DATA    - The type of the Model Point Data instance.
- */
-template <class DATA>
-class ModelPointRmwCallback : public ModelPoint::GenericRmwCallback
-{
-public:
-    /// Type safe change read-modify-write function.  See Cpl::Dm::ModelPoint
-    virtual ModelPoint::RmwCallbackResult_T callback( DATA& data,
-                                                      int8_t validState ) noexcept = 0;
-
-public:
-    /// Constructor
-    ModelPointRmwCallback() {}
-
-public:
-    /// See Cpl::Dm::ModelPoint
-    ModelPoint::RmwCallbackResult_T genericCallback( void* data,
-                                                     int8_t validState ) noexcept {
-        return callback( *( (DATA*)data ), validState );
-    }
-};
 
 
 };      // end namespaces

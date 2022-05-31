@@ -54,7 +54,7 @@ public:
     AirFilterMonitor( struct Input_T ins, struct Output_T outs );
 
     /// See Storm::Component::Api
-    bool start( Cpl::System::ElapsedTime::Precision_T intervalTime );
+    bool start( Cpl::System::ElapsedTime::Precision_T& intervalTime );
 
 protected:
     /// See Storm::Component::Base

@@ -19,30 +19,30 @@
 </g>
 <!-- Node7 -->
 <g id="node7" class="node"><title>Node7</title>
-<g id="a_node7"><a xlink:href="class_cpl_1_1_persistent_1_1_record_server.html" target="_top" xlink:title="This concrete class provides an Event driven Runnable object for executing the read/write operation t...">
-<polygon fill="white" stroke="black" points="77,-6 77,-25 223,-25 223,-6 77,-6"/>
-<text text-anchor="middle" x="150" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Persistent::RecordServer</text>
+<g id="a_node7"><a xlink:href="class_cpl_1_1_persistent_1_1_indexed_entry_server.html" target="_top" xlink:title="This concrete template class implements the ITC messaging (and Model Point monitoring) needed to prov...">
+<polygon fill="white" stroke="black" points="84,-0.5 84,-30.5 206,-30.5 206,-0.5 84,-0.5"/>
+<text text-anchor="start" x="92" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Persistent::Indexed</text>
+<text text-anchor="middle" x="145" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">EntryServer&lt; ENTRY &gt;</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node7 -->
 <g id="edge6" class="edge"><title>Node1&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M203.068,-60.9727C189.489,-49.5925 171.323,-34.3694 160.154,-25.0091"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="200.915,-63.7346 210.827,-67.4751 205.411,-58.3694 200.915,-63.7346"/>
+<path fill="none" stroke="midnightblue" d="M202.09,-61.1955C190.106,-51.8129 174.699,-39.7512 162.912,-30.523"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="200.079,-64.0665 210.111,-67.4751 204.395,-58.5547 200.079,-64.0665"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node"><title>Node8</title>
-<g id="a_node8"><a xlink:href="class_storm_1_1_thermostat_1_1_algorithm.html" target="_top" xlink:title="This concrete class is a &quot;maker&quot; pattern assembles the objects needed for the thermostat&#39;s control al...">
-<polygon fill="white" stroke="black" points="241,-0.5 241,-30.5 345,-30.5 345,-0.5 241,-0.5"/>
-<text text-anchor="start" x="249" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Storm::Thermostat::</text>
-<text text-anchor="middle" x="293" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Algorithm</text>
+<g id="a_node8"><a xlink:href="class_cpl_1_1_persistent_1_1_record_server.html" target="_top" xlink:title="This concrete class provides an Event driven Runnable object for executing the read/write operation t...">
+<polygon fill="white" stroke="black" points="224,-6 224,-25 370,-25 370,-6 224,-6"/>
+<text text-anchor="middle" x="297" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Persistent::RecordServer</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node8 -->
 <g id="edge7" class="edge"><title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M239.246,-60.9215C250.551,-51.579 264.973,-39.6616 276.031,-30.523"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="236.795,-58.4069 231.316,-67.4751 241.254,-63.8028 236.795,-58.4069"/>
+<path fill="none" stroke="midnightblue" d="M239.784,-61.2938C254.363,-49.8803 274.062,-34.4577 286.131,-25.0091"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="237.605,-58.5547 231.889,-67.4751 241.921,-64.0665 237.605,-58.5547"/>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>

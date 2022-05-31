@@ -54,7 +54,8 @@ public:
         NOTE: A value of zero for 'timingTickInMsec' will disable support
               for Local Timers.
      */
-    EventLoop( unsigned long timingTickInMsec = OPTION_CPL_SYSTEM_EVENT_LOOP_TIMEOUT_PERIOD ) noexcept;
+    EventLoop( unsigned long                       timingTickInMsec = OPTION_CPL_SYSTEM_EVENT_LOOP_TIMEOUT_PERIOD,
+               Cpl::System::SharedEventHandlerApi* eventHandler     = 0 ) noexcept;
 
 public:
     /// See Cpl::System::Runnable

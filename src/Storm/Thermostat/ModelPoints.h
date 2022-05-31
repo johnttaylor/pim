@@ -35,7 +35,6 @@ Note: the Model Points (and Database) are purposely placed in the
 #include "Storm/Dm/MpWhiteBox.h"
 #include "Cpl/Dm/Mp/Uint32.h"
 #include "Cpl/Dm/Mp/Float.h"
-#include "Cpl/Dm/Mp/String.h"
 #include "Cpl/Dm/Mp/Bool.h"
 #include "Cpl/Dm/Mp/RefCounter.h"
 #include "Cpl/Dm/Mp/ElapsedPrecisionTime.h"

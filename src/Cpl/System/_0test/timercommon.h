@@ -197,7 +197,7 @@ public:
 
 
 ////////////////////////////////////////////////////////////////////////////////
-class Master : public Cpl::System::EventLoop, public Cpl::System::Timer
+class MasterT : public Cpl::System::EventLoop, public Cpl::System::Timer
 {
 public:
     ///
@@ -211,7 +211,7 @@ public:
 
 public:
     ///
-    Master( unsigned long timerResolution, unsigned long delayMsecs,
+    MasterT( unsigned long timerResolution, unsigned long delayMsecs,
             const char* nameObj1, unsigned long timer1DurationObj1, unsigned long timer2DurationObj1,
             const char* nameObj2, unsigned long timer1DurationObj2, unsigned long timer2DurationObj2,
             Cpl::System::Signable& waiter )

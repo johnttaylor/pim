@@ -36,8 +36,7 @@
 // MP_INVALID(Cpl::Dm::Mp::Float, bob) == static Cpl::Dm::Mp::Float mp_bob;
 
 // Creates model point in the invalid state. 
-// Where t:=model Point type, n:=model point 'look-up' name, and 'mp_'+<n> is the model point variable name.
-#define MP_INVALID(t, n)    static Cpl::Dm::StaticInfo info_mp_##n(#n); static t mp_##n(modelDb_, info_mp_##n ) 
+#define MP_INVALID(t, n)    static t mp_##n(modelDb_, #n ) 
 
 ////////////////////////////////////////////////////////////////////////////////
 

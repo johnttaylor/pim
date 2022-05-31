@@ -84,7 +84,7 @@ bool IndoorHeating::executeOff( Args_T& args ) noexcept
     return true;
 }
 
-bool IndoorHeating::start( Cpl::System::ElapsedTime::Precision_T intervalTime ) noexcept
+bool IndoorHeating::start( Cpl::System::ElapsedTime::Precision_T& intervalTime ) noexcept
 {
     reset();
     return true;

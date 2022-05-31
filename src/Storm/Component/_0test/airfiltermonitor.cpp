@@ -45,7 +45,7 @@ TEST_CASE( "AirFilterMonitor" )
     SECTION( "fan off" )
     {
         Cpl::System::ElapsedTime::Precision_T value;
-        Cpl::System::ElapsedTime::Precision_T expected ={ 0, };
+        Cpl::System::ElapsedTime::Precision_T expected;
         mp_airFilterOperationTime.read( value );
         REQUIRE( value == expected );
 
@@ -61,7 +61,7 @@ TEST_CASE( "AirFilterMonitor" )
     SECTION( "fan on" )
     {
         Cpl::System::ElapsedTime::Precision_T value;
-        Cpl::System::ElapsedTime::Precision_T expected ={ 0, };
+        Cpl::System::ElapsedTime::Precision_T expected;
         mp_airFilterOperationTime.read( value );
         REQUIRE( value == expected );
         mp_vOutputs.setIndoorFanOutput( STORM_DM_MP_VIRTUAL_OUTPUTS_ON );
@@ -79,7 +79,7 @@ TEST_CASE( "AirFilterMonitor" )
     SECTION( "alert" )
     {
         Cpl::System::ElapsedTime::Precision_T value;
-        Cpl::System::ElapsedTime::Precision_T expected ={ 0, };
+        Cpl::System::ElapsedTime::Precision_T expected;
         mp_maxAirFilterHours.write( 2 );
         mp_airFilterOperationTime.read( value );
         REQUIRE( value == expected );

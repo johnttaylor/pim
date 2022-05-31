@@ -22,25 +22,25 @@
 #define OPTION_STORM_DM_MP_SETPOINTS_MIN_COOLING        55.0F
 #endif
 
-/** This symbol defines the maximum cooling set-point (in degrees 'F)
-*/
+ /** This symbol defines the maximum cooling set-point (in degrees 'F)
+ */
 #ifndef OPTION_STORM_DM_MP_SETPOINTS_MAX_COOLING
 #define OPTION_STORM_DM_MP_SETPOINTS_MAX_COOLING        95.0F
 #endif
 
-/** This symbol defines the minimum heating set-point (in degrees 'F)
- */
+ /** This symbol defines the minimum heating set-point (in degrees 'F)
+  */
 #ifndef OPTION_STORM_DM_MP_SETPOINTS_MIN_HEATING
 #define OPTION_STORM_DM_MP_SETPOINTS_MIN_HEATING        50.0F
 #endif
 
-/** This symbol defines the maximum heating set-point (in degrees 'F)
- */
+  /** This symbol defines the maximum heating set-point (in degrees 'F)
+   */
 #ifndef OPTION_STORM_DM_MP_SETPOINTS_MAX_HEATING
 #define OPTION_STORM_DM_MP_SETPOINTS_MAX_HEATING        90.0F
 #endif
 
-/// Default Cooling set-point
+   /// Default Cooling set-point
 #ifndef OPTION_STORM_DM_MP_SETPOINTS_DEFAULT_COOLING
 #define OPTION_STORM_DM_MP_SETPOINTS_DEFAULT_COOLING    78.0F
 #endif
@@ -61,14 +61,14 @@ namespace Dm {
     the house/room/zone cooling and heating set-points.  The class enforces
     the min/max ranges for the set-points.  Minimum delta between the two
     set-points is NOT maintained (i.e. that is is policy decision)
-    
-    The toJSON() method is a read/modify operation, i.e. omitted key/value 
+
+    The toJSON() method is a read/modify operation, i.e. omitted key/value
     fields in the 'val' object are NOT updated.
 
     The toJSON()/fromJSON format is:
     \code
 
-    { name:"<mpname>", type:"<mptypestring>", invalid:nn, seqnum:nnnn, locked:true|false, val:{"cool":mm.m, "heat":nn.n} }
+    { name:"<mpname>", type:"<mptypestring>", valid:true|false, seqnum:nnnn, locked:true|false, val:{"cool":mm.m, "heat":nn.n} }
 
     \endcode
 
@@ -81,11 +81,11 @@ class MpSetpoints : public Cpl::Dm::ModelPointCommon_
 public:
     /** The MP's Data container.
      */
-    typedef struct
+    struct Data
     {
         float coolSetpt;        //!< Cooling set-point in degrees Fahrenheit.  The Cooling set-point must be >= heatSetpt+OPTION_STORM_DM_MP_SETPOINTS_MIN_DELTA
         float heatSetpt;        //!< Heating set-point in degrees Fahrenheit
-    } Data;
+    };
 
 protected:
     /// Storage for the MP's data
@@ -93,106 +93,124 @@ protected:
 
 public:
     /// Constructor.  Valid MP
-    MpSetpoints( Cpl::Dm::ModelDatabase& myModelBase, Cpl::Dm::StaticInfo& staticInfo, float coolSetpt=OPTION_STORM_DM_MP_SETPOINTS_DEFAULT_COOLING, float heatSetpt=OPTION_STORM_DM_MP_SETPOINTS_DEFAULT_HEATING );
-
-public:
-    /// See Cpl::Dm::ModelPoint
-    uint16_t setInvalidState( int8_t newInvalidState, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    MpSetpoints( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName, float coolSetpt=OPTION_STORM_DM_MP_SETPOINTS_DEFAULT_COOLING, float heatSetpt=OPTION_STORM_DM_MP_SETPOINTS_DEFAULT_HEATING );
 
 
 public:
     /** Type safe read of the Cooling & Heating set-point
      */
-    virtual int8_t read( float& currentCoolSetpoint, float& currentHeatSetpoint, uint16_t* seqNumPtr=0 ) const noexcept;
+    inline bool read( float& currentCoolSetpoint, float& currentHeatSetpoint, uint16_t* seqNumPtr=0 ) const noexcept
+    {
+        Data dst;
+        bool valid          = ModelPointCommon_::read( &dst, sizeof( Data ), seqNumPtr );
+        currentCoolSetpoint = dst.coolSetpt;
+        currentHeatSetpoint = dst.heatSetpt;
+        return valid;
+    }
 
     /** Type safe read of the Cooling set-point
      */
-    virtual int8_t readCool( float& currentCoolSetpoint, uint16_t* seqNumPtr=0 ) const noexcept;
+    inline bool readCool( float& currentCoolSetpoint, uint16_t* seqNumPtr=0 ) const noexcept
+    {
+        Data   dst;
+        int8_t valid = ModelPointCommon_::read( &dst, sizeof( Data ), seqNumPtr );
+        currentCoolSetpoint = dst.coolSetpt;
+        return valid;
+    }
 
     /** Type safe read of the Heating set-point
      */
-    virtual int8_t readHeat( float& currentHeatSetpoint, uint16_t* seqNumPtr=0 ) const noexcept;
+    inline bool readHeat( float& currentHeatSetpoint, uint16_t* seqNumPtr=0 ) const noexcept
+    {
+        Data   dst;
+        int8_t valid        = ModelPointCommon_::read( &dst, sizeof( Data ), seqNumPtr );
+        currentHeatSetpoint = dst.heatSetpt;
+        return valid;
+    }
 
     /** Sets the both the cooling and heating set-point.  If the specified
         set-points violates the minimum delta requirement, then the heating
         set-point is adjusted
      */
-    virtual uint16_t write( float newCoolingSetpoint, float newHeatingSetpoint, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    inline uint16_t write( float newCoolingSetpoint, float newHeatingSetpoint, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        validateSetpoints( newCoolingSetpoint, newHeatingSetpoint, newCoolingSetpoint, newHeatingSetpoint );
+        Data src ={ newCoolingSetpoint, newHeatingSetpoint };
+        return ModelPointCommon_::write( &src, sizeof( Data ), lockRequest );
+    }
 
     /** Sets the cooling set-point.  Note: If the Model is invalid at the time
         of this call, the heating set-point will be set to its minimum allowed
         value.
      */
-    virtual uint16_t writeCool( float newSetpoint, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    inline uint16_t writeCool( float newSetpoint, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        m_modelDatabase.lock_();
+
+        float finalHeatSetpt;
+        validateSetpoints( newSetpoint, m_data.heatSetpt, newSetpoint, finalHeatSetpt );
+        Data src ={ newSetpoint, finalHeatSetpt };
+        uint16_t result = ModelPointCommon_::write( &src, sizeof( Data ), lockRequest );
+
+        m_modelDatabase.unlock_();
+        return result;
+    }
+
 
     /** Sets the heating set-point.  Note: If the Model is invalid at the time
         of this call, the cooling set-point will be set to its maximum allowed
         value.
      */
-    virtual uint16_t writeHeat( float newSetpoint, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    inline uint16_t writeHeat( float newSetpoint, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        m_modelDatabase.lock_();
 
-    /// Type safe read-modify-write client callback interface
-    typedef Cpl::Dm::ModelPointRmwCallback<Data> Client;
+        float finalCoolSetpt;
+        validateSetpoints( m_data.coolSetpt, newSetpoint, finalCoolSetpt, newSetpoint );
+        Data src ={ finalCoolSetpt, newSetpoint };
+        uint16_t result = ModelPointCommon_::write( &src, sizeof( Data ), lockRequest );
 
-    /** Type safe read-modify-write. See Cpl::Dm::ModelPoint.
+        m_modelDatabase.unlock_();
+        return result;
+    }
 
-        NOTE: The client is responsible for enforcing the min/max set-point
-              ranges and minimum delta requirements for the set-point values
-              (see the validateSetpoints() method).
 
-        NOTE: THE USE OF THIS METHOD IS STRONGLY DISCOURAGED because it has
-              potential to lockout access to the ENTIRE Model Base for an
-              indeterminate amount of time.  And alternative is to have the
-              concrete Model Point leaf classes provide the application
-              specific read, write, read-modify-write methods in addition or in
-              lieu of the read/write methods in this interface.
-     */
-    virtual uint16_t readModifyWrite( Client& callbackClient, LockRequest_T lockRequest = eNO_REQUEST );
-
-    /** This helper method enforces the set-point value rules.  
+    /** This helper method enforces the set-point value rules.
      */
     static void validateSetpoints( float newCooling, float newHeating, float& finalCooling, float& finalHeating );
+
+public:
+    /// Updates the MP with the valid-state/data from 'src'. Note: the src.lock state is NOT copied
+    inline uint16_t copyFrom( const MpSetpoints& src, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        return ModelPointCommon_::copyFrom( src, lockRequest );
+    }
+
 
 public:
     /// Type safe subscriber
     typedef Cpl::Dm::Subscriber<MpSetpoints> Observer;
 
     /// Type safe register observer
-    virtual void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept;
+    void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept;
 
     /// Type safe un-register observer
-    virtual void detach( Observer& observer ) noexcept;
+    void detach( Observer& observer ) noexcept;
 
 
 public:
-    /// See Cpl::Dm::Point.  
-    bool toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose=true ) noexcept;
-
-    ///  See Cpl::Dm::ModelPoint.
+    /// See Cpl::Dm::ModelPoint.
     const char* getTypeAsText() const noexcept;
 
-    /// See Cpl::Dm::ModelPoint.  Note: the returned sized does DOES NOT the null terminator
-    size_t getSize() const noexcept;
-
-
-public:
     /// See Cpl::Dm::Point.  
     bool fromJSON_( JsonVariant& src, LockRequest_T lockRequest, uint16_t& retSequenceNumber, Cpl::Text::String* errorMsg ) noexcept;
 
-    /// See Cpl::Dm::ModelPoint. 
-    void copyDataTo_( void* dstData, size_t dstSize ) const noexcept;
+protected:
+    /// See Cpl::Dm::Point.  
+    void setJSONVal( JsonDocument& doc ) noexcept;
 
-    /// See Cpl::Dm::ModelPoint.  
-    void copyDataFrom_( const void* srcData, size_t srcSize ) noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    bool isDataEqual_( const void* otherData ) const noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    const void* getImportExportDataPointer_() const noexcept;
-
-    /// See Cpl::Dm::ModelPoint.  
-    size_t getInternalDataSize_() const noexcept;
+    /// Set valid default values when the MP is invalidated
+    void hookSetInvalid() noexcept;
 };
 
 

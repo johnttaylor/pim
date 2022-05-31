@@ -124,16 +124,16 @@ bool Decoder_::scan( size_t maxSizeOfFrame, char* frame, size_t& frameSize ) noe
 				}
 
 
-				// Escape Sequence
-				else
-				{
-					// Store the escaped character into the Client's buffer
-					if ( frameSize < maxSizeOfFrame )
-					{
-						escaping    = false;
-						*framePtr++ = *m_dataPtr;
-						frameSize++;
-					}
+                // Escape Sequence
+                else
+                {
+                    // Store the escaped character into the Client's buffer
+                    if ( frameSize < maxSizeOfFrame )
+                    {
+                        escaping    = false;
+                        *framePtr++ = decodeEscapedChar( *m_dataPtr );
+                        frameSize++;
+                    }
 
 					// Exceeded the Client's buffer space -->internal error -->reset my Frame state
 					else
@@ -151,3 +151,7 @@ bool Decoder_::scan( size_t maxSizeOfFrame, char* frame, size_t& frameSize ) noe
 
 
 
+char Decoder_::decodeEscapedChar( char escapedChar )
+{
+    return escapedChar;
+}

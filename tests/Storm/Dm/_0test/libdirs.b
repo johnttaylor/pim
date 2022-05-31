@@ -6,4 +6,5 @@ src/Storm/Dm/_0test
 
 # infrastructure
 src/Storm/Utils
+src/Storm/Type
 					  

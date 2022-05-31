@@ -87,35 +87,8 @@ bool SimTick::advance( size_t numTicks ) noexcept
         // END critical section
         myLock_.unlock();
 
-        unsigned currentWaiters = waiters;
-
-        // Wait for the sim threads to execute now that they have been woken up (There MUST be a least one waiter)
-        if ( waiters )
-        {
-            unsigned long  start = ElapsedTime::millisecondsInRealTime();
-            unsigned long  now   = start;
-            while ( ElapsedTime::expiredMilliseconds( start, OPTION_CPL_SYSTEM_SIM_TICK_NO_ACTIVITY_LIMIT, now ) == false )
-            {
-                // yield the CPU to give other threads a chance at the CPU
-                Api::sleepInRealTime( OPTION_CPL_SYSTEM_SIM_TICK_YEILD_SLEEP_TIME );
-
-                // Peek into the waiters list 
-                myLock_.lock();
-                currentWaiters = getCurrentWaitersCount();
-                myLock_.unlock();
-
-                // Finished the current tick once all the Sim threads are waiting again
-                if ( currentWaiters >= waiters )
-                {
-                    //printf( "waiters=%u, curWaiters=%u, msec_=%lu, numTicks=%lu\n", waiters, currentWaiters, milliseconds_, numTicks );
-                    break;
-                }
-                now = ElapsedTime::millisecondsInRealTime();
-            }
-        }
-
         // Wait for all the 'sim threads' to complete their tick processing
-        while ( currentWaiters-- )
+        while ( waiters-- )
         {
             tickSource_.wait();
         }
@@ -285,6 +258,9 @@ void SimTick::onThreadExit_( void ) noexcept
         simInfoPtr->m_ackPending  = false;
         tickSource_.signal();
     }
+
+    // Free the SimTick object
+    delete simInfoPtr;
 }
 
 

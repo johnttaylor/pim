@@ -40,7 +40,7 @@ public:
         return true;
     }
 
-    bool start( Cpl::System::ElapsedTime::Precision_T intervalTime ) noexcept
+    bool start( Cpl::System::ElapsedTime::Precision_T& intervalTime ) noexcept
     {
         m_startCount++;
         return true;

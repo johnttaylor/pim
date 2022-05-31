@@ -52,21 +52,43 @@ public:
         data from persistent storage.  This method should ONLY be called once
         (after start() has been called) to load its data into RAM.
 
+        The 'index' offset can be used by the Chunk client to 'index into' the
+        Chunk's region instead of starting at offset zero.  This argument should
+        only be used when multiple instances of a Record is being stored in
+        a single region.
+
         The method returns true if the read operation was successful and that
         the CRC for the data is valid; else false is returned
      */
-    virtual bool loadData( Payload& dstHandler ) noexcept = 0;
+    virtual bool loadData( Payload& dstHandler, size_t index=0 ) noexcept = 0;
 
     /** This method is used to update persistent storage with new data for the
         Record.  The entire record is written/updated when this call is made.
         The method does not return until the write operation has completed.
     
+        If the 'invalidate' argument is true, the instead of writing the
+        new data to persistent storage, all binary zero's are written AND in
+        incorrect CRC is written.  This effectively erases the Record, i.e. the 
+        next time the record is loaded, it will fail because the chunk data is 
+        NOT valid.
+
+        The 'index' offset can be used by the Chunk client to 'index into' the
+        Chunk's region instead of starting at offset zero.  This argument should
+        only be used when multiple instances of a Record is being stored in
+        a single region.
+
         The method returns true if successful; else false is returned.  It is
         the responsibility of the Record/Application to decided what to do when 
         there is error (e.g. ignored, a log entry generated, etc.)
     */
-    virtual bool updateData( Payload& srcHandler ) noexcept = 0;
+    virtual bool updateData( Payload& srcHandler, size_t index=0, bool invalidate=false  ) noexcept = 0;
 
+
+public:
+    /** This method returns the size, in bytes, of any/all metadata that is
+        included with the record.
+     */
+    virtual size_t getMetadataLength() const noexcept = 0;
 
 public:
     /// Virtual destructor

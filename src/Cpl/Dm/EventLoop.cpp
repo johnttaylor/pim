@@ -24,8 +24,9 @@
 using namespace Cpl::Dm;
 
 /////////////////////
-EventLoop::EventLoop( unsigned long timingTickInMsec ) noexcept
-    :Cpl::System::EventLoop( timingTickInMsec )
+EventLoop::EventLoop( unsigned long                       timingTickInMsec,
+                      Cpl::System::SharedEventHandlerApi* eventHandler ) noexcept
+    :Cpl::System::EventLoop( timingTickInMsec, eventHandler )
 {
 }
 
@@ -43,6 +44,7 @@ void EventLoop::appRun()
             processChangeNotifications();
         }
     }
+    stopEventLoop();
 }
 
 void EventLoop::processChangeNotifications() noexcept

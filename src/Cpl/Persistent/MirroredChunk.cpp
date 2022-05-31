@@ -13,6 +13,7 @@
 #include "Private_.h"
 #include "Cpl/Checksum/Crc32EthernetFast.h"
 #include "Cpl/System/Assert.h"
+#include "Cpl/System/Trace.h"
 #include <memory.h>
 
 #define SECT_ "Cpl::Persistent"
@@ -52,15 +53,34 @@ void MirroredChunk::stop() noexcept
     m_regionB.stop();
 }
 
+bool MirroredChunk::pushToRecord( Payload& dstHandler )
+{
+    return dstHandler.putData( g_workBuffer_, m_dataLen );
+}
+size_t MirroredChunk::pullFromRecord( Payload& srcHandler )
+{
+    return srcHandler.getData( g_workBuffer_, m_dataLen );
+}
+
+void MirroredChunk::reset()
+{
+    // Nothing required at this time (i.e. hook for child classes)
+}
+
+size_t MirroredChunk::getMetadataLength() const noexcept
+{
+    return FRAME_OVERHEAD;
+}
+
 /////////////////////
-bool MirroredChunk::loadData( Payload& dstHandler ) noexcept
+bool MirroredChunk::loadData( Payload& dstHandler, size_t index ) noexcept
 {
     // Determine which Region (if any is the latest copy)
     bool     result = false;
     size_t   dataLenA;
     size_t   dataLenB;
-    uint64_t transA = getTransactionId( m_regionA, dataLenA );  // NOTE: This also loads the payload into 'g_workBuffer_'
-    uint64_t transB = getTransactionId( m_regionB, dataLenB );
+    uint64_t transA = getTransactionId( m_regionA, dataLenA, index );  // NOTE: This also loads the payload into 'g_workBuffer_'
+    uint64_t transB = getTransactionId( m_regionB, dataLenB, index );
 
     // No valid data!
     if ( transA == 0 && transB == 0 )
@@ -68,6 +88,7 @@ bool MirroredChunk::loadData( Payload& dstHandler ) noexcept
         m_currentRegion = &m_regionA;
         m_transId       = 0;
         m_dataLen       = m_currentRegion->getRegionLength() - FRAME_OVERHEAD;
+        CPL_SYSTEM_TRACE_MSG( SECT_, ( "MirroredChunk::loadData(): no valid data" ) );
         reset();
     }
 
@@ -89,23 +110,33 @@ bool MirroredChunk::loadData( Payload& dstHandler ) noexcept
         result          = pushToRecord( dstHandler );
     }
 
-    CPL_SYSTEM_ASSERT( m_dataLen <= m_currentRegion->getRegionLength() - FRAME_OVERHEAD);
+    CPL_SYSTEM_ASSERT( m_dataLen <= m_currentRegion->getRegionLength() );
     return result;
 }
 
-bool MirroredChunk::updateData( Payload& srcHandler ) noexcept
+bool MirroredChunk::updateData( Payload& srcHandler, size_t index, bool invalidate ) noexcept
 {
     CPL_SYSTEM_ASSERT( m_currentRegion );
 
     // Get the Payload data
     memset( g_workBuffer_, 0, sizeof( g_workBuffer_ ) );     // zero out all of the data - to ensure known values for the 'extra-space' (if there is any)
-    if ( !pullFromRecord( srcHandler ) )
+    size_t len = pullFromRecord( srcHandler );
+    if ( len == 0 )
     {
         return false;
     }
 
-    bool result = true;
+    // Zero the data when erasing the record
+    if ( invalidate )
+    {
+        memset( g_workBuffer_, 0, sizeof( g_workBuffer_ ) );
+    }
+
+    // Set my record length based on the size of the application data
+    m_dataLen = len;
+
     // Write the data twice!
+    bool result = true;
     for ( int i=0; i < 2; i++ )
     {
         // Select the region to update
@@ -113,28 +144,33 @@ bool MirroredChunk::updateData( Payload& srcHandler ) noexcept
 
         // Update the region
         Cpl::Checksum::Crc32EthernetFast crc;
-        size_t offset  = 0;
+        size_t                           offset  = index;
         crc.reset();
         m_transId++;
 
         // Transaction ID
-        result  = m_currentRegion->write( offset, &m_transId, sizeof( m_transId ) );
-        offset += sizeof( m_transId );
+        result = m_currentRegion->write( offset, &m_transId, sizeof( m_transId ) );
         crc.accumulate( &m_transId, sizeof( m_transId ) );
+        offset += sizeof( m_transId );
 
         // Data Length
         result &= m_currentRegion->write( offset, &m_dataLen, sizeof( m_dataLen ) );
-        offset += sizeof( m_dataLen );
         crc.accumulate( &m_dataLen, sizeof( m_dataLen ) );
+        offset += sizeof( m_dataLen );
 
         // Payload
         result &= m_currentRegion->write( offset, g_workBuffer_, m_dataLen );
-        offset += m_dataLen;
         crc.accumulate( g_workBuffer_, m_dataLen );
+        offset += m_dataLen;
 
         // CRC
         uint8_t crcBuffer[CRC_SIZE];
         crc.finalize( crcBuffer );
+        if ( invalidate )
+        {
+            // Corrupt the CRC when erasing the data
+            crcBuffer[0] ^= 0xA5;
+        }
         result &= m_currentRegion->write( offset, crcBuffer, CRC_SIZE );
     }
 
@@ -142,13 +178,13 @@ bool MirroredChunk::updateData( Payload& srcHandler ) noexcept
 }
 
 
-uint64_t MirroredChunk::getTransactionId( RegionMedia& region, size_t& dataLen )
+uint64_t MirroredChunk::getTransactionId( RegionMedia& region, size_t& dataLen, size_t index )
 {
     Cpl::Checksum::Crc32EthernetFast crc;
     crc.reset();
     uint64_t result  = 0;
     uint64_t transId = 0;
-    size_t   offset  = 0;
+    size_t   offset  = index;
 
     // Read the Transaction ID
     if ( region.read( offset, &transId, sizeof( transId ) ) == sizeof( transId ) )
@@ -159,9 +195,9 @@ uint64_t MirroredChunk::getTransactionId( RegionMedia& region, size_t& dataLen )
         // Read the data length
         if ( region.read( offset, &dataLen, sizeof( dataLen ) ) == sizeof( dataLen ) )
         {
-            // Make sure we have enough buffer space (check for roll-over on the integer math)
+            // Make sure we have enough buffer space (Note: Check for rolling over the size_t bit space)
             size_t dataRemaining = dataLen + CRC_SIZE;
-            if ( dataRemaining <= sizeof( g_workBuffer_ ) && dataLen < dataRemaining)
+            if ( dataRemaining <= sizeof( g_workBuffer_ ) && dataLen < dataRemaining )
             {
                 crc.accumulate( &dataLen, sizeof( dataLen ) );
                 offset += sizeof( dataLen );
@@ -192,19 +228,3 @@ uint64_t MirroredChunk::getTransactionId( RegionMedia& region, size_t& dataLen )
     // Return the result.  A value of ZERO indicates bad CRC
     return result;
 }
-
-/////////////////////
-bool MirroredChunk::pushToRecord( Payload& dstHandler )
-{
-    return dstHandler.putData( g_workBuffer_, m_dataLen );
-}
-bool MirroredChunk::pullFromRecord( Payload& srcHandler )
-{
-    return srcHandler.getData( g_workBuffer_, m_dataLen ) != 0;
-}
-
-void MirroredChunk::reset()
-{
-    // Nothing required at this time (i.e. hook for child classes)
-}
-

@@ -52,7 +52,7 @@ bool Cooling::executeOff( Args_T& args ) noexcept
     return true;
 }
 
-bool Cooling::start( Cpl::System::ElapsedTime::Precision_T intervalTime ) noexcept
+bool Cooling::start( Cpl::System::ElapsedTime::Precision_T& intervalTime ) noexcept
 {
     reset();
     return true;

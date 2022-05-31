@@ -35,7 +35,7 @@ IdtSelection::IdtSelection( struct Input_T inputs, struct Output_T outputs )
     CPL_SYSTEM_ASSERT( m_out.systemForcedOffRefCnt );
 }
 
-bool IdtSelection::start( Cpl::System::ElapsedTime::Precision_T intervalTime )
+bool IdtSelection::start( Cpl::System::ElapsedTime::Precision_T& intervalTime )
 {
     // Initialize my data
     m_critical = false;
@@ -63,9 +63,9 @@ bool IdtSelection::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     int8_t validPrimary          = m_in.primaryIdt->read( primaryIdt );
     int8_t validSecondary        = m_in.secondaryIdt->read( secondaryIdt );
     int8_t validEnabledSecondary = m_in.enabledSecondaryIdt->read( enabledSecondaryIdt );
-    if ( Cpl::Dm::ModelPoint::IS_VALID( validEnabledSecondary ) == false || enabledSecondaryIdt == false )
+    if ( validEnabledSecondary == false || enabledSecondaryIdt == false )
     {
-        validSecondary = OPTION_CPL_DM_MODEL_POINT_STATE_INVALID;
+        validSecondary = false;
     }
 
     //--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ bool IdtSelection::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     float idt = primaryIdt;
     if ( enabledSecondaryIdt )
     {
-        if ( Cpl::Dm::ModelPoint::IS_VALID( validSecondary ) )
+        if ( validSecondary )
         {
             idt = secondaryIdt;
         }
@@ -85,13 +85,13 @@ bool IdtSelection::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     // When I am not configured for a secondary IDT -.set the 'valid' status to true (because it will be used as the alarm status, i.e. no alarm for secondary IDT when not configured)
     else
     {
-        validSecondary = Cpl::Dm::ModelPoint::MODEL_POINT_STATE_VALID;
+        validSecondary = true;
     }
 
     // Determine the Alarm critical state
     bool critical = false;
-    if ( ( Cpl::Dm::ModelPoint::IS_VALID( validPrimary ) == false && enabledSecondaryIdt == false ) ||
-        ( Cpl::Dm::ModelPoint::IS_VALID( validPrimary ) == false && Cpl::Dm::ModelPoint::IS_VALID( validSecondary ) == false ) )
+    if ( ( validPrimary == false && enabledSecondaryIdt == false ) ||
+        ( validPrimary == false && validSecondary == false ) )
     {
         critical = true;
     }
@@ -101,9 +101,9 @@ bool IdtSelection::execute( Cpl::System::ElapsedTime::Precision_T currentTick,
     // Post-Algorithm processing
     //--------------------------------------------------------------------------
 
-    // All done -.set the outputs
+    // All done - set the outputs
     m_out.activeIdt->write( idt );
-    m_out.idtAlarms->setAlarm( !Cpl::Dm::ModelPoint::IS_VALID( validPrimary ), !Cpl::Dm::ModelPoint::IS_VALID( validSecondary ), critical );
+    m_out.idtAlarms->setAlarm( !validPrimary, !validSecondary, critical );
 
     // Update the forced-off reference counter - BUT only on transitions.
     if ( critical == true && m_critical == false )

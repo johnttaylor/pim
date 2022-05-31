@@ -112,7 +112,7 @@
 </g>
 <!-- Node17 -->
 <g id="node17" class="node"><title>Node17</title>
-<g id="a_node17"><a xlink:href="_model_points_8h.html" target="_top" xlink:title=" ">
+<g id="a_node17"><a xlink:href="_model_points_8h.html" target="_top" xlink:title="This file defines all of the Model Points for the Thermostat Application.">
 <polygon fill="white" stroke="black" points="1295,-263 1295,-282 1456,-282 1456,-263 1295,-263"/>
 <text text-anchor="middle" x="1375.5" y="-270" font-family="Helvetica,sans-Serif" font-size="10.00">Storm/Thermostat/ModelPoints.h</text>
 </a>
@@ -125,7 +125,7 @@
 </g>
 <!-- Node21 -->
 <g id="node21" class="node"><title>Node21</title>
-<g id="a_node21"><a xlink:href="_sim_house_2_model_points_8h.html" target="_top" xlink:title=" ">
+<g id="a_node21"><a xlink:href="_sim_house_2_model_points_8h.html" target="_top" xlink:title="This file defines test/simulation specific Model Points for the Thermostat Application.">
 <polygon fill="white" stroke="black" points="1474,-257.5 1474,-287.5 1617,-287.5 1617,-257.5 1474,-257.5"/>
 <text text-anchor="start" x="1482" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00">Storm/Thermostat/SimHouse</text>
 <text text-anchor="middle" x="1545.5" y="-264.5" font-family="Helvetica,sans-Serif" font-size="10.00">/ModelPoints.h</text>

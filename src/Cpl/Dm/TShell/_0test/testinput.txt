@@ -1,7 +1,15 @@
-help
+help 
+help dm
 trace
 tprint
 threads
+dm ls too many args
+dm write invalid-json
+dm write too many args
+dm read bad-name
+dm read too many args
+dm bad-sub-command
+
 dm ls
 dm read APPLE
 dm read ORANGE

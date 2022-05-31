@@ -109,16 +109,16 @@ bool State::outputUser( Cpl::TShell::Context_ & context )
     float                       heat;
     float                       idt;
     float                       odt;
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_userMode.read( mode ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_fanMode.read( fan ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_setpoints.read( cool, heat ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_activeIdt.read( idt ) ) == false )
+    if ( mp_userMode.read( mode ) == false ||
+         mp_fanMode.read( fan ) == false ||
+         mp_setpoints.read( cool, heat ) == false ||
+         mp_activeIdt.read( idt ) == false )
     {
         return context.writeFrame( "User: One or more inputs are invalid!" );
     }
 
     Cpl::Text::String& outtext  = context.getOutputBuffer();
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_outdoorTemp.read( odt ) ))   // ODT is 'optional'
+    if ( mp_outdoorTemp.read( odt ) )   // ODT is 'optional'
     {
         outtext.format( "ThermostatMode=%s, FanMode=%s, CoolSetpt=%0.02f, HeatSetpt=%0.02f, idt=%0.02f, odt=%0.02f",
                         mode._to_string(), fan._to_string(), cool, heat, idt, odt );
@@ -136,9 +136,9 @@ bool State::outputSystem( Cpl::TShell::Context_ & context )
     bool                        systemOn;
     Storm::Type::SystemConfig_T sysCfg;
     uint32_t                    force;
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_systemOn.read( systemOn ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_systemConfig.read( sysCfg ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_systemForcedOffRefCnt.read( force ) ) == false )
+    if ( mp_systemOn.read( systemOn ) == false ||
+         mp_systemConfig.read( sysCfg ) == false ||
+         mp_systemForcedOffRefCnt.read( force ) == false )
     {
         return context.writeFrame( "System: One or more inputs are invalid!" );
     }
@@ -156,7 +156,7 @@ bool State::outputSystem( Cpl::TShell::Context_ & context )
 bool State::outputRelays( Cpl::TShell::Context_ & context )
 {
     Storm::Type::HvacRelayOutputs_T relays;
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_relayOutputs.read( relays ) ) == false )
+    if ( mp_relayOutputs.read( relays ) == false )
     {
         return context.writeFrame( "Relays: One or more inputs are invalid!" );
     }
@@ -175,12 +175,12 @@ bool State::outputLoad( Cpl::TShell::Context_ & context )
     float    pv, err, sum;
     uint32_t freezeCnt, inhibitCnt;
 
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_pvOut.read( pv ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_deltaIdtError.read( err ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_sumError.read( sum ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_freezePiRefCnt.read( freezeCnt ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_pvInhibited.read( pvInhibit ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_inhibitfRefCnt.read( inhibitCnt ) ) == false )
+    if ( mp_pvOut.read( pv ) == false ||
+         mp_deltaIdtError.read( err ) == false ||
+         mp_sumError.read( sum ) == false ||
+         mp_freezePiRefCnt.read( freezeCnt ) == false ||
+         mp_pvInhibited.read( pvInhibit ) == false ||
+         mp_inhibitfRefCnt.read( inhibitCnt ) == false )
     {
         return context.writeFrame( "Load: One or more inputs are invalid!" );
     }
@@ -196,10 +196,10 @@ bool State::outputAlarms( Cpl::TShell::Context_ & context )
     Storm::Dm::MpSimpleAlarm::Data  userCfgMode;
     Storm::Dm::MpSimpleAlarm::Data  airFilter;
     Storm::Dm::MpIdtAlarm::Data     idt;
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_noActiveConditioningAlarm.read( noActiveCond ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_userCfgModeAlarm.read( userCfgMode ) ) == false ||
-         Cpl::Dm::ModelPoint::IS_VALID( mp_airFilterAlert.read( airFilter ) ) == false ||
-        Cpl::Dm::ModelPoint::IS_VALID( mp_idtAlarms.read( idt ) ) == false )
+    if ( mp_noActiveConditioningAlarm.read( noActiveCond ) == false ||
+         mp_userCfgModeAlarm.read( userCfgMode ) == false ||
+         mp_airFilterAlert.read( airFilter ) == false ||
+         mp_idtAlarms.read( idt ) == false )
     {
         return context.writeFrame( "Alarms: One or more inputs are invalid!" );
     }
@@ -225,7 +225,7 @@ bool State::outputAlarms( Cpl::TShell::Context_ & context )
 bool State::outputCycle( Cpl::TShell::Context_ & context )
 {
     Storm::Type::CycleInfo_T cycle;
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_cycleInfo.read( cycle ) ) == false )
+    if ( mp_cycleInfo.read( cycle ) == false )
     {
         return context.writeFrame( "Cycle: One or more inputs are invalid!" );
     }
@@ -242,7 +242,7 @@ bool State::outputCycle( Cpl::TShell::Context_ & context )
 bool State::outputTimes( Cpl::TShell::Context_ & context )
 {
     Storm::Type::EquipmentTimes_T equip;
-    if ( Cpl::Dm::ModelPoint::IS_VALID( mp_equipmentBeginTimes.read( equip ) ) == false )
+    if ( mp_equipmentBeginTimes.read( equip ) == false )
     {
         return context.writeFrame( "Times: One or more inputs are invalid!" );
     }

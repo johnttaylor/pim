@@ -22,8 +22,10 @@
 using namespace Cpl::System;
 
 /////////////////////
-EventLoop::EventLoop( unsigned long timeOutPeriodInMsec )
+EventLoop::EventLoop( unsigned long          timeOutPeriodInMsec,
+                      SharedEventHandlerApi* eventHandler )
     : m_myThreadPtr( 0 )
+    , m_eventHandler( eventHandler )
     , m_sema()
     , m_timeout( timeOutPeriodInMsec )
     , m_events( 0 )
@@ -57,12 +59,26 @@ void EventLoop::appRun( void )
     {
         run = waitAndProcessEvents();
     }
+    stopEventLoop();
 }
 
 void EventLoop::startEventLoop() noexcept
 {
     // Initialize/start the timer manager
     startManager();
+}
+
+void EventLoop::stopEventLoop() noexcept
+{
+    // Nothing currently needed
+}
+
+void EventLoop::processEventFlag( uint8_t eventNumber ) noexcept
+{
+    if ( m_eventHandler )
+    {
+        m_eventHandler->processEventFlag( eventNumber );
+    }
 }
 
 bool EventLoop::waitAndProcessEvents() noexcept

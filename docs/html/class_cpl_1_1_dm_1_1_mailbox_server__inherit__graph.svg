@@ -20,29 +20,15 @@
 <!-- Node15 -->
 <g id="node15" class="node"><title>Node15</title>
 <g id="a_node15"><a xlink:href="class_cpl_1_1_persistent_1_1_record_server.html" target="_top" xlink:title="This concrete class provides an Event driven Runnable object for executing the read/write operation t...">
-<polygon fill="white" stroke="black" points="880,-92 880,-111 1026,-111 1026,-92 880,-92"/>
-<text text-anchor="middle" x="953" y="-99" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Persistent::RecordServer</text>
+<polygon fill="white" stroke="black" points="880,-70 880,-89 1026,-89 1026,-70 880,-70"/>
+<text text-anchor="middle" x="953" y="-77" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Persistent::RecordServer</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node15 -->
 <g id="edge14" class="edge"><title>Node1&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M853.341,-88.5803C862.058,-89.7219 870.993,-90.892 879.754,-92.0392"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="853.6,-85.0845 843.231,-87.2564 852.691,-92.0253 853.6,-85.0845"/>
-</g>
-<!-- Node16 -->
-<g id="node16" class="node"><title>Node16</title>
-<g id="a_node16"><a xlink:href="class_storm_1_1_thermostat_1_1_algorithm.html" target="_top" xlink:title="This concrete class is a &quot;maker&quot; pattern assembles the objects needed for the thermostat&#39;s control al...">
-<polygon fill="white" stroke="black" points="901,-42.5 901,-72.5 1005,-72.5 1005,-42.5 901,-42.5"/>
-<text text-anchor="start" x="909" y="-60.5" font-family="Helvetica,sans-Serif" font-size="10.00">Storm::Thermostat::</text>
-<text text-anchor="middle" x="953" y="-49.5" font-family="Helvetica,sans-Serif" font-size="10.00">Algorithm</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node16 -->
-<g id="edge15" class="edge"><title>Node1&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M853.516,-70.3967C869.361,-68.3218 885.914,-66.1541 900.829,-64.201"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="852.691,-66.9747 843.231,-71.7436 853.6,-73.9155 852.691,-66.9747"/>
+<path fill="none" stroke="midnightblue" d="M853.341,-79.5C862.058,-79.5 870.993,-79.5 879.754,-79.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="853.231,-76.0001 843.231,-79.5 853.23,-83.0001 853.231,-76.0001"/>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>

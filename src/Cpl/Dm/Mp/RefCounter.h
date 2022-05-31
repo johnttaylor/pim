@@ -13,7 +13,7 @@
 /** @file */
 
 
-#include "Cpl/Dm/Mp/Basic.h"
+#include "Cpl/Dm/ModelPointCommon_.h"
 
 ///
 namespace Cpl {
@@ -25,7 +25,7 @@ namespace Mp {
 
 /** This class provides a concrete implementation for a Point who's data is 32
     bit unsigned reference counter.  A reference counter can be increment or
-    decremented.  When incremented, the value is clamped at 2^16 (not allowed
+    decremented.  When incremented, the value is clamped at 2^32 -1 (not allowed
     to overflow).  When decremented, the value is clamped at zero (not allowed
     to underflow).  In addition, change notifications are only generated on the
     following transitions:
@@ -38,23 +38,23 @@ namespace Mp {
     The toJSON/fromJSON() format is:
     \code
 
-    { name:"<mpname>", type:"<mptypestring>", invalid:nn, seqnum:nnnn, locked:true|false, val:"[<act>]<numvalue>" }
+    { name:"<mpname>", type:"<mptypestring>", valid:true|false, seqnum:nnnn, locked:true|false, val:"<act><numvalue>" }
+    { name:"<mpname>", type:"<mptypestring>", valid:true|false, seqnum:nnnn, locked:true|false, val:numvalue> }
 
         where <act> can be:
             "+"				-->increment the counter
             "-"				-->decrement the counter
-            not specified	-->set the counter
 
         NOTE: The value for the "val" key/value pair is a STRING, NOT a numeric
 
         Examples:
             toJSON():
-                { name:"mp_visitors", type:"Cpl::Dm::Mp::RefCounter", invalid:0, seqnum:12, locked:false, val:"12" }
+                { name:"mp_visitors", type:"Cpl::Dm::Mp::RefCounter", valid:true, seqnum:12, locked:false, val:12 }
 
             fromJSON():
                 { name:"mp_visitors", val:"+2" }	// Increments the point by 2
                 { name:"mp_visitors", val:"-1" }	// Decrements the point by 1
-                { name:"mp_visitors", val:"0" }		// Resets the counter to zero
+                { name:"mp_visitors", val:0 }		// Resets the counter to zero
 
     \endcode
 
@@ -62,61 +62,66 @@ namespace Mp {
     NOTE: All methods in this class ARE thread Safe unless explicitly
           documented otherwise.
  */
-class RefCounter : public Basic<uint32_t>
+class RefCounter : public ModelPointCommon_
 {
 public:
-    /// Constructor. Invalid MP
-    RefCounter( Cpl::Dm::ModelDatabase& myModelBase, StaticInfo& staticInfo );
+    /// Constructor. Invalid MP. 
+    RefCounter( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName );
 
     /// Constructor. Valid MP.  Requires an initial value
-    RefCounter( Cpl::Dm::ModelDatabase& myModelBase, StaticInfo& staticInfo, uint32_t initialValue );
+    RefCounter( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName, uint32_t initialValue );
+
 
 public:
-    /**  See Cpl::Dm::ModelPoint.
-        Note: When the Model Point is invalidate, the internal counter is reset
-              to zero, i.e. calling increment() when the Model Point is in the
-              invalid state will result the counter being set to 1.
-     */
-    uint16_t setInvalidState( int8_t newInvalidState, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
-
     /// Increments the counter.  Note: The counter is protected from overflowing
-    uint16_t increment( uint32_t incrementAmount=1, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    virtual uint16_t increment( uint32_t incrementAmount=1, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
     /// Decrements the counter. Note: The counter is protected from underflowing
-    uint16_t decrement( uint32_t decrementAmount=1, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+    virtual uint16_t decrement( uint32_t decrementAmount=1, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+
+    /// Type safe read. See Cpl::Dm::ModelPoint
+    inline bool read( uint32_t& dstData, uint16_t* seqNumPtr=0 ) const noexcept
+    {
+        return Cpl::Dm::ModelPointCommon_::read( &dstData, sizeof( m_data ), seqNumPtr );
+    }
 
     /// Resets the counter to zero (or to a specific value)
     virtual uint16_t reset( uint32_t newValue=0, LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
+
+    /// Updates the MP with the valid-state/data from 'src'. Note: the src.lock state is NOT copied
+    inline uint16_t copyFrom( const RefCounter& src, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        return Cpl::Dm::ModelPointCommon_::copyFrom( src, lockRequest );
+    }
+
+    ///  See Cpl::Dm::ModelPoint.
+    const char* getTypeAsText() const noexcept;
 
 public:
     /// Type safe subscriber
     typedef Cpl::Dm::Subscriber<RefCounter> Observer;
 
     /// Type safe register observer
-    virtual void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept;
+    void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept;
 
     /// Type safe un-register observer
-    virtual void detach( Observer& observer ) noexcept;
+    void detach( Observer& observer ) noexcept;
 
-
-public:
-    /// See Cpl::Dm::Point.  
-    bool toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose=true ) noexcept;
-
-    ///  See Cpl::Dm::ModelPoint.
-    const char* getTypeAsText() const noexcept;
-
-public:
     /// See Cpl::Dm::Point.  
     bool fromJSON_( JsonVariant& src, LockRequest_T lockRequest, uint16_t& retSequenceNumber, Cpl::Text::String* errorMsg ) noexcept;
 
 
-private:
-    /// Hide/block the inherited write method
-    uint16_t write( uint32_t newValue, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
-    {
-        return reset( newValue, lockRequest );
-    }
+protected:
+    /// See Cpl::Dm::Point.  
+    void setJSONVal( JsonDocument& doc ) noexcept;
+
+    /// Helper method for only generating change notification on certain transitions
+    void updateAndCheckForChangeNotification( uint32_t newValue );
+
+
+protected:
+    /// My data
+    uint32_t m_data;
 };
 
 

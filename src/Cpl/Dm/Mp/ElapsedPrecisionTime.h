@@ -13,7 +13,7 @@
 /** @file */
 
 
-#include "Cpl/Dm/Mp/Basic.h"
+#include "Cpl/Dm/ModelPointCommon_.h"
 #include "Cpl/System/ElapsedTime.h"
 
 ///
@@ -30,7 +30,7 @@ namespace Mp {
     The toJSON/fromJSON() format is:
     \code
 
-    { name:"<mpname>", type=:<mptypestring>", invalid:nn, seqnum:nnnn, locked:true|false, val:"DD HH:MM:SS.sss" }
+    { name:"<mpname>", type=:<mptypestring>", valid:true|false, seqnum:nnnn, locked:true|false, val:"DD HH:MM:SS.sss" }
 
     Note: When writing a value, the 'DD' and 'sss' fields are optional.
 
@@ -40,53 +40,66 @@ namespace Mp {
     NOTE: All methods in this class ARE thread Safe unless explicitly
           documented otherwise.
  */
-class ElapsedPrecisionTime : public Basic<Cpl::System::ElapsedTime::Precision_T>
+class ElapsedPrecisionTime : public ModelPointCommon_
 {
 public:
-    /// Constructor. Invalid MP
-    ElapsedPrecisionTime( Cpl::Dm::ModelDatabase& myModelBase, StaticInfo& staticInfo );
+    /// Constructor. Invalid MP. 
+    ElapsedPrecisionTime( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
+        :Cpl::Dm::ModelPointCommon_( myModelBase, symbolicName, &m_data, sizeof( m_data ), false )
+    {
+    }
 
     /// Constructor. Valid MP.  Requires an initial value
-    ElapsedPrecisionTime( Cpl::Dm::ModelDatabase& myModelBase, StaticInfo& staticInfo, Cpl::System::ElapsedTime::Precision_T initialValue );
-    
+    ElapsedPrecisionTime( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName, Cpl::System::ElapsedTime::Precision_T initialValue )
+        :Cpl::Dm::ModelPointCommon_( myModelBase, symbolicName, &m_data, sizeof( m_data ), true )
+    {
+        m_data = initialValue;
+    }
 
 public:
-    /// Type safe read-modify-write client callback interface
-    typedef Cpl::Dm::ModelPointRmwCallback<Cpl::System::ElapsedTime::Precision_T> Client;
+    /// Type safe read. See Cpl::Dm::ModelPoint
+    inline bool read( Cpl::System::ElapsedTime::Precision_T& dstData, uint16_t* seqNumPtr=0 ) const noexcept
+    {
+        return Cpl::Dm::ModelPointCommon_::read( &dstData, sizeof( m_data ), seqNumPtr );
+    }
 
-    /** Type safe read-modify-write. See Cpl::Dm::ModelPoint
+    /// Type safe write. See Cpl::Dm::ModelPoint
+    inline uint16_t write( Cpl::System::ElapsedTime::Precision_T newValue, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        return Cpl::Dm::ModelPointCommon_::write( &newValue, sizeof( m_data ), lockRequest );
+    }
 
-       NOTE: THE USE OF THIS METHOD IS STRONGLY DISCOURAGED because it has
-             potential to lockout access to the ENTIRE Model Base for an
-             indeterminate amount of time.  And alternative is to have the
-             concrete Model Point leaf classes provide the application
-             specific read, write, read-modify-write methods in addition or in
-             lieu of the read/write methods in this interface.
-     */
-    virtual uint16_t readModifyWrite( Client& callbackClient, LockRequest_T lockRequest = eNO_REQUEST );
+    /// Updates the MP with the valid-state/data from 'src'. Note: the src.lock state is NOT copied
+    inline uint16_t copyFrom( const ElapsedPrecisionTime& src, LockRequest_T lockRequest = eNO_REQUEST ) noexcept
+    {
+        return Cpl::Dm::ModelPointCommon_::copyFrom( src, lockRequest );
+    }
 
 public:
     /// Type safe subscriber
     typedef Cpl::Dm::Subscriber<ElapsedPrecisionTime> Observer;
 
     /// Type safe register observer
-    virtual void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept;
+    void attach( Observer& observer, uint16_t initialSeqNumber=SEQUENCE_NUMBER_UNKNOWN ) noexcept;
 
     /// Type safe un-register observer
-    virtual void detach( Observer& observer ) noexcept;
+    void detach( Observer& observer ) noexcept;
 
 
 public:
-    /// See Cpl::Dm::Point.  
-    bool toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose=true ) noexcept;
-    
     ///  See Cpl::Dm::ModelPoint.
     const char* getTypeAsText() const noexcept;
 
-public:
     /// See Cpl::Dm::Point.  
     bool fromJSON_( JsonVariant& src, LockRequest_T lockRequest, uint16_t& retSequenceNumber, Cpl::Text::String* errorMsg ) noexcept;
 
+protected:
+    /// See Cpl::Dm::Point.  
+    void setJSONVal( JsonDocument& doc ) noexcept;
+
+protected:
+    /// My data
+    Cpl::System::ElapsedTime::Precision_T m_data;
 };
 
 

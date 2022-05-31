@@ -54,17 +54,17 @@ TEST_CASE( "PI PreProcess" )
         mp_systemConfig.write( sysCfg );
         component.doWork( true, time );
         float  value;
-        int8_t valid = mp_activeSetpoint.read( value );
+        bool valid = mp_activeSetpoint.read( value );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 80.0F ) == true );
         valid = mp_deltaIdtError.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, -2.0F ) == true );
         valid = mp_deltaSetpoint.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 0.0F ) == true );
         bool changed;
         valid = mp_setpointChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
 
 
@@ -79,13 +79,13 @@ TEST_CASE( "PI PreProcess" )
         valid = mp_activeSetpoint.read( value );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 60.0F ) == true );
         valid = mp_deltaIdtError.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 0.5F ) == true );
         valid = mp_deltaSetpoint.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 0.0F ) == true );
         valid = mp_setpointChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
 
         // Change in heating setpoint
@@ -97,23 +97,23 @@ TEST_CASE( "PI PreProcess" )
         valid = mp_activeSetpoint.read( value );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 61.0F ) == true );
         valid = mp_deltaIdtError.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 1.5F ) == true );
         valid = mp_deltaSetpoint.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 1.0F ) == true );
         valid = mp_setpointChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == true );
 
         // No Change in heating setpoint
         time.m_thousandths += 1;
         component.doWork( true, time );
         valid = mp_deltaSetpoint.read( value );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( Cpl::Math::areFloatsEqual( value, 0.0F ) == true );
         valid = mp_setpointChanged.read( changed );
-        REQUIRE( Cpl::Dm::ModelPoint::IS_VALID( valid ) == true );
+        REQUIRE( valid == true );
         REQUIRE( changed == false );
     }
 

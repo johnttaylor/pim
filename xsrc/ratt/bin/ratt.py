@@ -4,16 +4,11 @@ Test Tool that automates issuing actions to a Under-Under-Test (UUT)
 ===============================================================================
 usage: ratt [options] --win <executable>...
        ratt [options] --linux <executable>...
-       ratt [options] --comport <comnum>
-       ratt [options] --serialports
        ratt [options] --nouut
        
 Arguments:
    <executable>         UUT is an executable and 'connecting' via stdio
-   --comport            Connect to a Window's serial port attached to the UUT 
    <socketnum>          The UUT's TCP socket number to connect to
-   <comnum>             Windows serial port number
-   --serialports        List available serial ports
    --nouut              Does NOT connect to any UUT
 
 Options:
@@ -35,11 +30,6 @@ Options:
                         script files.  This path is used if the file being
                         opening can not be found in/relative to --path2
 
-   --baud RATE          Baud rate of the serial port [Default: 115200]
-   --parity PARITY      Parity bits, values={even,odd,none} [Default: none]
-   --databits DBIT      Number of data bits of the serial port [Default: 8]
-   --stopbits SBIT      Number of Stop bits of the serial port [Default: 1]
-
    --crlf               Sets the UUT newline to '\\r\\n' (instead of '\\n')
    --logfile BASE       Defines the base log file name [Default: ratt.log]
    --log                Enables logging
@@ -54,11 +44,11 @@ Examples:
     ratt.py --win mypath\\my_utt.exe
 
     ; UUT is a physical device connected to a Windows PC on COM4
-    ratt.py --comport 4
+    ratt.py --win "C:\\Program Files\\PuTTY\\plink.exe" -serial COM4 -sercfg 115200,8,1,N,N
 
     ; Run mysuite.py script with a UUT connected via TCP (on the same PC on 
     ; port 5002) using Putty's plink 
-    ratt.py --input mysuite.ratt --win "E:\\Program Files (x86)\\PuTTY\\plink.exe" -telnet localhost -P 5002
+    ratt.py --input mysuite.ratt --win "C:\\Program Files\\PuTTY\\plink.exe" -telnet localhost -P 5002
 
 """
 
@@ -73,6 +63,7 @@ from rattlib import output
 from rattlib import std
 from rattlib import uut
 from rattlib import man
+
 from docopt.docopt import docopt
 from collections import deque
 from time import time, localtime, strftime
@@ -89,13 +80,6 @@ def main():
     # Add the ratt directory to the system path (so module can access the
     # 'utils' package
     sys.path.append(__file__)
-
-    # Enumrate Windoze COM Ports
-    if (args['--serialports'] == True):
-        ports = utils.get_available_serial_ports(platform="Windows")
-        for p in ports:
-            print(p)
-        sys.exit()
 
     # Get Newline option
     config.newline = '\r\n' if args['--crlf'] else '\n'
@@ -116,11 +100,6 @@ def main():
     # Created 'Expected' object for a: Linux/Wsl executable UUT
     elif (args['--linux']):
         config.g_uut = rexpect.ExpectLinuxConsole(" ".join(args['<executable>']), logfile)
-
-    # Created 'Expected' object for a: UUT via a Windoze COM Port
-    elif (args['--comport']):
-        serial = utils.open_serial_port('com' + args['<comnum>'], timeout=0, baudrate=int(args['--baud']), parity=args['--parity'], stopbits=int(args['--stopbits']), bytesize=int(args['--databits']))
-        config.g_uut = rexpect.ExpectSerial(serial, logfile)
 
     # Create 'Expected' object for a: NO UUT
     elif (args['--nouut']):

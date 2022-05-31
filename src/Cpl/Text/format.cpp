@@ -74,6 +74,56 @@ bool Cpl::Text::bufferToAsciiHex( const void* binaryData, int len, String& destS
 	return !destString.truncated();
 }
 
+bool Cpl::Text::bufferToAsciiBinary( const void* binaryData, int len, Cpl::Text::String& destString, bool appendToString, bool reverse )
+{
+    static const char *bitRep[16] = { "0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111",
+                                      "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111" };
+
+    if ( !binaryData || len == 0 )
+    {
+        return false; // Do nothing!
+    }
+
+    // Clear Destination
+    if ( !appendToString )
+    {
+        destString.clear();
+    }
+    
+    uint8_t* ptr  = reverse ? ((uint8_t*)binaryData) + len - 1: ((uint8_t*)binaryData);
+    int direction = reverse ? -1: 1;
+    while ( len-- )
+    {
+        destString += bitRep[*ptr >> 4];
+        destString += bitRep[*ptr & 0x0F];
+        ptr += direction;
+    }
+
+    return !destString.truncated();
+}
+
+bool Cpl::Text::bufferToViewer( const void* binaryData, int len, Cpl::Text::String& destString, int bytesPerLine, const char* separator, bool upperCase, bool appendToString )
+{
+	if ( !bufferToAsciiHex( binaryData, len, destString, upperCase, appendToString ) )
+	{
+		return false;
+	}
+
+	// Fill in 'missing' bytes
+	for ( int i=len; i < bytesPerLine; i++ )
+	{
+		destString += "  ";
+	}
+
+	// Add separator
+	destString += separator;
+	if ( destString.truncated() )
+	{
+		return false;
+	}
+
+	return bufferToString( binaryData, len, destString, true );
+}
 
 static bool formatMsec( Cpl::Text::String& buffer, unsigned msec, unsigned long long elaspedSecs, bool encodeDay, bool appendToString )
 {

@@ -79,6 +79,10 @@ protected:
 	 */
 	virtual bool read( void* buffer, int numBytes, int& bytesRead ) = 0;
 
+	/** Returns the un-encoded value for the specified escaped character.  The
+		default implementation simply returns 'escapedChar'
+	 */
+	virtual char decodeEscapedChar( char escapedChar );
 };
 
 
