@@ -158,11 +158,18 @@
   },
   "publish": {
     "current": {
-      "comment": "Update the Model Point (i.e. Cpl::Dm) implementation to have a small FLASH footprint; Minor feature enhancements and bug fixes",
-      "version": "1.1.0",
-      "date": "Tue May 31 20:49:15 2022",
-      "timestamp": 1654030155
+      "comment": "Fix package dependency error",
+      "version": "1.1.1",
+      "date": "Sat Jun 11 18:41:03 2022",
+      "timestamp": 1654972863
     },
-    "history": []
+    "history": [
+      {
+        "comment": "Update the Model Point (i.e. Cpl::Dm) implementation to have a small FLASH footprint; Minor feature enhancements and bug fixes",
+        "version": "1.1.0",
+        "date": "Tue May 31 20:49:15 2022",
+        "timestamp": 1654030155
+      }
+    ]
   }
 }
