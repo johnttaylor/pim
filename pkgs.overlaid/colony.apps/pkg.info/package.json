@@ -4,7 +4,7 @@
       {
         "pkgname": "colony.bsp",
         "pkgtype": "overlay",
-        "adoptedDate": "Sun Dec  5 19:12:37 2021",
+        "adoptedDate": "Sun Dec  5 14:33:52 2021",
         "parentDir": null,
         "version": {
           "semanticVersion": "0.1.0",
@@ -18,25 +18,9 @@
         }
       },
       {
-        "pkgname": "catch",
-        "pkgtype": "overlay",
-        "adoptedDate": "Mon May 30 19:48:56 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "2.13.7b",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.13.7b"
-        },
-        "repo": {
-          "name": "catch",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "ratt",
-        "pkgtype": "foreign",
-        "adoptedDate": "Mon May 30 19:53:21 2022",
+        "pkgtype": "readonly",
+        "adoptedDate": "Mon May 30 18:42:13 2022",
         "parentDir": "xsrc",
         "version": {
           "semanticVersion": "1.0.1",
@@ -50,9 +34,41 @@
         }
       },
       {
+        "pkgname": "catch",
+        "pkgtype": "overlay",
+        "adoptedDate": "Mon May 30 18:52:19 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "2.13.7b",
+          "branch": null,
+          "tag": "OUTCAST2-main-2.13.7b"
+        },
+        "repo": {
+          "name": "catch",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.arduino",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sat Jun 11 18:31:57 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "1.0.3",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.0.3"
+        },
+        "repo": {
+          "name": "colony.arduino",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
         "pkgname": "nqbp",
         "pkgtype": "foreign",
-        "adoptedDate": "Sat Jul  9 23:33:33 2022",
+        "adoptedDate": "Sat Jul  9 23:17:03 2022",
         "parentDir": "xsrc",
         "version": {
           "semanticVersion": "2.2.2",
@@ -68,7 +84,7 @@
       {
         "pkgname": "colony.core",
         "pkgtype": "overlay",
-        "adoptedDate": "Sat Jul  9 23:33:49 2022",
+        "adoptedDate": "Sat Jul  9 23:17:52 2022",
         "parentDir": null,
         "version": {
           "semanticVersion": "3.0.0",
@@ -80,48 +96,15 @@
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
-      },
-      {
-        "pkgname": "colony.apps",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sat Jul  9 23:35:46 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "2.0.2",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.0.2"
-        },
-        "repo": {
-          "name": "colony.apps",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
       }
     ],
-    "weak": [
-      {
-        "pkgname": "colony.bsp.renesas.rx",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Dec  5 19:42:47 2021",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "1.0.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.0.1"
-        },
-        "repo": {
-          "name": "colony.bsp.renesas.rx",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      }
-    ]
+    "weak": []
   },
   "directories": {
     "primary": [
+      "projects",
       "src",
-      "tests",
-      "projects"
+      "tests"
     ],
     "adoptedExtras": [
       "docs",
@@ -129,30 +112,42 @@
     ]
   },
   "info": {
-    "pkgname": "pim",
-    "desc": "Source code for the book: Patterns in the Machine: A Software Engineering Guide to Embedded Development",
+    "pkgname": "colony.apps",
+    "desc": "Example Applications, Applets, etc. built on top of the Colony.* Packages",
     "owner": "John Taylor",
     "email": "john.t.taylor@gmail.com",
-    "url": "https://www.apress.com/us/book/9781484264393",
+    "url": "url",
     "repo": {
-      "name": "pim",
+      "name": "colony.apps",
       "type": "git",
       "origin": "https://github.com/johnttaylor"
     }
   },
   "publish": {
     "current": {
-      "comment": "Fix package dependency error",
-      "version": "1.1.1",
-      "date": "Sat Jun 11 18:41:03 2022",
-      "timestamp": 1654972863
+      "comment": "Address hidden-virtual-function issues and some minor bug fixes",
+      "version": "2.0.2",
+      "date": "Sat Jul  9 23:22:12 2022",
+      "timestamp": 1657408932
     },
     "history": [
       {
-        "comment": "Update the Model Point (i.e. Cpl::Dm) implementation to have a small FLASH footprint; Minor feature enhancements and bug fixes",
-        "version": "1.1.0",
-        "date": "Tue May 31 20:49:15 2022",
-        "timestamp": 1654030155
+        "comment": "Fix package dependencies",
+        "version": "2.0.1",
+        "date": "Sat Jun 11 18:34:06 2022",
+        "timestamp": 1654972446
+      },
+      {
+        "comment": "Update with new Model Point implementation (note: the Cpl::Dm changes are/were breaking changes).  Minor feature updates and bug fixes",
+        "version": "2.0.0",
+        "date": "Mon May 30 19:39:37 2022",
+        "timestamp": 1653939577
+      },
+      {
+        "comment": "Publish as an Outcast2 package",
+        "version": "1.0.0",
+        "date": "Sun Dec  5 18:54:30 2021",
+        "timestamp": 1638730470
       }
     ]
   }
