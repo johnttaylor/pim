@@ -1,0 +1,17 @@
+# Not part of the frame!!!
+ 123456789 123456
+.hello world;
+
+# more stuff out-of-frame - now an empty frame:.;
+
+# a frame that gets reject because of illegal characters
+.start
+not really end;.good frame;
+
+ 123456789 123456
+.this frame exceeds client's buffer;.just kidding;
+
+# escape stuff
+..sof; .~.more sof;.
+reject;
+.~;eof; .~.~~~;sef;
