@@ -34,54 +34,6 @@
         }
       },
       {
-        "pkgname": "colony.apps",
-        "pkgtype": "overlay",
-        "adoptedDate": "Mon May 30 19:50:37 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "2.0.0",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.0.0"
-        },
-        "repo": {
-          "name": "colony.apps",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "colony.core",
-        "pkgtype": "overlay",
-        "adoptedDate": "Mon May 30 19:51:34 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "3.0.0",
-          "branch": null,
-          "tag": "OUTCAST2-main-3.0.0"
-        },
-        "repo": {
-          "name": "colony.core",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "nqbp",
-        "pkgtype": "foreign",
-        "adoptedDate": "Mon May 30 19:52:44 2022",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "2.2.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.2.1"
-        },
-        "repo": {
-          "name": "nqbp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "ratt",
         "pkgtype": "foreign",
         "adoptedDate": "Mon May 30 19:53:21 2022",
@@ -93,22 +45,6 @@
         },
         "repo": {
           "name": "ratt",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "colony.arduino",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sat Jun 11 18:37:32 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "1.0.3",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.0.3"
-        },
-        "repo": {
-          "name": "colony.arduino",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
