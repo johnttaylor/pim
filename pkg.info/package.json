@@ -96,6 +96,22 @@
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
+      },
+      {
+        "pkgname": "colony.arduino",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sat Jul  9 23:45:00 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "1.0.4",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.0.4"
+        },
+        "repo": {
+          "name": "colony.arduino",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
       }
     ],
     "weak": [
@@ -142,12 +158,18 @@
   },
   "publish": {
     "current": {
-      "comment": "Fix package dependency error",
-      "version": "1.1.1",
-      "date": "Sat Jun 11 18:41:03 2022",
-      "timestamp": 1654972863
+      "comment": "Address compiler warning issues. Update the linux env.sh script to support setting a path to the GCC toolchain",
+      "version": "2.0.0",
+      "date": "Sat Jul  9 23:47:35 2022",
+      "timestamp": 1657410455
     },
     "history": [
+      {
+        "comment": "Fix package dependency error",
+        "version": "1.1.1",
+        "date": "Sat Jun 11 18:41:03 2022",
+        "timestamp": 1654972863
+      },
       {
         "comment": "Update the Model Point (i.e. Cpl::Dm) implementation to have a small FLASH footprint; Minor feature enhancements and bug fixes",
         "version": "1.1.0",
