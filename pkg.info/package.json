@@ -114,6 +114,22 @@
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
+      },
+      {
+        "pkgname": "colony.bsp.renesas.rx",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun Sep 11 23:24:11 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "1.0.2",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.0.2"
+        },
+        "repo": {
+          "name": "colony.bsp.renesas.rx",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
       }
     ]
   },
