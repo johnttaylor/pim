@@ -1,0 +1,7 @@
+hello world
+  start
+tab 	skip line
+not really end
+.good frame;
+this frame exceeds client's buffer
+ just kidding  

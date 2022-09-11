@@ -1,0 +1,8 @@
+# Misc
+*.gcov
+
+# visual studio
+*.exe
+*.ilk
+*.pdb
+*.sln

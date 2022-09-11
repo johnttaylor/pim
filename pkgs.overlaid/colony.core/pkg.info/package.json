@@ -1,0 +1,151 @@
+{
+  "dependencies": {
+    "strong": [
+      {
+        "pkgname": "colony.bsp",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun Sep 11 18:48:31 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "0.1.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.1.1"
+        },
+        "repo": {
+          "name": "colony.bsp",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      }
+    ],
+    "weak": [
+      {
+        "pkgname": "freertos",
+        "pkgtype": "readonly",
+        "adoptedDate": "Sat Nov 27 19:23:36 2021",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "8.2.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-8.2.1"
+        },
+        "repo": {
+          "name": "freertos",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "nqbp",
+        "pkgtype": "foreign",
+        "adoptedDate": "Sun Sep 11 18:51:26 2022",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "3.0.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-3.0.1"
+        },
+        "repo": {
+          "name": "nqbp",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "catch",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun May 29 16:57:56 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "2.13.7b",
+          "branch": null,
+          "tag": "OUTCAST2-main-2.13.7b"
+        },
+        "repo": {
+          "name": "catch",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.bsp.renesas.rx",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun Sep 11 18:49:55 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "1.0.2",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.0.2"
+        },
+        "repo": {
+          "name": "colony.bsp.renesas.rx",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      }
+    ]
+  },
+  "directories": {
+    "primary": [
+      "src",
+      "tests",
+      "top"
+    ],
+    "adoptedExtras": [
+      "top"
+    ]
+  },
+  "info": {
+    "desc": "Colony is C++ class library targeted specifically for embedded development.  Colony.Core is the base system/interfaces for the Colony packages.",
+    "owner": "John Taylor",
+    "email": "John.T.Taylor@gmail.com",
+    "url": "www.integerfox.com/colony.core",
+    "repo": {
+      "name": "colony.core",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
+    },
+    "pkgname": "colony.core"
+  },
+  "publish": {
+    "current": {
+      "comment": "Minor bug fixes and external package updates",
+      "version": "4.2.1",
+      "date": "Sun Sep 11 18:56:47 2022",
+      "timestamp": 1662922607,
+      "changes": "\"- Fix bug in the missing 'blocking' argument for the frame decoders\\n- Fix issue of the Cpl::Io::Stream available() method reporting  mouse/focus events for stdin under Windoze\\n- Get the latest package version of: nqbp, colony.bsp, and colony.bsp.renesas.rx\\n\""
+    },
+    "history": [
+      {
+        "comment": "Added new Drivers. Tweaked the StreamDecoder. Added VS solution. Added Null Media and RAM IO stream",
+        "version": "4.2.0",
+        "date": "Sun Sep  4 17:55:27 2022",
+        "timestamp": 1662314127
+      },
+      {
+        "comment": "Add Periodic Scheduler. Add non-blocking TShell processor",
+        "version": "4.1.0",
+        "date": "Thu Aug 18 01:03:06 2022",
+        "timestamp": 1660784586
+      },
+      {
+        "comment": "Refactor Model Points for smaller footprint (is a breaking change)",
+        "version": "3.0.0",
+        "date": "Mon May 30 18:11:49 2022",
+        "timestamp": 1653934309
+      },
+      {
+        "comment": "Try again at publishing as a Outcast2 package",
+        "version": "2.0.2",
+        "date": "Sun Nov 28 14:33:57 2021",
+        "timestamp": 1638110037
+      },
+      {
+        "comment": "Initial publish as a Outcast2 package",
+        "version": "2.0.1.",
+        "date": "Sat Nov 20 20:15:42 2021",
+        "timestamp": 1637439342
+      }
+    ]
+  }
+}
