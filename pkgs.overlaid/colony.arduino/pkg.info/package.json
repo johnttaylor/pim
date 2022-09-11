@@ -1,0 +1,131 @@
+{
+  "dependencies": {
+    "strong": [
+      {
+        "pkgname": "colony.bsp",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun Sep 11 19:15:58 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "0.1.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.1.1"
+        },
+        "repo": {
+          "name": "colony.bsp",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.core",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun Sep 11 22:49:03 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "4.2.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-4.2.1"
+        },
+        "repo": {
+          "name": "colony.core",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      }
+    ],
+    "weak": [
+      {
+        "pkgname": "nqbp",
+        "pkgtype": "foreign",
+        "adoptedDate": "Sun Sep 11 19:15:27 2022",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "3.0.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-3.0.1"
+        },
+        "repo": {
+          "name": "nqbp",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "catch",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sat Jun 11 18:22:44 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "2.13.7b",
+          "branch": null,
+          "tag": "OUTCAST2-main-2.13.7b"
+        },
+        "repo": {
+          "name": "catch",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      }
+    ]
+  },
+  "directories": {
+    "primary": [
+      "arduino",
+      "projects",
+      "src",
+      "tests"
+    ],
+    "adoptedExtras": [
+      "docs",
+      "top"
+    ]
+  },
+  "info": {
+    "pkgname": "colony.arduino",
+    "desc": "Arduino support for the Colony.* eco-system. This include Arduino libraries, BSPs, Cpl adapters, etc.",
+    "owner": "John Taylor",
+    "email": "john.t.taylor@gmail.com",
+    "url": "www.integerfox.com/colony.arduino",
+    "repo": {
+      "name": "colony.arduino",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
+    }
+  },
+  "publish": {
+    "current": {
+      "comment": "Update to the latest package version",
+      "version": "1.0.5",
+      "date": "Sun Sep 11 22:51:29 2022",
+      "timestamp": 1662936689,
+      "changes": null
+    },
+    "history": [
+      {
+        "comment": "Pickup latest changes to colony.core and nqbp",
+        "version": "1.0.4",
+        "date": "Sat Jul  9 23:31:17 2022",
+        "timestamp": 1657409477
+      },
+      {
+        "comment": "Pickup latest changes to colony.core, nqbp, and catch",
+        "version": "1.0.3",
+        "date": "Sat Jun 11 18:25:14 2022",
+        "timestamp": 1654971914
+      },
+      {
+        "comment": "Fix doxgyen errors",
+        "version": "1.0.2",
+        "date": "Mon May 30 20:03:36 2022",
+        "timestamp": 1653941016
+      },
+      {
+        "comment": "Publish as an Outcast2 package",
+        "version": "1.0.1",
+        "date": "Sun Nov 28 20:11:42 2021",
+        "timestamp": 1638130302
+      }
+    ]
+  }
+}
