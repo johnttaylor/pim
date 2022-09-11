@@ -1,0 +1,7 @@
+_arduino/
+_win32/
+
+# outputs
+*.map
+*.elf
+*.bin
