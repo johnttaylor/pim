@@ -89,10 +89,10 @@ public:
     }
 
     /// Element Count Change notification 
-    void elementCountChanged( Cpl::Dm::Mp::Uint32& mp ) noexcept
+    void elementCountChanged( Cpl::Dm::Mp::Uint32& mp, Cpl::Dm::SubscriberApi& clientObserver ) noexcept
     {
         uint32_t count;
-        if ( mp.read( count ) && count > 0 )
+        if ( mp.readAndSync( count, clientObserver ) && count > 0 )
         {
             // Drain the buffer (but limit how many adds at one time) and write the entries to persistent storage
             unsigned iterations = 0;

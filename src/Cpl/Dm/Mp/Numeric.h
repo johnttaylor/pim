@@ -113,6 +113,11 @@ public:
         detachSubscriber( observer );
     }
 
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( ELEMTYPE& dstData, SubscriberApi& observerToSync )
+    {
+        return ModelPointCommon_::readAndSync( &dstData, sizeof( ELEMTYPE ), observerToSync );
+    }
 
 protected:
     /// See Cpl::Dm::Point.  

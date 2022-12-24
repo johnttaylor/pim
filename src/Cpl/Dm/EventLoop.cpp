@@ -66,7 +66,7 @@ void EventLoop::processChangeNotifications() noexcept
         modelPoint.processSubscriptionEvent_( *subscriberPtr, ModelPoint::eNOTIFYING );
 
         // Execute the callback
-        subscriberPtr->genericModelPointChanged_( modelPoint );
+        subscriberPtr->genericModelPointChanged_( modelPoint, *subscriberPtr );
 
         // Update the subscriber's state
         modelPoint.processSubscriptionEvent_( *subscriberPtr, ModelPoint::eNOTIFY_COMPLETE );

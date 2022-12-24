@@ -92,21 +92,6 @@ TEST_CASE( "stringdecoder", "[stringdecoder]" )
 	endPtr = decoder.getRemainder();
 	REQUIRE( *endPtr == ' ' );
 
-	REQUIRE( decoder.scan( sizeof( buffer_ ), buffer_, fsize ) );
-	instring.copyIn( buffer_, fsize );
-	CPL_SYSTEM_TRACE_MSG( SECT_, ( "Frame=[%s]", instring.getString() ) );
-	REQUIRE( instring == ".more sof" );
-	endPtr = decoder.getRemainder();
-	REQUIRE( *endPtr == '.' );
-
-	decoder.setInput( "not-rejected;" );
-	REQUIRE( decoder.scan( sizeof( buffer_ ), buffer_, fsize ) );
-	instring.copyIn( buffer_, fsize );
-	CPL_SYSTEM_TRACE_MSG( SECT_, ( "Frame=[%s]", instring.getString() ) );
-	REQUIRE( instring == "not-rejected" );
-	endPtr = decoder.getRemainder();
-	REQUIRE( *endPtr == '\0' );
-
 	decoder.setInput( ".~;eof;x.~.~~~;sef;y" );
 	REQUIRE( decoder.scan( sizeof( buffer_ ), buffer_, fsize ) );
 	instring.copyIn( buffer_, fsize );
@@ -115,6 +100,7 @@ TEST_CASE( "stringdecoder", "[stringdecoder]" )
 	endPtr = decoder.getRemainder();
 	REQUIRE( *endPtr == 'x' );
 
+	decoder.setInput( "x.~.~~~;sef;y" );
 	REQUIRE( decoder.scan( sizeof( buffer_ ), buffer_, fsize ) );
 	instring.copyIn( buffer_, fsize );
 	CPL_SYSTEM_TRACE_MSG( SECT_, ( "Frame=[%s]", instring.getString() ) );
@@ -126,7 +112,37 @@ TEST_CASE( "stringdecoder", "[stringdecoder]" )
 }
 
 
+TEST_CASE( "oobRead" )
+{
+	Cpl::System::Shutdown_TS::clearAndUseCounter();
 
+	StringDecoder   decoder( SOF_, EOF_, ESC_ );
+	const char*     endPtr;
+	size_t          fsize;
+
+	decoder.setInput( ".hello world;my oob here" );
+	REQUIRE( decoder.scan( sizeof( buffer_ ), buffer_, fsize ) );
+	instring.copyIn( buffer_, fsize );
+	CPL_SYSTEM_TRACE_MSG( SECT_, ("Frame=[%s]", instring.getString()) );
+	REQUIRE( instring == "hello world" );
+	endPtr = decoder.getRemainder();
+	REQUIRE( *endPtr == 'm' );
+
+	int oobBytes = 0;
+	bool result = decoder.oobRead( buffer_, sizeof( buffer_ ), oobBytes );
+	REQUIRE( result );
+	REQUIRE( oobBytes == 1 );
+	int totalOob = 1;
+	while ( result )
+	{
+		result = decoder.oobRead( buffer_, sizeof( buffer_ ), oobBytes );
+		if ( result )
+		{
+			totalOob += oobBytes;
+		}
+	}
+	REQUIRE( totalOob == 11 );
+}
 
 
 

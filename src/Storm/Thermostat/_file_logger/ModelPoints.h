@@ -22,10 +22,15 @@
 #include "colony_config.h"
 #include "Cpl/Dm/Mp/Double.h"
 #include "Cpl/Dm/Mp/Bool.h"
-#include "Storm/Dm/MpFileNameString.h"
+#include "Cpl/Dm/Mp/String.h"
 
+ /** Maximum file name length (in bytes not including the null terminator)
+  */
+#ifndef OPTION_STORM_DM_MAX_FILE_NAME
+#define OPTION_STORM_DM_MAX_FILE_NAME     64
+#endif
 
 /// Logger: Name of the CSV log file.  On the transition from invalid to a 'name', logging is started.  The transition to invalid stops logging
-extern Storm::Dm::MpFileNameString              mp_loggingFileName;
+extern  Cpl::Dm::Mp::String<OPTION_STORM_DM_MAX_FILE_NAME>              mp_loggingFileName;
 
 #endif  // end header latch

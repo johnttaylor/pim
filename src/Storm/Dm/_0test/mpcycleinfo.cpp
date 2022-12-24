@@ -181,13 +181,13 @@ TEST_CASE( "MpCycleInfo" )
     SECTION( "observer" )
     {
         Cpl::Dm::MailboxServer     t1Mbox;
-        Viewer<MpCycleInfo>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        SET_VALUES( expectedVal, 500, 2, 250, 4, 5, 6, Storm::Type::CycleStatus::eOFF );
+        Viewer<MpCycleInfo, Storm::Type::CycleInfo_T>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_, expectedVal );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox, "T1" );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Created Viewer thread (%p)", t1) );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test
         viewer_apple1.open();
-        SET_VALUES( expectedVal, 500, 2, 250, 4, 5, 6, Storm::Type::CycleStatus::eOFF );
         mp_apple_.write( expectedVal );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Waiting for viewer signal...") );
         Cpl::System::Thread::wait();

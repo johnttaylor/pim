@@ -183,7 +183,7 @@ TEST_CASE( "Enum" )
     SECTION( "observer" )
     {
         CPL_SYSTEM_TRACE_SCOPE( SECT_, "observer test" );
-        Viewer<MyUut>        viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        Viewer<MyUut, MyEnum>        viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_, MyEnum::eRED );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox_, "T1" );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test

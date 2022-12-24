@@ -14,6 +14,7 @@
 
 
 #include "Cpl/Dm/Mp/Numeric.h"
+#include <stdint.h>
 
 ///
 namespace Cpl {
@@ -57,7 +58,6 @@ public:
 public:
 	/// Type safe subscriber
 	typedef Cpl::Dm::Subscriber<Uint32> Observer;
-
 
 public:
 	///  See Cpl::Dm::ModelPoint.

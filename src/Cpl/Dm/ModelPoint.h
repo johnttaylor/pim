@@ -89,8 +89,11 @@ public:
 
 
 public:
-    /// This method returns true when the MP data is invalid.
-    virtual bool isNotValid() const noexcept = 0;
+    /** This method returns true when the MP data is invalid.  The method
+        optionally returns the Point's sequence number via the argument
+        'seqNumPtr'.
+     */
+    virtual bool isNotValid( uint16_t* seqNumPtr=0 ) const noexcept = 0;
 
     /** This method is used to mark the element's data as invalid.
 

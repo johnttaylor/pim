@@ -42,7 +42,7 @@ public:
         notification mechanism of the subscriber's Mailbox Server, i.e. executes 
         in the thread associated m_mailBoxHdl
      */
-    virtual void genericModelPointChanged_( ModelPoint& modelPointThatChanged ) noexcept = 0;
+    virtual void genericModelPointChanged_( ModelPoint& modelPointThatChanged, SubscriberApi& clientObserver ) noexcept = 0;
 
     /** This method has PACKAGE Scope, i.e. it is intended to be ONLY accessible
         by other classes in the Cpl::Dm namespace.  The Application should

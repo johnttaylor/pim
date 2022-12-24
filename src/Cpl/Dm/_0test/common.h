@@ -110,16 +110,16 @@ public:
 
 
 public:
-    void mp1_changed( Mp::Uint32& modelPointThatChanged ) noexcept
+    void mp1_changed( Mp::Uint32& modelPointThatChanged, SubscriberApi& clientObsever ) noexcept
     {
         CPL_SYSTEM_TRACE_ALLOCATE( uint32_t, prevValue, m_lastValue );
         CPL_SYSTEM_TRACE_ALLOCATE( int8_t, prevState, m_lastValid );
         uint16_t prevSeqNum = m_lastSeqNumber;
 
         m_mpNotificationCount1++;
-        uint16_t seqNum;
-        m_lastValid     = modelPointThatChanged.read( m_lastValue, &seqNum );
+        m_lastValid     = modelPointThatChanged.readAndSync( m_lastValue, clientObsever );
         m_lastSeqNumber = m_observerMp1.getSequenceNumber_();
+        REQUIRE( m_observerMp1.getSequenceNumber_() == modelPointThatChanged.getSequenceNumber() );
 
         //CPL_SYSTEM_TRACE_MSG( SECT_, ("VIEWER(%p): mp changed (%s), notify count=%d, valid=%d, value=%d",
         //                               this,
@@ -140,7 +140,7 @@ public:
         {
             if ( m_done )
             {
-                CPL_SYSTEM_TRACE_MSG( SECT_, ("Viewer::mp1_changed(%p): Received Change notification after signaling the master thread, may or may not be an error. Prev: value=%lu, state=%d, seqNum=%u.  Rcvd: value=%lu, state=%d, seqNum=%u.  read_seq_num=%u, notifyCount=%d", this, prevValue, prevState, prevSeqNum, m_lastValue, m_lastValid, m_lastSeqNumber, seqNum, m_mpNotificationCount1) );
+                CPL_SYSTEM_TRACE_MSG( SECT_, ("Viewer::mp1_changed(%p): Received Change notification after signaling the master thread, may or may not be an error. Prev: value=%lu, state=%d, seqNum=%u.  Rcvd: value=%lu, state=%d, seqNum=%u.  read_seq_num=%u, notifyCount=%d", this, prevValue, prevState, prevSeqNum, m_lastValue, m_lastValid, m_lastSeqNumber, m_lastSeqNumber, m_mpNotificationCount1) );
             }
             else
             {
@@ -350,7 +350,7 @@ public:
 
 
 public:
-    void mpChanged( ModelPoint& modelPointThatChanged ) noexcept
+    void mpChanged( ModelPoint& modelPointThatChanged, SubscriberApi& clientObserver  ) noexcept
     {
         m_mpNotificationCount++;
         m_lastValid     = !modelPointThatChanged.isNotValid();

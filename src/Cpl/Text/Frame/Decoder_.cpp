@@ -11,7 +11,7 @@
 
 
 #include "Decoder_.h"
-
+#include <memory.h>
 
 ///
 using namespace Cpl::Text::Frame;
@@ -72,6 +72,7 @@ bool Decoder_::scan( size_t maxSizeOfFrame, char* frame, size_t& frameSize ) noe
     // I should never get here!
     return false;
 }
+
 
 bool Decoder_::scan( size_t maxSizeOfFrame, char* frame, size_t& frameSize, bool& isEof ) noexcept
 {
@@ -183,10 +184,44 @@ bool Decoder_::scan( size_t maxSizeOfFrame, char* frame, size_t& frameSize, bool
     return true;
 }
 
-
-
-
 char Decoder_::decodeEscapedChar( char escapedChar )
 {
     return escapedChar;
 }
+
+bool Decoder_::oobRead( void* buffer, int numBytes, int& bytesRead ) noexcept
+{
+    // FAIL if processing a frame
+    if ( m_inFrame )
+    {
+        return false;
+    }
+
+    // No cached data 
+    if ( !m_dataLen )
+    {
+        // Read data from the input source into the local cache
+        if ( !read( m_buffer, m_bufSize, m_dataLen ) )
+        {
+            return false;
+        }
+        m_dataPtr = m_buffer;
+    }
+
+    // More data requested than what is cached
+    if ( numBytes > m_dataLen )
+    {
+        bytesRead = m_dataLen;
+        m_dataLen = 0;
+        memcpy( buffer, m_dataPtr, bytesRead );
+        return true;
+    }
+
+    // Consume part of the cached data
+    memcpy( buffer, m_dataPtr, numBytes );
+    m_dataLen -= numBytes;
+    m_dataPtr += numBytes;
+    bytesRead  = numBytes;
+    return true;
+}
+

@@ -102,6 +102,11 @@ public:
     /// Type safe un-register observer
     virtual void detach( Observer& observer ) noexcept;
 
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( Storm::Type::ComfortConfig_T& dstData, Cpl::Dm::SubscriberApi& observerToSync )
+    {
+        return ModelPointCommon_::readAndSync( &dstData, sizeof( Storm::Type::ComfortConfig_T ), observerToSync );
+    }
 
 public:
     ///  See Cpl::Dm::ModelPoint.

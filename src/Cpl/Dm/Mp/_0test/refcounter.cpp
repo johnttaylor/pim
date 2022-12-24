@@ -145,7 +145,7 @@ TEST_CASE( "RefCounter" )
     SECTION( "observer" )
     {
         CPL_SYSTEM_TRACE_SCOPE( SECT_, "observer test" );
-        Viewer<Mp::RefCounter>  viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        Viewer<Mp::RefCounter, uint32_t>  viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_, 11 );
         Cpl::System::Thread*    t1 = Cpl::System::Thread::create( t1Mbox_, "T1" );
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "Created Viewer thread (%p)", t1 ) );
 

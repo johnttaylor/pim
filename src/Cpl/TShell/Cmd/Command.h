@@ -18,6 +18,12 @@
 #include "Cpl/Container/Map.h"
 #include "Cpl/Text/String.h"
 
+/** Default Permission level for all commands
+ */
+#ifndef OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL
+#define OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL	Cpl::TShell::Security::ePUBLIC
+#endif
+
 
 ///
 namespace Cpl {
@@ -41,22 +47,30 @@ protected:
 
 protected:
 	/// Command 
-	Cpl::Container::KeyLiteralString  m_mapKey;
+	Cpl::Container::KeyLiteralString	m_mapKey;
 
+	/// Minimum required user permission need to execute me
+	Security::Permission_T				m_minPermissionLevel;
 
 protected:
 	/// Constructor
-	Command( Cpl::Container::Map<Cpl::TShell::Command>& commandList, const char* verb ) noexcept;
+	Command( Cpl::Container::Map<Cpl::TShell::Command>& commandList, 
+			 const char*                                verb, 
+			 Security::Permission_T                     minPermLevel=OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL ) noexcept;
 
 
 public:
 	/// See Cpl::TShell::Command
 	const char* getVerb() const noexcept;
 
+	/// See Cpl::TShell::Command
+	Security::Permission_T getMinPermissionRequired() const noexcept;
 
 protected:
 	/// See Cpl::Container::Key
 	const Cpl::Container::Key& getKey() const noexcept;
+
+
 
 };
 
