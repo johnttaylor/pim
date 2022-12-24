@@ -51,3 +51,5 @@ make.log
 
 myMediaFile
 _compiler_.txt
+*.vcxproj.user
+.vs/
