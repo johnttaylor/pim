@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl::System::ElapsedTime Class Reference</title>
+<title>Patterns in the Machine: Cpl::System::ElapsedTime Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -97,10 +97,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a749b36791b71508b84e6df62fbb7b816"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns true if the specified amount of time has elapsed since the 'timeMarker'.  <a href="class_cpl_1_1_system_1_1_elapsed_time.html#a749b36791b71508b84e6df62fbb7b816">More...</a><br /></td></tr>
 <tr class="separator:a749b36791b71508b84e6df62fbb7b816"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d543a9fd6d25c23144d1a477a4769f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_elapsed_time.html#ab0d543a9fd6d25c23144d1a477a4769f">initializeWithSeconds</a> (<a class="el" href="struct_cpl_1_1_system_1_1_elapsed_time_1_1_precision___t.html">Precision_T</a> &amp;dst, unsigned long <a class="el" href="class_cpl_1_1_system_1_1_elapsed_time.html#a5fc53906d05f3112cf5cf721c7352780">seconds</a>)</td></tr>
-<tr class="memdesc:ab0d543a9fd6d25c23144d1a477a4769f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will initialize the contents 'etime' to the number of seconds specified by 'seconds' and set the m_thousandths field to zero.  <a href="class_cpl_1_1_system_1_1_elapsed_time.html#ab0d543a9fd6d25c23144d1a477a4769f">More...</a><br /></td></tr>
+<tr class="memdesc:ab0d543a9fd6d25c23144d1a477a4769f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will initialize the contents 'dst' to the number of seconds specified by 'seconds' and set the m_thousandths field to zero.  <a href="class_cpl_1_1_system_1_1_elapsed_time.html#ab0d543a9fd6d25c23144d1a477a4769f">More...</a><br /></td></tr>
 <tr class="separator:ab0d543a9fd6d25c23144d1a477a4769f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ef9d0120a66acd0613374e298cb292d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_elapsed_time.html#a3ef9d0120a66acd0613374e298cb292d">initializeWithMilliseconds</a> (<a class="el" href="struct_cpl_1_1_system_1_1_elapsed_time_1_1_precision___t.html">Precision_T</a> &amp;dst, unsigned long msec)</td></tr>
-<tr class="memdesc:a3ef9d0120a66acd0613374e298cb292d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will initialize the contents of 'etime' to the number of milliseconds specified by 'msec'.  <a href="class_cpl_1_1_system_1_1_elapsed_time.html#a3ef9d0120a66acd0613374e298cb292d">More...</a><br /></td></tr>
+<tr class="memdesc:a3ef9d0120a66acd0613374e298cb292d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will initialize the contents of 'dst' to the number of milliseconds specified by 'msec'.  <a href="class_cpl_1_1_system_1_1_elapsed_time.html#a3ef9d0120a66acd0613374e298cb292d">More...</a><br /></td></tr>
 <tr class="separator:a3ef9d0120a66acd0613374e298cb292d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34f1170618233fe8be7da9943bd0f74b"><td class="memItemLeft" align="right" valign="top">static unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_elapsed_time.html#a34f1170618233fe8be7da9943bd0f74b">secondsInRealTime</a> () noexcept</td></tr>
 <tr class="memdesc:a34f1170618233fe8be7da9943bd0f74b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is the same as <a class="el" href="class_cpl_1_1_system_1_1_elapsed_time.html#a5fc53906d05f3112cf5cf721c7352780" title="This method returns the elapsed time, in seconds, since the system was powered on and/or reset.">seconds()</a>, EXCEPT that is ALWAYS guaranteed to return elapsed time in 'real time'.  <a href="class_cpl_1_1_system_1_1_elapsed_time.html#a34f1170618233fe8be7da9943bd0f74b">More...</a><br /></td></tr>
@@ -399,7 +399,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This method will initialize the contents of 'etime' to the number of milliseconds specified by 'msec'. </p>
+<p>This method will initialize the contents of 'dst' to the number of milliseconds specified by 'msec'. </p>
 <p >If 'msec' is greater than 1000, the m_seconds field will be populate with the "overflow". </p>
 
 </div>
@@ -438,7 +438,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This method will initialize the contents 'etime' to the number of seconds specified by 'seconds' and set the m_thousandths field to zero. </p>
+<p>This method will initialize the contents 'dst' to the number of seconds specified by 'seconds' and set the m_thousandths field to zero. </p>
 
 </div>
 </div>
@@ -616,7 +616,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:45 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:56 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

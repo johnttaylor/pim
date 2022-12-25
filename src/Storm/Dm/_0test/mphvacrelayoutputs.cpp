@@ -199,15 +199,15 @@ TEST_CASE( "MpHvacRelayOutputs" )
     SECTION( "observer" )
     {
         Cpl::Dm::MailboxServer        t1Mbox;
-        Viewer<MpHvacRelayOutputs>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        Storm::Dm::MpHvacRelayOutputs::setSafeAllOff( expectedVal );
+        expectedVal.g  = true;
+        Viewer<MpHvacRelayOutputs, Storm::Type::HvacRelayOutputs_T>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_, expectedVal );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox, "T1" );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Created Viewer thread (%p)", t1) );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test
         mp_apple_.setInvalid();
         viewer_apple1.open();
-        Storm::Dm::MpHvacRelayOutputs::setSafeAllOff( expectedVal );
-        expectedVal.g  = true;
         mp_apple_.write( expectedVal );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Waiting for viewer signal...") );
         Cpl::System::Thread::wait();

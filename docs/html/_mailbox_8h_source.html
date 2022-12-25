@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/Itc/Mailbox.h Source File</title>
+<title>Patterns in the Machine: Cpl/Itc/Mailbox.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,7 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -100,24 +100,31 @@ $(function() {
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">     */</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_cpl_1_1_itc_1_1_mailbox.html#a1a99a8dfb29ddd882cccd387a2b8d00c">   51</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_cpl_1_1_itc_1_1_mailbox.html#a1a99a8dfb29ddd882cccd387a2b8d00c">processMessages</a>() noexcept;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>protected:<span class="comment"></span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">    /// The EventLoop that I wait-on/dispatch-msgs-from</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_cpl_1_1_itc_1_1_mailbox.html#a37a8a66eaaa0c8d5712fc7c0f2d4f779">   56</a></span><span class="comment"></span>    <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::System::EventLoop&amp; <a class="code hl_variable" href="class_cpl_1_1_itc_1_1_mailbox.html#a37a8a66eaaa0c8d5712fc7c0f2d4f779">m_eventLoop</a>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"></span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">    /** This method IS thread safe.</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"></span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">        This method returns true if there is at least one queued ITC message</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_cpl_1_1_itc_1_1_mailbox.html#a190c4f6c956ce48af8d7759a7b9055f7">   58</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="class_cpl_1_1_itc_1_1_mailbox.html#a190c4f6c956ce48af8d7759a7b9055f7">isPendingMessage</a>() noexcept;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};      <span class="comment">// end namespaces</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>protected:<span class="comment"></span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">    /// The EventLoop that I wait-on/dispatch-msgs-from</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_cpl_1_1_itc_1_1_mailbox.html#a37a8a66eaaa0c8d5712fc7c0f2d4f779">   62</a></span><span class="comment"></span>    <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::System::EventLoop&amp; <a class="code hl_variable" href="class_cpl_1_1_itc_1_1_mailbox.html#a37a8a66eaaa0c8d5712fc7c0f2d4f779">m_eventLoop</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};      <span class="comment">// end namespaces</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
 <div class="ttc" id="a_post_api_8h_html"><div class="ttname"><a href="_post_api_8h.html">PostApi.h</a></div></div>
 <div class="ttc" id="a_s_list_8h_html"><div class="ttname"><a href="_s_list_8h.html">SList.h</a></div></div>
 <div class="ttc" id="a_system_2_event_loop_8h_html"><div class="ttname"><a href="_system_2_event_loop_8h.html">EventLoop.h</a></div></div>
 <div class="ttc" id="aclass_cpl_1_1_container_1_1_s_list_html"><div class="ttname"><a href="class_cpl_1_1_container_1_1_s_list.html">Cpl::Container::SList</a></div><div class="ttdoc">This template class implements a singly linked list which maintains the ordering imposed on it by the...</div><div class="ttdef"><b>Definition:</b> SList.h:30</div></div>
 <div class="ttc" id="aclass_cpl_1_1_itc_1_1_mailbox_html"><div class="ttname"><a href="class_cpl_1_1_itc_1_1_mailbox.html">Cpl::Itc::Mailbox</a></div><div class="ttdoc">This mailbox class implements an Inter Thread Communications message queue.</div><div class="ttdef"><b>Definition:</b> Mailbox.h:34</div></div>
+<div class="ttc" id="aclass_cpl_1_1_itc_1_1_mailbox_html_a190c4f6c956ce48af8d7759a7b9055f7"><div class="ttname"><a href="class_cpl_1_1_itc_1_1_mailbox.html#a190c4f6c956ce48af8d7759a7b9055f7">Cpl::Itc::Mailbox::isPendingMessage</a></div><div class="ttdeci">bool isPendingMessage() noexcept</div><div class="ttdoc">This method IS thread safe.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_itc_1_1_mailbox_html_a1a99a8dfb29ddd882cccd387a2b8d00c"><div class="ttname"><a href="class_cpl_1_1_itc_1_1_mailbox.html#a1a99a8dfb29ddd882cccd387a2b8d00c">Cpl::Itc::Mailbox::processMessages</a></div><div class="ttdeci">virtual void processMessages() noexcept</div><div class="ttdoc">This operation is used process any pending messages.</div></div>
-<div class="ttc" id="aclass_cpl_1_1_itc_1_1_mailbox_html_a37a8a66eaaa0c8d5712fc7c0f2d4f779"><div class="ttname"><a href="class_cpl_1_1_itc_1_1_mailbox.html#a37a8a66eaaa0c8d5712fc7c0f2d4f779">Cpl::Itc::Mailbox::m_eventLoop</a></div><div class="ttdeci">Cpl::System::EventLoop &amp; m_eventLoop</div><div class="ttdoc">The EventLoop that I wait-on/dispatch-msgs-from.</div><div class="ttdef"><b>Definition:</b> Mailbox.h:56</div></div>
+<div class="ttc" id="aclass_cpl_1_1_itc_1_1_mailbox_html_a37a8a66eaaa0c8d5712fc7c0f2d4f779"><div class="ttname"><a href="class_cpl_1_1_itc_1_1_mailbox.html#a37a8a66eaaa0c8d5712fc7c0f2d4f779">Cpl::Itc::Mailbox::m_eventLoop</a></div><div class="ttdeci">Cpl::System::EventLoop &amp; m_eventLoop</div><div class="ttdoc">The EventLoop that I wait-on/dispatch-msgs-from.</div><div class="ttdef"><b>Definition:</b> Mailbox.h:62</div></div>
 <div class="ttc" id="aclass_cpl_1_1_itc_1_1_mailbox_html_a9bd2a59064c00f2b5633fdd28f25343e"><div class="ttname"><a href="class_cpl_1_1_itc_1_1_mailbox.html#a9bd2a59064c00f2b5633fdd28f25343e">Cpl::Itc::Mailbox::postSync</a></div><div class="ttdeci">void postSync(Message &amp;msg) noexcept</div><div class="ttdoc">See Cpl::Itc::PostApi.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_itc_1_1_mailbox_html_aa971ece1ac296ad2bd93e3d83f84167b"><div class="ttname"><a href="class_cpl_1_1_itc_1_1_mailbox.html#aa971ece1ac296ad2bd93e3d83f84167b">Cpl::Itc::Mailbox::Mailbox</a></div><div class="ttdeci">Mailbox(Cpl::System::EventLoop &amp;myEventLoop)</div><div class="ttdoc">Constructor.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_itc_1_1_mailbox_html_ae2e8767659956ba53e95a01add3b79d8"><div class="ttname"><a href="class_cpl_1_1_itc_1_1_mailbox.html#ae2e8767659956ba53e95a01add3b79d8">Cpl::Itc::Mailbox::post</a></div><div class="ttdeci">void post(Message &amp;msg) noexcept</div><div class="ttdoc">See Cpl::Itc::PostApi.</div></div>
@@ -128,7 +135,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

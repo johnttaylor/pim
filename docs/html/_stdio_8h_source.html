@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/TShell/Stdio.h Source File</title>
+<title>Patterns in the Machine: Cpl/TShell/Stdio.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,7 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -135,7 +135,7 @@ $(function() {
 <div class="ttc" id="a_thread_8h_html_aa62486c91d16bf86ecc6c548afe214f7"><div class="ttname"><a href="_thread_8h.html#aa62486c91d16bf86ecc6c548afe214f7">CPL_SYSTEM_THREAD_PRIORITY_NORMAL</a></div><div class="ttdeci">#define CPL_SYSTEM_THREAD_PRIORITY_NORMAL</div><div class="ttdoc">The recommended/default priority for a thread.</div><div class="ttdef"><b>Definition:</b> Thread.h:30</div></div>
 <div class="ttc" id="aclass_cpl_1_1_system_1_1_runnable_html"><div class="ttname"><a href="class_cpl_1_1_system_1_1_runnable.html">Cpl::System::Runnable</a></div><div class="ttdoc">This is an abstract class defines the interface for an object that is &quot;executed&quot; when a Thread object...</div><div class="ttdef"><b>Definition:</b> Runnable.h:29</div></div>
 <div class="ttc" id="aclass_cpl_1_1_system_1_1_thread_html"><div class="ttname"><a href="class_cpl_1_1_system_1_1_thread.html">Cpl::System::Thread</a></div><div class="ttdoc">This abstract class defines the operations that can be performed on a thread.</div><div class="ttdef"><b>Definition:</b> Thread.h:62</div></div>
-<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_processor_api_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></div><div class="ttdoc">This class defines the interface a TShell Command Processor.</div><div class="ttdef"><b>Definition:</b> ProcessorApi.h:30</div></div>
+<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_processor_api_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></div><div class="ttdoc">This class defines the interface a TShell Command Processor.</div><div class="ttdef"><b>Definition:</b> ProcessorApi.h:33</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_stdio_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_stdio.html">Cpl::TShell::Stdio</a></div><div class="ttdoc">This concrete class provides the 'threading wrapper' for running a TShell Command Processor.</div><div class="ttdef"><b>Definition:</b> Stdio.h:33</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_stdio_html_a444b254aed6830ade7111b3c1ceaebe5"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_stdio.html#a444b254aed6830ade7111b3c1ceaebe5">Cpl::TShell::Stdio::m_threadPtr</a></div><div class="ttdeci">Cpl::System::Thread * m_threadPtr</div><div class="ttdoc">Thread that the shell runs in.</div><div class="ttdef"><b>Definition:</b> Stdio.h:39</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_stdio_html_a5efa24aee11a3abdad75adda0ca4e61e"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_stdio.html#a5efa24aee11a3abdad75adda0ca4e61e">Cpl::TShell::Stdio::Stdio</a></div><div class="ttdeci">Stdio(ProcessorApi &amp;shell, const char *threadName=&quot;TShell&quot;, int threadPriority=CPL_SYSTEM_THREAD_PRIORITY_NORMAL+CPL_SYSTEM_THREAD_PRIORITY_LOWER, bool thisIsAStaticInstance=true) noexcept</div><div class="ttdoc">Constructor.</div></div>
@@ -149,7 +149,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

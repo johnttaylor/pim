@@ -110,6 +110,11 @@ public:
     /// See Cpl::Dm::Point.  
     bool fromJSON_( JsonVariant& src, LockRequest_T lockRequest, uint16_t& retSequenceNumber, Cpl::Text::String* errorMsg ) noexcept;
 
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( uint32_t& dstData, SubscriberApi& observerToSync )
+    {
+        return ModelPointCommon_::readAndSync( &dstData, sizeof( m_data ), observerToSync );
+    }
 
 protected:
     /// See Cpl::Dm::Point.  

@@ -71,6 +71,9 @@ public:
      */
     virtual void stop() noexcept;
 
+    /// Returns the current count (in milliseconds)
+    unsigned long count() const noexcept;
+
 public:
     /** Sets the timing source.  This method CAN ONLY BE CALLED when the
         timer is has never been started or it has been stopped
@@ -84,8 +87,6 @@ protected:  // CounterCallback_ API
     /// See Cpl::System::CounterCallback_
     void increment( unsigned long milliseconds ) noexcept;
 
-    /// See Cpl::System::CounterCallback_
-    unsigned long count() const noexcept;
 };
 
 

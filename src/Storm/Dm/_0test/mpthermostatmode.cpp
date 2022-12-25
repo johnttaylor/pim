@@ -149,7 +149,7 @@ TEST_CASE( "MpThermostatMode" )
     SECTION( "observer" )
     {
         Cpl::Dm::MailboxServer      t1Mbox;
-        Viewer<MpThermostatMode>   viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        Viewer<MpThermostatMode, Storm::Type::ThermostatMode>   viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_, Storm::Type::ThermostatMode::eHEATING );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox, "T1" );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test

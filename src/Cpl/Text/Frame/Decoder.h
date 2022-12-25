@@ -94,6 +94,22 @@ public:
 	virtual bool scan( size_t maxSizeOfFrame, char* frame, size_t& frameSize, bool& isEof ) noexcept = 0;
 
 public:
+	/** This method allows 'out-of-band' reading of the input source.  If the
+		scanner is in-a-frame the method return false and does nothing.  
+
+		CAUTION: Most client/consumers of the decoder should never use this 
+				 method.  This method only has meaning/usefulness when the
+				 application KNOWS when the input source is NOT in a frame AND 
+				 that there is 'non-framed' data that can be consumed.
+
+		Attempts to read the specified number of bytes from the stream into the
+		supplied buffer.  The actual number of bytes read is returned via
+		'bytesRead'. Returns true if successful, or false if End-of-Stream
+		was encountered or if the input source is in a frame.
+	 */
+	virtual bool oobRead( void* buffer, int numBytes, int& bytesRead ) noexcept = 0;	
+
+public:
 	/// Virtual Destructor
 	virtual ~Decoder() {}
 };

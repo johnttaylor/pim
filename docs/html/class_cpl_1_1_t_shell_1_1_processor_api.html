@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl::TShell::ProcessorApi Class Reference</title>
+<title>Patterns in the Machine: Cpl::TShell::ProcessorApi Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,8 @@ $(function() {
  <a href="class_cpl_1_1_t_shell_1_1_processor_api.html#details">More...</a></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >This class defines the interface a <a class="el" href="namespace_cpl_1_1_t_shell.html" title="The &#39;Cpl::TShell&#39; namespace provides a Text based shell that can be used interact with an Application...">TShell</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a>. </p>
-<p >The <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> is responsible for scanning the input, determining what command (if any) to execute; and then executing the command. </p>
+<p >The <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> is responsible for scanning the input, determining what command (if any) to execute; and then executing the command.</p>
+<p >The design of the interface supports running the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> with blocking-thread and with cooperative scheduling semantics. </p>
 </div>
 <p><code>#include &lt;<a class="el" href="_processor_api_8h_source.html">ProcessorApi.h</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -64,14 +65,17 @@ $(function() {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_t_shell_1_1_processor_api__inherit__graph.svg" width="183" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_t_shell_1_1_processor_api__inherit__graph.svg" width="200" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adc6d389c83d778dce27af5b3168168f6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#adc6d389c83d778dce27af5b3168168f6">start</a> (<a class="el" href="class_cpl_1_1_io_1_1_input.html">Cpl::Io::Input</a> &amp;infd, <a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;outfd) noexcept=0</td></tr>
-<tr class="memdesc:adc6d389c83d778dce27af5b3168168f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to start the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a>, i.e.  <a href="class_cpl_1_1_t_shell_1_1_processor_api.html#adc6d389c83d778dce27af5b3168168f6">More...</a><br /></td></tr>
-<tr class="separator:adc6d389c83d778dce27af5b3168168f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afefa07f5918ab5bee5281d83ad09965f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#afefa07f5918ab5bee5281d83ad09965f">start</a> (<a class="el" href="class_cpl_1_1_io_1_1_input.html">Cpl::Io::Input</a> &amp;infd, <a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;outfd, bool blocking=true) noexcept=0</td></tr>
+<tr class="memdesc:afefa07f5918ab5bee5281d83ad09965f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to start the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a>, i.e.  <a href="class_cpl_1_1_t_shell_1_1_processor_api.html#afefa07f5918ab5bee5281d83ad09965f">More...</a><br /></td></tr>
+<tr class="separator:afefa07f5918ab5bee5281d83ad09965f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafe9d85cf1b886c89472e3a0b9c1020b"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aafe9d85cf1b886c89472e3a0b9c1020b">poll</a> () noexcept=0</td></tr>
+<tr class="memdesc:aafe9d85cf1b886c89472e3a0b9c1020b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to provide the command processor 'CPU cycles' to parse/process/execute commands.  <a href="class_cpl_1_1_t_shell_1_1_processor_api.html#aafe9d85cf1b886c89472e3a0b9c1020b">More...</a><br /></td></tr>
+<tr class="separator:aafe9d85cf1b886c89472e3a0b9c1020b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa581a97e12d57efcd873fd1cba1ff5b3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aa581a97e12d57efcd873fd1cba1ff5b3">requestStop</a> () noexcept=0</td></tr>
 <tr class="memdesc:aa581a97e12d57efcd873fd1cba1ff5b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This non-blocking method requests the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> to stop.  <a href="class_cpl_1_1_t_shell_1_1_processor_api.html#aa581a97e12d57efcd873fd1cba1ff5b3">More...</a><br /></td></tr>
 <tr class="separator:aa581a97e12d57efcd873fd1cba1ff5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,6 +240,38 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aafe9d85cf1b886c89472e3a0b9c1020b" name="aafe9d85cf1b886c89472e3a0b9c1020b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafe9d85cf1b886c89472e3a0b9c1020b">&#9670;&nbsp;</a></span>poll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int Cpl::TShell::ProcessorApi::poll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method is used to provide the command processor 'CPU cycles' to parse/process/execute commands. </p>
+<p >This command should ONLY be called when the application called the <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#afefa07f5918ab5bee5281d83ad09965f" title="This method is used to start the Command Processor, i.e.">start()</a> method with the 'blocking' argument set to false. This method should be called as often as possible, e.g. every pass of the 'main loop'</p>
+<p >NOTE: This method must ALWAYS be called from the same 'thread context'</p>
+<p >The method returns 0 if the method executed without errors. The method returns -1 if an error occurred (e.g. a Input/Output stream error was encounter). The method returns 1 if the command processor self terminated or was requested to stop. </p>
+
+<p>Implemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_polled_processor.html#a329a1e9e0ff2309d81118aaf8f202f62">Cpl::TShell::PolledProcessor</a>, and <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a56bb68339923dd9d9c537e61bd12f435">Cpl::TShell::Processor</a>.</p>
+
+</div>
+</div>
 <a id="aa581a97e12d57efcd873fd1cba1ff5b3" name="aa581a97e12d57efcd873fd1cba1ff5b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa581a97e12d57efcd873fd1cba1ff5b3">&#9670;&nbsp;</a></span>requestStop()</h2>
 
@@ -266,8 +302,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adc6d389c83d778dce27af5b3168168f6" name="adc6d389c83d778dce27af5b3168168f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc6d389c83d778dce27af5b3168168f6">&#9670;&nbsp;</a></span>start()</h2>
+<a id="afefa07f5918ab5bee5281d83ad09965f" name="afefa07f5918ab5bee5281d83ad09965f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afefa07f5918ab5bee5281d83ad09965f">&#9670;&nbsp;</a></span>start()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,7 +321,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;&#160;</td>
-          <td class="paramname"><em>outfd</em>&#160;</td>
+          <td class="paramname"><em>outfd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>blocking</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -301,10 +343,13 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This method is used to start the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a>, i.e. </p>
-<p >it will begin to process commands. This command will not return until the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> self terminates or a Input/Output stream error was encounter. The method returns true if the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> self terminated or was requested to stop; else false is returned (i.e. a Input/Output stream error was encounter).</p>
+<p >it will begin to process commands. <br  />
+</p>
+<p >When 'blocking' is set to true, the method command will not return until the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> self terminates or a Input/Output stream error was encounter. The method returns true if the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> self terminated or was requested to stop; else false is returned e.g. a Input/Output stream error was encounter).</p>
+<p >When 'blocking' is set to false, the command processor will be started and the method returns immediately. After <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#afefa07f5918ab5bee5281d83ad09965f" title="This method is used to start the Command Processor, i.e.">start()</a> is the called the Application is responsible for calling <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aafe9d85cf1b886c89472e3a0b9c1020b" title="This method is used to provide the command processor &#39;CPU cycles&#39; to parse/process/execute commands.">poll()</a> to provide the command processor with CPU time to process commands. The method returns true if the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> was successfully started; else false is returned (e.g. a Input/Output stream error was encounter).</p>
 <p >NOTE: This method is an 'in-thread' initialization, i.e. not thread safe. The application is RESPONSIBLE for managing threading issues. </p>
 
-<p>Implemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#aa2159c21076b4aceb675f1e08809664d">Cpl::TShell::Processor</a>.</p>
+<p>Implemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_polled_processor.html#a4b7b938159eec099ffc0d8d841e584d6">Cpl::TShell::PolledProcessor</a>, and <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#ac3744d0e88ebd9ab9ef1fcfdbd461817">Cpl::TShell::Processor</a>.</p>
 
 </div>
 </div>
@@ -314,7 +359,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:46 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:56 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

@@ -21,4 +21,4 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // Allocate my Model Points
-MP_INVALID( Storm::Dm::MpFileNameString, loggingFileName );
+MP_INVALID( Cpl::Dm::Mp::String<OPTION_STORM_DM_MAX_FILE_NAME>, loggingFileName );

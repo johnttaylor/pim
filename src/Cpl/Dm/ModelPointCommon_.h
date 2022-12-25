@@ -55,7 +55,7 @@ public:
     uint16_t setInvalid( LockRequest_T lockRequest = eNO_REQUEST ) noexcept;
 
     /// See Cpl::Dm::ModelPoint
-    bool isNotValid() const noexcept;
+    bool isNotValid( uint16_t* seqNumPtr=0 ) const noexcept;
 
     /// See Cpl::Dm::ModelPoint
     bool isLocked() const noexcept;
@@ -80,6 +80,41 @@ public:
 
     /// See Cpl::Dm::ModelPoint
     bool toJSON( char* dst, size_t dstSize, bool& truncated, bool verbose=true, bool pretty=false ) noexcept;
+
+protected:
+    /** This method is used to read the MP contents and synchronize
+        the observer with the current MP contents.  This method should ONLY be
+        used in the notification callback method and the 'observerToSync'
+        argument MUST be the argument provided by the callback method
+
+        Note: The observer will be subscribed for change notifications after
+              this call.
+     */
+    inline bool readAndSync( void* dstData, size_t dstSize, SubscriberApi& observerToSync )
+    {
+        uint16_t seqNum;
+        bool result = readData( dstData, dstSize , &seqNum );
+        attachSubscriber( observerToSync, seqNum );
+        return result;
+    }
+
+public:
+    /** This method is used to test the validate state of the MP and synchronize
+        the observer with the current MP contents.  This method should ONLY be
+        used in the notification callback method and the 'observerToSync'
+        argument MUST be the argument provided by the callback method
+
+        Note: The observer will be subscribed for change notifications after
+              this call
+     */
+    inline bool isNotValidAndSync( SubscriberApi& observerToSync )
+    {
+        uint16_t seqNum;
+        bool result = isNotValid( &seqNum );
+        attachSubscriber( observerToSync, seqNum );
+        return result;
+    }
+
 
 protected:
     /// See Cpl::Dm::ModelPoint
@@ -112,7 +147,6 @@ protected:
 
     /// See Cpl::Dm::ModelPoint.  
     size_t getInternalDataSize_() const noexcept;
-
 
 public:
     /// See Cpl::Dm::ModelPoint

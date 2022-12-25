@@ -73,6 +73,7 @@ public:
     /// Type safe subscriber
     typedef Cpl::Dm::Subscriber<BitArray16> Observer;
 
+
 public:
     ///  See Cpl::Dm::ModelPoint.
     const char* getTypeAsText() const noexcept

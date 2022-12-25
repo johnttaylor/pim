@@ -73,17 +73,20 @@ uint16_t ModelPointCommon_::getSequenceNumber() const noexcept
     return result;
 }
 
-bool ModelPointCommon_::isNotValid( void ) const noexcept
+bool ModelPointCommon_::isNotValid( uint16_t* seqNumPtr ) const noexcept
 {
     m_modelDatabase.lock_();
     bool result = m_valid;
+    if ( seqNumPtr )
+    {
+        *seqNumPtr = m_seqNum;
+    }
     m_modelDatabase.unlock_();
     return !result;
 }
 
 uint16_t ModelPointCommon_::setInvalid( LockRequest_T lockRequest ) noexcept
 {
-
     m_modelDatabase.lock_();
     if ( testAndUpdateLock( lockRequest ) )
     {

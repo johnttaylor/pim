@@ -25,8 +25,8 @@ namespace Dm {
 
     A Composer is a structural pattern that may be used to employ composition
     when implementing an interface rather than using multiple inheritance. This
-    allows a single concrete object to receive the RMW callbacks from many
-    Model Points.
+    allows a single concrete object to receive the change notifications callbacks 
+    from many Model Points.
 
     Template Arguments:
         CONTEXT - The class that implements the Callback function
@@ -39,7 +39,7 @@ public:
     /** Define a callback method function for the Change Notification callback (See
         Cpl::Dm::Subscriber<MP>::modelPointChanged for additional details)
      */
-    typedef void (CONTEXT::*NotificationFunc_T)(MP& modelPointThatChanged);
+    typedef void (CONTEXT::*NotificationFunc_T)(MP& modelPointThatChanged, SubscriberApi& clientObserver );
 
 
 protected:
@@ -59,7 +59,7 @@ public:
 
 public:
     /// See Cpl::Dm::Subscriber<MP>
-    void modelPointChanged( MP& modelPointThatChanged ) noexcept;
+    void modelPointChanged( MP& modelPointThatChanged, SubscriberApi &clientObserver ) noexcept;
 
 };
 
@@ -68,9 +68,9 @@ public:
 /////////////////////////////////////////////////////////////////////////////
 template <class CONTEXT, class MP>
 Cpl::Dm::SubscriberComposer<CONTEXT, MP>::SubscriberComposer( Cpl::Dm::EventLoop&     myEventLoop,
-                                                               CONTEXT&                 context,
-                                                               NotificationFunc_T       notifyCallback )
-    :Subscriber<MP>( myEventLoop )
+                                                              CONTEXT&                context,
+                                                              NotificationFunc_T      notifyCallback )
+    : Subscriber<MP>( myEventLoop )
     , m_context( context )
     , m_notificationCb( notifyCallback )
 {
@@ -78,10 +78,10 @@ Cpl::Dm::SubscriberComposer<CONTEXT, MP>::SubscriberComposer( Cpl::Dm::EventLoop
 
 /////////////////
 template <class CONTEXT, class MP>
-void Cpl::Dm::SubscriberComposer<CONTEXT, MP>::modelPointChanged( MP& modelPointThatChanged ) noexcept
+void Cpl::Dm::SubscriberComposer<CONTEXT, MP>::modelPointChanged( MP& modelPointThatChanged, SubscriberApi& clientObserver ) noexcept
 {
     // Notify context
-    return (m_context.*m_notificationCb)(modelPointThatChanged);
+    return (m_context.*m_notificationCb)(modelPointThatChanged, clientObserver);
 }
 
 

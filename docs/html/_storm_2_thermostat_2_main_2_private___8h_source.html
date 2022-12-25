@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PIM: Storm/Thermostat/Main/Private_.h Source File</title>
+<title>Patterns in the Machine: Storm/Thermostat/Main/Private_.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,9 +19,9 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PIM
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
-   <div id="projectbrief">Patterns in the Machine: Thermostat Example</div>
+   <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
  </tr>
  </tbody>
@@ -71,30 +71,35 @@ $(function() {
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="_storm_2_thermostat_2_main_2_private___8h.html#a9ef360d61cbe9a7ef83c943d6380e795">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_storm_2_thermostat_2_main_2_private___8h.html#a9ef360d61cbe9a7ef83c943d6380e795">initializePlatform0</a>();</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"></span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">/** This method is used to &#39;open&#39; any platform specific objects.  It is called</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">    prior to the application &#39;open&#39; calls</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="_storm_2_thermostat_2_main_2_private___8h.html#aa9e783cad6d53c00c3e178df4ce26211">   27</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_storm_2_thermostat_2_main_2_private___8h.html#aa9e783cad6d53c00c3e178df4ce26211">openPlatform0</a>();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"></span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">/** This method is used to &#39;close&#39; any platform specific objects.  It is called</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">    after to the application &#39;close&#39; calls</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="_storm_2_thermostat_2_main_2_private___8h.html#adc1cde360d68f4d671924b82f6e7246a">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_storm_2_thermostat_2_main_2_private___8h.html#adc1cde360d68f4d671924b82f6e7246a">closePlatform0</a>();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"></span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">/** This method is used to &#39;exit&#39; the application&#39;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">/** This method is used to initialize the model points to known state</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="_storm_2_thermostat_2_main_2_private___8h.html#adce0e8a5893947634303c0a80c090df4">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_storm_2_thermostat_2_main_2_private___8h.html#adce0e8a5893947634303c0a80c090df4">initializeModelPoints</a>() noexcept;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"></span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">/** This method is used to &#39;open&#39; any platform specific objects.  It is called</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">    prior to the application &#39;open&#39; calls</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="_storm_2_thermostat_2_main_2_private___8h.html#aa9e783cad6d53c00c3e178df4ce26211">   31</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_storm_2_thermostat_2_main_2_private___8h.html#aa9e783cad6d53c00c3e178df4ce26211">openPlatform0</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"></span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">/** This method is used to &#39;close&#39; any platform specific objects.  It is called</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">    after to the application &#39;close&#39; calls</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="_storm_2_thermostat_2_main_2_private___8h.html#aca9cd599bf652af5d29902e7263120ae">   36</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="_storm_2_thermostat_2_main_2_private___8h.html#aca9cd599bf652af5d29902e7263120ae">exitPlatform</a>( <span class="keywordtype">int</span> exitCode );</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="_storm_2_thermostat_2_main_2_private___8h.html#adc1cde360d68f4d671924b82f6e7246a">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_storm_2_thermostat_2_main_2_private___8h.html#adc1cde360d68f4d671924b82f6e7246a">closePlatform0</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"></span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">/** This method is used to &#39;exit&#39; the application&#39;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="_storm_2_thermostat_2_main_2_private___8h.html#aca9cd599bf652af5d29902e7263120ae">   40</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="_storm_2_thermostat_2_main_2_private___8h.html#aca9cd599bf652af5d29902e7263120ae">exitPlatform</a>( <span class="keywordtype">int</span> exitCode );</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
 <div class="ttc" id="a_storm_2_thermostat_2_main_2_private___8h_html_a9ef360d61cbe9a7ef83c943d6380e795"><div class="ttname"><a href="_storm_2_thermostat_2_main_2_private___8h.html#a9ef360d61cbe9a7ef83c943d6380e795">initializePlatform0</a></div><div class="ttdeci">void initializePlatform0()</div><div class="ttdoc">This method is used to initialize 'stuff' immediately before an application initialization.</div></div>
 <div class="ttc" id="a_storm_2_thermostat_2_main_2_private___8h_html_aa9e783cad6d53c00c3e178df4ce26211"><div class="ttname"><a href="_storm_2_thermostat_2_main_2_private___8h.html#aa9e783cad6d53c00c3e178df4ce26211">openPlatform0</a></div><div class="ttdeci">void openPlatform0()</div><div class="ttdoc">This method is used to 'open' any platform specific objects.</div></div>
 <div class="ttc" id="a_storm_2_thermostat_2_main_2_private___8h_html_aca9cd599bf652af5d29902e7263120ae"><div class="ttname"><a href="_storm_2_thermostat_2_main_2_private___8h.html#aca9cd599bf652af5d29902e7263120ae">exitPlatform</a></div><div class="ttdeci">int exitPlatform(int exitCode)</div><div class="ttdoc">This method is used to 'exit' the application'.</div></div>
 <div class="ttc" id="a_storm_2_thermostat_2_main_2_private___8h_html_adc1cde360d68f4d671924b82f6e7246a"><div class="ttname"><a href="_storm_2_thermostat_2_main_2_private___8h.html#adc1cde360d68f4d671924b82f6e7246a">closePlatform0</a></div><div class="ttdeci">void closePlatform0()</div><div class="ttdoc">This method is used to 'close' any platform specific objects.</div></div>
+<div class="ttc" id="a_storm_2_thermostat_2_main_2_private___8h_html_adce0e8a5893947634303c0a80c090df4"><div class="ttname"><a href="_storm_2_thermostat_2_main_2_private___8h.html#adce0e8a5893947634303c0a80c090df4">initializeModelPoints</a></div><div class="ttdeci">void initializeModelPoints() noexcept</div><div class="ttdoc">This method is used to initialize the model points to known state.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 30 2022 15:54:03 for PIM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

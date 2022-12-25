@@ -57,7 +57,7 @@ bool AirFilterMonitor::execute( Cpl::System::ElapsedTime::Precision_T currentTic
     //--------------------------------------------------------------------------
 
     // Get my                             inputs
-    Storm::Dm::MpSimpleAlarm::Data        alert         ={ 0, };
+    Storm::Dm::MpSimpleAlarm::Data        alert;
     uint32_t                              maxHours      = 0;
     Cpl::System::ElapsedTime::Precision_T elapsedTime;
     Storm::Type::VirtualOutputs_T         outputs       ={ 0, };

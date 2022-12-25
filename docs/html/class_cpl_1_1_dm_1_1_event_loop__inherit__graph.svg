@@ -136,16 +136,29 @@
 </g>
 <!-- Node11 -->
 <g id="node11" class="node"><title>Node11</title>
-<g id="a_node11"><a xlink:href="class_cpl_1_1_persistent_1_1_record_server.html" target="_top" xlink:title="This concrete class provides an Event driven Runnable object for executing the read/write operation t...">
-<polygon fill="white" stroke="black" points="815,-38.5 815,-57.5 961,-57.5 961,-38.5 815,-38.5"/>
-<text text-anchor="middle" x="888" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Persistent::RecordServer</text>
+<g id="a_node11"><a xlink:href="class_cpl_1_1_dm_1_1_periodic_scheduler.html" target="_top" xlink:title="This class extends the Cpl::Dm::MailboxServer class to add periodic scheduling to an event based &#39;thr...">
+<polygon fill="white" stroke="black" points="819.5,-57.5 819.5,-76.5 956.5,-76.5 956.5,-57.5 819.5,-57.5"/>
+<text text-anchor="middle" x="888" y="-64.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Dm::PeriodicScheduler</text>
 </a>
 </g>
 </g>
 <!-- Node10&#45;&gt;Node11 -->
 <g id="edge10" class="edge"><title>Node10&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M789.493,-48C797.908,-48 806.52,-48 814.971,-48"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="789.348,-44.5001 779.348,-48 789.348,-51.5001 789.348,-44.5001"/>
+<path fill="none" stroke="midnightblue" d="M789.499,-55.9071C799.357,-57.0286 809.482,-58.1806 819.304,-59.2981"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="789.68,-52.4051 779.348,-54.7522 788.888,-59.3603 789.68,-52.4051"/>
+</g>
+<!-- Node12 -->
+<g id="node12" class="node"><title>Node12</title>
+<g id="a_node12"><a xlink:href="class_cpl_1_1_persistent_1_1_record_server.html" target="_top" xlink:title="This concrete class provides an Event driven Runnable object for executing the read/write operation t...">
+<polygon fill="white" stroke="black" points="815,-19.5 815,-38.5 961,-38.5 961,-19.5 815,-19.5"/>
+<text text-anchor="middle" x="888" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">Cpl::Persistent::RecordServer</text>
+</a>
+</g>
+</g>
+<!-- Node10&#45;&gt;Node12 -->
+<g id="edge11" class="edge"><title>Node10&#45;&gt;Node12</title>
+<path fill="none" stroke="midnightblue" d="M789.493,-40.0936C797.908,-39.1362 806.52,-38.1565 814.971,-37.1949"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="788.888,-36.6397 779.348,-41.2478 789.68,-43.5949 788.888,-36.6397"/>
 </g>
 </g>
 </svg>

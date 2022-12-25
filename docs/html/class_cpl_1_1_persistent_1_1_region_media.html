@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl::Persistent::RegionMedia Class Reference</title>
+<title>Patterns in the Machine: Cpl::Persistent::RegionMedia Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -66,7 +66,7 @@ $(function() {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_persistent_1_1_region_media__inherit__graph.svg" width="202" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_persistent_1_1_region_media__inherit__graph.svg" width="398" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -273,7 +273,7 @@ Protected Attributes</h2></td></tr>
 <p >The offset is relative to the start of the Region's start address.</p>
 <p >The method returns the number of bytes read. A return value of ZERO indicates that an error occurred. </p>
 
-<p>Implemented in <a class="el" href="class_cpl_1_1_persistent_1_1_file_adapter.html#a82da5d0c5741d7690d932d9ede10b57b">Cpl::Persistent::FileAdapter</a>.</p>
+<p>Implemented in <a class="el" href="class_cpl_1_1_persistent_1_1_file_adapter.html#a82da5d0c5741d7690d932d9ede10b57b">Cpl::Persistent::FileAdapter</a>, and <a class="el" href="class_cpl_1_1_persistent_1_1_null_region_media.html#a894e4fc7be4d568db20c9bfb3b55f26d">Cpl::Persistent::NullRegionMedia</a>.</p>
 
 </div>
 </div>
@@ -306,7 +306,7 @@ Protected Attributes</h2></td></tr>
 <p >This method is called when the corresponding <a class="el" href="class_cpl_1_1_persistent_1_1_chunk.html" title="This abstract class defines the interface for a Chunk.">Chunk</a> instance is 'started'</p>
 <p >The 'myMbox' is a reference to the <a class="el" href="class_cpl_1_1_persistent_1_1_record_server.html" title="This concrete class provides an Event driven Runnable object for executing the read/write operation t...">RecordServer</a>'s ITC mailbox, i.e. the mailbox for the thread that the <a class="el" href="class_cpl_1_1_persistent_1_1_record.html" title="This abstract class defines the public interface for a Record instance.">Record</a> executes in. The 'myEventLoop' is a reference to the <a class="el" href="class_cpl_1_1_persistent_1_1_record_server.html" title="This concrete class provides an Event driven Runnable object for executing the read/write operation t...">RecordServer</a>'s Event Loop. </p>
 
-<p>Implemented in <a class="el" href="class_cpl_1_1_persistent_1_1_file_adapter.html#af7a5a3f5d8adb423422b5e2d74e6ddf5">Cpl::Persistent::FileAdapter</a>.</p>
+<p>Implemented in <a class="el" href="class_cpl_1_1_persistent_1_1_file_adapter.html#af7a5a3f5d8adb423422b5e2d74e6ddf5">Cpl::Persistent::FileAdapter</a>, and <a class="el" href="class_cpl_1_1_persistent_1_1_null_region_media.html#aed712350a112c7609d0c37271ac38eeb">Cpl::Persistent::NullRegionMedia</a>.</p>
 
 </div>
 </div>
@@ -336,7 +336,7 @@ Protected Attributes</h2></td></tr>
 <p>This method is to stop/shutdown the Region. </p>
 <p >It is typically only called once during an orderly shutdown of the application. However, <a class="el" href="class_cpl_1_1_persistent_1_1_region_media.html#a65c38b2599481187ecd96b176603ef52" title="This method is to start/initialize the Region.">start()</a> can be after a previous call to the <a class="el" href="class_cpl_1_1_persistent_1_1_region_media.html#a698e7584ca76b479bb0af110cafa5de0" title="This method is to stop/shutdown the Region.">stop()</a> method. </p>
 
-<p>Implemented in <a class="el" href="class_cpl_1_1_persistent_1_1_file_adapter.html#a9e3f6fca4e6413d58fa73a745c2686a8">Cpl::Persistent::FileAdapter</a>.</p>
+<p>Implemented in <a class="el" href="class_cpl_1_1_persistent_1_1_file_adapter.html#a9e3f6fca4e6413d58fa73a745c2686a8">Cpl::Persistent::FileAdapter</a>, and <a class="el" href="class_cpl_1_1_persistent_1_1_null_region_media.html#aa8b632c8913cb6ad42793f6d003266d3">Cpl::Persistent::NullRegionMedia</a>.</p>
 
 </div>
 </div>
@@ -385,7 +385,7 @@ Protected Attributes</h2></td></tr>
  The offset is relative to the start of the Region's start address.</p>
 <p >The method return true of the write operation was successful, else false is returned. </p>
 
-<p>Implemented in <a class="el" href="class_cpl_1_1_persistent_1_1_file_adapter.html#a0cf01252015a05ae6d957c5dbc026ea4">Cpl::Persistent::FileAdapter</a>.</p>
+<p>Implemented in <a class="el" href="class_cpl_1_1_persistent_1_1_file_adapter.html#a0cf01252015a05ae6d957c5dbc026ea4">Cpl::Persistent::FileAdapter</a>, and <a class="el" href="class_cpl_1_1_persistent_1_1_null_region_media.html#a2052709c1360a487799c164270941b35">Cpl::Persistent::NullRegionMedia</a>.</p>
 
 </div>
 </div>
@@ -444,7 +444,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:45 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:56 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

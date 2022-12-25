@@ -25,7 +25,7 @@ static bool getBooleanValue( JsonObject& src, const char* key, bool& newValue );
 MpIdtAlarm::MpIdtAlarm( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
     :ModelPointCommon_( myModelBase, symbolicName, &m_data, sizeof( m_data ), true )
 {
-    memset( &m_data, 0, sizeof( m_data ) );
+    memset( (void*) &m_data, 0, sizeof( m_data ) );
 }
 
 

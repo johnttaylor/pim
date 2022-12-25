@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/Io/Stdio/StdIn.h Source File</title>
+<title>Patterns in the Machine: Cpl/Io/Stdio/StdIn.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,7 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -77,35 +77,40 @@ $(function() {
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">    NOTE: Many instances of this class may be created - even</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">          though there is only ONE stdin.  This is OK because</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">          all instance reference the systems/platform &#39;stdin&#39;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html">   31</a></span><span class="keyword">class </span><a class="code hl_class" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html">StdIn</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_cpl_1_1_io_1_1_stdio_1_1_input__.html">Input_</a></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">public</span>:<span class="comment"></span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">    /// Constructor</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#ad3185a541cbcf9aafa3bef2e6ead0786">   35</a></span><span class="comment"></span>    <a class="code hl_function" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#ad3185a541cbcf9aafa3bef2e6ead0786">StdIn</a>();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"></span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">    NOTE: stdin under Windoze is problematic with how the available() method is </span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">          implemented.  See the _win32/Input_.cpp file for more details.  There</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">          is partial work-around for the issue.  It can be enabled be defining</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">          the following in colony_confi.h: USE_CPL_IO_STDIO_WIN32_STDIN_CONSOLE_HACK</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html">   36</a></span><span class="keyword">class </span><a class="code hl_class" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html">StdIn</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_cpl_1_1_io_1_1_stdio_1_1_input__.html">Input_</a></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">public</span>:<span class="comment"></span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">    /** Overriding inherited behavior so as to NOT close the actual native</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">        stream. In general closing stdin/stdout/stderr is bad thing.</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#a570ac9527c84fc63cc3bb000c57c16cc">   42</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#a570ac9527c84fc63cc3bb000c57c16cc">close</a>();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>};</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};      <span class="comment">// end namespaces</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">    /// Constructor</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#ad3185a541cbcf9aafa3bef2e6ead0786">   40</a></span><span class="comment"></span>    <a class="code hl_function" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#ad3185a541cbcf9aafa3bef2e6ead0786">StdIn</a>();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">    /** Overriding inherited behavior so as to NOT close the actual native</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">        stream. In general closing stdin/stdout/stderr is bad thing.</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#a570ac9527c84fc63cc3bb000c57c16cc">   47</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#a570ac9527c84fc63cc3bb000c57c16cc">close</a>();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};      <span class="comment">// end namespaces</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
 <div class="ttc" id="a_input___8h_html"><div class="ttname"><a href="_input___8h.html">Input_.h</a></div></div>
 <div class="ttc" id="aclass_cpl_1_1_io_1_1_stdio_1_1_input___html"><div class="ttname"><a href="class_cpl_1_1_io_1_1_stdio_1_1_input__.html">Cpl::Io::Stdio::Input_</a></div><div class="ttdoc">This concrete class implements a Input stream using the underlying platform's native OS 'file interfa...</div><div class="ttdef"><b>Definition:</b> Input_.h:46</div></div>
-<div class="ttc" id="aclass_cpl_1_1_io_1_1_stdio_1_1_std_in_html"><div class="ttname"><a href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html">Cpl::Io::Stdio::StdIn</a></div><div class="ttdoc">This concrete class represents the C-library 'stdin' stream.</div><div class="ttdef"><b>Definition:</b> StdIn.h:32</div></div>
+<div class="ttc" id="aclass_cpl_1_1_io_1_1_stdio_1_1_std_in_html"><div class="ttname"><a href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html">Cpl::Io::Stdio::StdIn</a></div><div class="ttdoc">This concrete class represents the C-library 'stdin' stream.</div><div class="ttdef"><b>Definition:</b> StdIn.h:37</div></div>
 <div class="ttc" id="aclass_cpl_1_1_io_1_1_stdio_1_1_std_in_html_a570ac9527c84fc63cc3bb000c57c16cc"><div class="ttname"><a href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#a570ac9527c84fc63cc3bb000c57c16cc">Cpl::Io::Stdio::StdIn::close</a></div><div class="ttdeci">void close()</div><div class="ttdoc">Overriding inherited behavior so as to NOT close the actual native stream.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_io_1_1_stdio_1_1_std_in_html_ad3185a541cbcf9aafa3bef2e6ead0786"><div class="ttname"><a href="class_cpl_1_1_io_1_1_stdio_1_1_std_in.html#ad3185a541cbcf9aafa3bef2e6ead0786">Cpl::Io::Stdio::StdIn::StdIn</a></div><div class="ttdeci">StdIn()</div><div class="ttdoc">Constructor.</div></div>
 <div class="ttc" id="anamespace_cpl_html"><div class="ttname"><a href="namespace_cpl.html">Cpl</a></div><div class="ttdoc">The 'Cpl' namespace is the root name space for the Colony.</div><div class="ttdef"><b>Definition:</b> Api16.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

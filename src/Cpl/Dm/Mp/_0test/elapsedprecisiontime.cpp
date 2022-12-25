@@ -157,13 +157,13 @@ TEST_CASE( "ElapsedPrecisionTime" )
     SECTION( "observer" )
     {
         CPL_SYSTEM_TRACE_SCOPE( SECT_, "observer test" );
-        Viewer<Mp::ElapsedPrecisionTime>     viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        expectedVal ={ 10, 11 };
+        Viewer<Mp::ElapsedPrecisionTime, Cpl::System::ElapsedTime::Precision_T> viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_, expectedVal );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox_, "T1" );
         CPL_SYSTEM_TRACE_MSG( SECT_, ( "Created Viewer thread (%p)", t1 ) );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test
         viewer_apple1.open();
-        expectedVal ={ 10,11 };
         mp_apple_.write( expectedVal );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Waiting for viewer signal...") );
         Cpl::System::Thread::wait();

@@ -92,6 +92,11 @@ public:
     /// Type safe un-register observer
     void detach( Observer& observer ) noexcept;
 
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( Storm::Type::WhiteBox_T& dstData, Cpl::Dm::SubscriberApi& observerToSync )
+    {
+        return ModelPointCommon_::readAndSync( &dstData, sizeof( Storm::Type::WhiteBox_T ), observerToSync );
+    }
 
 public:
     /// See Cpl::Dm::ModelPoint.

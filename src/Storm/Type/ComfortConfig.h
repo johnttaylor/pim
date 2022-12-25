@@ -80,6 +80,12 @@ struct ComfortConfig_T
     }
 
     /// Constructor (to ensure any pad bytes get zero'd)
+    ComfortConfig_T( const ComfortConfig_T& other )
+    {
+        memcpy( (void*) this, &other, sizeof( ComfortConfig_T ) );
+    }
+
+    /// Constructor (to ensure any pad bytes get zero'd)
     ComfortConfig_T( ComfortStageParameters_T compressorCooling, ComfortStageParameters_T compressorHeating, ComfortStageParameters_T indoorHeating )
     {
         memset( (void*) this, 0, sizeof( ComfortConfig_T ) );

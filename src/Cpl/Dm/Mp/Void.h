@@ -79,6 +79,12 @@ public:
     /// Type safe subscriber
     typedef Cpl::Dm::Subscriber<Void> Observer;
 
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( void*& dstData, SubscriberApi& observerToSync )
+    {
+        return ModelPointCommon_::readAndSync( &dstData, sizeof( void* ), observerToSync );
+    }
+
     ///  See Cpl::Dm::ModelPoint.
     const char* getTypeAsText() const noexcept
     {

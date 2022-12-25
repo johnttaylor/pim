@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/Container/RingBufferMP.h Source File</title>
+<title>Patterns in the Machine: Cpl/Container/RingBufferMP.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,7 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -166,7 +166,7 @@ $(function() {
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#a29810a92810f56916bb50b61955e1822">  116</a></span><span class="comment"></span>    uint16_t <a class="code hl_function" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#a29810a92810f56916bb50b61955e1822">incrementMp</a>() noexcept</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    {</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">// Increment the count --&gt;but do a &#39;lazy initialization&#39; to the MP if was not previously initialized</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">if</span> ( <a class="code hl_variable" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#a76b127602af514d03fae0a6906cccbb5">m_mpElementCount</a>.<a class="code hl_function" href="class_cpl_1_1_dm_1_1_model_point_common__.html#a6b1b8a9418e09a1ded2111476692a7ba">isNotValid</a>() )</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">if</span> ( <a class="code hl_variable" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#a76b127602af514d03fae0a6906cccbb5">m_mpElementCount</a>.<a class="code hl_function" href="class_cpl_1_1_dm_1_1_model_point_common__.html#a61d80a47255d930f8f5edb026880e111">isNotValid</a>() )</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        {</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#a76b127602af514d03fae0a6906cccbb5">m_mpElementCount</a>.<a class="code hl_function" href="class_cpl_1_1_dm_1_1_mp_1_1_numeric.html#a099f4b572d96c4417db5c02e09118177">write</a>( 1 );</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
@@ -177,7 +177,7 @@ $(function() {
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#ac0b730f8bcfaf638b1e5b017e5d47c22">  127</a></span><span class="comment"></span>    uint16_t <a class="code hl_function" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#ac0b730f8bcfaf638b1e5b017e5d47c22">decrementMp</a>() noexcept</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    {</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="comment">// Decrement the count --&gt;but do a &#39;lazy initialization&#39; to the MP if was not previously initialized</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">if</span> ( <a class="code hl_variable" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#a76b127602af514d03fae0a6906cccbb5">m_mpElementCount</a>.<a class="code hl_function" href="class_cpl_1_1_dm_1_1_model_point_common__.html#a6b1b8a9418e09a1ded2111476692a7ba">isNotValid</a>() )</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">if</span> ( <a class="code hl_variable" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#a76b127602af514d03fae0a6906cccbb5">m_mpElementCount</a>.<a class="code hl_function" href="class_cpl_1_1_dm_1_1_model_point_common__.html#a61d80a47255d930f8f5edb026880e111">isNotValid</a>() )</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        {</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="class_cpl_1_1_container_1_1_ring_buffer_m_p.html#a76b127602af514d03fae0a6906cccbb5">m_mpElementCount</a>.<a class="code hl_function" href="class_cpl_1_1_dm_1_1_mp_1_1_numeric.html#a099f4b572d96c4417db5c02e09118177">write</a>( 0 );</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        }</div>
@@ -218,16 +218,16 @@ $(function() {
 <div class="ttc" id="aclass_cpl_1_1_container_1_1_ring_buffer_m_t_html_a619e63a28d8e80e3c03cd4c3fd4b4c49"><div class="ttname"><a href="class_cpl_1_1_container_1_1_ring_buffer_m_t.html#a619e63a28d8e80e3c03cd4c3fd4b4c49">Cpl::Container::RingBufferMT::remove</a></div><div class="ttdeci">bool remove(ITEM &amp;dst) noexcept</div><div class="ttdoc">See Cpl::Container::RingBuffer.</div><div class="ttdef"><b>Definition:</b> RingBufferMT.h:46</div></div>
 <div class="ttc" id="aclass_cpl_1_1_container_1_1_ring_buffer_m_t_html_a90e8d4625d835d27a0f22b45af2e1692"><div class="ttname"><a href="class_cpl_1_1_container_1_1_ring_buffer_m_t.html#a90e8d4625d835d27a0f22b45af2e1692">Cpl::Container::RingBufferMT::add</a></div><div class="ttdeci">bool add(const ITEM &amp;item) noexcept</div><div class="ttdoc">See Cpl::Container::RingBuffer.</div><div class="ttdef"><b>Definition:</b> RingBufferMT.h:49</div></div>
 <div class="ttc" id="aclass_cpl_1_1_container_1_1_ring_buffer_m_t_html_ab6ca7454aa97b27335c334b1b15ea2ad"><div class="ttname"><a href="class_cpl_1_1_container_1_1_ring_buffer_m_t.html#ab6ca7454aa97b27335c334b1b15ea2ad">Cpl::Container::RingBufferMT::clearTheBuffer</a></div><div class="ttdeci">void clearTheBuffer() noexcept</div><div class="ttdoc">See Cpl::Container::RingBuffer.</div><div class="ttdef"><b>Definition:</b> RingBufferMT.h:72</div></div>
-<div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_point_common___html_a6b1b8a9418e09a1ded2111476692a7ba"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_point_common__.html#a6b1b8a9418e09a1ded2111476692a7ba">Cpl::Dm::ModelPointCommon_::isNotValid</a></div><div class="ttdeci">bool isNotValid() const noexcept</div><div class="ttdoc">See Cpl::Dm::ModelPoint.</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_point_common___html_a61d80a47255d930f8f5edb026880e111"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_point_common__.html#a61d80a47255d930f8f5edb026880e111">Cpl::Dm::ModelPointCommon_::isNotValid</a></div><div class="ttdeci">bool isNotValid(uint16_t *seqNumPtr=0) const noexcept</div><div class="ttdoc">See Cpl::Dm::ModelPoint.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_numeric_html_a099f4b572d96c4417db5c02e09118177"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_numeric.html#a099f4b572d96c4417db5c02e09118177">Cpl::Dm::Mp::Numeric::write</a></div><div class="ttdeci">uint16_t write(ELEMTYPE newValue, Cpl::Dm::ModelPoint::LockRequest_T lockRequest=Cpl::Dm::ModelPoint::eNO_REQUEST) noexcept</div><div class="ttdoc">Type safe write. See Cpl::Dm::ModelPoint.</div><div class="ttdef"><b>Definition:</b> Numeric.h:75</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_numeric_html_a7f1e0a478acf68fe953b3e30b0759940"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_numeric.html#a7f1e0a478acf68fe953b3e30b0759940">Cpl::Dm::Mp::Numeric::decrement</a></div><div class="ttdeci">uint16_t decrement(ELEMTYPE decSize=1, Cpl::Dm::ModelPoint::LockRequest_T lockRequest=Cpl::Dm::ModelPoint::eNO_REQUEST) noexcept</div><div class="ttdoc">Atomic decrement.</div><div class="ttdef"><b>Definition:</b> Numeric.h:90</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_numeric_html_ad3f5082f478a13d60c61671702b34b45"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_numeric.html#ad3f5082f478a13d60c61671702b34b45">Cpl::Dm::Mp::Numeric::increment</a></div><div class="ttdeci">uint16_t increment(ELEMTYPE incSize=1, Cpl::Dm::ModelPoint::LockRequest_T lockRequest=Cpl::Dm::ModelPoint::eNO_REQUEST) noexcept</div><div class="ttdoc">Atomic increment.</div><div class="ttdef"><b>Definition:</b> Numeric.h:81</div></div>
-<div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_uint32_html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_uint32.html">Cpl::Dm::Mp::Uint32</a></div><div class="ttdoc">This class provides a concrete implementation for a Point who's data is a uint32_t.</div><div class="ttdef"><b>Definition:</b> Uint32.h:42</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_uint32_html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_uint32.html">Cpl::Dm::Mp::Uint32</a></div><div class="ttdoc">This class provides a concrete implementation for a Point who's data is a uint32_t.</div><div class="ttdef"><b>Definition:</b> Uint32.h:43</div></div>
 <div class="ttc" id="anamespace_cpl_html"><div class="ttname"><a href="namespace_cpl.html">Cpl</a></div><div class="ttdoc">The 'Cpl' namespace is the root name space for the Colony.</div><div class="ttdef"><b>Definition:</b> Api16.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

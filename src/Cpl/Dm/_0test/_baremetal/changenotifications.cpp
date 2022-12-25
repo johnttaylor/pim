@@ -67,7 +67,7 @@ public:
     }
 
     /// Type safe change notification.  See Cpl::Dm::SubscriberApi
-    void modelPointChanged( Mp::Uint32& modelPointThatChanged ) noexcept
+    void modelPointChanged( Mp::Uint32& modelPointThatChanged, Cpl::Dm::SubscriberApi& clientObserver ) noexcept
     {
         m_count++;
 

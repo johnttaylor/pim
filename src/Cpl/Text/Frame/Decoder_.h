@@ -47,6 +47,9 @@ public:
 	/// See Cpl::Text::Frame::Decoder
 	bool scan( size_t maxSizeOfFrame, char* frame, size_t& frameSize, bool& isEof ) noexcept;
 
+	/// See Cpl::Text::Frame::Decoder
+	bool oobRead( void* buffer, int numBytes, int& bytesRead ) noexcept;
+
 protected:
 	/// Returns true if at start-of-frame
 	virtual bool isStartOfFrame() noexcept = 0;

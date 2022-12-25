@@ -49,7 +49,7 @@ public:
 
     /// Constructor: Valid MP (requires initial value)
     Enum_( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName, BETTERENUM_TYPE initialValue )
-        :Cpl::Dm::ModelPointCommon_( myModelBase, symbolicName, &m_data, sizeof( m_data ), true )
+        : Cpl::Dm::ModelPointCommon_( myModelBase, symbolicName, &m_data, sizeof( m_data ), true )
         , m_data( BETTERENUM_TYPE::_from_index_unchecked( 0 ) )
     {
         m_data = initialValue;
@@ -86,6 +86,11 @@ public:
         detachSubscriber( observer );
     }
 
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( BETTERENUM_TYPE& dstData, SubscriberApi& observerToSync )
+    {
+        return ModelPointCommon_::readAndSync( &dstData, sizeof( BETTERENUM_TYPE ), observerToSync );
+    }
 
 protected:
     /// See Cpl::Dm::Point.  

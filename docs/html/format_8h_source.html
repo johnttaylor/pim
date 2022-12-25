@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/Text/format.h Source File</title>
+<title>Patterns in the Machine: Cpl/Text/format.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,7 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -65,7 +65,7 @@ $(function() {
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">    This file contains some general purpose string formatting functions.</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="_string_8h.html">Cpl/Text/String.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="_text_2_string_8h.html">Cpl/Text/String.h</a>&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="_elapsed_time_8h.html">Cpl/System/ElapsedTime.h</a>&quot;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
@@ -153,7 +153,7 @@ $(function() {
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
 <div class="ttc" id="a_elapsed_time_8h_html"><div class="ttname"><a href="_elapsed_time_8h.html">ElapsedTime.h</a></div></div>
-<div class="ttc" id="a_string_8h_html"><div class="ttname"><a href="_string_8h.html">String.h</a></div></div>
+<div class="ttc" id="a_text_2_string_8h_html"><div class="ttname"><a href="_text_2_string_8h.html">String.h</a></div></div>
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_string_html"><div class="ttname"><a href="class_cpl_1_1_text_1_1_string.html">Cpl::Text::String</a></div><div class="ttdoc">This abstract class defines the operations that can be before on a NULL terminated string.</div><div class="ttdef"><b>Definition:</b> String.h:40</div></div>
 <div class="ttc" id="anamespace_cpl_1_1_text_html_a403a805821f2721d0433e6d9e262cc63"><div class="ttname"><a href="namespace_cpl_1_1_text.html#a403a805821f2721d0433e6d9e262cc63">Cpl::Text::bufferToViewer</a></div><div class="ttdeci">bool bufferToViewer(const void *binaryData, int len, Cpl::Text::String &amp;destString, int bytesPerLine=16, const char *separator=&quot;    &quot;, bool upperCase=true, bool appendToString=false)</div><div class="ttdoc">This method converts the binary buffer to a single string that is the ASCII HEX followed by 'separato...</div></div>
 <div class="ttc" id="anamespace_cpl_1_1_text_html_a4987ae229f3c5126f48217684c2f62d3"><div class="ttname"><a href="namespace_cpl_1_1_text.html#a4987ae229f3c5126f48217684c2f62d3">Cpl::Text::bufferToAsciiBinary</a></div><div class="ttdeci">bool bufferToAsciiBinary(const void *binaryData, int len, Cpl::Text::String &amp;destString, bool appendToString=false, bool reverse=false)</div><div class="ttdoc">This method converts the binary buffer to a single string that is ASCII BINARY.</div></div>
@@ -167,7 +167,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

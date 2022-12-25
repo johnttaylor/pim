@@ -17,6 +17,10 @@
 #include <stdexcept>
 
 
+/// CPL EDIT: Enable default constructors
+#define BETTER_ENUMS_DEFAULT_CONSTRUCTOR(Enum) \
+  public:                                      \
+    Enum() = default;
 
 // Feature detection.
 

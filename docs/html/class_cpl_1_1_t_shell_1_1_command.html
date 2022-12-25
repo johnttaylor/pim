@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl::TShell::Command Class Reference</title>
+<title>Patterns in the Machine: Cpl::TShell::Command Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -65,7 +65,7 @@ $(function() {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_t_shell_1_1_command__inherit__graph.svg" width="1739" height="392"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_t_shell_1_1_command__inherit__graph.svg" width="1739" height="763"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Collaboration diagram for Cpl::TShell::Command:</div>
@@ -106,6 +106,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa8e25f3e59c9cf116190f0623316e26b"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_command.html#aa8e25f3e59c9cf116190f0623316e26b">getHelp</a> () const noexcept=0</td></tr>
 <tr class="memdesc:aa8e25f3e59c9cf116190f0623316e26b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns the command's detailed help string.  <a href="class_cpl_1_1_t_shell_1_1_command.html#aa8e25f3e59c9cf116190f0623316e26b">More...</a><br /></td></tr>
 <tr class="separator:aa8e25f3e59c9cf116190f0623316e26b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f2a1aab1fd4dedb7a8377bb9d52dc6d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_command.html#a3f2a1aab1fd4dedb7a8377bb9d52dc6d">getMinPermissionRequired</a> () const noexcept=0</td></tr>
+<tr class="memdesc:a3f2a1aab1fd4dedb7a8377bb9d52dc6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minimum required permission level needed to execute the command.  <a href="class_cpl_1_1_t_shell_1_1_command.html#a3f2a1aab1fd4dedb7a8377bb9d52dc6d">More...</a><br /></td></tr>
+<tr class="separator:a3f2a1aab1fd4dedb7a8377bb9d52dc6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a882dcc0ecdc58998aa08f9fb5369a6e4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_command.html#a882dcc0ecdc58998aa08f9fb5369a6e4">~Command</a> ()</td></tr>
 <tr class="memdesc:a882dcc0ecdc58998aa08f9fb5369a6e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <a href="class_cpl_1_1_t_shell_1_1_command.html#a882dcc0ecdc58998aa08f9fb5369a6e4">More...</a><br /></td></tr>
 <tr class="separator:a882dcc0ecdc58998aa08f9fb5369a6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -347,7 +350,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>This method executes the command. </p>
 
-<p>Implemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_arduino_1_1_dbg.html#acdbd0f2465f091289ca273b9ae2625cc">Cpl::TShell::Cmd::Arduino::Dbg</a>, <a class="el" href="class_cpl_1_1_dm_1_1_t_shell_1_1_dm.html#a904bea3d5d661f313ef387414036af18">Cpl::Dm::TShell::Dm</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_bye.html#ae507584393d3614199d793a25afe0069">Cpl::TShell::Cmd::Bye</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_help.html#a31506aa8b7566585a0342cee825f77de">Cpl::TShell::Cmd::Help</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_threads.html#a2281835bb59685b6a7524d55d9ff1bdd">Cpl::TShell::Cmd::Threads</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_tick.html#a3fcedb7f06ef13d60a417350913595ca">Cpl::TShell::Cmd::Tick</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_t_print.html#acfa1b65a9a5b1d68b992e0c2c208de4b">Cpl::TShell::Cmd::TPrint</a>, and <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_trace.html#a353a01cb1eba7f42e0df882b31618d0e">Cpl::TShell::Cmd::Trace</a>.</p>
+<p>Implemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_arduino_1_1_dbg.html#acdbd0f2465f091289ca273b9ae2625cc">Cpl::TShell::Cmd::Arduino::Dbg</a>, <a class="el" href="class_cpl_1_1_dm_1_1_t_shell_1_1_dm.html#a904bea3d5d661f313ef387414036af18">Cpl::Dm::TShell::Dm</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_bye.html#ae507584393d3614199d793a25afe0069">Cpl::TShell::Cmd::Bye</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_help.html#a31506aa8b7566585a0342cee825f77de">Cpl::TShell::Cmd::Help</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_threads.html#a2281835bb59685b6a7524d55d9ff1bdd">Cpl::TShell::Cmd::Threads</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_tick.html#a3fcedb7f06ef13d60a417350913595ca">Cpl::TShell::Cmd::Tick</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_t_print.html#acfa1b65a9a5b1d68b992e0c2c208de4b">Cpl::TShell::Cmd::TPrint</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_trace.html#a353a01cb1eba7f42e0df882b31618d0e">Cpl::TShell::Cmd::Trace</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_user.html#a5e68c892aa8f3b9048ce1f0732c99e49">Cpl::TShell::Cmd::User</a>, <a class="el" href="class_storm_1_1_thermostat_1_1_log.html#af800e4cfa9492d2cf5c4424a0fa8398c">Storm::Thermostat::Log</a>, <a class="el" href="class_storm_1_1_thermostat_1_1_sim_house_1_1_cmd.html#ab47d430810e7b0cd0c1a947b32e3d005">Storm::Thermostat::SimHouse::Cmd</a>, <a class="el" href="class_storm_1_1_t_shell_1_1_filter.html#adecd01cbc53520c1e5c7e0dd87a6ccdf">Storm::TShell::Filter</a>, <a class="el" href="class_storm_1_1_t_shell_1_1_state.html#a2cc76c86b09fdaa20663fd8f064a7b78">Storm::TShell::State</a>, <a class="el" href="class_storm_1_1_t_shell_1_1_user.html#ab1aaef6f0a13cd5944d827fd6c33dadf">Storm::TShell::User</a>, and <a class="el" href="class_storm_1_1_t_shell_1_1_white_box.html#aded624425b6d11aac66fd5347d424e16">Storm::TShell::WhiteBox</a>.</p>
 
 </div>
 </div>
@@ -377,7 +380,36 @@ Additional Inherited Members</h2></td></tr>
 <p>This method returns the command's detailed help string. </p>
 <p >Detailed help is optional. If the command does not support detailed help, then 0 is returned. </p>
 
-<p>Implemented in <a class="el" href="class_cpl_1_1_dm_1_1_t_shell_1_1_dm.html#a2751e4d09845aa72a676b2c6180bc5d7">Cpl::Dm::TShell::Dm</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_arduino_1_1_dbg.html#a2fb92ace8ee0aae9a7a2ae40c7cf312c">Cpl::TShell::Cmd::Arduino::Dbg</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_bye.html#aec3fc3c5370acd2e0f31d74254d277f2">Cpl::TShell::Cmd::Bye</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_help.html#af7a9da76c1d6767cae0f587dfa97a46d">Cpl::TShell::Cmd::Help</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_threads.html#a6d506fcb6ba562a4e098cff76750cc48">Cpl::TShell::Cmd::Threads</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_tick.html#ae587d9103c6bb40cc7e9123773f85c9d">Cpl::TShell::Cmd::Tick</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_t_print.html#a429f9b24d8d1b3045f562f4a95125074">Cpl::TShell::Cmd::TPrint</a>, and <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_trace.html#a7fe97557eea93e65e4d29350c09f6818">Cpl::TShell::Cmd::Trace</a>.</p>
+<p>Implemented in <a class="el" href="class_cpl_1_1_dm_1_1_t_shell_1_1_dm.html#a2751e4d09845aa72a676b2c6180bc5d7">Cpl::Dm::TShell::Dm</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_arduino_1_1_dbg.html#a2fb92ace8ee0aae9a7a2ae40c7cf312c">Cpl::TShell::Cmd::Arduino::Dbg</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_bye.html#aec3fc3c5370acd2e0f31d74254d277f2">Cpl::TShell::Cmd::Bye</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_help.html#af7a9da76c1d6767cae0f587dfa97a46d">Cpl::TShell::Cmd::Help</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_threads.html#a6d506fcb6ba562a4e098cff76750cc48">Cpl::TShell::Cmd::Threads</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_tick.html#ae587d9103c6bb40cc7e9123773f85c9d">Cpl::TShell::Cmd::Tick</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_t_print.html#a429f9b24d8d1b3045f562f4a95125074">Cpl::TShell::Cmd::TPrint</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_trace.html#a7fe97557eea93e65e4d29350c09f6818">Cpl::TShell::Cmd::Trace</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_user.html#aa739a6d880c8bd65e4a7481737c063d5">Cpl::TShell::Cmd::User</a>, <a class="el" href="class_storm_1_1_thermostat_1_1_log.html#a8c1e2a28ca92160de8d472c8f912018a">Storm::Thermostat::Log</a>, <a class="el" href="class_storm_1_1_thermostat_1_1_sim_house_1_1_cmd.html#a5ae32993c11b9676b7fa65621e1d59a0">Storm::Thermostat::SimHouse::Cmd</a>, <a class="el" href="class_storm_1_1_t_shell_1_1_filter.html#afd8491e50ca56db6b87c4146a0650505">Storm::TShell::Filter</a>, <a class="el" href="class_storm_1_1_t_shell_1_1_state.html#ad0374f6e168e71a5d7ce28ddaf750b4c">Storm::TShell::State</a>, <a class="el" href="class_storm_1_1_t_shell_1_1_user.html#a88f796ac9283b43ee3dd1e59c5eb51cf">Storm::TShell::User</a>, and <a class="el" href="class_storm_1_1_t_shell_1_1_white_box.html#a073c301fd7822d359072ec7e9024481b">Storm::TShell::WhiteBox</a>.</p>
+
+</div>
+</div>
+<a id="a3f2a1aab1fd4dedb7a8377bb9d52dc6d" name="a3f2a1aab1fd4dedb7a8377bb9d52dc6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f2a1aab1fd4dedb7a8377bb9d52dc6d">&#9670;&nbsp;</a></span>getMinPermissionRequired()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a> Cpl::TShell::Command::getMinPermissionRequired </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the minimum required permission level needed to execute the command. </p>
+
+<p>Implemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_command.html#a02a045e29e9ad2d9698e0fce1b9f0459">Cpl::TShell::Cmd::Command</a>.</p>
 
 </div>
 </div>
@@ -406,7 +438,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>This method returns the command's usage string. </p>
 
-<p>Implemented in <a class="el" href="class_cpl_1_1_dm_1_1_t_shell_1_1_dm.html#a845862297e8031de26b6f5c02f023b19">Cpl::Dm::TShell::Dm</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_arduino_1_1_dbg.html#a747ee035f7cb5124d311b2d6131963b4">Cpl::TShell::Cmd::Arduino::Dbg</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_bye.html#aff89fd98326e35d6aabf96f34a1279f9">Cpl::TShell::Cmd::Bye</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_help.html#ad2053e0e2316bf1806728aaabb2be1c7">Cpl::TShell::Cmd::Help</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_threads.html#a43dfcdbb02a7a26781477d08502fbd34">Cpl::TShell::Cmd::Threads</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_tick.html#aaaf358a1ce080b4cf0f1be54f624a798">Cpl::TShell::Cmd::Tick</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_t_print.html#a768fb6f30415077f723c3119c47bf3f5">Cpl::TShell::Cmd::TPrint</a>, and <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_trace.html#ac7f281467751080704099f4daf9ee1d2">Cpl::TShell::Cmd::Trace</a>.</p>
+<p>Implemented in <a class="el" href="class_cpl_1_1_dm_1_1_t_shell_1_1_dm.html#a845862297e8031de26b6f5c02f023b19">Cpl::Dm::TShell::Dm</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_arduino_1_1_dbg.html#a747ee035f7cb5124d311b2d6131963b4">Cpl::TShell::Cmd::Arduino::Dbg</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_bye.html#aff89fd98326e35d6aabf96f34a1279f9">Cpl::TShell::Cmd::Bye</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_help.html#ad2053e0e2316bf1806728aaabb2be1c7">Cpl::TShell::Cmd::Help</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_threads.html#a43dfcdbb02a7a26781477d08502fbd34">Cpl::TShell::Cmd::Threads</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_tick.html#aaaf358a1ce080b4cf0f1be54f624a798">Cpl::TShell::Cmd::Tick</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_t_print.html#a768fb6f30415077f723c3119c47bf3f5">Cpl::TShell::Cmd::TPrint</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_trace.html#ac7f281467751080704099f4daf9ee1d2">Cpl::TShell::Cmd::Trace</a>, <a class="el" href="class_cpl_1_1_t_shell_1_1_cmd_1_1_user.html#ab9241b0b173982a51a7c68c56d9e0dd5">Cpl::TShell::Cmd::User</a>, <a class="el" href="class_storm_1_1_thermostat_1_1_log.html#a4fe0beee3cc7198ac5d25a96abebf528">Storm::Thermostat::Log</a>, <a class="el" href="class_storm_1_1_thermostat_1_1_sim_house_1_1_cmd.html#ab1b828e89660c768babb325fad163335">Storm::Thermostat::SimHouse::Cmd</a>, <a class="el" href="class_storm_1_1_t_shell_1_1_filter.html#ad3b73c9c76a17c7159717481292e2c59">Storm::TShell::Filter</a>, <a class="el" href="class_storm_1_1_t_shell_1_1_state.html#a4ffcef371bc1978dc5747965f8e71a64">Storm::TShell::State</a>, <a class="el" href="class_storm_1_1_t_shell_1_1_user.html#a6a07f9ccd7072c67770bdf8720533438">Storm::TShell::User</a>, and <a class="el" href="class_storm_1_1_t_shell_1_1_white_box.html#a0d6003caee8c29da080427098e5b68aa">Storm::TShell::WhiteBox</a>.</p>
 
 </div>
 </div>
@@ -445,7 +477,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:46 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:56 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
