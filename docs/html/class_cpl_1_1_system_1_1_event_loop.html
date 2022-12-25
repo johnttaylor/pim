@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl::System::EventLoop Class Reference</title>
+<title>Patterns in the Machine: Cpl::System::EventLoop Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -70,7 +70,7 @@ $(function() {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_system_1_1_event_loop__inherit__graph.svg" width="1304" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_system_1_1_event_loop__inherit__graph.svg" width="1322" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Collaboration diagram for Cpl::System::EventLoop:</div>
@@ -169,9 +169,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7944bf2e6e6ad358854a44f831cf25d8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#a7944bf2e6e6ad358854a44f831cf25d8">startEventLoop</a> () noexcept</td></tr>
 <tr class="memdesc:a7944bf2e6e6ad358854a44f831cf25d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to initialize the Event Loop's thread has started to executed.  <a href="class_cpl_1_1_system_1_1_event_loop.html#a7944bf2e6e6ad358854a44f831cf25d8">More...</a><br /></td></tr>
 <tr class="separator:a7944bf2e6e6ad358854a44f831cf25d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4f457828f445bf7648f40a48df24653"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#af4f457828f445bf7648f40a48df24653">waitAndProcessEvents</a> () noexcept</td></tr>
-<tr class="memdesc:af4f457828f445bf7648f40a48df24653"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to wait (and process) the next event(s).  <a href="class_cpl_1_1_system_1_1_event_loop.html#af4f457828f445bf7648f40a48df24653">More...</a><br /></td></tr>
-<tr class="separator:af4f457828f445bf7648f40a48df24653"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8782d95637f9290b23297352aa4f8511"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#a8782d95637f9290b23297352aa4f8511">waitAndProcessEvents</a> (bool skipWait=false) noexcept</td></tr>
+<tr class="memdesc:a8782d95637f9290b23297352aa4f8511"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to wait (and process) the next event(s).  <a href="class_cpl_1_1_system_1_1_event_loop.html#a8782d95637f9290b23297352aa4f8511">More...</a><br /></td></tr>
+<tr class="separator:a8782d95637f9290b23297352aa4f8511"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa858a6868be000ee4b831bbd834259ee"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#aa858a6868be000ee4b831bbd834259ee">stopEventLoop</a> () noexcept</td></tr>
 <tr class="memdesc:aa858a6868be000ee4b831bbd834259ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to clean-up the Event Loop's when the thread is being stopped.  <a href="class_cpl_1_1_system_1_1_event_loop.html#aa858a6868be000ee4b831bbd834259ee">More...</a><br /></td></tr>
 <tr class="separator:aa858a6868be000ee4b831bbd834259ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -217,6 +217,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a04032f3e84efab5c0c08e767a86e5453"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#a04032f3e84efab5c0c08e767a86e5453">m_timeout</a></td></tr>
 <tr class="memdesc:a04032f3e84efab5c0c08e767a86e5453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout period for waiting on the next event.  <a href="class_cpl_1_1_system_1_1_event_loop.html#a04032f3e84efab5c0c08e767a86e5453">More...</a><br /></td></tr>
 <tr class="separator:a04032f3e84efab5c0c08e767a86e5453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a96caec3563f65de3f35e152bc1be0"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#a40a96caec3563f65de3f35e152bc1be0">m_timeStartOfLoop</a></td></tr>
+<tr class="memdesc:a40a96caec3563f65de3f35e152bc1be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp, in milliseconds, of start of event/wait loop.  <a href="class_cpl_1_1_system_1_1_event_loop.html#a40a96caec3563f65de3f35e152bc1be0">More...</a><br /></td></tr>
+<tr class="separator:a40a96caec3563f65de3f35e152bc1be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b5d875d37fbd4d9c84e60e60161038f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_event_flag_8h.html#a0ff59559254ae7e4e38d3086b8b92f1d">Cpl_System_EventFlag_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#a7b5d875d37fbd4d9c84e60e60161038f">m_events</a></td></tr>
 <tr class="memdesc:a7b5d875d37fbd4d9c84e60e60161038f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The variable holds the current state of all Event Flags.  <a href="class_cpl_1_1_system_1_1_event_loop.html#a7b5d875d37fbd4d9c84e60e60161038f">More...</a><br /></td></tr>
 <tr class="separator:a7b5d875d37fbd4d9c84e60e60161038f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -345,6 +348,8 @@ Additional Inherited Members</h2></td></tr>
 <p>See <a class="el" href="class_cpl_1_1_system_1_1_runnable.html" title="This is an abstract class defines the interface for an object that is &quot;executed&quot; when a Thread object...">Cpl::System::Runnable</a>. </p>
 
 <p>Implements <a class="el" href="class_cpl_1_1_system_1_1_runnable.html#a500e6d75480b242bda5e5d86e90d2e9c">Cpl::System::Runnable</a>.</p>
+
+<p>Reimplemented in <a class="el" href="class_storm_1_1_thermostat_1_1_sim_house_1_1_house.html#add8b27cc2cf8ed588aec784b18bd5b8d">Storm::Thermostat::SimHouse::House</a>.</p>
 
 </div>
 </div>
@@ -675,8 +680,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af4f457828f445bf7648f40a48df24653" name="af4f457828f445bf7648f40a48df24653"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4f457828f445bf7648f40a48df24653">&#9670;&nbsp;</a></span>waitAndProcessEvents()</h2>
+<a id="a8782d95637f9290b23297352aa4f8511" name="a8782d95637f9290b23297352aa4f8511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8782d95637f9290b23297352aa4f8511">&#9670;&nbsp;</a></span>waitAndProcessEvents()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -687,7 +692,8 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">virtual bool Cpl::System::EventLoop::waitAndProcessEvents </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>skipWait</em> = <code>false</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -700,6 +706,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>This method is used to wait (and process) the next event(s). </p>
 <p >This method returns after being woken up and processing all timer expired and pending Event Flag events. This method should always be wrapped in a loop (typically a forever loop).</p>
+<p >If the 'skipWait' argument is set to true then the method does not wait for event - it simply processing the current event flags and timers. The use scenario for skipping the wait is for child classes to execute the event loop multiple times to drain their message/notifications queues one message/notification at a time (i.e. give equal time/priority to all types of events)</p>
 <p >The method typically returns true. The method only returns false if the <a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#a803fc529ff9ef4583754e34e53a066dd" title="See Cpl::System::Runnable.">pleaseStop()</a> method was called on the Event Loop instance.</p>
 <p >This method is intended to be used by child classes that are extending the Event Loop. For this use case - this method MUST be called inside the child class's "main loop" in its the <a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#ac17ad3c8444a5ac456d30780b8fe6266" title="See Cpl::System::Runnable.">appRun()</a> method.</p>
 <p >Example <a class="el" href="class_cpl_1_1_system_1_1_event_loop.html#ac17ad3c8444a5ac456d30780b8fe6266" title="See Cpl::System::Runnable.">appRun()</a> for a child class extending the Event Loop: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> ChildEventLoop::appRun( <span class="keywordtype">void</span> )</div>
@@ -710,7 +717,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line">    <span class="keywordtype">bool</span> <a class="code hl_function" href="class_cpl_1_1_system_1_1_runnable.html#ac5c39cdd13ec721621491b8bfa57f501">run</a> = <span class="keyword">true</span>;</div>
 <div class="line">    <span class="keywordflow">while</span>( <a class="code hl_function" href="class_cpl_1_1_system_1_1_runnable.html#ac5c39cdd13ec721621491b8bfa57f501">run</a> )</div>
 <div class="line">    {</div>
-<div class="line">        <a class="code hl_function" href="class_cpl_1_1_system_1_1_runnable.html#ac5c39cdd13ec721621491b8bfa57f501">run</a> = <a class="code hl_function" href="class_cpl_1_1_system_1_1_event_loop.html#af4f457828f445bf7648f40a48df24653">waitAndProcessEvents</a>();</div>
+<div class="line">        <a class="code hl_function" href="class_cpl_1_1_system_1_1_runnable.html#ac5c39cdd13ec721621491b8bfa57f501">run</a> = <a class="code hl_function" href="class_cpl_1_1_system_1_1_event_loop.html#a8782d95637f9290b23297352aa4f8511">waitAndProcessEvents</a>();</div>
 <div class="line">        <span class="keywordflow">if</span> ( <a class="code hl_function" href="class_cpl_1_1_system_1_1_runnable.html#ac5c39cdd13ec721621491b8bfa57f501">run</a> )</div>
 <div class="line">        {</div>
 <div class="line">            &lt;child specific <span class="keyword">event</span> processing&gt;</div>
@@ -719,8 +726,8 @@ Additional Inherited Members</h2></td></tr>
 <div class="line">    <a class="code hl_function" href="class_cpl_1_1_system_1_1_event_loop.html#aa858a6868be000ee4b831bbd834259ee">stopEventLoop</a>()</div>
 <div class="line">}</div>
 <div class="ttc" id="aclass_cpl_1_1_system_1_1_event_loop_html_a7944bf2e6e6ad358854a44f831cf25d8"><div class="ttname"><a href="class_cpl_1_1_system_1_1_event_loop.html#a7944bf2e6e6ad358854a44f831cf25d8">Cpl::System::EventLoop::startEventLoop</a></div><div class="ttdeci">virtual void startEventLoop() noexcept</div><div class="ttdoc">This method is used to initialize the Event Loop's thread has started to executed.</div></div>
+<div class="ttc" id="aclass_cpl_1_1_system_1_1_event_loop_html_a8782d95637f9290b23297352aa4f8511"><div class="ttname"><a href="class_cpl_1_1_system_1_1_event_loop.html#a8782d95637f9290b23297352aa4f8511">Cpl::System::EventLoop::waitAndProcessEvents</a></div><div class="ttdeci">virtual bool waitAndProcessEvents(bool skipWait=false) noexcept</div><div class="ttdoc">This method is used to wait (and process) the next event(s).</div></div>
 <div class="ttc" id="aclass_cpl_1_1_system_1_1_event_loop_html_aa858a6868be000ee4b831bbd834259ee"><div class="ttname"><a href="class_cpl_1_1_system_1_1_event_loop.html#aa858a6868be000ee4b831bbd834259ee">Cpl::System::EventLoop::stopEventLoop</a></div><div class="ttdeci">virtual void stopEventLoop() noexcept</div><div class="ttdoc">This method is used to clean-up the Event Loop's when the thread is being stopped.</div></div>
-<div class="ttc" id="aclass_cpl_1_1_system_1_1_event_loop_html_af4f457828f445bf7648f40a48df24653"><div class="ttname"><a href="class_cpl_1_1_system_1_1_event_loop.html#af4f457828f445bf7648f40a48df24653">Cpl::System::EventLoop::waitAndProcessEvents</a></div><div class="ttdeci">virtual bool waitAndProcessEvents() noexcept</div><div class="ttdoc">This method is used to wait (and process) the next event(s).</div></div>
 <div class="ttc" id="aclass_cpl_1_1_system_1_1_runnable_html_ac5c39cdd13ec721621491b8bfa57f501"><div class="ttname"><a href="class_cpl_1_1_system_1_1_runnable.html#ac5c39cdd13ec721621491b8bfa57f501">Cpl::System::Runnable::run</a></div><div class="ttdeci">virtual void run()</div><div class="ttdoc">This method is called when the Thread is started.</div></div>
 </div><!-- fragment --> 
 </div>
@@ -870,13 +877,37 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a40a96caec3563f65de3f35e152bc1be0" name="a40a96caec3563f65de3f35e152bc1be0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a96caec3563f65de3f35e152bc1be0">&#9670;&nbsp;</a></span>m_timeStartOfLoop</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long Cpl::System::EventLoop::m_timeStartOfLoop</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Timestamp, in milliseconds, of start of event/wait loop. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Cpl/System/<a class="el" href="_system_2_event_loop_8h_source.html">EventLoop.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:45 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:56 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

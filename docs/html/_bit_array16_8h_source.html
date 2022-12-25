@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/Dm/Mp/BitArray16.h Source File</title>
+<title>Patterns in the Machine: Cpl/Dm/Mp/BitArray16.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,7 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -123,36 +123,37 @@ $(function() {
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">    /// Type safe subscriber</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#ae088869476a5a0cd325dc0c1a60dd169">   74</a></span><span class="comment"></span>    <span class="keyword">typedef</span> <a class="code hl_class" href="class_cpl_1_1_dm_1_1_subscriber.html">Cpl::Dm::Subscriber&lt;BitArray16&gt;</a> <a class="code hl_typedef" href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#ae088869476a5a0cd325dc0c1a60dd169">Observer</a>;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">public</span>:<span class="comment"></span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">    ///  See Cpl::Dm::ModelPoint.</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#a6c1f947c271c5810d629f91d3de98d01">   78</a></span><span class="comment"></span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#a6c1f947c271c5810d629f91d3de98d01">getTypeAsText</a>() const noexcept</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;Cpl::Dm::Mp::BitArray16&quot;</span>;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>};</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">    ///  See Cpl::Dm::ModelPoint.</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#a6c1f947c271c5810d629f91d3de98d01">   79</a></span><span class="comment"></span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#a6c1f947c271c5810d629f91d3de98d01">getTypeAsText</a>() const noexcept</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;Cpl::Dm::Mp::BitArray16&quot;</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};      <span class="comment">// end namespaces</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>};</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>};      <span class="comment">// end namespaces</span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>};</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>};</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
 <div class="ttc" id="a_numeric_8h_html"><div class="ttname"><a href="_numeric_8h.html">Numeric.h</a></div></div>
 <div class="ttc" id="aatob_8h_html"><div class="ttname"><a href="atob_8h.html">atob.h</a></div><div class="ttdoc">This file contains a collection of methods that wrap the standard C library functions for converting ...</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_database_html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_database.html">Cpl::Dm::ModelDatabase</a></div><div class="ttdoc">This concrete class implements a simple Model Database.</div><div class="ttdef"><b>Definition:</b> ModelDatabase.h:56</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_bit_array16_html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html">Cpl::Dm::Mp::BitArray16</a></div><div class="ttdoc">This template class provides a concrete implementation for a Point who's data is a a bit array of N b...</div><div class="ttdef"><b>Definition:</b> BitArray16.h:57</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_bit_array16_html_a24e196d6e7fe44d7e7fa35cca014373e"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#a24e196d6e7fe44d7e7fa35cca014373e">Cpl::Dm::Mp::BitArray16::BitArray16</a></div><div class="ttdeci">BitArray16(Cpl::Dm::ModelDatabase &amp;myModelBase, const char *symbolicName)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> BitArray16.h:61</div></div>
-<div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_bit_array16_html_a6c1f947c271c5810d629f91d3de98d01"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#a6c1f947c271c5810d629f91d3de98d01">Cpl::Dm::Mp::BitArray16::getTypeAsText</a></div><div class="ttdeci">const char * getTypeAsText() const noexcept</div><div class="ttdoc">See Cpl::Dm::ModelPoint.</div><div class="ttdef"><b>Definition:</b> BitArray16.h:78</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_bit_array16_html_a6c1f947c271c5810d629f91d3de98d01"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#a6c1f947c271c5810d629f91d3de98d01">Cpl::Dm::Mp::BitArray16::getTypeAsText</a></div><div class="ttdeci">const char * getTypeAsText() const noexcept</div><div class="ttdoc">See Cpl::Dm::ModelPoint.</div><div class="ttdef"><b>Definition:</b> BitArray16.h:79</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_bit_array16_html_ace17df82c714b4097c4799641b72fe34"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#ace17df82c714b4097c4799641b72fe34">Cpl::Dm::Mp::BitArray16::BitArray16</a></div><div class="ttdeci">BitArray16(Cpl::Dm::ModelDatabase &amp;myModelBase, const char *symbolicName, uint16_t initialValue)</div><div class="ttdoc">Constructor. Valid MP. Requires an initial value.</div><div class="ttdef"><b>Definition:</b> BitArray16.h:67</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_bit_array16_html_ae088869476a5a0cd325dc0c1a60dd169"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array16.html#ae088869476a5a0cd325dc0c1a60dd169">Cpl::Dm::Mp::BitArray16::Observer</a></div><div class="ttdeci">Cpl::Dm::Subscriber&lt; BitArray16 &gt; Observer</div><div class="ttdoc">Type safe subscriber.</div><div class="ttdef"><b>Definition:</b> BitArray16.h:74</div></div>
-<div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_bit_array___html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array__.html">Cpl::Dm::Mp::BitArray_</a></div><div class="ttdoc">This template class extends the Numeric&lt;&gt; class to provide bit operation on the numeric value.</div><div class="ttdef"><b>Definition:</b> Numeric.h:172</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_mp_1_1_bit_array___html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_mp_1_1_bit_array__.html">Cpl::Dm::Mp::BitArray_</a></div><div class="ttdoc">This template class extends the Numeric&lt;&gt; class to provide bit operation on the numeric value.</div><div class="ttdef"><b>Definition:</b> Numeric.h:177</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber.html">Cpl::Dm::Subscriber</a></div><div class="ttdoc">This template class defines a type safe Subscriber.</div><div class="ttdef"><b>Definition:</b> Subscriber.h:82</div></div>
 <div class="ttc" id="aformat_8h_html"><div class="ttname"><a href="format_8h.html">format.h</a></div><div class="ttdoc">This file contains some general purpose string formatting functions.</div></div>
 <div class="ttc" id="anamespace_cpl_html"><div class="ttname"><a href="namespace_cpl.html">Cpl</a></div><div class="ttdoc">The 'Cpl' namespace is the root name space for the Colony.</div><div class="ttdef"><b>Definition:</b> Api16.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

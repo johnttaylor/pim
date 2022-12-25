@@ -48,7 +48,7 @@ public:
     typedef struct
     {
         Cpl::Dm::ModelPoint*                                        mpPtr;          //!< Pointer to a Model Point 
-        Cpl::Dm::SubscriberComposer<Record, Cpl::Dm::ModelPoint>*    observerPtr;    //!< Place holder to for dynamically allocated Subscriber Instance.  Note: A ZERO value will not allocate a subscriber
+        Cpl::Dm::SubscriberComposer<Record, Cpl::Dm::ModelPoint>*   observerPtr;    //!< Place holder to for dynamically allocated Subscriber Instance.  Note: A ZERO value will not allocate a subscriber
     } Item_T;
 
 public:

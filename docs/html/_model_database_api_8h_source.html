@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/Dm/ModelDatabaseApi.h Source File</title>
+<title>Patterns in the Machine: Cpl/Dm/ModelDatabaseApi.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,13 +56,13 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">/** @file */</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_string_8h.html">Cpl/Text/String.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_text_2_string_8h.html">Cpl/Text/String.h</a>&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"></span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">///</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_cpl.html">Cpl</a> {<span class="comment"></span></div>
@@ -159,7 +159,7 @@ $(function() {
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>};      <span class="comment">// end namespaces</span></div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>};</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
-<div class="ttc" id="a_string_8h_html"><div class="ttname"><a href="_string_8h.html">String.h</a></div></div>
+<div class="ttc" id="a_text_2_string_8h_html"><div class="ttname"><a href="_text_2_string_8h.html">String.h</a></div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_database_api_html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_database_api.html">Cpl::Dm::ModelDatabaseApi</a></div><div class="ttdoc">This class defines the basic operations that can be performed on a Model Base.</div><div class="ttdef"><b>Definition:</b> ModelDatabaseApi.h:32</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_database_api_html_a45f9cd27b9d9d4dec8fdc986c65ca80b"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_database_api.html#a45f9cd27b9d9d4dec8fdc986c65ca80b">Cpl::Dm::ModelDatabaseApi::fromJSON</a></div><div class="ttdeci">virtual bool fromJSON(const char *src, Cpl::Text::String *errorMsg=0, ModelPoint **retMp=0, uint16_t *retSequenceNumber=0) noexcept=0</div><div class="ttdoc">This method attempts to convert the null terminated JSON formated 'src' string to its binary format a...</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_database_api_html_a5398530d8577d3006c696f4dd1220c8c"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_database_api.html#a5398530d8577d3006c696f4dd1220c8c">Cpl::Dm::ModelDatabaseApi::lookupModelPoint</a></div><div class="ttdeci">virtual ModelPoint * lookupModelPoint(const char *modelPointName) noexcept=0</div><div class="ttdoc">This method looks-up the model point instance by name and returns a pointer to the instance.</div></div>
@@ -170,7 +170,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

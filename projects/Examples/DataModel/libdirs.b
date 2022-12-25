@@ -1,6 +1,6 @@
 # persistent storage
-#src/Cpl/Dm/Persistent
-#src/Cpl/Persistent
+src/Cpl/Dm/Persistent
+src/Cpl/Persistent
 
 # Colony Core infrastructure
 src/Cpl/Text/Frame

@@ -44,6 +44,4 @@ int runTheApplication( Cpl::Io::Input& infd, Cpl::Io::Output& outfd );
  */
 extern Cpl::Container::Map<Cpl::TShell::Command>    g_cmdlist;
 
-
-
 #endif  // end header latch

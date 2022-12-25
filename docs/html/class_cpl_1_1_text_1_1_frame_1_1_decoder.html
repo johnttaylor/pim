@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl::Text::Frame::Decoder Class Reference</title>
+<title>Patterns in the Machine: Cpl::Text::Frame::Decoder Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -99,6 +99,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac99d310bf787371cda3b5781d067c013"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#ac99d310bf787371cda3b5781d067c013">scan</a> (size_t maxSizeOfFrame, char *frame, size_t &amp;frameSize) noexcept=0</td></tr>
 <tr class="memdesc:ac99d310bf787371cda3b5781d067c013"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method reads from an Input source (which is defined/provided by the concrete implementation) until a valid frame is found or an error occurred.  <a href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#ac99d310bf787371cda3b5781d067c013">More...</a><br /></td></tr>
 <tr class="separator:ac99d310bf787371cda3b5781d067c013"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2dc3793b3e5a0c6efb277202092505e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#ac2dc3793b3e5a0c6efb277202092505e">scan</a> (size_t maxSizeOfFrame, char *frame, size_t &amp;frameSize, bool &amp;isEof) noexcept=0</td></tr>
+<tr class="memdesc:ac2dc3793b3e5a0c6efb277202092505e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is similar to the above <a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#ac99d310bf787371cda3b5781d067c013" title="This method reads from an Input source (which is defined/provided by the concrete implementation) unt...">scan()</a> method, except that it does NOT block till a 'frame' has found, instead it indicates when a 'frame' has been found by setting the 'isEof' flag to true.  <a href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#ac2dc3793b3e5a0c6efb277202092505e">More...</a><br /></td></tr>
+<tr class="separator:ac2dc3793b3e5a0c6efb277202092505e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad99b6cebc5e23cf1d044b63f64aef8d2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#ad99b6cebc5e23cf1d044b63f64aef8d2">oobRead</a> (void *buffer, int numBytes, int &amp;bytesRead) noexcept=0</td></tr>
+<tr class="memdesc:ad99b6cebc5e23cf1d044b63f64aef8d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method allows 'out-of-band' reading of the input source.  <a href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#ad99b6cebc5e23cf1d044b63f64aef8d2">More...</a><br /></td></tr>
+<tr class="separator:ad99b6cebc5e23cf1d044b63f64aef8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b3bf89a851de787f33b347246206b64"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#a2b3bf89a851de787f33b347246206b64">~Decoder</a> ()</td></tr>
 <tr class="memdesc:a2b3bf89a851de787f33b347246206b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual Destructor.  <a href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#a2b3bf89a851de787f33b347246206b64">More...</a><br /></td></tr>
 <tr class="separator:a2b3bf89a851de787f33b347246206b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,8 +138,58 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad99b6cebc5e23cf1d044b63f64aef8d2" name="ad99b6cebc5e23cf1d044b63f64aef8d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad99b6cebc5e23cf1d044b63f64aef8d2">&#9670;&nbsp;</a></span>oobRead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Cpl::Text::Frame::Decoder::oobRead </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>bytesRead</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method allows 'out-of-band' reading of the input source. </p>
+<p >If the scanner is in-a-frame the method return false and does nothing. <br  />
+</p>
+<p >CAUTION: Most client/consumers of the decoder should never use this method. This method only has meaning/usefulness when the application KNOWS when the input source is NOT in a frame AND that there is 'non-framed' data that can be consumed.</p>
+<p >Attempts to read the specified number of bytes from the stream into the supplied buffer. The actual number of bytes read is returned via 'bytesRead'. Returns true if successful, or false if End-of-Stream was encountered or if the input source is in a frame. </p>
+
+<p>Implemented in <a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_decoder__.html#a9131dc120f41b8b3a03e8c3d412ffe7a">Cpl::Text::Frame::Decoder_</a>.</p>
+
+</div>
+</div>
 <a id="ac99d310bf787371cda3b5781d067c013" name="ac99d310bf787371cda3b5781d067c013"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac99d310bf787371cda3b5781d067c013">&#9670;&nbsp;</a></span>scan()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac99d310bf787371cda3b5781d067c013">&#9670;&nbsp;</a></span>scan() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,13 +236,67 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac2dc3793b3e5a0c6efb277202092505e" name="ac2dc3793b3e5a0c6efb277202092505e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2dc3793b3e5a0c6efb277202092505e">&#9670;&nbsp;</a></span>scan() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Cpl::Text::Frame::Decoder::scan </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>maxSizeOfFrame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramname"><em>frameSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>isEof</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method is similar to the above <a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_decoder.html#ac99d310bf787371cda3b5781d067c013" title="This method reads from an Input source (which is defined/provided by the concrete implementation) unt...">scan()</a> method, except that it does NOT block till a 'frame' has found, instead it indicates when a 'frame' has been found by setting the 'isEof' flag to true. </p>
+<p >False is returned if a error was encountered while reading the Input source.</p>
+<p >CAUTION: The returned frame is NOT a null terminated string - it is ONLY a buffer with 'frameSize' number of characters stored in it. </p>
+
+<p>Implemented in <a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_decoder__.html#a260f645251b93c082c8f0a3857681b92">Cpl::Text::Frame::Decoder_</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Cpl/Text/Frame/<a class="el" href="_decoder_8h_source.html">Decoder.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:46 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:56 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

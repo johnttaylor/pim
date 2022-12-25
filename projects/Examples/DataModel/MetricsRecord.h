@@ -1,93 +1,88 @@
-#ifndef Zelda_Main_Metrics_Record_h_
-#define Zelda_Main_Metrics_Record_h_
+#ifndef MetricsRecord_h_
+#define MetricsRecord_h_
 /*-----------------------------------------------------------------------------
-* COPYRIGHT_HEADER_TO_BE_FILLED_LATER
+* This file is part of the Colony.Core Project.  The Colony.Core Project is an
+* open source project with a BSD type of licensing agreement.  See the license
+* agreement (license.txt) in the top/ directory or on the Internet at
+* http://integerfox.com/colony.core/license.txt
+*
+* Copyright (c) 2014-2022  John T. Taylor
+*
+* Redistributions of the source code must retain the above copyright notice.
 *----------------------------------------------------------------------------*/
 /** @file */
 
 #include "colony_config.h"
 #include "Cpl/Dm/Persistent/Record.h"
-#include "Link/mp/ModelPoints.h"
-#include "Cpl/System/Trace.h"
-#include "Link/Main/PostCodes.h"
-#include "Link/Post/CorruptStorage.h"
-#include "Link/Logging/Api.h"
+#include "ModelPoints.h"
 
 /// Major Schema index for my record
-#ifndef OPTION_LINK_MAIN_METRIC_RECORD_MAJOR
-#define OPTION_LINK_MAIN_METRIC_RECORD_MAJOR    0
+#ifndef OPTION_MAIN_METRIC_RECORD_MAJOR
+#define OPTION_MAIN_METRIC_RECORD_MAJOR    0
 #endif
 
 /// Minor Schema index for my record
-#ifndef OPTION_LINK_MAIN_METRIC_RECORD_MINOR
-#define OPTION_LINK_MAIN_METRIC_RECORD_MINOR    0
+#ifndef OPTION_MAIN_METRIC_RECORD_MINOR
+#define OPTION_MAIN_METRIC_RECORD_MINOR    0
 #endif
-
-/// Groot does NOT 'fail' the resetData() method
-#if defined(I_AM_GROOT) || defined(DEBUG_BUILD)
-#define LINK_MAIN_METRICS_RECORD_RESET_DATA_RESULT  true
-
-/// Zelda 'fails' the resetData() method so the error is present on the next reboot
-#else
-#define LINK_MAIN_METRICS_RECORD_RESET_DATA_RESULT  false
-#endif
-
-///
-namespace Link {
-///
-namespace Main {
 
 
 /** This concrete class implements the "Metrics" record for persistently
-    storing the counters, run time, etc.
+    storing the Algorithm's metrics and the Application's boot counter
  */
 class MetricRecord : public Cpl::Dm::Persistent::Record
 {
 public:
     /// Constructor
     MetricRecord( Cpl::Persistent::Chunk& chunkHandler )
-        : Cpl::Dm::Persistent::Record( m_modelPoints, chunkHandler, OPTION_LINK_MAIN_METRIC_RECORD_MAJOR, OPTION_LINK_MAIN_METRIC_RECORD_MINOR )
+        : Cpl::Dm::Persistent::Record( m_modelPoints, chunkHandler, OPTION_MAIN_METRIC_RECORD_MAJOR, OPTION_MAIN_METRIC_RECORD_MINOR )
     {
-        m_modelPoints[0] = { &mp::resetCounter, CPL_DM_PERISTENCE_RECORD_USE_SUBSCRIBER };   
-        m_modelPoints[1] = { &mp::infusionNumber, CPL_DM_PERISTENCE_RECORD_USE_SUBSCRIBER };   
-        m_modelPoints[2] = { 0,0 };
+        m_modelPoints[0] = { &mp::bootCounter, CPL_DM_PERISTENCE_RECORD_NO_SUBSCRIBER };    // Note: See notes in hookProcessPostRecordLoaded()
+        m_modelPoints[1] = { &mp::metrics, CPL_DM_PERISTENCE_RECORD_NO_SUBSCRIBER};         // Note: The application is responsible for periodically update the persistent store with new metric data
+        m_modelPoints[2] = { &mp::hiAlarmCounts, CPL_DM_PERISTENCE_RECORD_USE_SUBSCRIBER };
+        m_modelPoints[3] = { &mp::loAlarmCounts, CPL_DM_PERISTENCE_RECORD_USE_SUBSCRIBER };
+
+        m_modelPoints[4] = { 0,0 };
     }
+
+protected:
+    /// List of Model Points contained in the Record
+    Cpl::Dm::Persistent::Record::Item_T m_modelPoints[4 + 1];
 
 public:
-    /// See Cpl::Dm::Persistent::Record
+    /** This method is called at start-up if/when the persistent storage is 
+        detected as corrupt, e,g. the CRC is bad. See Cpl::Dm::Persistent::Record 
+        additional details.
+     */
     bool resetData() noexcept
     {
-        // NOTE: This is bad if it ever occurs once the Pump has been 
-        //       provisioned. So we update the criticalPOSTFailure model
-        //       point so that the Application can take the appropriate 
-        //       action.
-        int err = ZELDA_MAIN_POST_BASE_CORRUPT_STRORAGE + LINK_POST_CORRUPT_STRORAGE_METRICS_BLOCK;
-        mp::criticalPOSTFailure.write( err );
-        Cpl::Text::FString<100>  postResult;
-        Link::Main::convertPostResultToString( postResult, err );
-        Link::Logging::logf( Link::Logging::CriticalId::POST_FAIL, "%s", postResult.getString()  );
+        // Reset the boot counter and metrics
+        mp::bootCounter.write( 1 );    // Default Reset counter to '1', i.e. never can be zero once persistent storage has been loaded
+        mp::metrics.clearAll();
+        mp::hiAlarmCounts.write( 0 );
+        mp::loAlarmCounts.write( 0 );
 
-        // Reset all counts
-        mp::resetCounter.write( 1 );    // Default Reset counter to '1', i.e. never can be zero once persistent storage has been loaded
-        mp::infusionNumber.write( 0 );
-
-        return LINK_MAIN_METRICS_RECORD_RESET_DATA_RESULT;
+        // Return true so that the NVRAM will be updated with the new/valid values.
+        return true;
     }
 
 protected:
-    /// See Cpl::Dm::Persistent::Record
+    /** This method is called when the persistent storage has been successfully
+        loaded at start-up.  See Cpl::Dm::Persistent::Record for additional details
+     */
     void hookProcessPostRecordLoaded() noexcept
     {
-        // Increment the reset counter on successful load of the counter
-        mp::resetCounter.increment();    
+        // Increment the boot counter on successful load of the storage
+        // NOTE: The hookProcessPostRecordLoaded() method is CALLED BEFORE the 
+        //       data Record's subscriptions to the MPs occur.  This means 
+        //       monitoring the boot counter MP for change in order to update 
+        //       NVRAM does NOT work (because this is only time the boot counter
+        //       MP is updated). The start-up sequence performs a flush() on the 
+        //       Metrics record in order to ensure that the boot counter gets 
+        //       updated to NVRAM as soon as possible during the start-up 
+        //       sequence.
+        mp::bootCounter.increment();
     }
-
-protected:
-    /// List of Model Points for the Record
-    Cpl::Dm::Persistent::Record::Item_T m_modelPoints[2 + 1];
-};
-
-};  // end namespace(s)
 };
 
 #endif  // end header latch

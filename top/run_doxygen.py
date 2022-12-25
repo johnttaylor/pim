@@ -21,6 +21,11 @@ def filter_warnings( output ):
     at_least_one = False
     lines = output.splitlines()
     for line in lines:
+        # Filter blank lines
+        line = line.strip()
+        if ( len(line) == 0 ):
+            continue
+
         # Filter
         if ( re.search( r"^.*error.*inline_dotgraph_.*\.dot", line ) ):
             continue
@@ -69,7 +74,7 @@ if ( p.returncode != 0 ):
 #shutil.rmtree( path, ignore_errors=True  )
 
 # check for errors
-if ( " warning: " in r[1].decode() ):
+if ( "warning: " in r[1].decode() or "error: " in r[1].decode() ):
     print()
     print( "*** Doxygen had one or more warnings! ***" )
     filter_warnings( r[1].decode() )

@@ -555,7 +555,7 @@
 </g>
 <!-- Node34 -->
 <g id="node34" class="node"><title>Node34</title>
-<g id="a_node34"><a xlink:href="class_storm_1_1_dm_1_1_mp_simple_alarm.html#struct_storm_1_1_dm_1_1_mp_simple_alarm_1_1_data" target="_top" xlink:title="The MP&#39;s Data container.">
+<g id="a_node34"><a xlink:href="struct_storm_1_1_dm_1_1_mp_simple_alarm_1_1_data.html" target="_top" xlink:title="The MP&#39;s Data container.">
 <polygon fill="white" stroke="black" points="480.5,-503.5 480.5,-533.5 619.5,-533.5 619.5,-503.5 480.5,-503.5"/>
 <text text-anchor="start" x="488.5" y="-521.5" font-family="Helvetica,sans-Serif" font-size="10.00">Storm::Dm::MpSimpleAlarm</text>
 <text text-anchor="middle" x="550" y="-510.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Data</text>

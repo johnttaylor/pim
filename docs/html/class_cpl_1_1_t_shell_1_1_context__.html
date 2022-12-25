@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl::TShell::Context_ Class Reference</title>
+<title>Patterns in the Machine: Cpl::TShell::Context_ Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -64,7 +64,7 @@ $(function() {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_t_shell_1_1_context____inherit__graph.svg" width="183" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_t_shell_1_1_context____inherit__graph.svg" width="200" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Collaboration diagram for Cpl::TShell::Context_:</div>
@@ -94,13 +94,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a07b7ad13cd05020e372cb6806e4642c2"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_cpl_1_1_text_1_1_string.html">Cpl::Text::String</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a07b7ad13cd05020e372cb6806e4642c2">getTokenBuffer2</a> () noexcept=0</td></tr>
 <tr class="memdesc:a07b7ad13cd05020e372cb6806e4642c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a72fee4b082049837bb63ca3dd6a5fa3b" title="A shared/common working buffer.">getTokenBuffer()</a>, except provides a second/separate token buffer.  <a href="class_cpl_1_1_t_shell_1_1_context__.html#a07b7ad13cd05020e372cb6806e4642c2">More...</a><br /></td></tr>
 <tr class="separator:a07b7ad13cd05020e372cb6806e4642c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22a6e22ea3efe56b52c1a0008d979a88"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a22a6e22ea3efe56b52c1a0008d979a88">oobRead</a> (void *buffer, int numBytes, int &amp;bytesRead) noexcept=0</td></tr>
+<tr class="memdesc:a22a6e22ea3efe56b52c1a0008d979a88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method allows a command access to the input stream, i.e.  <a href="class_cpl_1_1_t_shell_1_1_context__.html#a22a6e22ea3efe56b52c1a0008d979a88">More...</a><br /></td></tr>
+<tr class="separator:a22a6e22ea3efe56b52c1a0008d979a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a669085470e3f5c90829564ec07f50814"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a669085470e3f5c90829564ec07f50814">getUserPermissionLevel</a> () const noexcept=0</td></tr>
+<tr class="memdesc:a669085470e3f5c90829564ec07f50814"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns the 'logged user' permission level.  <a href="class_cpl_1_1_t_shell_1_1_context__.html#a669085470e3f5c90829564ec07f50814">More...</a><br /></td></tr>
+<tr class="separator:a669085470e3f5c90829564ec07f50814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9342a0b5fd4e527a88bb6bda92cf6ba"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#ac9342a0b5fd4e527a88bb6bda92cf6ba">setUserPermissionLevel</a> (<a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a> newPermissionLevel) noexcept=0</td></tr>
+<tr class="memdesc:ac9342a0b5fd4e527a88bb6bda92cf6ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to updated the 'logged user' permission level.  <a href="class_cpl_1_1_t_shell_1_1_context__.html#ac9342a0b5fd4e527a88bb6bda92cf6ba">More...</a><br /></td></tr>
+<tr class="separator:ac9342a0b5fd4e527a88bb6bda92cf6ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05d517252283adbc6a1ba7796b77c89f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a05d517252283adbc6a1ba7796b77c89f">~Context_</a> ()</td></tr>
 <tr class="memdesc:a05d517252283adbc6a1ba7796b77c89f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <a href="class_cpl_1_1_t_shell_1_1_context__.html#a05d517252283adbc6a1ba7796b77c89f">More...</a><br /></td></tr>
 <tr class="separator:a05d517252283adbc6a1ba7796b77c89f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_cpl_1_1_t_shell_1_1_processor_api')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></td></tr>
-<tr class="memitem:adc6d389c83d778dce27af5b3168168f6 inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#adc6d389c83d778dce27af5b3168168f6">start</a> (<a class="el" href="class_cpl_1_1_io_1_1_input.html">Cpl::Io::Input</a> &amp;infd, <a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;outfd) noexcept=0</td></tr>
-<tr class="memdesc:adc6d389c83d778dce27af5b3168168f6 inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to start the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a>, i.e.  <a href="class_cpl_1_1_t_shell_1_1_processor_api.html#adc6d389c83d778dce27af5b3168168f6">More...</a><br /></td></tr>
-<tr class="separator:adc6d389c83d778dce27af5b3168168f6 inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afefa07f5918ab5bee5281d83ad09965f inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#afefa07f5918ab5bee5281d83ad09965f">start</a> (<a class="el" href="class_cpl_1_1_io_1_1_input.html">Cpl::Io::Input</a> &amp;infd, <a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;outfd, bool blocking=true) noexcept=0</td></tr>
+<tr class="memdesc:afefa07f5918ab5bee5281d83ad09965f inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to start the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a>, i.e.  <a href="class_cpl_1_1_t_shell_1_1_processor_api.html#afefa07f5918ab5bee5281d83ad09965f">More...</a><br /></td></tr>
+<tr class="separator:afefa07f5918ab5bee5281d83ad09965f inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafe9d85cf1b886c89472e3a0b9c1020b inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aafe9d85cf1b886c89472e3a0b9c1020b">poll</a> () noexcept=0</td></tr>
+<tr class="memdesc:aafe9d85cf1b886c89472e3a0b9c1020b inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to provide the command processor 'CPU cycles' to parse/process/execute commands.  <a href="class_cpl_1_1_t_shell_1_1_processor_api.html#aafe9d85cf1b886c89472e3a0b9c1020b">More...</a><br /></td></tr>
+<tr class="separator:aafe9d85cf1b886c89472e3a0b9c1020b inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa581a97e12d57efcd873fd1cba1ff5b3 inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aa581a97e12d57efcd873fd1cba1ff5b3">requestStop</a> () noexcept=0</td></tr>
 <tr class="memdesc:aa581a97e12d57efcd873fd1cba1ff5b3 inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="mdescLeft">&#160;</td><td class="mdescRight">This non-blocking method requests the <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html" title="This class defines the interface for a TShell command.">Command</a> <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html" title="This concrete class provides the implementation of Command Processor for a TShell engine.">Processor</a> to stop.  <a href="class_cpl_1_1_t_shell_1_1_processor_api.html#aa581a97e12d57efcd873fd1cba1ff5b3">More...</a><br /></td></tr>
 <tr class="separator:aa581a97e12d57efcd873fd1cba1ff5b3 inherit pub_methods_class_cpl_1_1_t_shell_1_1_processor_api"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -266,6 +278,116 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a669085470e3f5c90829564ec07f50814" name="a669085470e3f5c90829564ec07f50814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a669085470e3f5c90829564ec07f50814">&#9670;&nbsp;</a></span>getUserPermissionLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a> Cpl::TShell::Context_::getUserPermissionLevel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method returns the 'logged user' permission level. </p>
+
+<p>Implemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a3b580129eac53479a68b2518e7a7a54f">Cpl::TShell::Processor</a>.</p>
+
+</div>
+</div>
+<a id="a22a6e22ea3efe56b52c1a0008d979a88" name="a22a6e22ea3efe56b52c1a0008d979a88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22a6e22ea3efe56b52c1a0008d979a88">&#9670;&nbsp;</a></span>oobRead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Cpl::TShell::Context_::oobRead </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>bytesRead</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method allows a command access to the input stream, i.e. </p>
+<p >consume additional input data that is 'out-of-band' of the nominal newline delineated command syntax.</p>
+<p >Attempts to read the specified number of bytes from the stream into the supplied buffer. The actual number of bytes read is returned via 'bytesRead'. Returns true if successful, or false if End-of-Stream was encountered. </p>
+
+<p>Implemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a3266f7c69e65689706b5b59c8ac431ea">Cpl::TShell::Processor</a>.</p>
+
+</div>
+</div>
+<a id="ac9342a0b5fd4e527a88bb6bda92cf6ba" name="ac9342a0b5fd4e527a88bb6bda92cf6ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9342a0b5fd4e527a88bb6bda92cf6ba">&#9670;&nbsp;</a></span>setUserPermissionLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a> Cpl::TShell::Context_::setUserPermissionLevel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a>&#160;</td>
+          <td class="paramname"><em>newPermissionLevel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method is used to updated the 'logged user' permission level. </p>
+<p >The method returns the previous value for the user's permission level.</p>
+<p >NOTE: The program model is that all command implementations are well behaved in that they do not indiscriminately call this method. <br  />
+ In practice only the 'user' command should every call this method! </p>
+
+<p>Implemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#ae26ab992c43c9df202f76fc18993c8d2">Cpl::TShell::Processor</a>.</p>
+
+</div>
+</div>
 <a id="a2f860f792323f0d8a2fa03edf82f2a30" name="a2f860f792323f0d8a2fa03edf82f2a30"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2f860f792323f0d8a2fa03edf82f2a30">&#9670;&nbsp;</a></span>writeFrame() <span class="overload">[1/2]</span></h2>
 
@@ -342,7 +464,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:46 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:56 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

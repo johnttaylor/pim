@@ -39,11 +39,21 @@ class Algorithm : public Cpl::Itc::CloseSync, public Cpl::System::Timer
 {
 
 public:
-    /// Constructor.
+    /** Constructor. In this example references to all of model points that 
+        the Algorithm classes operates on are provided in the constructor. 
+        Depending on the nature of the application and its design criteria an
+        alternative would be to have the Algorithm class directly access the
+        needed MP by the instance names (i.e. include "ModelPoints.h" in 
+        the .cpp file to gain access to the MP instance).  Note: This 'short-cut'
+        should NEVER be used for driver or middle-ware classes - only 
+        application specific classes.
+     */
     Algorithm( Cpl::Dm::MailboxServer&  myMbox, 
                Cpl::Dm::Mp::Uint32&     mpInputSignal,
                MpAlarm&                 mpHiAlarm,
                MpAlarm&                 mpLoAlarm,
+               Cpl::Dm::Mp::Uint32&     mpHiAlarmCounts,
+               Cpl::Dm::Mp::Uint32&     mpLoAlarmCounts,
                MpMetrics&               mpMetrics );
 
 
@@ -75,6 +85,12 @@ protected:
 
     /// Metrics MP
     MpMetrics&              m_mpMetrics;
+
+    /// High Alarm Counts MP 
+    Cpl::Dm::Mp::Uint32&    m_mpHiAlarmCounts;
+
+    /// Low Alarm Counts MP 
+    Cpl::Dm::Mp::Uint32&    m_mpLoAlarmCounts;
 
     /// My open state
     bool                    m_opened;

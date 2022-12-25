@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/TShell/Maker.h Source File</title>
+<title>Patterns in the Machine: Cpl/TShell/Maker.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -48,15 +48,15 @@ $(function() {
   <div class="headertitle"><div class="title">Maker.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_maker_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef Cpl_TShell_Dac_Maker_h_</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define Cpl_TShell_Dac_Maker_h_</span></div>
+<a href="_maker_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef Cpl_TShell_Maker_h_</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define Cpl_TShell_Maker_h_</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*-----------------------------------------------------------------------------</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">* This file is part of the Colony.Core Project.  The Colony.Core Project is an</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">* open source project with a BSD type of licensing agreement.  See the license</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -64,7 +64,7 @@ $(function() {
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_processor_8h.html">Cpl/TShell/Processor.h</a>&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="_line_decoder_8h.html">Cpl/Text/Frame/LineDecoder.h</a>&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_system_2_private___8h.html">Cpl/System/Private_.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_cpl_2_system_2_private___8h.html">Cpl/System/Private_.h</a>&quot;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"></span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">///</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_cpl.html">Cpl</a> {<span class="comment"></span></div>
@@ -109,9 +109,9 @@ $(function() {
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};      <span class="comment">// end namespaces</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
+<div class="ttc" id="a_cpl_2_system_2_private___8h_html"><div class="ttname"><a href="_cpl_2_system_2_private___8h.html">Private_.h</a></div><div class="ttdoc">This file contains a collection of classes, interfaces, etc.</div></div>
 <div class="ttc" id="a_line_decoder_8h_html"><div class="ttname"><a href="_line_decoder_8h.html">LineDecoder.h</a></div></div>
 <div class="ttc" id="a_processor_8h_html"><div class="ttname"><a href="_processor_8h.html">Processor.h</a></div></div>
-<div class="ttc" id="a_system_2_private___8h_html"><div class="ttname"><a href="_system_2_private___8h.html">Private_.h</a></div><div class="ttdoc">This file contains a collection of classes, interfaces, etc.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_container_1_1_map_html"><div class="ttname"><a href="class_cpl_1_1_container_1_1_map.html">Cpl::Container::Map</a></div><div class="ttdoc">This template class implements an Map using an AVL Binary tree (i.e.</div><div class="ttdef"><b>Definition:</b> Map.h:34</div></div>
 <div class="ttc" id="aclass_cpl_1_1_system_1_1_locks___html_a438986aabfc4289a82755c7ce46ebe4d"><div class="ttname"><a href="class_cpl_1_1_system_1_1_locks__.html#a438986aabfc4289a82755c7ce46ebe4d">Cpl::System::Locks_::tracingOutput</a></div><div class="ttdeci">static Mutex &amp; tracingOutput(void)</div><div class="ttdoc">Global mutex for use for the tracing sub-system OUTPUT (see above for more details)</div></div>
 <div class="ttc" id="aclass_cpl_1_1_system_1_1_mutex_html"><div class="ttname"><a href="class_cpl_1_1_system_1_1_mutex.html">Cpl::System::Mutex</a></div><div class="ttdoc">This mutex class defines the interface for a mutex that has &quot;recursive&quot; semantics.</div><div class="ttdef"><b>Definition:</b> Mutex.h:33</div></div>
@@ -121,15 +121,15 @@ $(function() {
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_maker_html_a607aefe85fc42ed11bf73954ad0d8db1"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_maker.html#a607aefe85fc42ed11bf73954ad0d8db1">Cpl::TShell::Maker::m_deframer</a></div><div class="ttdeci">Cpl::Text::Frame::LineDecoder&lt; OPTION_CPL_TSHELL_PROCESSOR_INPUT_SIZE &gt; m_deframer</div><div class="ttdoc">De-framer for the input stream.</div><div class="ttdef"><b>Definition:</b> Maker.h:36</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_maker_html_aa02bdc5960d7431b9227ea7507c99da9"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_maker.html#aa02bdc5960d7431b9227ea7507c99da9">Cpl::TShell::Maker::getCommandProcessor</a></div><div class="ttdeci">ProcessorApi &amp; getCommandProcessor(void) noexcept</div><div class="ttdoc">Returns a reference to the Command processor.</div><div class="ttdef"><b>Definition:</b> Maker.h:51</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_maker_html_aef064b5ea79310120241b16e1ed46a54"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_maker.html#aef064b5ea79310120241b16e1ed46a54">Cpl::TShell::Maker::Maker</a></div><div class="ttdeci">Maker(Cpl::Container::Map&lt; Command &gt; &amp;cmdlist, Cpl::System::Mutex &amp;lock=Cpl::System::Locks_::tracingOutput())</div><div class="ttdoc">Constructor.</div></div>
-<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_processor_api_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></div><div class="ttdoc">This class defines the interface a TShell Command Processor.</div><div class="ttdef"><b>Definition:</b> ProcessorApi.h:30</div></div>
-<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_processor_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_processor.html">Cpl::TShell::Processor</a></div><div class="ttdoc">This concrete class provides the implementation of Command Processor for a TShell engine.</div><div class="ttdef"><b>Definition:</b> Processor.h:96</div></div>
+<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_processor_api_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></div><div class="ttdoc">This class defines the interface a TShell Command Processor.</div><div class="ttdef"><b>Definition:</b> ProcessorApi.h:33</div></div>
+<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_processor_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_processor.html">Cpl::TShell::Processor</a></div><div class="ttdoc">This concrete class provides the implementation of Command Processor for a TShell engine.</div><div class="ttdef"><b>Definition:</b> Processor.h:114</div></div>
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_line_decoder_html"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_line_decoder.html">Cpl::Text::Frame::LineDecoder</a></div><div class="ttdoc">This concrete template class provide a basic implementation of the Frame::Decoder interface that uses...</div><div class="ttdef"><b>Definition:</b> LineDecoder.h:48</div></div>
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_stream_encoder_html"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_stream_encoder.html">Cpl::Text::Frame::StreamEncoder</a></div><div class="ttdoc">This concrete class implements the Encoder API where the Output destination is a Cpl::Io::Output stre...</div><div class="ttdef"><b>Definition:</b> StreamEncoder.h:36</div></div>
 <div class="ttc" id="anamespace_cpl_html"><div class="ttname"><a href="namespace_cpl.html">Cpl</a></div><div class="ttdoc">The 'Cpl' namespace is the root name space for the Colony.</div><div class="ttdef"><b>Definition:</b> Api16.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

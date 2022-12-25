@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/TShell/Context_.h Source File</title>
+<title>Patterns in the Machine: Cpl/TShell/Context_.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,83 +56,116 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">/** @file */</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_processor_api_8h.html">Cpl/TShell/ProcessorApi.h</a>&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="_command_8h.html">Cpl/TShell/Command.h</a>&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_map_8h.html">Cpl/Container/Map.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"></span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">///</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_cpl.html">Cpl</a> {<span class="comment"></span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">///</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"></span><span class="keyword">namespace </span>TShell {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"></span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">/** This Private Namespace class defines a &quot;Context&quot; for a TShell command. The</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">    Context provide common infrastructure, information, buffers, etc. that</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">    facilitates interaction between the Command Processor and individual</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">    commands.  The application SHOULD NEVER directly access this interface.</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html">   30</a></span><span class="keyword">class </span><a class="code hl_class" href="class_cpl_1_1_t_shell_1_1_context__.html">Context_</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_cpl_1_1_t_shell_1_1_processor_api.html">ProcessorApi</a></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">public</span>:<span class="comment"></span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">    /// This method returns the list of implemented commands</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#aa3d3ef03d27edaad8745cb3902c41ec0">   34</a></span><span class="comment"></span>    <span class="keyword">virtual</span> <a class="code hl_class" href="class_cpl_1_1_container_1_1_map.html">Cpl::Container::Map&lt;Command&gt;</a>&amp; <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#aa3d3ef03d27edaad8745cb3902c41ec0">getCommands</a>() noexcept = 0;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>public:<span class="comment"></span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">    /// This method encodes and outputs the specified message/text.  The method returns false if there was Output Stream error</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a2f860f792323f0d8a2fa03edf82f2a30">   38</a></span><span class="comment"></span>    virtual <span class="keywordtype">bool</span> <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a2f860f792323f0d8a2fa03edf82f2a30">writeFrame</a>( const <span class="keywordtype">char</span>* text ) noexcept = 0;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"></span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">    /// Same as writeFrame(), but only outputs (at most) &#39;N&#39; bytes as the content of the frame</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a411feaef00189cfa85bc5ab86715e3ca">   41</a></span><span class="comment"></span>    virtual <span class="keywordtype">bool</span> <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a2f860f792323f0d8a2fa03edf82f2a30">writeFrame</a>( const <span class="keywordtype">char</span>* text, <span class="keywordtype">size_t</span> maxBytes ) noexcept = 0;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="_security_8h.html">Cpl/TShell/Security.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_command_8h.html">Cpl/TShell/Command.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="_map_8h.html">Cpl/Container/Map.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"></span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">///</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_cpl.html">Cpl</a> {<span class="comment"></span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">///</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"></span><span class="keyword">namespace </span>TShell {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"></span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">/** This Private Namespace class defines a &quot;Context&quot; for a TShell command. The</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">    Context provide common infrastructure, information, buffers, etc. that</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">    facilitates interaction between the Command Processor and individual</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">    commands.  The application SHOULD NEVER directly access this interface.</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html">   31</a></span><span class="keyword">class </span><a class="code hl_class" href="class_cpl_1_1_t_shell_1_1_context__.html">Context_</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_cpl_1_1_t_shell_1_1_processor_api.html">ProcessorApi</a></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">    /// This method returns the list of implemented commands</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#aa3d3ef03d27edaad8745cb3902c41ec0">   35</a></span><span class="comment"></span>    <span class="keyword">virtual</span> <a class="code hl_class" href="class_cpl_1_1_container_1_1_map.html">Cpl::Container::Map&lt;Command&gt;</a>&amp; <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#aa3d3ef03d27edaad8745cb3902c41ec0">getCommands</a>() noexcept = 0;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>public:<span class="comment"></span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">    /// This method encodes and outputs the specified message/text.  The method returns false if there was Output Stream error</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a2f860f792323f0d8a2fa03edf82f2a30">   39</a></span><span class="comment"></span>    virtual <span class="keywordtype">bool</span> <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a2f860f792323f0d8a2fa03edf82f2a30">writeFrame</a>( const <span class="keywordtype">char</span>* text ) noexcept = 0;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment"></span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">    /// Same as writeFrame(), but only outputs (at most) &#39;N&#39; bytes as the content of the frame</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a411feaef00189cfa85bc5ab86715e3ca">   42</a></span><span class="comment"></span>    virtual <span class="keywordtype">bool</span> <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a2f860f792323f0d8a2fa03edf82f2a30">writeFrame</a>( const <span class="keywordtype">char</span>* text, <span class="keywordtype">size_t</span> maxBytes ) noexcept = 0;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>public:<span class="comment"></span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">    /** This method returns a working buffer for a command to format its</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">        output prior to &#39;writing the frame&#39;.</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#affe7602f10a0d028b716d0d7b6d45352">   48</a></span>    virtual <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::Text::String&amp; <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#affe7602f10a0d028b716d0d7b6d45352">getOutputBuffer</a>() noexcept = 0;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"></span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">    /** A shared/common working buffer. The buffer is guaranteed to be large</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">        enough hold any valid token from an input frame.  The contents of</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">        buffer is guaranteed to be empty/cleared.</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a72fee4b082049837bb63ca3dd6a5fa3b">   54</a></span>    virtual <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::Text::String&amp; <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a72fee4b082049837bb63ca3dd6a5fa3b">getTokenBuffer</a>() noexcept = 0;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"></span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">    /** Same as getTokenBuffer(), except provides a second/separate token buffer</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a07b7ad13cd05020e372cb6806e4642c2">   58</a></span>    virtual <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::Text::String&amp; <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a07b7ad13cd05020e372cb6806e4642c2">getTokenBuffer2</a>() noexcept = 0;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>public:<span class="comment"></span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">    /** This method returns a working buffer for a command to format its</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">        output prior to &#39;writing the frame&#39;.</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#affe7602f10a0d028b716d0d7b6d45352">   49</a></span>    virtual <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::Text::String&amp; <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#affe7602f10a0d028b716d0d7b6d45352">getOutputBuffer</a>() noexcept = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"></span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">    /** A shared/common working buffer. The buffer is guaranteed to be large</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">        enough hold any valid token from an input frame.  The contents of</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">        buffer is guaranteed to be empty/cleared.</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a72fee4b082049837bb63ca3dd6a5fa3b">   55</a></span>    virtual <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::Text::String&amp; <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a72fee4b082049837bb63ca3dd6a5fa3b">getTokenBuffer</a>() noexcept = 0;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"></span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">    /** Same as getTokenBuffer(), except provides a second/separate token buffer</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a07b7ad13cd05020e372cb6806e4642c2">   59</a></span>    virtual <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::Text::String&amp; <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a07b7ad13cd05020e372cb6806e4642c2">getTokenBuffer2</a>() noexcept = 0;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>public:<span class="comment"></span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">    /// Virtual destructor</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a05d517252283adbc6a1ba7796b77c89f">   63</a></span><span class="comment"></span>    virtual ~<a class="code hl_class" href="class_cpl_1_1_t_shell_1_1_context__.html">Context_</a>() {}</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};      <span class="comment">// end namespaces</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>public:<span class="comment"></span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">    /** This method allows a command access to the input stream, i.e. consume</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">        additional input data that is &#39;out-of-band&#39; of the nominal newline</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">        delineated command syntax.</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment"></span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">        Attempts to read the specified number of bytes from the stream into the</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">        supplied buffer.  The actual number of bytes read is returned via</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">        &#39;bytesRead&#39;. Returns true if successful, or false if End-of-Stream</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">        was encountered.</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a22a6e22ea3efe56b52c1a0008d979a88">   72</a></span>    virtual <span class="keywordtype">bool</span> <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a22a6e22ea3efe56b52c1a0008d979a88">oobRead</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">int</span> numBytes, <span class="keywordtype">int</span>&amp; bytesRead ) noexcept = 0;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>public:<span class="comment"></span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">    /** This method returns the &#39;logged user&#39; permission level</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a669085470e3f5c90829564ec07f50814">   77</a></span>    virtual <a class="code hl_class" href="class_cpl_1_1_t_shell_1_1_security.html">Security</a>::Permission_T <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#a669085470e3f5c90829564ec07f50814">getUserPermissionLevel</a>() const noexcept = 0;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"></span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">    /** This method is used to updated the &#39;logged user&#39; permission level.  The</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">        method returns the previous value for the user&#39;s permission level.</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"></span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">        NOTE: The program model is that all command implementations are well </span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">              behaved in that they do not indiscriminately call this method.  </span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">              In practice only the &#39;user&#39; command should every call this method!</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#ac9342a0b5fd4e527a88bb6bda92cf6ba">   86</a></span>    virtual <a class="code hl_class" href="class_cpl_1_1_t_shell_1_1_security.html">Security</a>::Permission_T <a class="code hl_function" href="class_cpl_1_1_t_shell_1_1_context__.html#ac9342a0b5fd4e527a88bb6bda92cf6ba">setUserPermissionLevel</a>( <a class="code hl_class" href="class_cpl_1_1_t_shell_1_1_security.html">Security</a>::Permission_T newPermissionLevel ) noexcept = 0;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>public:<span class="comment"></span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">    /// Virtual destructor</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="class_cpl_1_1_t_shell_1_1_context__.html#a05d517252283adbc6a1ba7796b77c89f">   91</a></span><span class="comment"></span>    virtual ~<a class="code hl_class" href="class_cpl_1_1_t_shell_1_1_context__.html">Context_</a>() {}</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>};      <span class="comment">// end namespaces</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>};</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
 <div class="ttc" id="a_command_8h_html"><div class="ttname"><a href="_command_8h.html">Command.h</a></div></div>
 <div class="ttc" id="a_map_8h_html"><div class="ttname"><a href="_map_8h.html">Map.h</a></div></div>
 <div class="ttc" id="a_processor_api_8h_html"><div class="ttname"><a href="_processor_api_8h.html">ProcessorApi.h</a></div></div>
+<div class="ttc" id="a_security_8h_html"><div class="ttname"><a href="_security_8h.html">Security.h</a></div></div>
 <div class="ttc" id="aclass_cpl_1_1_container_1_1_map_html"><div class="ttname"><a href="class_cpl_1_1_container_1_1_map.html">Cpl::Container::Map</a></div><div class="ttdoc">This template class implements an Map using an AVL Binary tree (i.e.</div><div class="ttdef"><b>Definition:</b> Map.h:34</div></div>
-<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></div><div class="ttdoc">This Private Namespace class defines a &quot;Context&quot; for a TShell command.</div><div class="ttdef"><b>Definition:</b> Context_.h:31</div></div>
+<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></div><div class="ttdoc">This Private Namespace class defines a &quot;Context&quot; for a TShell command.</div><div class="ttdef"><b>Definition:</b> Context_.h:32</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html_a07b7ad13cd05020e372cb6806e4642c2"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html#a07b7ad13cd05020e372cb6806e4642c2">Cpl::TShell::Context_::getTokenBuffer2</a></div><div class="ttdeci">virtual Cpl::Text::String &amp; getTokenBuffer2() noexcept=0</div><div class="ttdoc">Same as getTokenBuffer(), except provides a second/separate token buffer.</div></div>
+<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html_a22a6e22ea3efe56b52c1a0008d979a88"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html#a22a6e22ea3efe56b52c1a0008d979a88">Cpl::TShell::Context_::oobRead</a></div><div class="ttdeci">virtual bool oobRead(void *buffer, int numBytes, int &amp;bytesRead) noexcept=0</div><div class="ttdoc">This method allows a command access to the input stream, i.e.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html_a2f860f792323f0d8a2fa03edf82f2a30"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html#a2f860f792323f0d8a2fa03edf82f2a30">Cpl::TShell::Context_::writeFrame</a></div><div class="ttdeci">virtual bool writeFrame(const char *text) noexcept=0</div><div class="ttdoc">This method encodes and outputs the specified message/text. The method returns false if there was Out...</div></div>
+<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html_a669085470e3f5c90829564ec07f50814"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html#a669085470e3f5c90829564ec07f50814">Cpl::TShell::Context_::getUserPermissionLevel</a></div><div class="ttdeci">virtual Security::Permission_T getUserPermissionLevel() const noexcept=0</div><div class="ttdoc">This method returns the 'logged user' permission level.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html_a72fee4b082049837bb63ca3dd6a5fa3b"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html#a72fee4b082049837bb63ca3dd6a5fa3b">Cpl::TShell::Context_::getTokenBuffer</a></div><div class="ttdeci">virtual Cpl::Text::String &amp; getTokenBuffer() noexcept=0</div><div class="ttdoc">A shared/common working buffer.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html_aa3d3ef03d27edaad8745cb3902c41ec0"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html#aa3d3ef03d27edaad8745cb3902c41ec0">Cpl::TShell::Context_::getCommands</a></div><div class="ttdeci">virtual Cpl::Container::Map&lt; Command &gt; &amp; getCommands() noexcept=0</div><div class="ttdoc">This method returns the list of implemented commands.</div></div>
+<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html_ac9342a0b5fd4e527a88bb6bda92cf6ba"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html#ac9342a0b5fd4e527a88bb6bda92cf6ba">Cpl::TShell::Context_::setUserPermissionLevel</a></div><div class="ttdeci">virtual Security::Permission_T setUserPermissionLevel(Security::Permission_T newPermissionLevel) noexcept=0</div><div class="ttdoc">This method is used to updated the 'logged user' permission level.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_context___html_affe7602f10a0d028b716d0d7b6d45352"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_context__.html#affe7602f10a0d028b716d0d7b6d45352">Cpl::TShell::Context_::getOutputBuffer</a></div><div class="ttdeci">virtual Cpl::Text::String &amp; getOutputBuffer() noexcept=0</div><div class="ttdoc">This method returns a working buffer for a command to format its output prior to 'writing the frame'.</div></div>
-<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_processor_api_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></div><div class="ttdoc">This class defines the interface a TShell Command Processor.</div><div class="ttdef"><b>Definition:</b> ProcessorApi.h:30</div></div>
+<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_processor_api_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></div><div class="ttdoc">This class defines the interface a TShell Command Processor.</div><div class="ttdef"><b>Definition:</b> ProcessorApi.h:33</div></div>
+<div class="ttc" id="aclass_cpl_1_1_t_shell_1_1_security_html"><div class="ttname"><a href="class_cpl_1_1_t_shell_1_1_security.html">Cpl::TShell::Security</a></div><div class="ttdoc">This abstract defines the interface for validating a 'user login' for TShell.</div><div class="ttdef"><b>Definition:</b> Security.h:31</div></div>
 <div class="ttc" id="anamespace_cpl_html"><div class="ttname"><a href="namespace_cpl.html">Cpl</a></div><div class="ttdoc">The 'Cpl' namespace is the root name space for the Colony.</div><div class="ttdef"><b>Definition:</b> Api16.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

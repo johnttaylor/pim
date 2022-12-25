@@ -11,26 +11,27 @@
 
 #include "colony_config.h"
 #include "Algorithm.h"
+#include "Main.h"
 #include <stdlib.h>
 #include <time.h>
 
 
 #ifndef OPTION_ALGORITHM_SAMPLE_TIME_MS
-#define OPTION_ALGORITHM_SAMPLE_TIME_MS                 100
+#define OPTION_ALGORITHM_SAMPLE_TIME_MS                 100     // 10Hz
 #endif
 
 #ifndef OPTION_ALGORITHM_HIALARM_RAISE_THRESHOLD      
-#define OPTION_ALGORITHM_HIALARM_RAISE_THRESHOLD        996
+#define OPTION_ALGORITHM_HIALARM_RAISE_THRESHOLD        995
 #endif
 #ifndef OPTION_ALGORITHM_HIALARM_LOWER_THRESHOLD      
-#define OPTION_ALGORITHM_HIALARM_LOWER_THRESHOLD        4
+#define OPTION_ALGORITHM_HIALARM_LOWER_THRESHOLD        5
 #endif
 
 #ifndef OPTION_ALGORITHM_LOALARM_RAISE_THRESHOLD      
-#define OPTION_ALGORITHM_LOALARM_RAISE_THRESHOLD        4
+#define OPTION_ALGORITHM_LOALARM_RAISE_THRESHOLD        5
 #endif
 #ifndef OPTION_ALGORITHM_LOALARM_LOWER_THRESHOLD      
-#define OPTION_ALGORITHM_LOALARM_LOWER_THRESHOLD        996
+#define OPTION_ALGORITHM_LOALARM_LOWER_THRESHOLD        995
 #endif
 
 
@@ -39,6 +40,8 @@ Algorithm::Algorithm( Cpl::Dm::MailboxServer&  myMbox,
                       Cpl::Dm::Mp::Uint32&     mpInputSignal,
                       MpAlarm&                 mpHiAlarm,
                       MpAlarm&                 mpLoAlarm,
+                      Cpl::Dm::Mp::Uint32&     mpHiAlarmCounts,
+                      Cpl::Dm::Mp::Uint32&     mpLoAlarmCounts,
                       MpMetrics&               mpMetrics )
     : Cpl::Itc::CloseSync( myMbox )
     , Cpl::System::Timer( myMbox )
@@ -46,6 +49,8 @@ Algorithm::Algorithm( Cpl::Dm::MailboxServer&  myMbox,
     , m_mpHiAlarm( mpHiAlarm )
     , m_mpLoAlarm( mpLoAlarm )
     , m_mpMetrics( mpMetrics )
+    , m_mpHiAlarmCounts( mpHiAlarmCounts )
+    , m_mpLoAlarmCounts( mpLoAlarmCounts )
     , m_opened( false )
 {
 }
@@ -64,8 +69,7 @@ void Algorithm::request( Cpl::Itc::OpenRequest::OpenMsg& msg )
         m_mpHiAlarm.setInvalid();
         m_mpLoAlarm.setInvalid();
 
-        // Start my timer (for my periodic processing)
-        Timer::start( OPTION_ALGORITHM_SAMPLE_TIME_MS );
+        // Go do the processing
         expired();
     }
 
@@ -106,6 +110,7 @@ void Algorithm::expired( void ) noexcept
             if ( inSignal >= OPTION_ALGORITHM_HIALARM_RAISE_THRESHOLD )
             {
                 m_mpHiAlarm.raise( inSignal );  
+                m_mpHiAlarmCounts.increment();
             }
         }
 
@@ -124,6 +129,7 @@ void Algorithm::expired( void ) noexcept
             if ( inSignal <= OPTION_ALGORITHM_LOALARM_RAISE_THRESHOLD )
             {
                 m_mpLoAlarm.raise( inSignal );  
+                m_mpLoAlarmCounts.increment();
             }
         }
 

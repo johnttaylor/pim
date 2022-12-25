@@ -50,6 +50,12 @@ extern Cpl::Dm::Mp::Uint32      bootCounter;
  */
 extern MpMetrics                metrics;
 
+/// The cumulative total number of HI Alarms
+extern Cpl::Dm::Mp::Uint32      hiAlarmCounts;
+
+/// The cumulative total number of LO Alarms
+extern Cpl::Dm::Mp::Uint32      loAlarmCounts;
+
 /// The Application's Model Point Database
 extern Cpl::Dm::ModelDatabase   g_modelDatabase;
 

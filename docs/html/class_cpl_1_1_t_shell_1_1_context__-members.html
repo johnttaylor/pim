@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Member List</title>
+<title>Patterns in the Machine: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -59,8 +59,12 @@ $(function() {
   <tr class="odd"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aab46bf36f12260ce5c3b25936c9f0089">getTerminatorChar</a>() noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a72fee4b082049837bb63ca3dd6a5fa3b">getTokenBuffer</a>() noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a07b7ad13cd05020e372cb6806e4642c2">getTokenBuffer2</a>() noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aa581a97e12d57efcd873fd1cba1ff5b3">requestStop</a>() noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#adc6d389c83d778dce27af5b3168168f6">start</a>(Cpl::Io::Input &amp;infd, Cpl::Io::Output &amp;outfd) noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a669085470e3f5c90829564ec07f50814">getUserPermissionLevel</a>() const noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a22a6e22ea3efe56b52c1a0008d979a88">oobRead</a>(void *buffer, int numBytes, int &amp;bytesRead) noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aafe9d85cf1b886c89472e3a0b9c1020b">poll</a>() noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aa581a97e12d57efcd873fd1cba1ff5b3">requestStop</a>() noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#ac9342a0b5fd4e527a88bb6bda92cf6ba">setUserPermissionLevel</a>(Security::Permission_T newPermissionLevel) noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#afefa07f5918ab5bee5281d83ad09965f">start</a>(Cpl::Io::Input &amp;infd, Cpl::Io::Output &amp;outfd, bool blocking=true) noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html">Cpl::TShell::ProcessorApi</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a2f860f792323f0d8a2fa03edf82f2a30">writeFrame</a>(const char *text) noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="odd"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a411feaef00189cfa85bc5ab86715e3ca">writeFrame</a>(const char *text, size_t maxBytes) noexcept=0</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a05d517252283adbc6a1ba7796b77c89f">~Context_</a>()</td><td class="entry"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
@@ -68,7 +72,7 @@ $(function() {
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:46 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:56 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>
