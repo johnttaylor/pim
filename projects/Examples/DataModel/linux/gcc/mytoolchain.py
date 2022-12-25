@@ -29,10 +29,7 @@ from nqbplib.my_globals import NQBP_WORK_ROOT
 #---------------------------------------------------
 
 # Set the name for the final output item
-FINAL_OUTPUT_NAME = 'thermostat-simulation.out'
-
-# Main directory by object module to work around static object creation issues with the MS compiler
-main_objects = '_BUILT_DIR_.src/Storm/Thermostat/Main'
+FINAL_OUTPUT_NAME = 'datamodel-example.out'
 
 #
 # For build config/variant: "Release" (aka posix build variant)
@@ -47,7 +44,6 @@ base_release           = BuildValues()        # Do NOT comment out this line
 base_release.cflags    = '-m32 -std=c++11 -Wall -Werror -x c++'
 base_release.linkflags = '-m32'
 base_release.linklibs  = '-lpthread -lm'
-base_release.firstobjs = main_objects
 
 
 # Set project specific 'optimized' options
@@ -75,7 +71,6 @@ debug_cpp11    = BuildValues()
 base_cpp11.cflags     = '-m64 -std=c++11 -Wall -Werror -x c++'
 base_cpp11.linkflags  = '-m64'
 base_cpp11.linklibs   = '-pthread -lm'
-base_cpp11.firstobjs  = main_objects
 
 # Set 'Optimized' options
 optimzed_cpp11.cflags    = '-O3'
@@ -100,7 +95,6 @@ debug_posix64    = BuildValues()
 base_posix64.cflags    = '-m64 -std=c++11 -Wall -Werror -x c++'
 base_posix64.linkflags = '-m64'
 base_posix64.linklibs  = '-lpthread -lm'
-base_posix64.firstobjs = main_objects
 
 # Set project specific 'optimized' options
 optimzed_posix64.cflags    = '-O3'

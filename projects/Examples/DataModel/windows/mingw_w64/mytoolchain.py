@@ -30,7 +30,7 @@ from nqbplib.my_globals import NQBP_WORK_ROOT
 #---------------------------------------------------
 
 # Set the name for the final output item
-FINAL_OUTPUT_NAME = 'thermostat-simulation.exe'
+FINAL_OUTPUT_NAME = 'datamodel-example.exe'
 
 
 # Set project specific 'base' (i.e always used) options
