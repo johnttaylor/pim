@@ -149,7 +149,7 @@ TEST_CASE( "MpFanMode" )
     SECTION( "observer" )
     {
         Cpl::Dm::MailboxServer   t1Mbox;
-        Viewer<MpFanMode>        viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        Viewer<MpFanMode, Storm::Type::FanMode>        viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_, Storm::Type::FanMode::eCONTINUOUS );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox, "T1" );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test

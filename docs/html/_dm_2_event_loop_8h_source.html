@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/Dm/EventLoop.h Source File</title>
+<title>Patterns in the Machine: Cpl/Dm/EventLoop.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,7 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -132,30 +132,38 @@ $(function() {
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_event_loop.html#a42944f91a48d4ce39e5fb1ca2ad4e313">   82</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_event_loop.html#a42944f91a48d4ce39e5fb1ca2ad4e313">addPendingChangingNotification_</a>( <a class="code hl_class" href="class_cpl_1_1_dm_1_1_subscriber_api.html">SubscriberApi</a>&amp; subscriber ) noexcept;</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"></span> </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">    /** This method has PACKAGE Scope, i.e. it is intended to be ONLY accessible</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">    by other classes in the Cpl::Dm namespace.  The Application should</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">    NEVER call this method.</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">        by other classes in the Cpl::Dm namespace.  The Application should</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">        NEVER call this method.</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"></span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">    This method is used remove a pending &#39;change notification&#39; from its list</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">    of pending change notifications.  It is okay to call this method even if</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">    the Subscriber is not current registered for change notifications.</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">        This method is used remove a pending &#39;change notification&#39; from its list</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">        of pending change notifications.  It is okay to call this method even if</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">        the Subscriber is not current registered for change notifications.</span></div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment"></span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">     This method IS thread safe.</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">        This method IS thread safe.</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment"></span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">     NOTE: The requirements and/or semantics of Model Point subscription is</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">           that Subscriptions, Notifications, and Cancel-of-Subscriptions</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">           all happen in a SINGLE thread and that thread is the &#39;Subscribers&#39;</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">           thread.</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">        NOTE: The requirements and/or semantics of Model Point subscription is</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">              that Subscriptions, Notifications, and Cancel-of-Subscriptions</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">              all happen in a SINGLE thread and that thread is the &#39;Subscribers&#39;</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">              thread.</span></div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">     */</span></div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_event_loop.html#ae471e0da9df844b1cfadad82738ed330">   99</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_event_loop.html#ae471e0da9df844b1cfadad82738ed330">removePendingChangingNotification_</a>( <a class="code hl_class" href="class_cpl_1_1_dm_1_1_subscriber_api.html">SubscriberApi</a>&amp; subscriber ) noexcept;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>protected:<span class="comment"></span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">    /// This helper method processes pending change notifications</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_event_loop.html#a23c3093d020e8f4107f8ee3a82ac3185">  103</a></span><span class="comment"></span>    virtual <span class="keywordtype">void</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_event_loop.html#a23c3093d020e8f4107f8ee3a82ac3185">processChangeNotifications</a>() noexcept;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>};</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>};      <span class="comment">// end namespaces</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>};</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>protected:<span class="comment"></span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">    /** This method returns true if there is at least one pending change</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">        notification.</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment"></span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">        This method IS thread safe.</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_event_loop.html#a99deada7a25cf0bd05ac5df0503b2902">  108</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_event_loop.html#a99deada7a25cf0bd05ac5df0503b2902">isPendingPendingChangingNotifications</a>() noexcept;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment"></span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">    /// This helper method processes pending change notifications</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_event_loop.html#a23c3093d020e8f4107f8ee3a82ac3185">  111</a></span><span class="comment"></span>    virtual <span class="keywordtype">void</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_event_loop.html#a23c3093d020e8f4107f8ee3a82ac3185">processChangeNotifications</a>() noexcept;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>};</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>};      <span class="comment">// end namespaces</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>};</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
 <div class="ttc" id="a_d_list_8h_html"><div class="ttname"><a href="_d_list_8h.html">DList.h</a></div></div>
 <div class="ttc" id="a_notification_api___8h_html"><div class="ttname"><a href="_notification_api___8h.html">NotificationApi_.h</a></div></div>
 <div class="ttc" id="a_subscriber_api_8h_html"><div class="ttname"><a href="_subscriber_api_8h.html">SubscriberApi.h</a></div></div>
@@ -167,6 +175,7 @@ $(function() {
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_event_loop_html_a23c3093d020e8f4107f8ee3a82ac3185"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_event_loop.html#a23c3093d020e8f4107f8ee3a82ac3185">Cpl::Dm::EventLoop::processChangeNotifications</a></div><div class="ttdeci">virtual void processChangeNotifications() noexcept</div><div class="ttdoc">This helper method processes pending change notifications.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_event_loop_html_a42944f91a48d4ce39e5fb1ca2ad4e313"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_event_loop.html#a42944f91a48d4ce39e5fb1ca2ad4e313">Cpl::Dm::EventLoop::addPendingChangingNotification_</a></div><div class="ttdeci">void addPendingChangingNotification_(SubscriberApi &amp;subscriber) noexcept</div><div class="ttdoc">This method has PACKAGE Scope, i.e.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_event_loop_html_a9874014c70f0b545fe59745b2146328a"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_event_loop.html#a9874014c70f0b545fe59745b2146328a">Cpl::Dm::EventLoop::appRun</a></div><div class="ttdeci">void appRun()</div><div class="ttdoc">See Cpl::System::Runnable.</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_event_loop_html_a99deada7a25cf0bd05ac5df0503b2902"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_event_loop.html#a99deada7a25cf0bd05ac5df0503b2902">Cpl::Dm::EventLoop::isPendingPendingChangingNotifications</a></div><div class="ttdeci">bool isPendingPendingChangingNotifications() noexcept</div><div class="ttdoc">This method returns true if there is at least one pending change notification.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_event_loop_html_ae471e0da9df844b1cfadad82738ed330"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_event_loop.html#ae471e0da9df844b1cfadad82738ed330">Cpl::Dm::EventLoop::removePendingChangingNotification_</a></div><div class="ttdeci">void removePendingChangingNotification_(SubscriberApi &amp;subscriber) noexcept</div><div class="ttdoc">This method has PACKAGE Scope, i.e.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_event_loop_html_ae923a283d3bf8ee2538f459efb1c640e"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_event_loop.html#ae923a283d3bf8ee2538f459efb1c640e">Cpl::Dm::EventLoop::m_pendingMpNotifications</a></div><div class="ttdeci">Cpl::Container::DList&lt; SubscriberApi &gt; m_pendingMpNotifications</div><div class="ttdoc">List of pending Model Point Change Notifications.</div><div class="ttdef"><b>Definition:</b> EventLoop.h:47</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_event_loop_html_ae99fd35efcdb518d4a40aa22df890530"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_event_loop.html#ae99fd35efcdb518d4a40aa22df890530">Cpl::Dm::EventLoop::EventLoop</a></div><div class="ttdeci">EventLoop(unsigned long timingTickInMsec=OPTION_CPL_SYSTEM_EVENT_LOOP_TIMEOUT_PERIOD, Cpl::System::SharedEventHandlerApi *eventHandler=0) noexcept</div><div class="ttdoc">Constructor.</div></div>
@@ -178,7 +187,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

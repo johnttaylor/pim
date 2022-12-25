@@ -18,7 +18,7 @@
 #include "Cpl/Text/FString.h"
 #include "Cpl/Text/DString.h"
 #include "Cpl/Dm/ModelDatabase.h"
-#include "Cpl/Dm/Mp/String_.h"
+#include "Cpl/Dm/Mp/String.h"
 #include "Cpl/Itc/CloseSync.h"
 #include <string.h>
 
@@ -32,36 +32,6 @@
 
 using namespace Cpl::Dm;
 
-////////////////////////////////////////////////////////////////////////////////
-namespace {
-
-// Define a concrete 'String' child class
-class MyUut : public Mp::String_<MY_UUT_DATA_SIZE,MyUut>
-{
-public:
-    MyUut( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
-        : Mp::String_<MY_UUT_DATA_SIZE, MyUut>( myModelBase, symbolicName )
-    {
-    }
-
-    /// Constructor. Valid Point.  Requires an initial value
-    MyUut( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName, const char* initialValue )
-        : Mp::String_<MY_UUT_DATA_SIZE, MyUut>( myModelBase, symbolicName, initialValue )
-    {
-    }
-
-    ///  See Cpl::Dm::ModelPoint.
-    const char* getTypeAsText() const noexcept
-    {
-        return "Cpl::Dm::Mp::MyUut";
-    }
-
-    /// Type safe subscriber
-    typedef Cpl::Dm::Subscriber<MyUut> Observer;
-};
-
-
-} // end ANONYMOUS namespace
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -69,8 +39,8 @@ public:
 static ModelDatabase    modelDb_( "ignoreThisParameter_usedToInvokeTheStaticConstructor" );
 
 // Allocate my Model Points
-static MyUut       mp_apple_( modelDb_, "APPLE" );
-static MyUut       mp_orange_( modelDb_, "ORANGE", INITIAL_VALUE );
+static Mp::String<MY_UUT_DATA_SIZE> mp_apple_( modelDb_, "APPLE" );
+static Mp::String<MY_UUT_DATA_SIZE> mp_orange_( modelDb_, "ORANGE", INITIAL_VALUE );
 
 // Don't let the Runnable object go out of scope before its thread has actually terminated!
 static MailboxServer         t1Mbox_;
@@ -107,7 +77,7 @@ TEST_CASE( "String" )
 
         const char* mpType = mp_apple_.getTypeAsText();
         CPL_SYSTEM_TRACE_MSG( SECT_, ("typeText: [%s]", mpType) );
-        REQUIRE( strcmp( mpType, "Cpl::Dm::Mp::MyUut" ) == 0 );
+        REQUIRE( strcmp( mpType, "Cpl::Dm::Mp::String" ) == 0 );
     }
 
 
@@ -165,12 +135,13 @@ TEST_CASE( "String" )
         REQUIRE( err == DeserializationError::Ok );
         REQUIRE( doc["locked"] == false );
         REQUIRE( doc["valid"] == true );
-        REQUIRE( STRCMP(doc["val"], "Hi Bob") );
+        REQUIRE( doc["val"]["maxLen"] == MY_UUT_DATA_SIZE );
+        REQUIRE( STRCMP(doc["val"]["text"], "Hi Bob") );
     }
 
     SECTION( "fromJSON" )
     {
-        const char* json = "{name:\"APPLE\", val:\"good bye\"}";
+        const char* json = "{name:\"APPLE\", val:{text:\"good bye\"}}";
         bool result = modelDb_.fromJSON( json );
         REQUIRE( result == true );
         valid = mp_apple_.read( valStr );
@@ -189,19 +160,22 @@ TEST_CASE( "String" )
     SECTION( "observer" )
     {
         CPL_SYSTEM_TRACE_SCOPE( SECT_, "observer test" );
-        Viewer<MyUut>        viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        Cpl::Text::FString<10> expectedVal = "bob";
+        Viewer<Mp::String<MY_UUT_DATA_SIZE>, Cpl::Text::FString<10>>  viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_, expectedVal );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox_, "T1" );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test
         viewer_apple1.open();
-        mp_apple_.write( "bob" );
+        mp_apple_.write( expectedVal );
         Cpl::System::Thread::wait();
         viewer_apple1.close();
 
         // Shutdown threads
         t1Mbox_.pleaseStop();
-        WAIT_FOR_THREAD_TO_STOP( t1 );
+        Cpl::System::Api::sleep( 100 ); // allow time for threads to stop
+        REQUIRE( t1->isRunning() == false );
         Cpl::System::Thread::destroy( *t1 );
+        Cpl::System::Api::sleep( 100 ); // allow time for threads to stop BEFORE the runnable object goes out of scope
     }
 
     REQUIRE( Cpl::System::Shutdown_TS::getAndClearCounter() == 0u );

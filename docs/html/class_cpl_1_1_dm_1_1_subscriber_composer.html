@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl::Dm::SubscriberComposer&lt; CONTEXT, MP &gt; Class Template Reference</title>
+<title>Patterns in the Machine: Cpl::Dm::SubscriberComposer&lt; CONTEXT, MP &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -59,7 +59,7 @@ $(function() {
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class CONTEXT, class MP&gt;<br />
 class Cpl::Dm::SubscriberComposer&lt; CONTEXT, MP &gt;</div><p >This template class is a composer pattern/class that manages the callback function for a Model Point's Subscribers/Observers change notification. </p>
-<p >A Composer is a structural pattern that may be used to employ composition when implementing an interface rather than using multiple inheritance. This allows a single concrete object to receive the RMW callbacks from many Model Points.</p>
+<p >A Composer is a structural pattern that may be used to employ composition when implementing an interface rather than using multiple inheritance. This allows a single concrete object to receive the change notifications callbacks from many Model Points.</p>
 <p >Template Arguments: CONTEXT - The class that implements the Callback function MP - The concrete Model Point type. </p>
 </div>
 <p><code>#include &lt;<a class="el" href="_subscriber_composer_8h_source.html">SubscriberComposer.h</a>&gt;</code></p>
@@ -75,23 +75,23 @@ class Cpl::Dm::SubscriberComposer&lt; CONTEXT, MP &gt;</div><p >This template cl
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_dm_1_1_subscriber_composer__coll__graph.svg" width="2279" height="459"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_dm_1_1_subscriber_composer__coll__graph.svg" width="2291" height="459"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ae8cdc6590677e20477c113e000515988"><td class="memItemLeft" align="right" valign="top">typedef void(CONTEXT::*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#ae8cdc6590677e20477c113e000515988">NotificationFunc_T</a>) (MP &amp;modelPointThatChanged)</td></tr>
-<tr class="memdesc:ae8cdc6590677e20477c113e000515988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define a callback method function for the Change Notification callback (See <a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html#af18843c12be72d0f193105252984ed85" title="Type safe change notification. See Cpl::Dm::SubscriberApi.">Cpl::Dm::Subscriber&lt;MP&gt;::modelPointChanged</a> for additional details)  <a href="class_cpl_1_1_dm_1_1_subscriber_composer.html#ae8cdc6590677e20477c113e000515988">More...</a><br /></td></tr>
-<tr class="separator:ae8cdc6590677e20477c113e000515988"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abad50e0aa3ce292827dc9dbe4ec12dff"><td class="memItemLeft" align="right" valign="top">typedef void(CONTEXT::*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#abad50e0aa3ce292827dc9dbe4ec12dff">NotificationFunc_T</a>) (MP &amp;modelPointThatChanged, <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_api.html">SubscriberApi</a> &amp;clientObserver)</td></tr>
+<tr class="memdesc:abad50e0aa3ce292827dc9dbe4ec12dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define a callback method function for the Change Notification callback (See <a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html#a3e8482dbe4300711f68353b1f94840ec" title="Type safe change notification. See Cpl::Dm::SubscriberApi.">Cpl::Dm::Subscriber&lt;MP&gt;::modelPointChanged</a> for additional details)  <a href="class_cpl_1_1_dm_1_1_subscriber_composer.html#abad50e0aa3ce292827dc9dbe4ec12dff">More...</a><br /></td></tr>
+<tr class="separator:abad50e0aa3ce292827dc9dbe4ec12dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a454edcab6e27149bcf315c8bedb2c150"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a454edcab6e27149bcf315c8bedb2c150">SubscriberComposer</a> (<a class="el" href="class_cpl_1_1_dm_1_1_event_loop.html">Cpl::Dm::EventLoop</a> &amp;myEventLoop, CONTEXT &amp;context, <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#ae8cdc6590677e20477c113e000515988">NotificationFunc_T</a> notifyCallback)</td></tr>
+<tr class="memitem:a454edcab6e27149bcf315c8bedb2c150"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a454edcab6e27149bcf315c8bedb2c150">SubscriberComposer</a> (<a class="el" href="class_cpl_1_1_dm_1_1_event_loop.html">Cpl::Dm::EventLoop</a> &amp;myEventLoop, CONTEXT &amp;context, <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#abad50e0aa3ce292827dc9dbe4ec12dff">NotificationFunc_T</a> notifyCallback)</td></tr>
 <tr class="memdesc:a454edcab6e27149bcf315c8bedb2c150"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a454edcab6e27149bcf315c8bedb2c150">More...</a><br /></td></tr>
 <tr class="separator:a454edcab6e27149bcf315c8bedb2c150"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4da8da732ca2a960f14e934ac5871ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#ac4da8da732ca2a960f14e934ac5871ec">modelPointChanged</a> (MP &amp;modelPointThatChanged) noexcept</td></tr>
-<tr class="memdesc:ac4da8da732ca2a960f14e934ac5871ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">See Cpl::Dm::Subscriber&lt;MP&gt;  <a href="class_cpl_1_1_dm_1_1_subscriber_composer.html#ac4da8da732ca2a960f14e934ac5871ec">More...</a><br /></td></tr>
-<tr class="separator:ac4da8da732ca2a960f14e934ac5871ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6245a9351cbdc0a63e9774f4ffe52c89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a6245a9351cbdc0a63e9774f4ffe52c89">modelPointChanged</a> (MP &amp;modelPointThatChanged, <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_api.html">SubscriberApi</a> &amp;clientObserver) noexcept</td></tr>
+<tr class="memdesc:a6245a9351cbdc0a63e9774f4ffe52c89"><td class="mdescLeft">&#160;</td><td class="mdescRight">See Cpl::Dm::Subscriber&lt;MP&gt;  <a href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a6245a9351cbdc0a63e9774f4ffe52c89">More...</a><br /></td></tr>
+<tr class="separator:a6245a9351cbdc0a63e9774f4ffe52c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_cpl_1_1_dm_1_1_subscriber"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_cpl_1_1_dm_1_1_subscriber')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html">Cpl::Dm::Subscriber&lt; MP &gt;</a></td></tr>
 <tr class="memitem:a77387f94341709accce8992bcea4bf5f inherit pub_methods_class_cpl_1_1_dm_1_1_subscriber"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html#a77387f94341709accce8992bcea4bf5f">Subscriber</a> (<a class="el" href="class_cpl_1_1_dm_1_1_event_loop.html">Cpl::Dm::EventLoop</a> &amp;myEventLoop)</td></tr>
 <tr class="memdesc:a77387f94341709accce8992bcea4bf5f inherit pub_methods_class_cpl_1_1_dm_1_1_subscriber"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="class_cpl_1_1_dm_1_1_subscriber.html#a77387f94341709accce8992bcea4bf5f">More...</a><br /></td></tr>
@@ -138,7 +138,7 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a964b69c8d42ec14ebd0f71154379899c"><td class="memItemLeft" align="right" valign="top">CONTEXT &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a964b69c8d42ec14ebd0f71154379899c">m_context</a></td></tr>
 <tr class="memdesc:a964b69c8d42ec14ebd0f71154379899c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class the implement the callback.  <a href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a964b69c8d42ec14ebd0f71154379899c">More...</a><br /></td></tr>
 <tr class="separator:a964b69c8d42ec14ebd0f71154379899c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5069cae7b9099c3f8be31ebda8e459ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#ae8cdc6590677e20477c113e000515988">NotificationFunc_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a5069cae7b9099c3f8be31ebda8e459ee">m_notificationCb</a></td></tr>
+<tr class="memitem:a5069cae7b9099c3f8be31ebda8e459ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#abad50e0aa3ce292827dc9dbe4ec12dff">NotificationFunc_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a5069cae7b9099c3f8be31ebda8e459ee">m_notificationCb</a></td></tr>
 <tr class="memdesc:a5069cae7b9099c3f8be31ebda8e459ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method (in my Context) to call for the change notification.  <a href="class_cpl_1_1_dm_1_1_subscriber_composer.html#a5069cae7b9099c3f8be31ebda8e459ee">More...</a><br /></td></tr>
 <tr class="separator:a5069cae7b9099c3f8be31ebda8e459ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_cpl_1_1_dm_1_1_subscriber_base"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_cpl_1_1_dm_1_1_subscriber_base')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_base.html">Cpl::Dm::SubscriberBase</a></td></tr>
@@ -173,9 +173,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a09f7f0b971261687bcae51fb49f0492b inherit pub_attribs_class_cpl_1_1_container_1_1_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug field.  <a href="class_cpl_1_1_container_1_1_item.html#a09f7f0b971261687bcae51fb49f0492b">More...</a><br /></td></tr>
 <tr class="separator:a09f7f0b971261687bcae51fb49f0492b inherit pub_attribs_class_cpl_1_1_container_1_1_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_cpl_1_1_dm_1_1_subscriber"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_cpl_1_1_dm_1_1_subscriber')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html">Cpl::Dm::Subscriber&lt; MP &gt;</a></td></tr>
-<tr class="memitem:a6803d7a9d0b844521211ca9d039aa045 inherit pro_methods_class_cpl_1_1_dm_1_1_subscriber"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html#a6803d7a9d0b844521211ca9d039aa045">genericModelPointChanged_</a> (<a class="el" href="class_cpl_1_1_dm_1_1_model_point.html">ModelPoint</a> &amp;modelPointThatChanged) noexcept</td></tr>
-<tr class="memdesc:a6803d7a9d0b844521211ca9d039aa045 inherit pro_methods_class_cpl_1_1_dm_1_1_subscriber"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_api.html" title="This abstract class defines the Subscriber interface - for change notifications - to a Model Points d...">Cpl::Dm::SubscriberApi</a>.  <a href="class_cpl_1_1_dm_1_1_subscriber.html#a6803d7a9d0b844521211ca9d039aa045">More...</a><br /></td></tr>
-<tr class="separator:a6803d7a9d0b844521211ca9d039aa045 inherit pro_methods_class_cpl_1_1_dm_1_1_subscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f548481186fb567b3b49c1475b697db inherit pro_methods_class_cpl_1_1_dm_1_1_subscriber"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html#a1f548481186fb567b3b49c1475b697db">genericModelPointChanged_</a> (<a class="el" href="class_cpl_1_1_dm_1_1_model_point.html">ModelPoint</a> &amp;modelPointThatChanged, <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_api.html">SubscriberApi</a> &amp;clientObserver) noexcept</td></tr>
+<tr class="memdesc:a1f548481186fb567b3b49c1475b697db inherit pro_methods_class_cpl_1_1_dm_1_1_subscriber"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_api.html" title="This abstract class defines the Subscriber interface - for change notifications - to a Model Points d...">Cpl::Dm::SubscriberApi</a>.  <a href="class_cpl_1_1_dm_1_1_subscriber.html#a1f548481186fb567b3b49c1475b697db">More...</a><br /></td></tr>
+<tr class="separator:a1f548481186fb567b3b49c1475b697db inherit pro_methods_class_cpl_1_1_dm_1_1_subscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_cpl_1_1_container_1_1_extended_item"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_cpl_1_1_container_1_1_extended_item')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_cpl_1_1_container_1_1_extended_item.html">Cpl::Container::ExtendedItem</a></td></tr>
 <tr class="memitem:acb8ee710707a49eda59572c3d666bf30 inherit pro_methods_class_cpl_1_1_container_1_1_extended_item"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_container_1_1_extended_item.html#acb8ee710707a49eda59572c3d666bf30">ExtendedItem</a> ()</td></tr>
 <tr class="memdesc:acb8ee710707a49eda59572c3d666bf30 inherit pro_methods_class_cpl_1_1_container_1_1_extended_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="class_cpl_1_1_container_1_1_extended_item.html#acb8ee710707a49eda59572c3d666bf30">More...</a><br /></td></tr>
@@ -192,8 +192,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a867b7aaf0541e97fae3f76e1c0eebac0 inherit pro_methods_class_cpl_1_1_container_1_1_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ae8cdc6590677e20477c113e000515988" name="ae8cdc6590677e20477c113e000515988"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8cdc6590677e20477c113e000515988">&#9670;&nbsp;</a></span>NotificationFunc_T</h2>
+<a id="abad50e0aa3ce292827dc9dbe4ec12dff" name="abad50e0aa3ce292827dc9dbe4ec12dff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abad50e0aa3ce292827dc9dbe4ec12dff">&#9670;&nbsp;</a></span>NotificationFunc_T</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,12 +201,12 @@ Additional Inherited Members</h2></td></tr>
 template&lt;class CONTEXT , class MP &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(CONTEXT::* <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html">Cpl::Dm::SubscriberComposer</a>&lt; CONTEXT, MP &gt;::NotificationFunc_T) (MP &amp;modelPointThatChanged)</td>
+          <td class="memname">typedef void(CONTEXT::* <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html">Cpl::Dm::SubscriberComposer</a>&lt; CONTEXT, MP &gt;::NotificationFunc_T) (MP &amp;modelPointThatChanged, <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_api.html">SubscriberApi</a> &amp;clientObserver)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Define a callback method function for the Change Notification callback (See <a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html#af18843c12be72d0f193105252984ed85" title="Type safe change notification. See Cpl::Dm::SubscriberApi.">Cpl::Dm::Subscriber&lt;MP&gt;::modelPointChanged</a> for additional details) </p>
+<p>Define a callback method function for the Change Notification callback (See <a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html#a3e8482dbe4300711f68353b1f94840ec" title="Type safe change notification. See Cpl::Dm::SubscriberApi.">Cpl::Dm::Subscriber&lt;MP&gt;::modelPointChanged</a> for additional details) </p>
 
 </div>
 </div>
@@ -234,7 +234,7 @@ template&lt;class CONTEXT , class MP &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#ae8cdc6590677e20477c113e000515988">NotificationFunc_T</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#abad50e0aa3ce292827dc9dbe4ec12dff">NotificationFunc_T</a>&#160;</td>
           <td class="paramname"><em>notifyCallback</em>&#160;</td>
         </tr>
         <tr>
@@ -250,8 +250,8 @@ template&lt;class CONTEXT , class MP &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac4da8da732ca2a960f14e934ac5871ec" name="ac4da8da732ca2a960f14e934ac5871ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4da8da732ca2a960f14e934ac5871ec">&#9670;&nbsp;</a></span>modelPointChanged()</h2>
+<a id="a6245a9351cbdc0a63e9774f4ffe52c89" name="a6245a9351cbdc0a63e9774f4ffe52c89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6245a9351cbdc0a63e9774f4ffe52c89">&#9670;&nbsp;</a></span>modelPointChanged()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,8 +265,18 @@ template&lt;class CONTEXT , class MP &gt; </div>
           <td class="memname">void <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html">Cpl::Dm::SubscriberComposer</a>&lt; CONTEXT, MP &gt;::modelPointChanged </td>
           <td>(</td>
           <td class="paramtype">MP &amp;&#160;</td>
-          <td class="paramname"><em>modelPointThatChanged</em></td><td>)</td>
+          <td class="paramname"><em>modelPointThatChanged</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_api.html">SubscriberApi</a> &amp;&#160;</td>
+          <td class="paramname"><em>clientObserver</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -278,7 +288,7 @@ template&lt;class CONTEXT , class MP &gt; </div>
 
 <p>See Cpl::Dm::Subscriber&lt;MP&gt; </p>
 
-<p>Implements <a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html#af18843c12be72d0f193105252984ed85">Cpl::Dm::Subscriber&lt; MP &gt;</a>.</p>
+<p>Implements <a class="el" href="class_cpl_1_1_dm_1_1_subscriber.html#a3e8482dbe4300711f68353b1f94840ec">Cpl::Dm::Subscriber&lt; MP &gt;</a>.</p>
 
 </div>
 </div>
@@ -321,7 +331,7 @@ template&lt;class CONTEXT , class MP &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#ae8cdc6590677e20477c113e000515988">NotificationFunc_T</a> <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html">Cpl::Dm::SubscriberComposer</a>&lt; CONTEXT, MP &gt;::m_notificationCb</td>
+          <td class="memname"><a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html#abad50e0aa3ce292827dc9dbe4ec12dff">NotificationFunc_T</a> <a class="el" href="class_cpl_1_1_dm_1_1_subscriber_composer.html">Cpl::Dm::SubscriberComposer</a>&lt; CONTEXT, MP &gt;::m_notificationCb</td>
         </tr>
       </table>
   </td>
@@ -341,7 +351,7 @@ template&lt;class CONTEXT , class MP &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:45 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:55 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

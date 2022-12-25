@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/Dm/SubscriberApi.h Source File</title>
+<title>Patterns in the Machine: Cpl/Dm/SubscriberApi.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,7 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -92,7 +92,7 @@ $(function() {
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">        notification mechanism of the subscriber&#39;s Mailbox Server, i.e. executes </span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">        in the thread associated m_mailBoxHdl</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_subscriber_api.html#ad831192ec5b287e99c68f22f9ec7def9">   45</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_subscriber_api.html#ad831192ec5b287e99c68f22f9ec7def9">genericModelPointChanged_</a>( <a class="code hl_class" href="class_cpl_1_1_dm_1_1_model_point.html">ModelPoint</a>&amp; modelPointThatChanged ) <span class="keyword">noexcept</span> = 0;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_cpl_1_1_dm_1_1_subscriber_api.html#a9d049462dd722fd02cb6061a1d3e70e1">   45</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_subscriber_api.html#a9d049462dd722fd02cb6061a1d3e70e1">genericModelPointChanged_</a>( <a class="code hl_class" href="class_cpl_1_1_dm_1_1_model_point.html">ModelPoint</a>&amp; modelPointThatChanged, <a class="code hl_class" href="class_cpl_1_1_dm_1_1_subscriber_api.html">SubscriberApi</a>&amp; clientObserver ) <span class="keyword">noexcept</span> = 0;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"></span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">    /** This method has PACKAGE Scope, i.e. it is intended to be ONLY accessible</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">        by other classes in the Cpl::Dm namespace.  The Application should</span></div>
@@ -174,14 +174,14 @@ $(function() {
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_api_html_a42ba2628a49ad905cc10e937330a26bb"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber_api.html#a42ba2628a49ad905cc10e937330a26bb">Cpl::Dm::SubscriberApi::getState_</a></div><div class="ttdeci">virtual int getState_() const noexcept=0</div><div class="ttdoc">This method has PACKAGE Scope, i.e.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_api_html_a6f79f99b4b6722f0ae5f5f9cdfca2ac5"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber_api.html#a6f79f99b4b6722f0ae5f5f9cdfca2ac5">Cpl::Dm::SubscriberApi::setSequenceNumber_</a></div><div class="ttdeci">virtual void setSequenceNumber_(uint16_t newSeqNumber) noexcept=0</div><div class="ttdoc">This method has PACKAGE Scope, i.e.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_api_html_a7d92c8ca8e45b072690499e411bd787d"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber_api.html#a7d92c8ca8e45b072690499e411bd787d">Cpl::Dm::SubscriberApi::getNotificationApi_</a></div><div class="ttdeci">virtual NotificationApi_ * getNotificationApi_() const noexcept=0</div><div class="ttdoc">This method has PACKAGE Scope, i.e.</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_api_html_a9d049462dd722fd02cb6061a1d3e70e1"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber_api.html#a9d049462dd722fd02cb6061a1d3e70e1">Cpl::Dm::SubscriberApi::genericModelPointChanged_</a></div><div class="ttdeci">virtual void genericModelPointChanged_(ModelPoint &amp;modelPointThatChanged, SubscriberApi &amp;clientObserver) noexcept=0</div><div class="ttdoc">This method has PACKAGE Scope, i.e.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_api_html_ad01c56acb92811f5f3c6e91bed8777d6"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber_api.html#ad01c56acb92811f5f3c6e91bed8777d6">Cpl::Dm::SubscriberApi::getModelPoint_</a></div><div class="ttdeci">virtual ModelPoint * getModelPoint_() noexcept=0</div><div class="ttdoc">This method has PACKAGE Scope, i.e.</div></div>
-<div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_api_html_ad831192ec5b287e99c68f22f9ec7def9"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber_api.html#ad831192ec5b287e99c68f22f9ec7def9">Cpl::Dm::SubscriberApi::genericModelPointChanged_</a></div><div class="ttdeci">virtual void genericModelPointChanged_(ModelPoint &amp;modelPointThatChanged) noexcept=0</div><div class="ttdoc">This method has PACKAGE Scope, i.e.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_api_html_afcc9f0609767fddef978f7ed3ed08191"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber_api.html#afcc9f0609767fddef978f7ed3ed08191">Cpl::Dm::SubscriberApi::setModelPoint_</a></div><div class="ttdeci">virtual void setModelPoint_(ModelPoint *modelPoint) noexcept=0</div><div class="ttdoc">This method has PACKAGE Scope, i.e.</div></div>
 <div class="ttc" id="anamespace_cpl_html"><div class="ttname"><a href="namespace_cpl.html">Cpl</a></div><div class="ttdoc">The 'Cpl' namespace is the root name space for the Colony.</div><div class="ttdef"><b>Definition:</b> Api16.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

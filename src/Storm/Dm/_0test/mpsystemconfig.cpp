@@ -26,7 +26,7 @@
 using namespace Storm::Dm;
 
 #define STRCMP(s1,s2)       (strcmp(s1,s2)==0)
-#define MAX_STR_LENG        1024
+#define MAX_STR_LENG        (1024*2)
 #define SECT_               "_0test"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +137,7 @@ TEST_CASE( "MpSystemConfig" )
         mp_apple_.toJSON( string, MAX_STR_LENG, truncated, true, true );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("toJSON: [%s]", string) );
 
-        StaticJsonDocument<1024> doc;
+        StaticJsonDocument<2*1024> doc;
         DeserializationError err = deserializeJson( doc, string );
         REQUIRE( err == DeserializationError::Ok );
         REQUIRE( doc["locked"] == false );
@@ -213,15 +213,15 @@ TEST_CASE( "MpSystemConfig" )
     SECTION( "observer" )
     {
         Cpl::Dm::MailboxServer        t1Mbox;
-        Viewer<MpSystemConfig>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        MpSystemConfig::setToOff( expectedValue );
+        expectedValue.fanContinuousSpeed = 1000;
+        Viewer<MpSystemConfig, Storm::Type::SystemConfig_T>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_, expectedValue );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox, "T1" );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Created Viewer thread (%p)", t1) );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test
         mp_apple_.setInvalid();
         viewer_apple1.open();
-        MpSystemConfig::setToOff( expectedValue );
-        expectedValue.fanContinuousSpeed = 1000;
         mp_apple_.write( expectedValue );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Waiting for viewer signal...") );
         Cpl::System::Thread::wait();

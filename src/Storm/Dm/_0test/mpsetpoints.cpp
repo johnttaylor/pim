@@ -196,14 +196,16 @@ TEST_CASE( "MpSetpoints" )
     SECTION( "observer" )
     {
         Cpl::Dm::MailboxServer        t1Mbox;
-        Viewer<MpSetpoints>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        MpSetpoints::Data expectedVal ={ 70, 60 };
+        
+        ViewerSetpoint    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_, expectedVal );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox, "T1" );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Created Viewer thread (%p)", t1) );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test
         mp_apple_.setInvalid();
         viewer_apple1.open();
-        mp_apple_.writeCool( 78.3F );
+        mp_apple_.write( expectedVal.coolSetpt, expectedVal.heatSetpt );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Waiting for viewer signal...") );
         Cpl::System::Thread::wait();
         viewer_apple1.close();

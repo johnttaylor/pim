@@ -15,3 +15,6 @@ not really end;.good frame;
 ..sof; .~.more sof;.
 reject;
 .~;eof; .~.~~~;sef;
+
+# OOB stuff
+.frame;oob data here  including sof char len=41.  .next frame;

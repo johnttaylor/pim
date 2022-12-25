@@ -85,7 +85,8 @@ public:
 
 	/** This method return a pointer to the next character AFTER the LAST character
 		decoded.  The value returned from this method is ONLY valid after a
-		call to scan() and BEFORE a subsequent call to scan() or setInput().
+		call to scan() and BEFORE a subsequent call to scan(), oobRead(), or 
+		setInput().
 	 */
 	virtual const char* getRemainder() const noexcept;
 

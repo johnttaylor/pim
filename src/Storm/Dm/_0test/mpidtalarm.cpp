@@ -171,7 +171,11 @@ TEST_CASE( "MpIdtAlarm" )
     SECTION( "observer" )
     {
         Cpl::Dm::MailboxServer        t1Mbox;
-        Viewer<MpIdtAlarm>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        Storm::Dm::MpIdtAlarm::Data expectedVal;
+        expectedVal.primaryAlarm   = false;
+        expectedVal.secondaryAlarm = true;
+        expectedVal.critical       = false;
+        Viewer<MpIdtAlarm, Storm::Dm::MpIdtAlarm::Data>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_, expectedVal );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox, "T1" );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Created Viewer thread (%p)", t1) );
 

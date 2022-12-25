@@ -1,2 +1,2 @@
-# share a common main
+# use common main.cpp
 ../../main.cpp

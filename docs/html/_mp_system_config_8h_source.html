@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PIM: Storm/Dm/MpSystemConfig.h Source File</title>
+<title>Patterns in the Machine: Storm/Dm/MpSystemConfig.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,9 +19,9 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PIM
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
-   <div id="projectbrief">Patterns in the Machine: Thermostat Example</div>
+   <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
  </tr>
  </tbody>
@@ -109,14 +109,14 @@ $(function() {
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">     */</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#a5be5301133848b116de6db0e0593da32">   60</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#a5be5301133848b116de6db0e0593da32">read</a>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a>&amp; configuration, uint16_t* seqNumPtr=0 ) const noexcept</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span> ModelPointCommon_::read( &amp;configuration, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a> ), seqNumPtr );</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_model_point_common__.html#ae681346fbfe701863f2f61bbdbb48dbf">readData</a>( &amp;configuration, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a> ), seqNumPtr );</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment"></span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">    /** Updates the entire System Configuration</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">     */</span></div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#a8c2fca790c78669d1b77e2581c1dd147">   67</a></span>    <span class="keyword">inline</span> uint16_t <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#a8c2fca790c78669d1b77e2581c1dd147">write</a>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a>&amp; newConfiguration, <a class="code hl_enumeration" href="class_cpl_1_1_dm_1_1_model_point.html#a12e3bd51d648ecd65f6faddb47173072">LockRequest_T</a> lockRequest = <a class="code hl_enumvalue" href="class_cpl_1_1_dm_1_1_model_point.html#a12e3bd51d648ecd65f6faddb47173072a5af06f787d195c8f9dff26bf0349690e">eNO_REQUEST</a> ) <span class="keyword">noexcept</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> ModelPointCommon_::write( &amp;newConfiguration, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a> ), lockRequest );</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_model_point_common__.html#af3c6fb2b9282eb88accac932571fb6ba">writeData</a>( &amp;newConfiguration, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a> ), lockRequest );</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"></span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">    /** Sets the model to its &quot;Off&quot; and/or default configuration settings</span></div>
@@ -125,7 +125,7 @@ $(function() {
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    {</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a> newVal;</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#a0d51107563b024dfc15668f55e8e2384">setToOff</a>( newVal );</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">return</span> ModelPointCommon_::write( &amp;newVal, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a> ), lockRequest );</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_model_point_common__.html#af3c6fb2b9282eb88accac932571fb6ba">writeData</a>( &amp;newVal, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a> ), lockRequest );</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"></span> </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">    /** Public helper method to set a instance of the SystemConfig structure</span></div>
@@ -139,7 +139,7 @@ $(function() {
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">    /// Updates the MP with the valid-state/data from &#39;src&#39;. Note: the src.lock state is NOT copied</span></div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#ac44dffe72f513a60770a8d33569cd9f7">   90</a></span><span class="comment"></span>    <span class="keyword">inline</span> uint16_t <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#ac44dffe72f513a60770a8d33569cd9f7">copyFrom</a>( <span class="keyword">const</span> <a class="code hl_class" href="class_storm_1_1_dm_1_1_mp_system_config.html">MpSystemConfig</a>&amp; src, <a class="code hl_enumeration" href="class_cpl_1_1_dm_1_1_model_point.html#a12e3bd51d648ecd65f6faddb47173072">LockRequest_T</a> lockRequest = <a class="code hl_enumvalue" href="class_cpl_1_1_dm_1_1_model_point.html#a12e3bd51d648ecd65f6faddb47173072a5af06f787d195c8f9dff26bf0349690e">eNO_REQUEST</a> ) <span class="keyword">noexcept</span></div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">return</span> ModelPointCommon_::copyFrom( src, lockRequest );</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_cpl_1_1_dm_1_1_model_point_common__.html#a8bde196e70e26352d49b45d5d6bf900d">copyDataAndStateFrom</a>( src, lockRequest );</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
@@ -157,25 +157,31 @@ $(function() {
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment"></span> </div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">    /// Type safe un-register observer</span></div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#ae69993519632f45be5d0e55ac43070cf">  109</a></span><span class="comment"></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#ae69993519632f45be5d0e55ac43070cf">detach</a>( <a class="code hl_class" href="class_cpl_1_1_dm_1_1_subscriber.html">Observer</a>&amp; observer ) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">public</span>:<span class="comment"></span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment">    /// See Cpl::Dm::ModelPoint.</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#a7580a8cba575172b3d4e3b09ded0c36e">  114</a></span><span class="comment"></span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#a7580a8cba575172b3d4e3b09ded0c36e">getTypeAsText</a>() const noexcept;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment"></span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">    /// See Cpl::Dm::Point.  </span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#ac6c7744688b87d9722e41213719296fc">  117</a></span><span class="comment"></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#ac6c7744688b87d9722e41213719296fc">fromJSON_</a>( JsonVariant&amp; src, <a class="code hl_enumeration" href="class_cpl_1_1_dm_1_1_model_point.html#a12e3bd51d648ecd65f6faddb47173072">LockRequest_T</a> lockRequest, uint16_t&amp; retSequenceNumber, <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::Text::String* errorMsg ) noexcept;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>protected:<span class="comment"></span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">    /// See Cpl::Dm::Point.  </span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#a79c96679f89767da6b028619a59f305d">  121</a></span><span class="comment"></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#a79c96679f89767da6b028619a59f305d">setJSONVal</a>( JsonDocument&amp; doc ) noexcept;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>};</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment"></span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">    /// See Cpl::Dm::ModelPointCommon</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#a0d1d0f96f599191d779dac83112ee196">  112</a></span><span class="comment"></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#a0d1d0f96f599191d779dac83112ee196">readAndSync</a>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a>&amp; dstData, <a class="code hl_class" href="class_cpl_1_1_dm_1_1_subscriber_api.html">Cpl::Dm::SubscriberApi</a>&amp; observerToSync )</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">return</span> ModelPointCommon_::readAndSync( &amp;dstData, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="namespace_storm_1_1_type.html#struct_storm_1_1_type_1_1_system_config___t">Storm::Type::SystemConfig_T</a> ), observerToSync );</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">    /// See Cpl::Dm::ModelPoint.</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#a7580a8cba575172b3d4e3b09ded0c36e">  120</a></span><span class="comment"></span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#a7580a8cba575172b3d4e3b09ded0c36e">getTypeAsText</a>() const noexcept;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment"></span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">    /// See Cpl::Dm::Point.  </span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#ac6c7744688b87d9722e41213719296fc">  123</a></span><span class="comment"></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#ac6c7744688b87d9722e41213719296fc">fromJSON_</a>( JsonVariant&amp; src, <a class="code hl_enumeration" href="class_cpl_1_1_dm_1_1_model_point.html#a12e3bd51d648ecd65f6faddb47173072">LockRequest_T</a> lockRequest, uint16_t&amp; retSequenceNumber, <a class="code hl_namespace" href="namespace_cpl.html">Cpl</a>::Text::String* errorMsg ) noexcept;</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>};      <span class="comment">// end namespaces</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>};</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>protected:<span class="comment"></span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment">    /// See Cpl::Dm::Point.  </span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="class_storm_1_1_dm_1_1_mp_system_config.html#a79c96679f89767da6b028619a59f305d">  127</a></span><span class="comment"></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_storm_1_1_dm_1_1_mp_system_config.html#a79c96679f89767da6b028619a59f305d">setJSONVal</a>( JsonDocument&amp; doc ) noexcept;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>};</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>};      <span class="comment">// end namespaces</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>};</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
 <div class="ttc" id="a_idu_type_8h_html"><div class="ttname"><a href="_idu_type_8h.html">IduType.h</a></div></div>
 <div class="ttc" id="a_model_point_common___8h_html"><div class="ttname"><a href="_model_point_common___8h.html">ModelPointCommon_.h</a></div></div>
 <div class="ttc" id="a_odu_type_8h_html"><div class="ttname"><a href="_odu_type_8h.html">OduType.h</a></div></div>
@@ -183,11 +189,16 @@ $(function() {
 <div class="ttc" id="a_type_2_operating_mode_8h_html"><div class="ttname"><a href="_type_2_operating_mode_8h.html">OperatingMode.h</a></div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_database_html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_database.html">Cpl::Dm::ModelDatabase</a></div><div class="ttdoc">This concrete class implements a simple Model Database.</div><div class="ttdef"><b>Definition:</b> ModelDatabase.h:56</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_point_common___html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_point_common__.html">Cpl::Dm::ModelPointCommon_</a></div><div class="ttdoc">This concrete class provide common infrastructure for a Model Point.</div><div class="ttdef"><b>Definition:</b> ModelPointCommon_.h:32</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_point_common___html_a8bde196e70e26352d49b45d5d6bf900d"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_point_common__.html#a8bde196e70e26352d49b45d5d6bf900d">Cpl::Dm::ModelPointCommon_::copyDataAndStateFrom</a></div><div class="ttdeci">virtual uint16_t copyDataAndStateFrom(const ModelPointCommon_ &amp;src, LockRequest_T lockRequest) noexcept</div><div class="ttdoc">Updates the MP with the valid-state/data from 'src'. Note: the src.lock state is NOT copied.</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_point_common___html_ae681346fbfe701863f2f61bbdbb48dbf"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_point_common__.html#ae681346fbfe701863f2f61bbdbb48dbf">Cpl::Dm::ModelPointCommon_::readData</a></div><div class="ttdeci">bool readData(void *dstData, size_t dstSize, uint16_t *seqNumPtr=0) const noexcept</div><div class="ttdoc">See Cpl::Dm::ModelPoint.</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_point_common___html_af3c6fb2b9282eb88accac932571fb6ba"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_point_common__.html#af3c6fb2b9282eb88accac932571fb6ba">Cpl::Dm::ModelPointCommon_::writeData</a></div><div class="ttdeci">uint16_t writeData(const void *srcData, size_t srcSize, LockRequest_T lockRequest=eNO_REQUEST) noexcept</div><div class="ttdoc">See Cpl::Dm::ModelPoint.</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_point_html_a12e3bd51d648ecd65f6faddb47173072"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_point.html#a12e3bd51d648ecd65f6faddb47173072">Cpl::Dm::ModelPoint::LockRequest_T</a></div><div class="ttdeci">LockRequest_T</div><div class="ttdoc">Options related to the Model Point's locked state.</div><div class="ttdef"><b>Definition:</b> ModelPoint.h:50</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_point_html_a12e3bd51d648ecd65f6faddb47173072a5af06f787d195c8f9dff26bf0349690e"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_point.html#a12e3bd51d648ecd65f6faddb47173072a5af06f787d195c8f9dff26bf0349690e">Cpl::Dm::ModelPoint::eNO_REQUEST</a></div><div class="ttdeci">@ eNO_REQUEST</div><div class="ttdoc">No change in the MP's lock state is requested.</div><div class="ttdef"><b>Definition:</b> ModelPoint.h:51</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_model_point_html_a13b1b5649b696fea4e4b4d54f7e7cab4"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_model_point.html#a13b1b5649b696fea4e4b4d54f7e7cab4">Cpl::Dm::ModelPoint::SEQUENCE_NUMBER_UNKNOWN</a></div><div class="ttdeci">static const uint16_t SEQUENCE_NUMBER_UNKNOWN</div><div class="ttdoc">Magic value to use when registering for a change notification and application does not 'know' the cur...</div><div class="ttdef"><b>Definition:</b> ModelPoint.h:62</div></div>
+<div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_api_html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber_api.html">Cpl::Dm::SubscriberApi</a></div><div class="ttdoc">This abstract class defines the Subscriber interface - for change notifications - to a Model Points d...</div><div class="ttdef"><b>Definition:</b> SubscriberApi.h:34</div></div>
 <div class="ttc" id="aclass_cpl_1_1_dm_1_1_subscriber_html"><div class="ttname"><a href="class_cpl_1_1_dm_1_1_subscriber.html">Cpl::Dm::Subscriber</a></div><div class="ttdoc">This template class defines a type safe Subscriber.</div><div class="ttdef"><b>Definition:</b> Subscriber.h:82</div></div>
 <div class="ttc" id="aclass_storm_1_1_dm_1_1_mp_system_config_html"><div class="ttname"><a href="class_storm_1_1_dm_1_1_mp_system_config.html">Storm::Dm::MpSystemConfig</a></div><div class="ttdoc">This class provides a concrete implementation for a Point who's data is the the System Configuration ...</div><div class="ttdef"><b>Definition:</b> MpSystemConfig.h:46</div></div>
+<div class="ttc" id="aclass_storm_1_1_dm_1_1_mp_system_config_html_a0d1d0f96f599191d779dac83112ee196"><div class="ttname"><a href="class_storm_1_1_dm_1_1_mp_system_config.html#a0d1d0f96f599191d779dac83112ee196">Storm::Dm::MpSystemConfig::readAndSync</a></div><div class="ttdeci">bool readAndSync(Storm::Type::SystemConfig_T &amp;dstData, Cpl::Dm::SubscriberApi &amp;observerToSync)</div><div class="ttdoc">See Cpl::Dm::ModelPointCommon.</div><div class="ttdef"><b>Definition:</b> MpSystemConfig.h:112</div></div>
 <div class="ttc" id="aclass_storm_1_1_dm_1_1_mp_system_config_html_a0d51107563b024dfc15668f55e8e2384"><div class="ttname"><a href="class_storm_1_1_dm_1_1_mp_system_config.html#a0d51107563b024dfc15668f55e8e2384">Storm::Dm::MpSystemConfig::setToOff</a></div><div class="ttdeci">uint16_t setToOff(LockRequest_T lockRequest=eNO_REQUEST) noexcept</div><div class="ttdoc">Sets the model to its &quot;Off&quot; and/or default configuration settings.</div><div class="ttdef"><b>Definition:</b> MpSystemConfig.h:74</div></div>
 <div class="ttc" id="aclass_storm_1_1_dm_1_1_mp_system_config_html_a13648f3bc788edefc02411b1d3b8b9fb"><div class="ttname"><a href="class_storm_1_1_dm_1_1_mp_system_config.html#a13648f3bc788edefc02411b1d3b8b9fb">Storm::Dm::MpSystemConfig::isDataEqual_</a></div><div class="ttdeci">bool isDataEqual_(const void *otherData) const noexcept</div><div class="ttdoc">See Cpl::Dm::ModelPoint. Note: My data contains floating point values.</div></div>
 <div class="ttc" id="aclass_storm_1_1_dm_1_1_mp_system_config_html_a1ed2194f8d3a2db78c5064a0fa80143b"><div class="ttname"><a href="class_storm_1_1_dm_1_1_mp_system_config.html#a1ed2194f8d3a2db78c5064a0fa80143b">Storm::Dm::MpSystemConfig::Observer</a></div><div class="ttdeci">Cpl::Dm::Subscriber&lt; MpSystemConfig &gt; Observer</div><div class="ttdoc">Type safe subscriber.</div><div class="ttdef"><b>Definition:</b> MpSystemConfig.h:103</div></div>
@@ -208,7 +219,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 30 2022 15:54:04 for PIM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

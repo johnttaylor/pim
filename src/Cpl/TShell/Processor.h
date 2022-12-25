@@ -53,7 +53,6 @@
 #define OPTION_CPL_TSHELL_PROCESSOR_PROMPT                  "$ "
 #endif
 
-
 ///
 namespace Cpl {
 ///
@@ -91,29 +90,49 @@ namespace TShell {
 		  quote character can be embedded inside a quoted string by preceding
 		  it the double quote character with the escape character.  The escape
 		  character can be embedded by escaping the escape character.
+
+	The USE_CPL_TSHELL_PROCESSOR_SILENT_WHEN_PUBLIC switch is use
+	to alter the TShell's output behavior - to not 'say anything'
+	until a user has successfully been authenticated (using the 'User'
+	command
+
+	HOW TO Enable Security:
+
+		- Set OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL to something
+		  other than ePUBLIC.  This will be the permission for all legacy (i.e.
+		  not Security aware) TShell commands
+
+		- Recommend turning on the switch: USE_CPL_TSHELL_PROCESSOR_SILENT_WHEN_PUBLIC
+
+		- Include the Cpl::TShell::Cmd::User command and provide an 
+		  implementation of the Cpl::TShell::Security interface (that is passed 
+		  to the command's constructor).
+
+		- Optionally include new security aware commands
  */
 class Processor : public Context_
 {
 public:
 	/** Constructor.
 
-		@param commands         Set of supported commands
-		@param deframer         Frame decoder used to identify individual command
-								strings within the raw Input stream
-		@param framer           Frame encoder used to encapsulate the output of
-								command in the Output stream.
-		@param outputLock       Mutex to be used for ensuring the atomic output
-								of the commands.
-		@param commentChar      The comment character used to indicate that the
-								input string is a comment and should not be
-								executed.
-		@param argEscape        Escape character to be used when escaping double
-								quote characters inside a quoted argument.
-		@param argDelimiter     The delimiter character used to separate the
-								command verb and arguments.
-		@param argQuote         The quote character used to 'double quote' a
-								argument string.
-		@param argTerminator    The command terminator character.
+		@param commands					Set of supported commands
+		@param deframer					Frame decoder used to identify individual command
+										strings within the raw Input stream
+		@param framer					Frame encoder used to encapsulate the output of
+										command in the Output stream.
+		@param outputLock				Mutex to be used for ensuring the atomic output
+										of the commands.
+		@param commentChar				The comment character used to indicate that the
+										input string is a comment and should not be
+										executed.
+		@param argEscape				Escape character to be used when escaping double
+										quote characters inside a quoted argument.
+		@param argDelimiter				The delimiter character used to separate the
+										command verb and arguments.
+		@param argQuote					The quote character used to 'double quote' a
+										argument string.
+		@param argTerminator			The command terminator character.
+		@param initialPermissionLevel   The initial minimum permission level that a user needs to issue command(s)
 	 */
 	Processor( Cpl::Container::Map<Command>&     commands,
 			   Cpl::Text::Frame::StreamDecoder&  deframer,
@@ -123,7 +142,8 @@ public:
 			   char                              argEscape='`',
 			   char                              argDelimiter=' ',
 			   char                              argQuote='"',
-			   char                              argTerminator='\n'
+			   char                              argTerminator='\n',
+			   Security::Permission_T            initialPermissionLevel = Security::ePUBLIC
 	);
 
 
@@ -168,6 +188,14 @@ public:
 	/// See Cpl::TShell::Context_
 	Cpl::Text::String& getTokenBuffer2() noexcept;
 
+	/// See Cpl::TShell::Context_
+	bool oobRead( void* buffer, int numBytes, int& bytesRead ) noexcept;
+
+	/// See Cpl::TShell::Context_
+	Security::Permission_T getUserPermissionLevel() const noexcept;
+
+	/// See Cpl::TShell::Context_
+	Security::Permission_T setUserPermissionLevel( Security::Permission_T newPermissionLevel ) noexcept;
 
 protected:
 	/** Helper method that attempts to execute the content of the de-framed/decoded
@@ -203,6 +231,9 @@ protected:
 
 	/// Output lock
 	Cpl::System::Mutex&                 m_outLock;
+
+	/// User's permission level	
+	Security::Permission_T				m_userPermLevel;
 
 	/// Comment character
 	char                                m_comment;

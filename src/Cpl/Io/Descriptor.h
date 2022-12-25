@@ -43,7 +43,7 @@ public:
     Descriptor( void* ptr ):m_handlePtr( ptr ) {}
 
     /// Default Constructor
-    Descriptor():m_fd( 0 ) {}
+    Descriptor():m_handlePtr( nullptr ) {}
 };
 
 };      // end namespaces

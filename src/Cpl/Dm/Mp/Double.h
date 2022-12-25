@@ -57,7 +57,6 @@ public:
     /// Type safe subscriber
     typedef Cpl::Dm::Subscriber<Double> Observer;
 
-
 public:
     ///  See Cpl::Dm::ModelPoint.
     const char* getTypeAsText() const noexcept

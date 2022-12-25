@@ -39,8 +39,17 @@ using namespace Cpl::Text::Frame;
 #define BUFSIZE_     16
 #endif
 
+#ifndef BIGGER_BUFSIZE_
+#define BIGGER_BUFSIZE_     128
+#endif
+
+
 static Cpl::Text::FString<BUFSIZE_ + 1> instring;
-static char                           buffer_[BUFSIZE_];
+static char                             buffer_[BUFSIZE_];
+
+
+static Cpl::Text::FString<BIGGER_BUFSIZE_ + 1> instring2;
+static char									   buffer2_[BIGGER_BUFSIZE_];
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -91,6 +100,32 @@ TEST_CASE( "decode", "[decode]" )
 	instring.copyIn( buffer_, fsize );
 	CPL_SYSTEM_TRACE_MSG( SECT_, ( "Frame=[%s]", instring.getString() ) );
 	REQUIRE( instring == ".~;sef" );
+
+	REQUIRE( decoder.scan( sizeof( buffer2_ ), buffer2_, fsize ) );
+	instring2.copyIn( buffer2_, fsize );
+	CPL_SYSTEM_TRACE_MSG( SECT_, ("Frame=[%s]", instring2.getString()) );
+	REQUIRE( instring2 == "frame" );
+
+	int oobBytes;
+	instring2.clear();
+	int expectedCount = 41;
+	bool result = true;
+	while ( result && expectedCount )
+	{
+		result = decoder.oobRead( buffer2_, expectedCount, oobBytes );
+		if ( result )
+		{
+			instring2.appendTo( buffer2_, oobBytes );
+			expectedCount -= oobBytes;
+		}
+	}
+	CPL_SYSTEM_TRACE_MSG( SECT_, ("oob=[%s]", instring2.getString()) );
+	REQUIRE( instring2 == "oob data here  including sof char len=41." );
+
+	REQUIRE( decoder.scan( sizeof( buffer2_ ), buffer2_, fsize ) );
+	instring2.copyIn( buffer2_, fsize );
+	CPL_SYSTEM_TRACE_MSG( SECT_, ("Frame=[%s]", instring2.getString()) );
+	REQUIRE( instring2 == "next frame" );
 
 	infd.close();
 	REQUIRE( Cpl::System::Shutdown_TS::getAndClearCounter() == 0u );

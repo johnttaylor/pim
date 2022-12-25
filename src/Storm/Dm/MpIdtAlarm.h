@@ -51,6 +51,24 @@ public:
         bool primaryAck;        //!< When set to true, the primary IDT alarm has been acknowledged.  When primaryAlarm is false, this field has no meaning
         bool secondaryAck;      //!< When set to true, the secondary IDT alarm has been acknowledged.  When secondaryAlarm is false, this field has no meaning
         bool critical;          //!< When set to true, there is no valid IDT source and the system is/was forced to the its 'off state'
+
+        /// Constructor (to ensure any pad bytes get zero'd)
+        Data()
+        {
+            memset( (void*) this, 0, sizeof( Data ) );
+        }
+
+        /// Constructor (to ensure any pad bytes get zero'd)
+        Data( bool primaryAlarm, bool secondaryAlarm, bool primaryAck, bool secondaryAck, bool critical )
+        {
+            memset( (void*) this, 0, sizeof( Data ) );
+            this->primaryAlarm   = primaryAlarm;
+            this->secondaryAlarm = secondaryAlarm;
+            this->primaryAck     = primaryAck;
+            this->secondaryAck   = secondaryAck;
+            this->critical       = critical;
+        }
+
     };
 
 protected:
@@ -102,6 +120,11 @@ public:
     /// Type safe un-register observer
     void detach( Observer& observer ) noexcept;
 
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( Data& dstData, Cpl::Dm::SubscriberApi& observerToSync )
+    {
+        return ModelPointCommon_::readAndSync( &dstData, sizeof( Data ), observerToSync );
+    }
 
 public:
     /// See Cpl::Dm::ModelPoint.

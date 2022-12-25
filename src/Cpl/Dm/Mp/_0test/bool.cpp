@@ -43,6 +43,7 @@ static Mp::Bool       mp_orange_( modelDb_, "ORANGE", INITIAL_VALUE );
 // Don't let the Runnable object go out of scope before its thread has actually terminated!
 static MailboxServer         t1Mbox_;
 
+
 ////////////////////////////////////////////////////////////////////////////////
 
 //
@@ -82,7 +83,7 @@ TEST_CASE( "Bool" )
         mp_apple_.write( true );
         valid = mp_apple_.read( value );
         REQUIRE( valid );
-        REQUIRE( value == true );  
+        REQUIRE( value == true );
         mp_apple_.write( false );
         valid = mp_apple_.read( value );
         REQUIRE( valid );
@@ -141,7 +142,7 @@ TEST_CASE( "Bool" )
     SECTION( "observer" )
     {
         CPL_SYSTEM_TRACE_SCOPE( SECT_, "observer test" );
-        Viewer<Mp::Bool>     viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        Viewer<Mp::Bool,bool>     viewer_apple1( t1Mbox_, Cpl::System::Thread::getCurrent(), mp_apple_, true );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox_, "T1" );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test
@@ -155,6 +156,7 @@ TEST_CASE( "Bool" )
         WAIT_FOR_THREAD_TO_STOP( t1 );
         Cpl::System::Thread::destroy( *t1 );
     }
+
 
     REQUIRE( Cpl::System::Shutdown_TS::getAndClearCounter() == 0u );
 }

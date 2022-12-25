@@ -76,8 +76,7 @@ public:
 	virtual void startListening( Client& client, int portNumToListenOn ) = 0;
 
 
-	/** Shuts down the Listener.  The client specified in the startListening()
-		method will be notified when the shutdown has completed.
+	/** Shuts down the Listener.  
 	 */
 	virtual void terminate() = 0;
 

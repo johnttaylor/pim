@@ -25,9 +25,10 @@ PolledProcessor::PolledProcessor( Cpl::Container::Map<Command>&     commands,
 	char                              argEscape,
 	char                              argDelimiter,
 	char                              argQuote,
-	char                              argTerminator
+	char                              argTerminator,
+	Security::Permission_T            initialPermissionLevel
 )
-	: Processor( commands, deframer, framer, outputLock, commentChar, argEscape, argDelimiter, argQuote, argTerminator )
+	: Processor( commands, deframer, framer, outputLock, commentChar, argEscape, argDelimiter, argQuote, argTerminator, initialPermissionLevel )
 	, m_outFd( nullptr )
 {
 }

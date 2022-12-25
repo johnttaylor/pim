@@ -99,7 +99,7 @@
 </g>
 <!-- Node8 -->
 <g id="node8" class="node"><title>Node8</title>
-<g id="a_node8"><a xlink:href="class_storm_1_1_dm_1_1_mp_idt_alarm.html#struct_storm_1_1_dm_1_1_mp_idt_alarm_1_1_data" target="_top" xlink:title="The MP&#39;s Data container.">
+<g id="a_node8"><a xlink:href="struct_storm_1_1_dm_1_1_mp_idt_alarm_1_1_data.html" target="_top" xlink:title="The MP&#39;s Data container.">
 <polygon fill="white" stroke="black" points="192,-67.5 192,-97.5 312,-97.5 312,-67.5 192,-67.5"/>
 <text text-anchor="start" x="200" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">Storm::Dm::MpIdtAlarm</text>
 <text text-anchor="middle" x="252" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Data</text>

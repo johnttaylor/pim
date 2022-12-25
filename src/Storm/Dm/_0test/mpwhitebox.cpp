@@ -144,13 +144,13 @@ TEST_CASE( "MpWhiteBox" )
     SECTION( "observer" )
     {
         Cpl::Dm::MailboxServer     t1Mbox;
-        Viewer<MpWhiteBox>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        expectedVal ={ true, false };
+        Viewer<MpWhiteBox, Storm::Type::WhiteBox_T>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_, expectedVal );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox, "T1" );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Created Viewer thread (%p)", t1) );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test
         viewer_apple1.open();
-        expectedVal ={ true, false };
         mp_apple_.write( expectedVal );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Waiting for viewer signal...") );
         Cpl::System::Thread::wait();

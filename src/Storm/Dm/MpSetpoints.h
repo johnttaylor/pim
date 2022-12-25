@@ -99,6 +99,13 @@ public:
 public:
     /** Type safe read of the Cooling & Heating set-point
      */
+    inline bool read( Data& dst, uint16_t* seqNumPtr=0 ) const noexcept
+    {
+        return readData( &dst, sizeof( Data ), seqNumPtr );
+    }
+
+    /** Type safe read of the Cooling & Heating set-point
+     */
     inline bool read( float& currentCoolSetpoint, float& currentHeatSetpoint, uint16_t* seqNumPtr=0 ) const noexcept
     {
         Data dst;
@@ -197,6 +204,21 @@ public:
     /// Type safe un-register observer
     void detach( Observer& observer ) noexcept;
 
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( Data& currentSetpoints, Cpl::Dm::SubscriberApi& observerToSync )
+    {
+        return ModelPointCommon_::readAndSync( &currentSetpoints, sizeof( Data ), observerToSync );
+    }
+
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( float& currentCoolSetpoint, float& currentHeatSetpoint, Cpl::Dm::SubscriberApi& observerToSync )
+    {
+        Data dst;
+        bool valid = readAndSync( dst, observerToSync );
+        currentCoolSetpoint = dst.coolSetpt;
+        currentHeatSetpoint = dst.heatSetpt;
+        return valid;
+    }
 
 public:
     /// See Cpl::Dm::ModelPoint.

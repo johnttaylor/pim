@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PIM: Storm/Type/ComfortConfig.h Source File</title>
+<title>Patterns in the Machine: Storm/Type/ComfortConfig.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,9 +19,9 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">PIM
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
-   <div id="projectbrief">Patterns in the Machine: Thermostat Example</div>
+   <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
  </tr>
  </tbody>
@@ -130,35 +130,42 @@ $(function() {
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"></span> </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">    /// Constructor (to ensure any pad bytes get zero&#39;d)</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa562bcc83eba831f213996caeff9267a">   83</a></span><span class="comment"></span>    <a class="code hl_function" href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa562bcc83eba831f213996caeff9267a">ComfortConfig_T</a>( <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_stage_parameters___t.html">ComfortStageParameters_T</a> <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a5e2ca990dd0f32c1dfe654d4ad2bd57b">compressorCooling</a>, <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_stage_parameters___t.html">ComfortStageParameters_T</a> <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#ac74939fdd85418b234aa427f9780ecab">compressorHeating</a>, <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_stage_parameters___t.html">ComfortStageParameters_T</a> <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa2b5d3f53d8ee170e729ee0e07696dcf">indoorHeating</a> )</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a4f3bde9cd07e48e72cfb740ca3c52fb9">   83</a></span><span class="comment"></span>    <a class="code hl_function" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a4f3bde9cd07e48e72cfb740ca3c52fb9">ComfortConfig_T</a>( <span class="keyword">const</span> <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_config___t.html">ComfortConfig_T</a>&amp; other )</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        memset( (<span class="keywordtype">void</span>*) <span class="keyword">this</span>, 0, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_config___t.html">ComfortConfig_T</a> ) );</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        this-&gt;compressorCooling = <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a5e2ca990dd0f32c1dfe654d4ad2bd57b">compressorCooling</a>;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        this-&gt;compressorHeating = <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#ac74939fdd85418b234aa427f9780ecab">compressorHeating</a>;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        this-&gt;indoorHeating     = <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa2b5d3f53d8ee170e729ee0e07696dcf">indoorHeating</a>;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment"></span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">    /** Method that limit/range checks the specified configuration. Invalid and/or</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">        out-of-range value are corrected, Returns true if one or more fields</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">        were corrected.</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a88ea2b832faa5514a6c3be6ce98be2c6">   95</a></span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a88ea2b832faa5514a6c3be6ce98be2c6">validate</a>( <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_config___t.html">Storm::Type::ComfortConfig_T</a>&amp; src ) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>};</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>};      <span class="comment">// end namespaces</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        memcpy( (<span class="keywordtype">void</span>*) <span class="keyword">this</span>, &amp;other, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_config___t.html">ComfortConfig_T</a> ) );</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"></span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">    /// Constructor (to ensure any pad bytes get zero&#39;d)</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa562bcc83eba831f213996caeff9267a">   89</a></span><span class="comment"></span>    <a class="code hl_function" href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa562bcc83eba831f213996caeff9267a">ComfortConfig_T</a>( <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_stage_parameters___t.html">ComfortStageParameters_T</a> <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a5e2ca990dd0f32c1dfe654d4ad2bd57b">compressorCooling</a>, <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_stage_parameters___t.html">ComfortStageParameters_T</a> <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#ac74939fdd85418b234aa427f9780ecab">compressorHeating</a>, <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_stage_parameters___t.html">ComfortStageParameters_T</a> <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa2b5d3f53d8ee170e729ee0e07696dcf">indoorHeating</a> )</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        memset( (<span class="keywordtype">void</span>*) <span class="keyword">this</span>, 0, <span class="keyword">sizeof</span>( <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_config___t.html">ComfortConfig_T</a> ) );</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        this-&gt;compressorCooling = <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a5e2ca990dd0f32c1dfe654d4ad2bd57b">compressorCooling</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        this-&gt;compressorHeating = <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#ac74939fdd85418b234aa427f9780ecab">compressorHeating</a>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        this-&gt;indoorHeating     = <a class="code hl_variable" href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa2b5d3f53d8ee170e729ee0e07696dcf">indoorHeating</a>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"></span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">    /** Method that limit/range checks the specified configuration. Invalid and/or</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">        out-of-range value are corrected, Returns true if one or more fields</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">        were corrected.</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a88ea2b832faa5514a6c3be6ce98be2c6">  101</a></span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="struct_storm_1_1_type_1_1_comfort_config___t.html#a88ea2b832faa5514a6c3be6ce98be2c6">validate</a>( <a class="code hl_struct" href="struct_storm_1_1_type_1_1_comfort_config___t.html">Storm::Type::ComfortConfig_T</a>&amp; src ) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>};</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>};      <span class="comment">// end namespaces</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>};</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#endif  </span><span class="comment">// end header latch</span></div>
 <div class="ttc" id="a_cph_8h_html"><div class="ttname"><a href="_cph_8h.html">Cph.h</a></div></div>
 <div class="ttc" id="anamespace_storm_html"><div class="ttname"><a href="namespace_storm.html">Storm</a></div><div class="ttdoc">Namespaces.</div><div class="ttdef"><b>Definition:</b> AirFilterMonitor.h:24</div></div>
 <div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_config___t_html"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_config___t.html">Storm::Type::ComfortConfig_T</a></div><div class="ttdoc">The 'comfort' parameters for the system.</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:71</div></div>
 <div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_config___t_html_a17f93454a5ce139eae7001e33da97a89"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_config___t.html#a17f93454a5ce139eae7001e33da97a89">Storm::Type::ComfortConfig_T::ComfortConfig_T</a></div><div class="ttdeci">ComfortConfig_T()</div><div class="ttdoc">Constructor (to ensure any pad bytes get zero'd)</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:77</div></div>
+<div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_config___t_html_a4f3bde9cd07e48e72cfb740ca3c52fb9"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_config___t.html#a4f3bde9cd07e48e72cfb740ca3c52fb9">Storm::Type::ComfortConfig_T::ComfortConfig_T</a></div><div class="ttdeci">ComfortConfig_T(const ComfortConfig_T &amp;other)</div><div class="ttdoc">Constructor (to ensure any pad bytes get zero'd)</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:83</div></div>
 <div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_config___t_html_a5e2ca990dd0f32c1dfe654d4ad2bd57b"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_config___t.html#a5e2ca990dd0f32c1dfe654d4ad2bd57b">Storm::Type::ComfortConfig_T::compressorCooling</a></div><div class="ttdeci">ComfortStageParameters_T compressorCooling</div><div class="ttdoc">Parameters for compressor cooling operation.</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:72</div></div>
 <div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_config___t_html_a88ea2b832faa5514a6c3be6ce98be2c6"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_config___t.html#a88ea2b832faa5514a6c3be6ce98be2c6">Storm::Type::ComfortConfig_T::validate</a></div><div class="ttdeci">static bool validate(Storm::Type::ComfortConfig_T &amp;src) noexcept</div><div class="ttdoc">Method that limit/range checks the specified configuration.</div></div>
 <div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_config___t_html_aa2b5d3f53d8ee170e729ee0e07696dcf"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa2b5d3f53d8ee170e729ee0e07696dcf">Storm::Type::ComfortConfig_T::indoorHeating</a></div><div class="ttdeci">ComfortStageParameters_T indoorHeating</div><div class="ttdoc">Parameters for indoor heating operation.</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:74</div></div>
-<div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_config___t_html_aa562bcc83eba831f213996caeff9267a"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa562bcc83eba831f213996caeff9267a">Storm::Type::ComfortConfig_T::ComfortConfig_T</a></div><div class="ttdeci">ComfortConfig_T(ComfortStageParameters_T compressorCooling, ComfortStageParameters_T compressorHeating, ComfortStageParameters_T indoorHeating)</div><div class="ttdoc">Constructor (to ensure any pad bytes get zero'd)</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:83</div></div>
+<div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_config___t_html_aa562bcc83eba831f213996caeff9267a"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_config___t.html#aa562bcc83eba831f213996caeff9267a">Storm::Type::ComfortConfig_T::ComfortConfig_T</a></div><div class="ttdeci">ComfortConfig_T(ComfortStageParameters_T compressorCooling, ComfortStageParameters_T compressorHeating, ComfortStageParameters_T indoorHeating)</div><div class="ttdoc">Constructor (to ensure any pad bytes get zero'd)</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:89</div></div>
 <div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_config___t_html_ac74939fdd85418b234aa427f9780ecab"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_config___t.html#ac74939fdd85418b234aa427f9780ecab">Storm::Type::ComfortConfig_T::compressorHeating</a></div><div class="ttdeci">ComfortStageParameters_T compressorHeating</div><div class="ttdoc">Parameters for compressor heating operation.</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:73</div></div>
 <div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_stage_parameters___t_html"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_stage_parameters___t.html">Storm::Type::ComfortStageParameters_T</a></div><div class="ttdoc">The 'comfort' parameters per stage.</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:26</div></div>
 <div class="ttc" id="astruct_storm_1_1_type_1_1_comfort_stage_parameters___t_html_a0d18b2ebe82d2eb2b9c324c43358996a"><div class="ttname"><a href="struct_storm_1_1_type_1_1_comfort_stage_parameters___t.html#a0d18b2ebe82d2eb2b9c324c43358996a">Storm::Type::ComfortStageParameters_T::ComfortStageParameters_T</a></div><div class="ttdeci">ComfortStageParameters_T()</div><div class="ttdoc">Constructor (to ensure any pad bytes get zero'd)</div><div class="ttdef"><b>Definition:</b> ComfortConfig.h:32</div></div>
@@ -172,7 +179,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 30 2022 15:54:04 for PIM by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

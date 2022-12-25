@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl::TShell::Processor Class Reference</title>
+<title>Patterns in the Machine: Cpl::TShell::Processor Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -78,6 +78,18 @@ o Format of a command is: verb [arg]*  where the verb and arguments
   quote character can be embedded inside a quoted string by preceding
   it the double quote character with the escape character.  The escape
   character can be embedded by escaping the escape character.
+</pre><p> The USE_CPL_TSHELL_PROCESSOR_SILENT_WHEN_PUBLIC switch is use to alter the <a class="el" href="namespace_cpl_1_1_t_shell.html" title="The &#39;Cpl::TShell&#39; namespace provides a Text based shell that can be used interact with an Application...">TShell</a>'s output behavior - to not 'say anything' until a user has successfully been authenticated (using the 'User' command</p>
+<p >HOW TO Enable <a class="el" href="class_cpl_1_1_t_shell_1_1_security.html" title="This abstract defines the interface for validating a &#39;user login&#39; for TShell.">Security</a>: </p><pre class="fragment">- Set OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL to something
+  other than ePUBLIC.  This will be the permission for all legacy (i.e.
+  not Security aware) TShell commands
+
+- Recommend turning on the switch: USE_CPL_TSHELL_PROCESSOR_SILENT_WHEN_PUBLIC
+
+- Include the Cpl::TShell::Cmd::User command and provide an 
+  implementation of the Cpl::TShell::Security interface (that is passed 
+  to the command's constructor).
+
+- Optionally include new security aware commands
 </pre> </div>
 <p><code>#include &lt;<a class="el" href="_processor_8h_source.html">Processor.h</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -85,7 +97,7 @@ o Format of a command is: verb [arg]*  where the verb and arguments
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_t_shell_1_1_processor__inherit__graph.svg" width="183" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_cpl_1_1_t_shell_1_1_processor__inherit__graph.svg" width="200" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Collaboration diagram for Cpl::TShell::Processor:</div>
@@ -97,12 +109,15 @@ o Format of a command is: verb [arg]*  where the verb and arguments
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9d842745636a37981abe15aa29a70ea2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a9d842745636a37981abe15aa29a70ea2">Processor</a> (<a class="el" href="class_cpl_1_1_container_1_1_map.html">Cpl::Container::Map</a>&lt; <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html">Command</a> &gt; &amp;commands, <a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_stream_decoder.html">Cpl::Text::Frame::StreamDecoder</a> &amp;deframer, <a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_stream_encoder.html">Cpl::Text::Frame::StreamEncoder</a> &amp;framer, <a class="el" href="class_cpl_1_1_system_1_1_mutex.html">Cpl::System::Mutex</a> &amp;outputLock, char commentChar='#', char argEscape='`', char argDelimiter=' ', char argQuote='&quot;', char argTerminator='\n' )</td></tr>
-<tr class="memdesc:a9d842745636a37981abe15aa29a70ea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a9d842745636a37981abe15aa29a70ea2">More...</a><br /></td></tr>
-<tr class="separator:a9d842745636a37981abe15aa29a70ea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2159c21076b4aceb675f1e08809664d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#aa2159c21076b4aceb675f1e08809664d">start</a> (<a class="el" href="class_cpl_1_1_io_1_1_input.html">Cpl::Io::Input</a> &amp;infd, <a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;outfd) noexcept</td></tr>
-<tr class="memdesc:aa2159c21076b4aceb675f1e08809664d"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html" title="This class defines the interface a TShell Command Processor.">Cpl::TShell::ProcessorApi</a>.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#aa2159c21076b4aceb675f1e08809664d">More...</a><br /></td></tr>
-<tr class="separator:aa2159c21076b4aceb675f1e08809664d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6a60b4372547e62876ce1f2a36e50b4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#aa6a60b4372547e62876ce1f2a36e50b4">Processor</a> (<a class="el" href="class_cpl_1_1_container_1_1_map.html">Cpl::Container::Map</a>&lt; <a class="el" href="class_cpl_1_1_t_shell_1_1_command.html">Command</a> &gt; &amp;commands, <a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_stream_decoder.html">Cpl::Text::Frame::StreamDecoder</a> &amp;deframer, <a class="el" href="class_cpl_1_1_text_1_1_frame_1_1_stream_encoder.html">Cpl::Text::Frame::StreamEncoder</a> &amp;framer, <a class="el" href="class_cpl_1_1_system_1_1_mutex.html">Cpl::System::Mutex</a> &amp;outputLock, char commentChar='#', char argEscape='`', char argDelimiter=' ', char argQuote='&quot;', char argTerminator='\n', <a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a> initialPermissionLevel = <a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356fa3fd1f6cac2b086dc95c32ad7d0b8b151">Security::ePUBLIC</a> )</td></tr>
+<tr class="memdesc:aa6a60b4372547e62876ce1f2a36e50b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#aa6a60b4372547e62876ce1f2a36e50b4">More...</a><br /></td></tr>
+<tr class="separator:aa6a60b4372547e62876ce1f2a36e50b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3744d0e88ebd9ab9ef1fcfdbd461817"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#ac3744d0e88ebd9ab9ef1fcfdbd461817">start</a> (<a class="el" href="class_cpl_1_1_io_1_1_input.html">Cpl::Io::Input</a> &amp;infd, <a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;outfd, bool blocking=true) noexcept</td></tr>
+<tr class="memdesc:ac3744d0e88ebd9ab9ef1fcfdbd461817"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html" title="This class defines the interface a TShell Command Processor.">Cpl::TShell::ProcessorApi</a>.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#ac3744d0e88ebd9ab9ef1fcfdbd461817">More...</a><br /></td></tr>
+<tr class="separator:ac3744d0e88ebd9ab9ef1fcfdbd461817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56bb68339923dd9d9c537e61bd12f435"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a56bb68339923dd9d9c537e61bd12f435">poll</a> () noexcept</td></tr>
+<tr class="memdesc:a56bb68339923dd9d9c537e61bd12f435"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html" title="This class defines the interface a TShell Command Processor.">Cpl::TShell::ProcessorApi</a>.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a56bb68339923dd9d9c537e61bd12f435">More...</a><br /></td></tr>
+<tr class="separator:a56bb68339923dd9d9c537e61bd12f435"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2402f3ba67b237cbae84490c03861fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#af2402f3ba67b237cbae84490c03861fb">requestStop</a> () noexcept</td></tr>
 <tr class="memdesc:af2402f3ba67b237cbae84490c03861fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html" title="This class defines the interface a TShell Command Processor.">Cpl::TShell::ProcessorApi</a>.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#af2402f3ba67b237cbae84490c03861fb">More...</a><br /></td></tr>
 <tr class="separator:af2402f3ba67b237cbae84490c03861fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,6 +151,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5e2a201d8afa14c072c6147b36c18e44"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cpl_1_1_text_1_1_string.html">Cpl::Text::String</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a5e2a201d8afa14c072c6147b36c18e44">getTokenBuffer2</a> () noexcept</td></tr>
 <tr class="memdesc:a5e2a201d8afa14c072c6147b36c18e44"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html" title="This Private Namespace class defines a &quot;Context&quot; for a TShell command.">Cpl::TShell::Context_</a>.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a5e2a201d8afa14c072c6147b36c18e44">More...</a><br /></td></tr>
 <tr class="separator:a5e2a201d8afa14c072c6147b36c18e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3266f7c69e65689706b5b59c8ac431ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a3266f7c69e65689706b5b59c8ac431ea">oobRead</a> (void *buffer, int numBytes, int &amp;bytesRead) noexcept</td></tr>
+<tr class="memdesc:a3266f7c69e65689706b5b59c8ac431ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html" title="This Private Namespace class defines a &quot;Context&quot; for a TShell command.">Cpl::TShell::Context_</a>.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a3266f7c69e65689706b5b59c8ac431ea">More...</a><br /></td></tr>
+<tr class="separator:a3266f7c69e65689706b5b59c8ac431ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b580129eac53479a68b2518e7a7a54f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a3b580129eac53479a68b2518e7a7a54f">getUserPermissionLevel</a> () const noexcept</td></tr>
+<tr class="memdesc:a3b580129eac53479a68b2518e7a7a54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html" title="This Private Namespace class defines a &quot;Context&quot; for a TShell command.">Cpl::TShell::Context_</a>.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a3b580129eac53479a68b2518e7a7a54f">More...</a><br /></td></tr>
+<tr class="separator:a3b580129eac53479a68b2518e7a7a54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26ab992c43c9df202f76fc18993c8d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#ae26ab992c43c9df202f76fc18993c8d2">setUserPermissionLevel</a> (<a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a> newPermissionLevel) noexcept</td></tr>
+<tr class="memdesc:ae26ab992c43c9df202f76fc18993c8d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html" title="This Private Namespace class defines a &quot;Context&quot; for a TShell command.">Cpl::TShell::Context_</a>.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#ae26ab992c43c9df202f76fc18993c8d2">More...</a><br /></td></tr>
+<tr class="separator:ae26ab992c43c9df202f76fc18993c8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_cpl_1_1_t_shell_1_1_context__"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_cpl_1_1_t_shell_1_1_context__')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html">Cpl::TShell::Context_</a></td></tr>
 <tr class="memitem:a05d517252283adbc6a1ba7796b77c89f inherit pub_methods_class_cpl_1_1_t_shell_1_1_context__"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a05d517252283adbc6a1ba7796b77c89f">~Context_</a> ()</td></tr>
 <tr class="memdesc:a05d517252283adbc6a1ba7796b77c89f inherit pub_methods_class_cpl_1_1_t_shell_1_1_context__"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor.  <a href="class_cpl_1_1_t_shell_1_1_context__.html#a05d517252283adbc6a1ba7796b77c89f">More...</a><br /></td></tr>
@@ -153,6 +177,12 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:adbaf197a73e164705017e518567b2467"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#adbaf197a73e164705017e518567b2467">outputCommandError</a> (<a class="el" href="class_cpl_1_1_t_shell_1_1_command.html#aaef15b1964052fb3c85c302a9859813b">Command::Result_T</a> result, const char *deframedInput) noexcept</td></tr>
 <tr class="memdesc:adbaf197a73e164705017e518567b2467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#adbaf197a73e164705017e518567b2467">More...</a><br /></td></tr>
 <tr class="separator:adbaf197a73e164705017e518567b2467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac135361ff8bc98529d82e1db0c22425e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#ac135361ff8bc98529d82e1db0c22425e">getAndProcessFrame</a> (<a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;outfd) noexcept</td></tr>
+<tr class="memdesc:ac135361ff8bc98529d82e1db0c22425e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method that performs a 'single' read cycle of the input stream.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#ac135361ff8bc98529d82e1db0c22425e">More...</a><br /></td></tr>
+<tr class="separator:ac135361ff8bc98529d82e1db0c22425e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c8e9e8068a0be10641ce8311e3c7eec"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a5c8e9e8068a0be10641ce8311e3c7eec">readInput</a> (size_t &amp;frameSize) noexcept</td></tr>
+<tr class="memdesc:a5c8e9e8068a0be10641ce8311e3c7eec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method that executes the decoder, i.e.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a5c8e9e8068a0be10641ce8311e3c7eec">More...</a><br /></td></tr>
+<tr class="separator:a5c8e9e8068a0be10641ce8311e3c7eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -168,6 +198,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:aebb1e7dded3c74acb3530e7fd9b687e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cpl_1_1_system_1_1_mutex.html">Cpl::System::Mutex</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#aebb1e7dded3c74acb3530e7fd9b687e3">m_outLock</a></td></tr>
 <tr class="memdesc:aebb1e7dded3c74acb3530e7fd9b687e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output lock.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#aebb1e7dded3c74acb3530e7fd9b687e3">More...</a><br /></td></tr>
 <tr class="separator:aebb1e7dded3c74acb3530e7fd9b687e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6feafe67c7599bd7f45a1bff3e22c17e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a6feafe67c7599bd7f45a1bff3e22c17e">m_userPermLevel</a></td></tr>
+<tr class="memdesc:a6feafe67c7599bd7f45a1bff3e22c17e"><td class="mdescLeft">&#160;</td><td class="mdescRight">User's permission level.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a6feafe67c7599bd7f45a1bff3e22c17e">More...</a><br /></td></tr>
+<tr class="separator:a6feafe67c7599bd7f45a1bff3e22c17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67734e79866303ef588a9ed5cb844dd0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a67734e79866303ef588a9ed5cb844dd0">m_comment</a></td></tr>
 <tr class="memdesc:a67734e79866303ef588a9ed5cb844dd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comment character.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a67734e79866303ef588a9ed5cb844dd0">More...</a><br /></td></tr>
 <tr class="separator:a67734e79866303ef588a9ed5cb844dd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,6 +216,12 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a426270fbdc8b82245bfa729c289649b3"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a426270fbdc8b82245bfa729c289649b3">m_term</a></td></tr>
 <tr class="memdesc:a426270fbdc8b82245bfa729c289649b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Argument terminator character.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a426270fbdc8b82245bfa729c289649b3">More...</a><br /></td></tr>
 <tr class="separator:a426270fbdc8b82245bfa729c289649b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42a91779c8d6cd7993a1bc110ba611cf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a42a91779c8d6cd7993a1bc110ba611cf">m_writeCommandPrompt</a></td></tr>
+<tr class="memdesc:a42a91779c8d6cd7993a1bc110ba611cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to true when 'command prompt' should be outputted.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a42a91779c8d6cd7993a1bc110ba611cf">More...</a><br /></td></tr>
+<tr class="separator:a42a91779c8d6cd7993a1bc110ba611cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86415e7bbcba7c03fe475b927fa29770"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#a86415e7bbcba7c03fe475b927fa29770">m_frameSize</a></td></tr>
+<tr class="memdesc:a86415e7bbcba7c03fe475b927fa29770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current frame size.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#a86415e7bbcba7c03fe475b927fa29770">More...</a><br /></td></tr>
+<tr class="separator:a86415e7bbcba7c03fe475b927fa29770"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6e3f5e41301d6476e4a028e66739593"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cpl_1_1_t_shell_1_1_processor.html#af6e3f5e41301d6476e4a028e66739593">m_running</a></td></tr>
 <tr class="memdesc:af6e3f5e41301d6476e4a028e66739593"><td class="mdescLeft">&#160;</td><td class="mdescRight">My run state.  <a href="class_cpl_1_1_t_shell_1_1_processor.html#af6e3f5e41301d6476e4a028e66739593">More...</a><br /></td></tr>
 <tr class="separator:af6e3f5e41301d6476e4a028e66739593"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,8 +239,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a9645cbf534aad5f6d4bf11488a6fa64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9d842745636a37981abe15aa29a70ea2" name="a9d842745636a37981abe15aa29a70ea2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d842745636a37981abe15aa29a70ea2">&#9670;&nbsp;</a></span>Processor()</h2>
+<a id="aa6a60b4372547e62876ce1f2a36e50b4" name="aa6a60b4372547e62876ce1f2a36e50b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6a60b4372547e62876ce1f2a36e50b4">&#9670;&nbsp;</a></span>Processor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +297,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>argTerminator</em> = <code>'\n'</code>&#160;</td>
+          <td class="paramname"><em>argTerminator</em> = <code>'\n'</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a>&#160;</td>
+          <td class="paramname"><em>initialPermissionLevel</em> = <code><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356fa3fd1f6cac2b086dc95c32ad7d0b8b151">Security::ePUBLIC</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -280,6 +325,7 @@ Protected Attributes</h2></td></tr>
     <tr><td class="paramname">argDelimiter</td><td>The delimiter character used to separate the command verb and arguments. </td></tr>
     <tr><td class="paramname">argQuote</td><td>The quote character used to 'double quote' a argument string. </td></tr>
     <tr><td class="paramname">argTerminator</td><td>The command terminator character. </td></tr>
+    <tr><td class="paramname">initialPermissionLevel</td><td>The initial minimum permission level that a user needs to issue command(s) </td></tr>
   </table>
   </dd>
 </dl>
@@ -323,6 +369,35 @@ Protected Attributes</h2></td></tr>
 
 <p>Helper method that attempts to execute the content of the de-framed/decoded 'inputString'. </p>
 <p >The method returns the result code of the execute command. If 'inputString' is not a valid command, then the appropriate error/result code is returned. </p>
+
+</div>
+</div>
+<a id="ac135361ff8bc98529d82e1db0c22425e" name="ac135361ff8bc98529d82e1db0c22425e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac135361ff8bc98529d82e1db0c22425e">&#9670;&nbsp;</a></span>getAndProcessFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Cpl::TShell::Processor::getAndProcessFrame </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;&#160;</td>
+          <td class="paramname"><em>outfd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method that performs a 'single' read cycle of the input stream. </p>
+<p >Returns 0 if successful. Returns 1 if exiting. Returns -1 on error </p>
 
 </div>
 </div>
@@ -558,6 +633,81 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3b580129eac53479a68b2518e7a7a54f" name="a3b580129eac53479a68b2518e7a7a54f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b580129eac53479a68b2518e7a7a54f">&#9670;&nbsp;</a></span>getUserPermissionLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a> Cpl::TShell::Processor::getUserPermissionLevel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>See <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html" title="This Private Namespace class defines a &quot;Context&quot; for a TShell command.">Cpl::TShell::Context_</a>. </p>
+
+<p>Implements <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a669085470e3f5c90829564ec07f50814">Cpl::TShell::Context_</a>.</p>
+
+</div>
+</div>
+<a id="a3266f7c69e65689706b5b59c8ac431ea" name="a3266f7c69e65689706b5b59c8ac431ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3266f7c69e65689706b5b59c8ac431ea">&#9670;&nbsp;</a></span>oobRead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cpl::TShell::Processor::oobRead </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>bytesRead</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>See <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html" title="This Private Namespace class defines a &quot;Context&quot; for a TShell command.">Cpl::TShell::Context_</a>. </p>
+
+<p>Implements <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#a22a6e22ea3efe56b52c1a0008d979a88">Cpl::TShell::Context_</a>.</p>
+
+</div>
+</div>
 <a id="adbaf197a73e164705017e518567b2467" name="adbaf197a73e164705017e518567b2467"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adbaf197a73e164705017e518567b2467">&#9670;&nbsp;</a></span>outputCommandError()</h2>
 
@@ -596,6 +746,66 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a56bb68339923dd9d9c537e61bd12f435" name="a56bb68339923dd9d9c537e61bd12f435"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56bb68339923dd9d9c537e61bd12f435">&#9670;&nbsp;</a></span>poll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Cpl::TShell::Processor::poll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>See <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html" title="This class defines the interface a TShell Command Processor.">Cpl::TShell::ProcessorApi</a>. </p>
+
+<p>Implements <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#aafe9d85cf1b886c89472e3a0b9c1020b">Cpl::TShell::ProcessorApi</a>.</p>
+
+</div>
+</div>
+<a id="a5c8e9e8068a0be10641ce8311e3c7eec" name="a5c8e9e8068a0be10641ce8311e3c7eec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c8e9e8068a0be10641ce8311e3c7eec">&#9670;&nbsp;</a></span>readInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int Cpl::TShell::Processor::readInput </td>
+          <td>(</td>
+          <td class="paramtype">size_t &amp;&#160;</td>
+          <td class="paramname"><em>frameSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method that executes the decoder, i.e. </p>
+<p >logic to parse the incoming text. Returns 1 if a full/valid frame was found. Returns 0 if input frame is incomplete. Return -1 if an error occurred. </p>
+
+<p>Reimplemented in <a class="el" href="class_cpl_1_1_t_shell_1_1_polled_processor.html#adc10baa6b5b613ae9bd4ccd01b0892d1">Cpl::TShell::PolledProcessor</a>.</p>
+
+</div>
+</div>
 <a id="af2402f3ba67b237cbae84490c03861fb" name="af2402f3ba67b237cbae84490c03861fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2402f3ba67b237cbae84490c03861fb">&#9670;&nbsp;</a></span>requestStop()</h2>
 
@@ -625,8 +835,38 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa2159c21076b4aceb675f1e08809664d" name="aa2159c21076b4aceb675f1e08809664d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2159c21076b4aceb675f1e08809664d">&#9670;&nbsp;</a></span>start()</h2>
+<a id="ae26ab992c43c9df202f76fc18993c8d2" name="ae26ab992c43c9df202f76fc18993c8d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae26ab992c43c9df202f76fc18993c8d2">&#9670;&nbsp;</a></span>setUserPermissionLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a> Cpl::TShell::Processor::setUserPermissionLevel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a>&#160;</td>
+          <td class="paramname"><em>newPermissionLevel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>See <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html" title="This Private Namespace class defines a &quot;Context&quot; for a TShell command.">Cpl::TShell::Context_</a>. </p>
+
+<p>Implements <a class="el" href="class_cpl_1_1_t_shell_1_1_context__.html#ac9342a0b5fd4e527a88bb6bda92cf6ba">Cpl::TShell::Context_</a>.</p>
+
+</div>
+</div>
+<a id="ac3744d0e88ebd9ab9ef1fcfdbd461817" name="ac3744d0e88ebd9ab9ef1fcfdbd461817"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3744d0e88ebd9ab9ef1fcfdbd461817">&#9670;&nbsp;</a></span>start()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -644,7 +884,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="class_cpl_1_1_io_1_1_output.html">Cpl::Io::Output</a> &amp;&#160;</td>
-          <td class="paramname"><em>outfd</em>&#160;</td>
+          <td class="paramname"><em>outfd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>blocking</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -661,7 +907,7 @@ Protected Attributes</h2></td></tr>
 
 <p>See <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html" title="This class defines the interface a TShell Command Processor.">Cpl::TShell::ProcessorApi</a>. </p>
 
-<p>Implements <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#adc6d389c83d778dce27af5b3168168f6">Cpl::TShell::ProcessorApi</a>.</p>
+<p>Implements <a class="el" href="class_cpl_1_1_t_shell_1_1_processor_api.html#afefa07f5918ab5bee5281d83ad09965f">Cpl::TShell::ProcessorApi</a>.</p>
 
 </div>
 </div>
@@ -880,6 +1126,30 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a86415e7bbcba7c03fe475b927fa29770" name="a86415e7bbcba7c03fe475b927fa29770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86415e7bbcba7c03fe475b927fa29770">&#9670;&nbsp;</a></span>m_frameSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t Cpl::TShell::Processor::m_frameSize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Current frame size. </p>
+
+</div>
+</div>
 <a id="a651a5a5a55c3461023a2ec6f643ac37a" name="a651a5a5a55c3461023a2ec6f643ac37a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a651a5a5a55c3461023a2ec6f643ac37a">&#9670;&nbsp;</a></span>m_inputBuffer</h2>
 
@@ -1072,13 +1342,61 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6feafe67c7599bd7f45a1bff3e22c17e" name="a6feafe67c7599bd7f45a1bff3e22c17e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6feafe67c7599bd7f45a1bff3e22c17e">&#9670;&nbsp;</a></span>m_userPermLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_cpl_1_1_t_shell_1_1_security.html#a1fabb709bfb743af129f25a3223a356f">Security::Permission_T</a> Cpl::TShell::Processor::m_userPermLevel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>User's permission level. </p>
+
+</div>
+</div>
+<a id="a42a91779c8d6cd7993a1bc110ba611cf" name="a42a91779c8d6cd7993a1bc110ba611cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42a91779c8d6cd7993a1bc110ba611cf">&#9670;&nbsp;</a></span>m_writeCommandPrompt</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Cpl::TShell::Processor::m_writeCommandPrompt</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set to true when 'command prompt' should be outputted. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Cpl/TShell/<a class="el" href="_processor_8h_source.html">Processor.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:46 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:56 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

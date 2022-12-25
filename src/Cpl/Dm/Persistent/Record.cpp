@@ -12,6 +12,7 @@
 #include "Record.h"
 #include "Cpl/System/Assert.h"
 #include "Cpl/System/Trace.h"
+#include "Cpl/System/ElapsedTime.h"
 #include "Cpl/Itc/SyncReturnHandler.h"
 
 
@@ -22,9 +23,17 @@
 using namespace Cpl::Dm::Persistent;
 
 //////////////////////////////////////////////////////
-Record::Record( Item_T itemList[], Cpl::Persistent::Chunk& chunkHandler, uint8_t schemaMajorIndex, uint8_t schemaMinorIndex ) noexcept
+Record::Record( Item_T                  itemList[],
+                Cpl::Persistent::Chunk& chunkHandler,
+                uint8_t                 schemaMajorIndex,
+                uint8_t                 schemaMinorIndex,
+                uint32_t                writeDelayMs,
+                uint32_t                maxDelayMs ) noexcept
     : m_items( itemList )
     , m_chunkHandler( chunkHandler )
+    , m_delayMs( writeDelayMs )
+    , m_maxDelayMs( maxDelayMs )
+    , m_timerMarker( 0 )
     , m_major( schemaMajorIndex )
     , m_minor( schemaMinorIndex )
     , m_started( false )
@@ -44,6 +53,9 @@ void Record::start( Cpl::Dm::MailboxServer& myMbox ) noexcept
     {
         m_started = true;
 
+        // Set the timing source (for my delay timer)
+        setTimingSource( myMbox );
+
         // Start the chunk handler
         m_chunkHandler.start( myMbox );
 
@@ -52,10 +64,10 @@ void Record::start( Cpl::Dm::MailboxServer& myMbox ) noexcept
         if ( !m_chunkHandler.loadData( *this ) )
         {
             // No valid data -->reset to my defaults
-            CPL_SYSTEM_TRACE_MSG( SECT_, ( "Initial loadData() failed. mp[0]=%s", m_items[0].mpPtr->getName() ) );
+            CPL_SYSTEM_TRACE_MSG( SECT_, ("Initial loadData() failed. mp[0]=%s", m_items[0].mpPtr->getName()) );
             if ( resetData() )
             {
-                dataChanged( *( m_items[0].mpPtr ) );  // Write the new/reset data to storage. Note: The model point argument to the function is NOT used by the called method
+                updateNVRAM();
             }
 
             // The Record has requested that NO UPDATES to persistence storage occur -->so we prevent the subscriptions
@@ -68,7 +80,7 @@ void Record::start( Cpl::Dm::MailboxServer& myMbox ) noexcept
         // Record was successfully loaded -->allow for optional child class processing
         else
         {
-            CPL_SYSTEM_TRACE_MSG( SECT_, ( "Initial loadData() succeeded! mp[0]=%s", m_items[0].mpPtr->getName() ) );
+            CPL_SYSTEM_TRACE_MSG( SECT_, ("Initial loadData() succeeded! mp[0]=%s", m_items[0].mpPtr->getName()) );
             hookProcessPostRecordLoaded();
         }
 
@@ -90,7 +102,7 @@ void Record::start( Cpl::Dm::MailboxServer& myMbox ) noexcept
                 if ( m_items[i].observerPtr )
                 {
                     // Subscribe with the current sequence number so there will be NO IMMEDIATE call back
-                    m_items[i].mpPtr->genericAttach( *( m_items[i].observerPtr ), m_items[i].mpPtr->getSequenceNumber() );
+                    m_items[i].mpPtr->genericAttach( *(m_items[i].observerPtr), m_items[i].mpPtr->getSequenceNumber() );
                 }
                 else
                 {
@@ -114,7 +126,7 @@ void Record::stop() noexcept
             if ( m_items[i].observerPtr != CPL_DM_PERISTENCE_RECORD_NO_SUBSCRIBER )
             {
                 // subscribe with the current sequence number so there will be NO IMMEDIATE call back
-                m_items[i].mpPtr->genericDetach( *( m_items[i].observerPtr ) );
+                m_items[i].mpPtr->genericDetach( *(m_items[i].observerPtr) );
                 delete m_items[i].observerPtr;
             }
         }
@@ -211,24 +223,75 @@ bool Record::putData( const void* src, size_t srcLen ) noexcept
     return true;
 }
 
-void Record::dataChanged( Cpl::Dm::ModelPoint& point ) noexcept
+void Record::dataChanged( Cpl::Dm::ModelPoint& point, Cpl::Dm::SubscriberApi& observer ) noexcept
 {
-    // NOTE: If the write to the storage media failed -->the RAM contents are still valid so no immediate issue.  However, on the next power cycle the record will be defaulted since the CRC is going to be bad
-    CPL_SYSTEM_TRACE_MSG( SECT_, ( "Record Changed: mp=%s", point.getName() ) );
+    CPL_SYSTEM_TRACE_MSG( SECT_, ("Record Changed: mp=%s, timeMarker=%lu", point.getName(), m_timerMarker) );
+
+    // NOTE: The observer instance is PURPOSELY not synchronized with the read 
+    //       of the MP data.  This is because there can be multiple MPs that 
+    //       make up the Record and it is possible to get change notification 
+    //       for all MPs, i.e. change notifications are not atomic to the SET 
+    //       of MPs that make up Record.  However, the application can enable 
+    //       the 'settling time' feature of the Record to minimize the number  
+    //       of 'extra' NVRAM updates.
+
+    // No delay -->update NVRAM immediately 
+    if ( m_delayMs == 0 )
+    {
+        updateNVRAM();
+    }
+
+    // Defer/Delay the update to NVRAM
+    else
+    {
+        // If the timer is not running -->then this is the 'first' change notification
+        uint32_t now = Cpl::System::ElapsedTime::milliseconds();
+        if ( Cpl::System::Timer::count() == 0 )
+        {
+            m_timerMarker = now;
+        }
+
+        // Update NVRAM if the maximum delay time has expired
+        if ( Cpl::System::ElapsedTime::expiredMilliseconds( m_timerMarker, m_maxDelayMs, now ) )
+        {
+            Cpl::System::Timer::stop();
+            updateNVRAM();
+        }
+
+        // Start my software timer to delay the update to NVRAM
+        else
+        {
+            Cpl::System::Timer::start( m_delayMs );
+        }
+    }
+}
+
+void Record::expired( void ) noexcept
+{
+    updateNVRAM();
+}
+
+void Record::updateNVRAM() noexcept
+{
+    CPL_SYSTEM_TRACE_MSG( SECT_, ("updateNVRAM()") );
+
+    // NOTE: If the write to the storage media failed -->the RAM contents are 
+    // still valid so no immediate issue.  However, on the next power cycle the 
+    // record will be defaulted since the CRC is going to be bad
     m_chunkHandler.updateData( *this );
 }
 
 void Record::request( FlushMsg& msg )
 {
     msg.getPayload().m_success = m_chunkHandler.updateData( *this );
-    CPL_SYSTEM_TRACE_MSG( SECT_, ( "Flush Request. mp[0]=%s. success=%d", m_items[0].mpPtr->getName(), msg.getPayload().m_success ) );
+    CPL_SYSTEM_TRACE_MSG( SECT_, ("Flush Request. mp[0]=%s. success=%d", m_items[0].mpPtr->getName(), msg.getPayload().m_success) );
     msg.returnToSender();
 }
 
 void Record::request( EraseMsg& msg )
 {
     msg.getPayload().m_success = m_chunkHandler.updateData( *this, 0, true );
-    CPL_SYSTEM_TRACE_MSG( SECT_, ( "Erase Request. mp[0]=%s. success=%d", m_items[0].mpPtr->getName(), msg.getPayload().m_success ) );
+    CPL_SYSTEM_TRACE_MSG( SECT_, ("Erase Request. mp[0]=%s. success=%d", m_items[0].mpPtr->getName(), msg.getPayload().m_success) );
     msg.returnToSender();
 }
 

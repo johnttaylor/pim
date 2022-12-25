@@ -58,7 +58,6 @@ public:
 	/// Type safe subscriber
 	typedef Cpl::Dm::Subscriber<Int64> Observer;
 
-
 public:
 	///  See Cpl::Dm::ModelPoint.
 	const char* getTypeAsText() const noexcept

@@ -159,6 +159,11 @@ public:
     /// Type safe un-register observer
     void detach( Observer& observer ) noexcept;
 
+    /// See Cpl::Dm::ModelPointCommon
+    inline bool readAndSync( Data& dstData, Cpl::Dm::SubscriberApi& observerToSync )
+    {
+        return ModelPointCommon_::readAndSync( &dstData, sizeof( Data ), observerToSync );
+    }
 
 public:
     /// See Cpl::Dm::ModelPoint.

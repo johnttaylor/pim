@@ -30,23 +30,25 @@ class PolledProcessor : public Processor
 public:
 	/** Constructor.
 
-		@param commands         Set of supported commands
-		@param deframer         Frame decoder used to identify individual command
-								strings within the raw Input stream
-		@param framer           Frame encoder used to encapsulate the output of
-								command in the Output stream.
-		@param outputLock       Mutex to be used for ensuring the atomic output
-								of the commands.
-		@param commentChar      The comment character used to indicate that the
-								input string is a comment and should not be
-								executed.
-		@param argEscape        Escape character to be used when escaping double
-								quote characters inside a quoted argument.
-		@param argDelimiter     The delimiter character used to separate the
-								command verb and arguments.
-		@param argQuote         The quote character used to 'double quote' a
-								argument string.
-		@param argTerminator    The command terminator character.
+		@param commands					Set of supported commands
+		@param deframer					Frame decoder used to identify individual command
+										strings within the raw Input stream
+		@param framer					Frame encoder used to encapsulate the output of
+										command in the Output stream.
+		@param outputLock				Mutex to be used for ensuring the atomic output
+										of the commands.
+		@param commentChar				The comment character used to indicate that the
+										input string is a comment and should not be
+										executed.
+		@param argEscape				Escape character to be used when escaping double
+										quote characters inside a quoted argument.
+		@param argDelimiter				The delimiter character used to separate the
+										command verb and arguments.
+		@param argQuote					The quote character used to 'double quote' a
+										argument string.
+		@param argTerminator			The command terminator character.
+		@param initialPermissionLevel   The initial minimum permission level that a user needs to issue command(s)
+
 	 */
 	PolledProcessor( Cpl::Container::Map<Command>&     commands,
 					 Cpl::Text::Frame::StreamDecoder&  deframer,
@@ -56,8 +58,8 @@ public:
 					 char                              argEscape='`',
 					 char                              argDelimiter=' ',
 					 char                              argQuote='"',
-					 char                              argTerminator='\n'
-	);				 
+					 char                              argTerminator='\n',
+					 Security::Permission_T            initialPermissionLevel = Security::ePUBLIC );
 
 
 public:

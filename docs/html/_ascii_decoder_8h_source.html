@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Colony: Cpl/Text/Frame/AsciiDecoder.h Source File</title>
+<title>Patterns in the Machine: Cpl/Text/Frame/AsciiDecoder.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -19,7 +19,7 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo2.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Colony<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
+   <div id="projectname">Patterns in the Machine<span id="projectnumber">&#160;$$$PROJECT_NUMBER$$$</span>
    </div>
    <div id="projectbrief">Embedded C++ Class Library</div>
   </td>
@@ -56,7 +56,7 @@ $(function() {
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">* agreement (license.txt) in the top/ directory or on the Internet at</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">* http://integerfox.com/colony.core/license.txt</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2020  John T. Taylor</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* Copyright (c) 2014-2022  John T. Taylor</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* Redistributions of the source code must retain the above copyright notice.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">*----------------------------------------------------------------------------*/</span><span class="comment"></span></div>
@@ -112,8 +112,8 @@ $(function() {
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">        to reset and begin searching/looking-for the next start-of-frame</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">        character.</span></div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ab6aa6134b19214f880b1eba587d532c5">   65</a></span>    <a class="code hl_function" href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ab6aa6134b19214f880b1eba587d532c5">AsciiDecoder</a>( <span class="keywordtype">char</span> startOfFrame, <span class="keywordtype">char</span> endOfFrame, <span class="keywordtype">char</span> escapeChar, <span class="keywordtype">bool</span> restrict=<span class="keyword">true</span>, <a class="code hl_class" href="class_cpl_1_1_io_1_1_input.html">Cpl::Io::Input</a>* inputSource=0 )</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        :<a class="code hl_class" href="class_cpl_1_1_text_1_1_frame_1_1_stream_decoder.html">StreamDecoder</a>( <a class="code hl_variable" href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ac9961dc2b21c51bcaa50495c5fdf890e">m_buffer</a>, BUFSIZE, inputSource )</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ae74f882a2c164102949ab030f70d3684">   65</a></span>    <a class="code hl_function" href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ae74f882a2c164102949ab030f70d3684">AsciiDecoder</a>( <span class="keywordtype">char</span> startOfFrame, <span class="keywordtype">char</span> endOfFrame, <span class="keywordtype">char</span> escapeChar, <span class="keywordtype">bool</span> restrict=<span class="keyword">true</span>, <a class="code hl_class" href="class_cpl_1_1_io_1_1_input.html">Cpl::Io::Input</a>* inputSource=0, <span class="keywordtype">bool</span> blocking = <span class="keyword">true</span> )</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        :<a class="code hl_class" href="class_cpl_1_1_text_1_1_frame_1_1_stream_decoder.html">StreamDecoder</a>( <a class="code hl_variable" href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ac9961dc2b21c51bcaa50495c5fdf890e">m_buffer</a>, BUFSIZE, inputSource, blocking )</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        , <a class="code hl_variable" href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#a36a23070172813cee227082b20e93ec1">m_sof</a>( startOfFrame )</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        , <a class="code hl_variable" href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#a51a24bc64eef2f921ae39212f6af383c">m_eof</a>( endOfFrame )</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        , <a class="code hl_variable" href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#a64ff448931126af271642583bbfc1a70">m_esc</a>( escapeChar )</div>
@@ -153,17 +153,17 @@ $(function() {
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_ascii_decoder_html_a36a23070172813cee227082b20e93ec1"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#a36a23070172813cee227082b20e93ec1">Cpl::Text::Frame::AsciiDecoder::m_sof</a></div><div class="ttdeci">const char m_sof</div><div class="ttdoc">SOF character.</div><div class="ttdef"><b>Definition:</b> AsciiDecoder.h:42</div></div>
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_ascii_decoder_html_a51a24bc64eef2f921ae39212f6af383c"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#a51a24bc64eef2f921ae39212f6af383c">Cpl::Text::Frame::AsciiDecoder::m_eof</a></div><div class="ttdeci">const char m_eof</div><div class="ttdoc">EOF character.</div><div class="ttdef"><b>Definition:</b> AsciiDecoder.h:45</div></div>
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_ascii_decoder_html_a64ff448931126af271642583bbfc1a70"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#a64ff448931126af271642583bbfc1a70">Cpl::Text::Frame::AsciiDecoder::m_esc</a></div><div class="ttdeci">const char m_esc</div><div class="ttdoc">Escape character.</div><div class="ttdef"><b>Definition:</b> AsciiDecoder.h:48</div></div>
-<div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_ascii_decoder_html_ab6aa6134b19214f880b1eba587d532c5"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ab6aa6134b19214f880b1eba587d532c5">Cpl::Text::Frame::AsciiDecoder::AsciiDecoder</a></div><div class="ttdeci">AsciiDecoder(char startOfFrame, char endOfFrame, char escapeChar, bool restrict=true, Cpl::Io::Input *inputSource=0)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> AsciiDecoder.h:65</div></div>
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_ascii_decoder_html_ac9961dc2b21c51bcaa50495c5fdf890e"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ac9961dc2b21c51bcaa50495c5fdf890e">Cpl::Text::Frame::AsciiDecoder::m_buffer</a></div><div class="ttdeci">char m_buffer[BUFSIZE]</div><div class="ttdoc">Raw input buffer for reading characters in 'chunks' from my Input stream (i.e. minimize the calls to ...</div><div class="ttdef"><b>Definition:</b> AsciiDecoder.h:54</div></div>
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_ascii_decoder_html_ae25a8819e6446651ddbb062f408ac513"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ae25a8819e6446651ddbb062f408ac513">Cpl::Text::Frame::AsciiDecoder::isLegalCharacter</a></div><div class="ttdeci">bool isLegalCharacter() noexcept</div><div class="ttdoc">See Cpl::Text::Frame::Decoder_.</div><div class="ttdef"><b>Definition:</b> AsciiDecoder.h:86</div></div>
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_ascii_decoder_html_ae5de595269d3298e23a9cc3aac1a228c"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ae5de595269d3298e23a9cc3aac1a228c">Cpl::Text::Frame::AsciiDecoder::m_restricted</a></div><div class="ttdeci">const bool m_restricted</div><div class="ttdoc">Remember printable ASCII characters ONLY option.</div><div class="ttdef"><b>Definition:</b> AsciiDecoder.h:51</div></div>
-<div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_decoder___html_a388d07c5029732ab6b033a4f4cb45c73"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_decoder__.html#a388d07c5029732ab6b033a4f4cb45c73">Cpl::Text::Frame::Decoder_::m_dataPtr</a></div><div class="ttdeci">char * m_dataPtr</div><div class="ttdoc">Pointer to the next unprocessed character in my raw input buffer.</div><div class="ttdef"><b>Definition:</b> Decoder_.h:39</div></div>
+<div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_ascii_decoder_html_ae74f882a2c164102949ab030f70d3684"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_ascii_decoder.html#ae74f882a2c164102949ab030f70d3684">Cpl::Text::Frame::AsciiDecoder::AsciiDecoder</a></div><div class="ttdeci">AsciiDecoder(char startOfFrame, char endOfFrame, char escapeChar, bool restrict=true, Cpl::Io::Input *inputSource=0, bool blocking=true)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> AsciiDecoder.h:65</div></div>
+<div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_decoder___html_a388d07c5029732ab6b033a4f4cb45c73"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_decoder__.html#a388d07c5029732ab6b033a4f4cb45c73">Cpl::Text::Frame::Decoder_::m_dataPtr</a></div><div class="ttdeci">char * m_dataPtr</div><div class="ttdoc">Pointer to the next unprocessed character in my raw input buffer.</div><div class="ttdef"><b>Definition:</b> Decoder_.h:86</div></div>
 <div class="ttc" id="aclass_cpl_1_1_text_1_1_frame_1_1_stream_decoder_html"><div class="ttname"><a href="class_cpl_1_1_text_1_1_frame_1_1_stream_decoder.html">Cpl::Text::Frame::StreamDecoder</a></div><div class="ttdoc">This partially concrete class defines an interface a Text &quot;Decoder&quot; that has a Cpl::Io::Input stream ...</div><div class="ttdef"><b>Definition:</b> StreamDecoder.h:34</div></div>
 <div class="ttc" id="anamespace_cpl_html"><div class="ttname"><a href="namespace_cpl.html">Cpl</a></div><div class="ttdoc">The 'Cpl' namespace is the root name space for the Colony.</div><div class="ttdef"><b>Definition:</b> Api16.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 31 2022 16:46:44 for Colony by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+Generated on Sun Dec 25 2022 14:37:50 for Patterns in the Machine by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
 </small></address>
 </body>
 </html>

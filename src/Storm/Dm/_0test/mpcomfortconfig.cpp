@@ -195,15 +195,15 @@ TEST_CASE( "MpComfortConfig" )
     SECTION( "observer" )
     {
         Cpl::Dm::MailboxServer     t1Mbox;
-        Viewer<MpComfortConfig>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_ );
+        SET_VALUES( expectedVal.compressorCooling, Storm::Type::Cph::e6CPH, 10, 20 );
+        SET_VALUES( expectedVal.compressorHeating, Storm::Type::Cph::e5CPH, 50, 60 );
+        SET_VALUES( expectedVal.indoorHeating, Storm::Type::Cph::e4CPH, 70, 80 );
+        Viewer<MpComfortConfig, Storm::Type::ComfortConfig_T>    viewer_apple1( t1Mbox, Cpl::System::Thread::getCurrent(), mp_apple_, expectedVal );
         Cpl::System::Thread* t1 = Cpl::System::Thread::create( t1Mbox, "T1" );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Created Viewer thread (%p)", t1) );
 
         // NOTE: The MP MUST be in the INVALID state at the start of this test
         viewer_apple1.open();
-        SET_VALUES( expectedVal.compressorCooling, Storm::Type::Cph::e6CPH, 10, 20 );
-        SET_VALUES( expectedVal.compressorHeating, Storm::Type::Cph::e5CPH, 50, 60 );
-        SET_VALUES( expectedVal.indoorHeating, Storm::Type::Cph::e4CPH, 70, 80 );
         mp_apple_.write( expectedVal );
         CPL_SYSTEM_TRACE_MSG( SECT_, ("Waiting for viewer signal...") );
         Cpl::System::Thread::wait();
