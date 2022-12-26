@@ -3,7 +3,7 @@ The Data Model architecture is used to design highly decoupled code.  It allows
 for the exchange of data between modules with neither module have dependencies 
 on each other. 
 
-For example: given the tightly coupled design below:
+For example: given the coupled design below:
 ```
 
   ┌────────────┐             ┌───────────┐
@@ -34,7 +34,7 @@ introducing an unnecessary layer of abstraction, in reality, you’re giving you
 design the following advantages:
 
 - It makes it easier to extend existing functionality without modifying existing 
-source code. For example, you could extend the above figure by introducing a third 
+source code. For example, you could extend the above deisgn by introducing a third 
 module that takes the output of Module 1 and modifies it for input to Module 2. 
 In this case, we would only need to create a new model point. In the figure below, 
 then, Module 3 is passed a reference to Model Point A and Model Point AA in its 
@@ -101,5 +101,5 @@ operation.
 change notifications when the value of a model point changes or transitions to 
 a valid or invalid state.
 
-#### More Details
+# More Details
 Additional details can found in Chapters 9 & 15 in my book: [Patterns in the Machine: A Softawre Engineering Guide to Embedded Development](https://www.apress.com/us/book/9781484264393)

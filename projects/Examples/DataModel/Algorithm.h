@@ -6,7 +6,7 @@
 * agreement (license.txt) in the top/ directory or on the Internet at
 * http://integerfox.com/colony.apps/license.txt
 *
-* Copyright (c) 2015-2020  John T. Taylor
+* Copyright (c) 2015-2022  John T. Taylor
 *
 * Redistributions of the source code must retain the above copyright notice.
 *----------------------------------------------------------------------------*/
@@ -28,10 +28,10 @@
       These metrics are stored in the MpMetrics model point.
 
     - Generates a 'High Alarm' when the current input value goes above the value 
-      of 998.  The Alarm is lowered once the current value drops below 2.
+      of 995.  The Alarm is lowered once the current value drops below 5.
 
     - Generates a 'Low Alarm' when the current input value goes below the value 
-      of 2.  The Alarm is lowered once the current value goes above 998.
+      of 5.  The Alarm is lowered once the current value goes above 995.
 
     The algorithm executes at 10Hz.
  */

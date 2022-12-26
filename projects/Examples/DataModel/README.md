@@ -4,7 +4,7 @@ The Data Model example project is an introduction to using the Data Model framew
 
 The example illustrates the following:
 - Multi-threaded application
-- Decoupling 'drivers' from the Application
+- Decoupling 'drivers' from the Application logic
 - Creating an application specific model point
   - Includes customized read-modify-write operations for a model point
 - Polled semantics for reading values sourced by the input driver
@@ -14,7 +14,9 @@ The example illustrates the following:
 
 
 ### Example Application
-The example application contains the following modules/classes:
+The example application is contains the following modules/classes.  __Note:__ the
+goal of the application is to illustrate how to use model points, not do actually
+doing anything that is useful ;-).
 
 - __InputDriver__.  The Input Driver is representative of an 'input driver' that
 samples a physical signal.  The driver generates a random value in the range of 1 to 1000.
@@ -22,7 +24,7 @@ The Input Driver executes in the _Driver_ thread and generates values at 100Hz.
   - Files: [`InputDriver.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/InputDriver.h), [`InputDriver.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/InputDriver.cpp)
 
 - __OutputDriver__.  The Output Driver is representative of an 'output driver' that
-drives physical output signals. The driver asserts/de-asserts two boolean outputs,  
+drives physical output signals. The driver asserts/de-asserts two boolean outputs, 
 one signal each for the High and Low Alarms. The Output Driver executes in the _Driver_ 
 thread and only changes its output values when the Alarms change state.
   - Files: [`OutputDriver.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/OutputDriver.h), [`OutputDriver.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/OutputDriver.cpp)
@@ -85,8 +87,9 @@ method.  There is a total of five threads in the application:
   | Thread | Description |
   |--------|-------------|
   | xxxMain     | This the main thread of the executable's process.  The start-up/shutdown logic executes in this thread. |
-  | Application | This the primary _application_ thread and it is event/message based thread. The `Algorithm` class executes in this thread |
+  | Application | This the primary _application_ thread and it is event/message based thread. The `Algorithm` class executes in this thread. |
   | Drivers     | This thread is for the execution of the _drivers_ and it is event/message based thread.  This thread has the highest priority. |
+  | Persistence | This is an event/message based thread used to perform the physical read/writes to NVRAM. This thread has lower priority than the Application thread. |
   | TShell      | The TShell console runs in own dedicate thread.  This thread has the lowest priority.
 
   - Files: [`Main.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/Main.h), [`Main.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/Main.cpp)
@@ -96,7 +99,7 @@ method.  There is a total of five threads in the application:
 | `mp::signalIn`    | `Cpl::Dm::Mp::Uint32`     | Input Signal.  Range is 1 to 1000|
 | `mp::metrics`     | `MpMetrics`                | Algorithm generated metrics for the input signal |
 | `mp::bootCounter` | `Cpl::Dm::Mp::Uint32`    | Number of the times the application has been run |
-| `mp::hiAlarm`     | `MpAlarm`       | High Alarm.  When the alarm is _asserted_ the model point value is __valid__.  When the alarm is _de-asserted_ the model point is __invalid__. | 
+| `mp::hiAlarm`     | `MpAlarm`       | High Alarm.  When the alarm is _asserted_ the model point value is __valid__.  When the alarm is _de-asserted_ the model point is __invalid__ | 
 | `mp::loAlarm`     | `MpAlarm`       | Low Alarm.  The low alarm has the same semantics/value range as the High Alarm| 
 | `mp::hiAlarmCounts`     | `Cpl::Dm::Mp::Uint32`       | The cumulative number of times the High Alarm has been raised| 
 | `mp::loAlarmCounts`     | `Cpl::Dm::Mp::Uint32`       | The cumulative number of times the Low Alarm has been raised| 
@@ -106,20 +109,20 @@ This section provides links to the Model Point Headers files.
 
 - [`Cpl::Dm::ModelPoint`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/ModelPoint.h). This is the API class that defines all of the common operation that 
   can be performed on model point. 
-  - [`Cpl::Dm::ModelPointCommon_`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/ModelPointCommon_.h). This is a type-independent implementation base class that provides the majority of functionality for model points.
+  - [`Cpl::Dm::ModelPointCommon_`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/ModelPointCommon_.h). This is the type-independent implementation base class that provides the majority of functionality for model points.
 - [`Cpl::Dm::Mp::Uint32`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/Mp/Uint32.h). This is the type specific MP for containing `uint32_t` data type.
   - [`Cpl::Dm::Mp::Numeric`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/Mp/Numeric.h). This file contains a collection of template classes that provides much of the `Uint32` implementation.
 - [`MpAlarm`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MpAlarm.h). This is the application specific MP for alarm data. 
-- [`MpMetrics`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MpMettrics.h). This is the application specific MP for metric data. 
+- [`MpMetrics`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MpMetrics.h). This is the application specific MP for metric data. 
 
 
 
 ### TShell Console
 The TShell is a text-based command shell framework that can be used to interact 
 with an application. One example is a debug shell (or maintenance port) that 
-provides you with white-box access to running the application. Note, however, 
-that TShell is only a framework; the application is responsible for connecting 
-it to the application and providing application specific commands.
+provides white-box access to running the application. Note: the TShell is only 
+a framework; the application is responsible for connecting it to the application 
+and providing application specific commands.
 
 The TShell has a `help` command that lists all of the available commands.  Typing
 `help *` or `help <cmd>` provides additional details for the commands.  For example:
