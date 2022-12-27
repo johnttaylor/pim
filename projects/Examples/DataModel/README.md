@@ -1,6 +1,6 @@
 ﻿# Data Model Example
 
-The Data Model example project is an introduction to using the Data Model framework.  A brief overview to the data model can be found [here](https://github.com/johnttaylor/pim/blob/master/README-Intro-DataModel.md) 
+The Data Model example project is an introduction to using the Data Model framework.  A brief overview to the data model can be found [here](https://github.com/johnttaylor/pim/blob/master/README-Intro-DataModel.md). 
 
 The example illustrates the following:
 - Multi-threaded application
@@ -14,7 +14,7 @@ The example illustrates the following:
 
 
 ### Example Application
-The example application is contains the following modules/classes.  __Note:__ the
+The example application contains the following modules/classes.  __Note:__ the
 goal of the application is to illustrate how to use model points, not do actually
 doing anything that is useful ;-).
 
@@ -24,7 +24,7 @@ The Input Driver executes in the _Driver_ thread and generates values at 100Hz.
   - Files: [`InputDriver.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/InputDriver.h), [`InputDriver.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/InputDriver.cpp)
 
 - __OutputDriver__.  The Output Driver is representative of an 'output driver' that
-drives physical output signals. The driver asserts/de-asserts two boolean outputs, 
+drives physical output signals. The driver asserts/de-asserts two Boolean outputs, 
 one signal each for the High and Low Alarms. The Output Driver executes in the _Driver_ 
 thread and only changes its output values when the Alarms change state.
   - Files: [`OutputDriver.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/OutputDriver.h), [`OutputDriver.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/OutputDriver.cpp)
@@ -90,7 +90,7 @@ method.  There is a total of five threads in the application:
   | Application | This the primary _application_ thread and it is event/message based thread. The `Algorithm` class executes in this thread. |
   | Drivers     | This thread is for the execution of the _drivers_ and it is event/message based thread.  This thread has the highest priority. |
   | Persistence | This is an event/message based thread used to perform the physical read/writes to NVRAM. This thread has lower priority than the Application thread. |
-  | TShell      | The TShell console runs in own dedicate thread.  This thread has the lowest priority.
+  | TShell      | The TShell console runs in own dedicate thread.  This thread has the lowest priority. |
 
   - Files: [`Main.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/Main.h), [`Main.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/Main.cpp)
 ### Model Points
@@ -268,9 +268,7 @@ build options respectively).
 
 ```
 c:\_workspaces\zoe\pim>cd projects\Examples\DataModel\windows\vc12
-
 c:\_workspaces\zoe\pim\projects\Examples\DataModel\windows\vc12>nqbp.py -gt
-
 ================================================================================
 = START of build for:  datamodel-example.exe
 = Project Directory:   C:\_workspaces\zoe\pim\projects\Examples\DataModel\windows\vc12

@@ -331,12 +331,12 @@ common to all model points.  For example, the public `read(...)` and `write(...)
 methods for model points are type-specific and can __not__ be called (i.e. 
 compiler enforced).
 
-So why is there support for generic subcriptions?  There are some use cases where
+So why is there support for generic subscriptions?  There are some use cases where
 being able to monitor a model point of any/all types comes in handy.  For example,
 the framework provides persistent storage for model points. The persistent storage
 logic uses the generic subscriptions to update NVRAM when one or more model points
 change state.  There reason that this work is that model point's `toJSON()`,
-`exportData()`, and `importData()` are public _read_/_write_ methods in the `Cpl::Dm::ModelPoint` class.   
+`exportData()`, and `importData()` are public _read_/_write_ operations in the `Cpl::Dm::ModelPoint` class.   
 
 __Summary:__ Avoid using generic subscriptions.  And definitely do __not__ use
 generic subscriptions and then brute force down cast the model point reference 

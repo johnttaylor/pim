@@ -34,15 +34,15 @@ introducing an unnecessary layer of abstraction, in reality, you’re giving you
 design the following advantages:
 
 - It makes it easier to extend existing functionality without modifying existing 
-source code. For example, you could extend the above deisgn by introducing a third 
+source code. For example, you could extend the above design by introducing a third 
 module that takes the output of Module 1 and modifies it for input to Module 2. 
-In this case, we would only need to create a new model point. In the figure below, 
-then, Module 3 is passed a reference to Model Point A and Model Point AA in its 
-constructor or during initialization. The point here is that even though there
-has been a feature change, the original Module 1 and Module 2 do not need to be 
-rewritten. The only change would be to the code that constructs or initializes 
-Module 2 so that it is passed a reference to Model Point AA (instead of Model 
-Point A).
+In this case, we would only need to create a new model point (Point AA). In the 
+figure below, then, Module 3 is passed a reference to Model Point A and Model 
+Point AA in its constructor or during initialization. The emphasis here is that
+even though there has been a feature change, the original Module 1 and Module 2 
+do not need to be rewritten. The only change would be to the code that constructs 
+or initializes Module 2 so that it is passed a reference to Model Point AA 
+(instead of Model Point A).
 ```
 
     ┌──────────────┐             ┌─────────────┐
@@ -102,4 +102,4 @@ change notifications when the value of a model point changes or transitions to
 a valid or invalid state.
 
 # More Details
-Additional details can found in Chapters 9 & 15 in my book: [Patterns in the Machine: A Softawre Engineering Guide to Embedded Development](https://www.apress.com/us/book/9781484264393)
+Additional details can be found in Chapters 9 & 15 in my book: [Patterns in the Machine: A Software Engineering Guide to Embedded Development](https://www.apress.com/us/book/9781484264393)
