@@ -20,6 +20,7 @@
 #include "Cpl/Io/Output.h"
 #include "Cpl/Container/Map.h"
 #include "Cpl/TShell/Command.h"
+#include "Cpl/Io/Socket/Listener.h"
 
 enum MyShellOption_T
 {
@@ -30,9 +31,17 @@ enum MyShellOption_T
 
 
 /** This method launches the start-up sequence, then runs the application, followed
-    by the shutdown sequence.  The 'infd' and 'outfd' are the file descriptors
-    to be used for the TShell/Command-Line-Interface.  The 'shellType' determines
-    what 'flavor' of TShell to create.
+    by the shutdown sequence.  
+    
+    The 'shellType' determines what 'flavor' of TShell to create.  
+    
+    The 'infd' and 'outfd' are the file descriptors to be used for the 
+    TShell/Command-Line-Interface WHEN 'shellType' != SHELL_SOCKETS 
+    
+    The 'listener' argument provide a platform specific socket listener to
+    use for the TShell file descriptors WHEN 'shellType1 == SHELL_SOCKETS. The
+    'portNum' argument specifies which port number to listen on.
+
     
     NOTES:
         o The caller of method MUST be executing in Cpl::System::Thread
@@ -44,14 +53,17 @@ enum MyShellOption_T
           Cpl::System::Shutdown interface is called to exit the application. 
           All "shutdown handlers" will execute in this thread.
  */
-int runTheApplication( MyShellOption_T  shellType,
-                       Cpl::Io::Input&  infd, 
-                       Cpl::Io::Output& outfd );
+int runTheApplication( MyShellOption_T              shellType,
+                       Cpl::Io::Input&              infd, 
+                       Cpl::Io::Output&             outfd,
+                       Cpl::Io::Socket::Listener&   listener,
+                       int                          portNum );
 
 
 /** Expose the TShell command list to facilitate creating platform specific 
     TShell commands.
  */
 extern Cpl::Container::Map<Cpl::TShell::Command>    g_cmdlist;
+
 
 #endif  // end header latch

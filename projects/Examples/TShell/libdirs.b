@@ -6,7 +6,7 @@ src/Cpl/Container
 src/Cpl/Checksum
 src/Cpl/Text
 src/Cpl/Io
-src/Cpl/Io/File
+src/Cpl/Io/Socket
 src/Cpl/Dm
 src/Cpl/Dm/Mp
 src/Cpl/Dm/TShell
@@ -18,3 +18,5 @@ src/Cpl/System/_trace
 src/Cpl/System/_trace/_stdout
 src/Cpl/System/_ansi
 
+# Third-party stuffs
+xsrc/docopt-cpp

@@ -40,6 +40,7 @@ FINAL_OUTPUT_NAME = 'tshell-example.exe'
 # Set project specific 'base' (i.e always used) options
 base_release = BuildValues()        # Do NOT comment out this line
 base_release.cflags    = '/W3 /WX /EHsc'  # /EHsc enables exceptions
+base_release.linklibs  = 'ws2_32.lib' 
 
 # Set project specific 'optimized' options
 optimzed_release = BuildValues()    # Do NOT comment out this line

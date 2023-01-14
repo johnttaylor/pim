@@ -28,7 +28,7 @@ public:
     static constexpr const char* usage = "bob on|off\n" 
                                          "bob on|off delay";
 
-    /** The command detailed help string (recommend lines do not exceed 80 chars)
+    /** The command detailed help string (recommended that lines do not exceed 80 chars)
                                                           1         2         3         4         5         6         7         8
                                                  12345678901234567890123456789012345678901234567890123456789012345678901234567890
      */
@@ -76,7 +76,7 @@ public:
         token = tokens.getParameter( 1 );
         bool traceEnabled = token == "on" ? true : false;
         mp::enableBobsTrace.write( traceEnabled );
-        outBuf.format( "Trace is %s", traceEnabled ? "ENABLED" : "disabled" );
+        outBuf.format( "Bob's output is: %s", traceEnabled ? "ENABLED" : "disabled" );
         context.writeFrame( outBuf.getString() );
 
         // Optional Set the delay
@@ -93,7 +93,7 @@ public:
 
             // Valid delay time - update the model point
             mp::bobsDelayMs.write( newdelay );
-            outBuf.format( "Delay set to: %lu msecs", newdelay );
+            outBuf.format( "Bob's delay set to: %lu msecs", newdelay );
             context.writeFrame( outBuf.getString() );
         }
 
