@@ -130,6 +130,22 @@
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
+      },
+      {
+        "pkgname": "docopt-cpp",
+        "pkgtype": "readonly",
+        "adoptedDate": "Sun Jan 15 21:36:43 2023",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "0.6.3",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.6.3"
+        },
+        "repo": {
+          "name": "docopt-cpp",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
       }
     ]
   },
