@@ -29,8 +29,9 @@ static void dummy_( const char* f1, const char* f2, const char* f3, const char* 
 
 
 ///////////////////////////
-Trace::Trace( Cpl::Container::Map<Cpl::TShell::Command>& commandList ) noexcept
-	:Command( commandList, CPLTSHELLCMD_CMD_TRACE_ )
+Trace::Trace( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
+			  Security::Permission_T                     minPermLevel ) noexcept
+	:Command( commandList, verb, minPermLevel )
 {
 }
 

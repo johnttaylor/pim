@@ -12,28 +12,16 @@
 *----------------------------------------------------------------------------*/
 /** @file */
 
-
 #include "colony_config.h"
 #include "Cpl/TShell/Cmd/Command.h"
 
-/** Usage
-                                    "         1         2         3         4         5         6         7         8"
-                                    "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
-*/
-#define CPLTSHELLDACMD_USAGE_DBG_     "dbg mem" 
-
-
-/// Detailed Help text
-#ifndef CPLTSHELLDACMD_DETAIL_DBG_
-#define CPLTSHELLDACMD_DETAIL_DBG_    "  Shell command to invoke 'native Arduino' utilities/methods"
-
-#endif // ifndef allows detailed help to be compacted down to a single character if FLASH/code space is an issue
-
-
 ///
 namespace Cpl {
+///
 namespace TShell {
+///
 namespace Cmd {
+///
 namespace Arduino {
 
 
@@ -43,15 +31,29 @@ namespace Arduino {
 class Dbg : public Cpl::TShell::Cmd::Command
 {
 public:
+    /// The command verb/identifier
+    static constexpr const char* verb = "dbg";
+
+    /// The command usage string
+    static constexpr const char* usage = "dbg mem";
+
+    /** The command detailed help string (recommended that lines do not exceed 80 chars)
+                                                          1         2         3         4         5         6         7         8
+                                                 12345678901234567890123456789012345678901234567890123456789012345678901234567890
+     */
+    static constexpr const char* detailedHelp = "  Shell command to invoke 'native Arduino' utilities/methods";
+
+public:
     /// See Cpl::TShell::Command
-    const char* getUsage() const noexcept { return CPLTSHELLDACMD_USAGE_DBG_; }
+    const char* getUsage() const noexcept { return usage; }
 
     /// See Cpl::TShell::Command
-    const char* getHelp() const noexcept { return CPLTSHELLDACMD_DETAIL_DBG_; }
+    const char* getHelp() const noexcept { return detailedHelp; }
 
 public:
     /// Constructor
-    Dbg( Cpl::Container::Map<Cpl::TShell::Command>& commandList ) noexcept;
+    Dbg( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
+         Security::Permission_T                     minPermLevel=OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL ) noexcept;
 
 
 public:

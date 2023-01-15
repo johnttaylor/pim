@@ -21,8 +21,9 @@ using namespace Cpl::TShell;
 
 
 ///////////////////////////
-TPrint::TPrint( Cpl::Container::Map<Cpl::TShell::Command>& commandList ) noexcept
-	:Command( commandList, CPLTSHELLCMD_CMD_TPRINT_ )
+TPrint::TPrint( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
+				Security::Permission_T                     minPermLevel ) noexcept
+	:Command( commandList, verb, minPermLevel )
 {
 }
 

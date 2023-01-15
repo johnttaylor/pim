@@ -21,8 +21,11 @@ using namespace Cpl::Dm::TShell;
 
 
 ///////////////////////////
-Dm::Dm( Cpl::Container::Map<Cpl::TShell::Command>& commandList, Cpl::Dm::ModelDatabaseApi& modelDatabase, const char* cmdNameAndDatabaseNumber ) noexcept
-	: Cpl::TShell::Cmd::Command( commandList, cmdNameAndDatabaseNumber )
+Dm::Dm( Cpl::Container::Map<Cpl::TShell::Command>&  commandList,
+		Cpl::Dm::ModelDatabaseApi&                  modelDatabase,
+		const char*                                 cmdNameAndDatabaseNumber,
+		Cpl::TShell::Security::Permission_T         minPermLevel ) noexcept
+	: Cpl::TShell::Cmd::Command( commandList, cmdNameAndDatabaseNumber, minPermLevel )
 	, m_database( modelDatabase )
 {
 }

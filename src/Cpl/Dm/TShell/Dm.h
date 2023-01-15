@@ -17,29 +17,6 @@
 #include "Cpl/Dm/ModelDatabaseApi.h"
 
 
-
-/** Usage
-                                        "         1         2         3         4         5         6         7         8"
-                                        "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
-*/
-#define CPLDMTSHELL_USAGE_DM_           "dm ls [<filter>]\n" \
-                                        "dm write {<mp-json>}\n" \
-                                        "dm read <mpname>\n" \
-                                        "dm touch <mpname>"
-
-/// Detailed Help text
-#ifndef CPLDMTSHELL_DETAIL_DM_
-#define CPLDMTSHELL_DETAIL_DM_          "  Lists, updates, and displays Model Points contained in the Model Database.\n" \
-                                        "  When 'ls' is used a list of model point names is returned.  The <filter>\n" \
-                                        "  argument will only list points that contain <filter>.  Updating a Model Point\n" \
-                                        "  is done by specifying a JSON object. See the concrete class definition of the\n" \
-                                        "  Model Point being updated for the JSON format.  When displaying a Model Point\n" \
-                                        "  <mpname> is the string name of the Model Point instance to be displayed."
-
-#endif // ifndef allows detailed help to be compacted down to a single character if FLASH/code space is an issue
-
-
-
 ///
 namespace Cpl {
 ///
@@ -57,6 +34,25 @@ namespace TShell {
  */
 class Dm : public Cpl::TShell::Cmd::Command
 {
+public:
+    /// The command usage string
+    static constexpr const char* usage = "dm ls [<filter>]\n" 
+                                         "dm write {<mp-json>}\n" 
+                                         "dm read <mpname>\n" 
+                                         "dm touch <mpname>";
+
+    /** The command detailed help string (recommended that lines do not exceed 80 chars)
+                                                          1         2         3         4         5         6         7         8
+                                                 12345678901234567890123456789012345678901234567890123456789012345678901234567890
+     */
+    static constexpr const char* detailedHelp = "  Lists, updates, and displays Model Points contained in the Model Database.\n" 
+                                                "  When 'ls' is used a list of model point names is returned.  The <filter>\n" 
+                                                "  argument will only list points that contain <filter>.  Updating a Model Point\n" 
+                                                "  is done by specifying a JSON object. See the concrete class definition of the\n" 
+                                                "  Model Point being updated for the JSON format.  When displaying a Model Point\n" 
+                                                "  <mpname> is the string name of the Model Point instance to be displayed.";
+
+
 protected:
     /// Model Point Database to access
     Cpl::Dm::ModelDatabaseApi& m_database;
@@ -64,15 +60,18 @@ protected:
     /// Dynamic 
 public:
     /// See Cpl::TShell::Command                                                               `
-    const char* getUsage() const noexcept { return CPLDMTSHELL_USAGE_DM_; }
+    const char* getUsage() const noexcept { return usage; }
 
     /// See Cpl::TShell::Command
-    const char* getHelp() const noexcept { return CPLDMTSHELL_DETAIL_DM_; }
+    const char* getHelp() const noexcept { return detailedHelp; }
 
 
 public:
     /// Constructor
-    Dm( Cpl::Container::Map<Cpl::TShell::Command>& commandList, Cpl::Dm::ModelDatabaseApi& modelDatabase, const char* cmdNameAndDatabaseNumber="dm" ) noexcept;
+    Dm( Cpl::Container::Map<Cpl::TShell::Command>&  commandList, 
+        Cpl::Dm::ModelDatabaseApi&                  modelDatabase, 
+        const char*                                 cmdNameAndDatabaseNumber="dm",
+        Cpl::TShell::Security::Permission_T         minPermLevel=OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL ) noexcept;
 
 
 public:
