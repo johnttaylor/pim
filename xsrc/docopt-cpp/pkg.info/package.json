@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "strong": [],
+    "weak": []
+  },
+  "directories": {
+    "primary": null,
+    "adoptedExtras": null
+  },
+  "info": {
+    "pkgname": "docopt-cpp",
+    "desc": "C++11 port of docopt",
+    "owner": "Vladimir Keleshev",
+    "email": "vladimir@keleshev.com",
+    "url": "https://github.com/docopt/docopt.cpp",
+    "repo": {
+      "name": "docopt-cpp",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
+    }
+  },
+  "publish": {
+    "current": {
+      "comment": "initial clone of the real docopt-cpp repo",
+      "version": "0.6.3",
+      "date": "Sun Jan 15 21:33:37 2023",
+      "timestamp": 1673818417,
+      "changes": null
+    },
+    "history": []
+  }
+}
