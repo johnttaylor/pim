@@ -31,14 +31,14 @@ features:
   * Validation of login credentials is application specifc
 * Can be started, stopped, and restarted for use cases where the IO streams are
   dynamic (e.g. TCP sockets).
-* Supports atomic output with respect to other sub-systems
+* Supports framed and atomic (with respect to other sub-systems) outputs
   * e.g. prevents _interleaving_ shell response outputs with Trace outputs.
 * No dynamic memory allocation required.
 * Platform independent
-  * Built on top the CPL C++ Class Library's OSAL interfaces
+  * Built on top the CPL OSAL interfaces
 * Thread safe
   * The Framework is fully thread safe.  
-  * The application is responsible for thread safety of its custom commands. 
+  * The application is responsible for the thread safety of its custom commands. 
 * Customizable:
   * Prompt string
   * Token separator
@@ -49,11 +49,14 @@ features:
   * Greeting and Farewell banners 
   * Comment character
   * Start and End of Frame characters (SOF, EOF)
+* Multiple shell instances can be created to support multiple, simultaneous 
+  stream interfaces
+  * A shell command list can be shared across shell instances
 * Set of basic commands provided:
   * `help` - displays command help
   * `threads` - displays the current threads
-  * `trace` - Controls the Trace output
-  * `bye` - Exit the application and/or the shell
+  * `trace` - Controls the CPL Trace output
+  * `bye` - Exits the application and/or the shell
   * `dm` - Read/write access to Model points
   * `tick` - Provides the _tick timing_ when an Application is built using 
      simulated time
@@ -91,7 +94,7 @@ Commands have the following syntax:
   * ```mycmd "arg1 embedded ``escape`` characters" arg2 arg3```
 
 * A command can output zero or more lines when it executes. Each line of output
-  is an atomic operation for the shell.
+  is individually framed and is an atomic operation for the shell.
 
 Example __threads__ command:
 ```
@@ -138,7 +141,7 @@ $
 ```
 # How it Works
 The shell contains a list of commands.  Each command in the list has a method
-that return its _command verb_ (aka the command name) and a method to be 
+that returns its _command verb_ (aka the command name) and a method to be 
 executed when the command is received by the shell.
 
 The shell requires at run-time:
@@ -147,25 +150,29 @@ The shell requires at run-time:
 
 The stream interfaces are defined by the [Cpl::Io namespace](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Io)
 
-The shell hasd a command/response semantics, i.e. the User sends a command, the
+The shell has command/response semantics, i.e. the User sends a command, the
 shell accepts (or rejects) the command - and the command optionally responds with text
-via the output stream. 
+via the output stream. Once the shell has completed executing a command, it 
+outputs the shell prompt.
 
-The command text in the input stream is identified by SOF and EOF markers.  The 
-SOF and EOF markers are customizable when creating a shell instance.  However, 
-the default SOF marker is _any_ printable ASCII character and EOF is a newline 
-(`\n`).  
+The command text in the input stream is identified by start-of-frame (SOF) and 
+end-of-frame (EOF) markers.  The SOF and EOF markers are customizable when 
+creating a shell instance.  However, the default SOF marker is _any_ printable 
+ASCII character and EOF is a newline (`\n`).  
 
 When a command text frame is detected, the first word in the frame is compared against 
 the shell's list of command verbs.  If there is a match (and user has the required
 permissions), the shell calls the command's execute method.  Commands 
-return a success/error code upon completion. If an error occur, the shell outputs 
-error messages. 
+return a success/error code upon completion. After a command has completed executing,
+the shell resuming scanning the input stream. This behavior repeats until the 
+shell self terminates or the application exits.
 
-After a command has completed executing, the shell resuming scanning the input
-stream. This behavior repeats until the shell self terminates or the application 
-exits.
-
+The shell's output is framed in a similar manner as the input stream.  This means
+individual _line outputs_ have a SOF, EOF, and ESC markers that are inserted into 
+the output stream.  The default output-frame-markers are configured such that any 
+printable ASCII character starts a frame and EOF is a newline; and _escaping_
+is disabled because the assumption is that only ASCII characters will be outputted
+by the shell.
 
 
 # Creating a Command
@@ -199,8 +206,8 @@ virtual Security::Permission_T getMinPermissionRequired() const noexcept = 0;
 ```
 
 In practice there is `Cpl::TShell::Cmd::Command` base class that implements 
-the self registration of the command with the command list along with some 
-other (minimal) boiler plate code.
+the self registration of the command along with some other (minimal) boiler 
+plate code.
   
 # Summary
 If you have never used a _debug console_ of some kind on your embedded 

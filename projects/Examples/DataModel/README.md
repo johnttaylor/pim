@@ -15,8 +15,8 @@ The example illustrates the following:
 
 ### Example Application
 The example application contains the following modules/classes.  __Note:__ the
-goal of the application is to illustrate how to use model points, not do actually
-doing anything that is useful ;-).
+goal of the application is to illustrate how to use model points, not to do
+anything that is useful ;-).
 
 - __InputDriver__.  The Input Driver is representative of an 'input driver' that
 samples a physical signal.  The driver generates a random value in the range of 1 to 1000.

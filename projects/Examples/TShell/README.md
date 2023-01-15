@@ -7,26 +7,25 @@ The example illustrates the following:
 - Creating a custom command
 - Creating a blocking shell that uses a dedicated thread
 - Creating a non-blocking shell that shares the Application thread
-- Creating a blocking shell with TCP sockets, where the shell is essentially
-  a socket listener.
+- Creating a blocking shell that uses TCP sockets for the stream IO. 
 
-Note: The example is built with the default _no security_ options.
+__Note:__ The example is built with the default _no security_ options.
 
 
 # Example Application
 The example application contains the following modules/classes.  __Note:__ the
-goal of the application is to illustrate how to use TShell, not do actually
-doing anything that is useful ;-).
+goal of the application is to illustrate how to use TShell, not to do anything 
+that is useful ;-).
 
 - __BobModule__.  The Bob Module is representative of an Application or sub-system, 
-  i.e. something for a TShell command to interact with. The module increments a 
-  counter every N msecs and echoes the counter value to the TRACE engine (when 
+  i.e. something for a shell command to interact with. The module increments a 
+  counter every N msecs and echoes the counter value to the CPL Trace engine (when 
   enabled).  The module's public interface is via [Model Points](https://github.com/johnttaylor/pim/blob/master/README-Intro-DataModel.md).
 
     | Model Point | Type | Description |
     |-------------|:----:|-------------|
-    | `mp::bobsDelayMs`      | `Cpl::Dm::Mp::Uint32` | The delay time, in milliseconds, for   ncrementing the Bob Module's counter|
-    | `mp::enableBobsTrace` | `Cpl::Dm::Mp::Bool`    | Flag to enable/disable the Bob Module's trace output |
+    | `mp::bobsDelayMs`      | `Cpl::Dm::Mp::Uint32` | The delay time, in milliseconds, for   incrementing the module's counter|
+    | `mp::enableBobsTrace` | `Cpl::Dm::Mp::Bool`    | Flag to enable/disable the module's trace output |
 
    - Files: [`BobModule.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/BobModule.h)
 
@@ -47,19 +46,22 @@ C++ Class library .
 - __Main__.  The Main module is responsible for constructing all of the modules
 and/or classes along with the start-up and shutdown logic.  And orderly shutdown 
 of the application is triggered by the calling the `Cpl::System::Shutdown::success()` 
-method.  There is a total of three threads in the application:
+method (which can be done via the `bye` command).  This module is constructed such that it creates three different shell
+variants (blocking, blocking w/sockets, non-blocking) at runtime.  This is done
+illustrate the three shell variants - it is __not__ the recommended way to create
+a shell for an application. There is a total of three threads in the application:
 
   | Thread | Description |
   |--------|-------------|
   | xxxMain     | This the main thread of the executable's process.  The start-up/shutdown logic executes in this thread. |
-  | Application | This the primary _application_ thread and it is event/message based thread. The `Algorithm` class executes in this thread. |
+  | Application | This the primary _application_ thread and it is event/message based thread. The `BobModule` class executes in this thread. |
   | TShell      | The TShell console runs in own dedicate thread.  This thread has the lowest priority. _Note:_ This thread is __not__ created when using the non-blocking shell.|
 
   - Files: [`Main.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/Main.h), [`Main.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/Main.cpp)
 
 - ___Platform_ main__.  The _Platform_ main contains the Application's `main()` entry
 function. This file is responsible for providing the platform specific IO streams, 
-platform specific `threads` command. It is also is responsible for parsing the executable's
+platform specific `threads` shell command. It is also is responsible for parsing the executable's
 command line inputs that specific which shell variant (e.g. blocking, non-blocking, etc.) to
 create and run.  The executable's command line options are:
   ```
@@ -69,7 +71,7 @@ create and run.  The executable's command line options are:
       tshell-example [options]
 
     Options:
-      -n            Create and run a non-blocking TShell that uses STDIO for as
+      -n            Create and run a non-blocking TShell that uses STDIO for
                     the IO streams.
       -s PORT       Create and run a blocking TShell that uses TCP sockets as
                     the IO streams. The TShell is socket listener on port
@@ -81,9 +83,6 @@ create and run.  The executable's command line options are:
        STDIO as the IO streams.
   ```
   - Files: [`winmain.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/windows/winmain.cpp), [`posixmain.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/linux/posixmain.cpp)
-
-
-# Bob Command
 
 
 # TShell Details
@@ -118,25 +117,26 @@ virtual Security::Permission_T getMinPermissionRequired() const noexcept = 0;
 ```
 
 In practice there is `Cpl::TShell::Cmd::Command` base class that implements 
-the self registration of the command with the command list along with some 
-other (minimal) boiler plate code.  
+the self registration of the command along with some other (minimal) boiler 
+plate code.  
  
 
 ### execute()
 The above methods are fairly self explanatory with the exception of the `execute`
-command. I'll start with detailed description of its arguments
+command. I'll start with a detailed description of its arguments.
 
 - __context__.  The `context` argument is a reference to the framework's `Context_` 
 interface.  The `Context_` interface provides common infrastructure, information, 
 buffers, etc. that facilitates interaction between the shell processor and 
 individual commands.  For example, when the command wants to output a line of
 text, it uses the `context.writeFrame()` method instead of directly calling 
-`write` directly on the `outfd` output stream.  The `writeFrame()` method ensures that
-the output line operation is atomic.
+the `outfd.write()` method.  The `writeFrame()` method 
+is responsible for framing the output text and ensuring that the output line 
+operation is atomic.
 
 - __rawCmdString__.  As the name implies this is raw text from the accepted text
-frame containing thats contains the complete command text.  By passing the text
-as a `char*` instead of `const char*` _commands are allowed to modify the
+frame containing the _complete_ command text.  By passing the text
+as a `char*` instead of `const char*` commands _are allowed to modify the
 string_ contents (e.g. performing an in-place/destructive token parsing).
 
 - __outfd__.  The `outfd` argument is reference the shell's output stream.  In
@@ -149,8 +149,8 @@ The steps for execution a command are pretty simple:
    i. Return an error code if one or more arguments are _bad_ and optionally 
       generate error messages
 2. Do the command action(s)
-   i. Return an error code if an error occurred while executing the action logic 
-      and optionally generate error messages
+   i. Return an error code if an error occurred and optionally generate error 
+      messages
 3. Return the `Command::eSUCCESS` on successfully completion of the command
 
 The TShell framework itself does not provide support for parsing the raw command
@@ -171,18 +171,21 @@ Cpl::Text::String& token  = context.getTokenBuffer();
 token = tokens.getParameter( 1 );
 ```
 
-See the following directories for text parsing interfaces:
+Since the shell framework does not dictate how formating/parsing of command strings
+are done - the application can use/provide its own custom formating/parsing
+widgets. See the following directories for text parsing interfaces provided by CPL:
 
   - [`Cpl/Text/`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Text), 
     [`Cpl/Text/Tokenizer`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Text/Tokenizer)
 
 As mentioned above, commands should not directly use the `outfd` when generating
-output - and instead use the `content.writeFrame()` method.  The `writeFrame()` 
+output, and instead use the `content.writeFrame()` method.  The `writeFrame()` 
 methods do not support `printf` semantics.  When `printf` semantics are desired
-the command can use a `Cpl::Text::String` instance to do the formating and
+a command can use a `Cpl::Text::String` instance to do the formating and
 then output the String's buffer using the `writeFrame()` method.  The `Context_` 
 interface provides shared (across all commands) `Cpl::Text::String` instances
 specifically for this purpose.
+
 ```
 Cpl::Text::String& outBuf = context.getOutputBuffer();
 ...
@@ -191,11 +194,150 @@ context.writeFrame( outBuf.getString() );
 ```
 
 
- 
-
 ## Blocking Shell
+A blocking shell is where the shell framework expects reading the input stream will
+block until there is at least one character available.  A blocking shell requires
+a dedicated thread.  The following pseudo code illustrates how to create
+a blocking shell using the framework's `Maker` and `Stdio` high level objects.  
+
+```
+int runTheApplication( ...
+                       Cpl::Io::Input&   infd,
+                       Cpl::Io::Output&  outfd,
+                       ... )
+{
+    ...
+    // Create the TShell command list and commands 
+    Cpl::Container::Map<Cpl::TShell::Command>    cmdlist;
+    Cpl::TShell::Cmd::Help                       helpCmd( cmdlist );
+    ...
+    // Create a BLOCKING TShell processor instance
+    Cpl::TShell::Maker  blockingCmdProcessor( cmdlist );
+    
+    // Create a helper object that manages a dedicated thread for a
+    // TShell processor to execute in.  The thread is created when
+    // shell.launch() is called.
+    Cpl::TShell::Stdio shell( blockingCmdProcessor, 
+                              "TShell", 
+                              CPL_SYSTEM_THREAD_PRIORITY_NORMAL + CPL_SYSTEM_THREAD_PRIORITY_LOWER +    CPL_SYSTEM_THREAD_PRIORITY_LOWER );
+    ...
+    // Start the TShell/debug-console
+    shell.launch( infd, outfd );
+    ...
+}
+```
+
+__Note:__ In the pseudo code above the shell objects are created on the stack.  It is 
+recommended that application statically allocate as many (if not all) of the
+shell objects.
+
 ## Blocking Shell with Sockets
+The _Sockets_ case is a blocking shell as described above with the difference 
+being on how the shell is provided its IO stream references.  When a socket 
+connection request is accepted, the shell is started and passed the connection's 
+IO stream handle for its input and output streams.  When the shell self terminates or the
+connection is dropped, the thread resumes listening for socket requests. 
+
+__Note:__ This is a use case of where a shell is started, stopped, and restarted.
+
+```
+int runTheApplication( ...
+                       Cpl::Io::Socket::Listener&   listener,
+                       int                          portNum,
+                       ... )
+{
+    ...
+    // Create the TShell command list and commands 
+    Cpl::Container::Map<Cpl::TShell::Command>    cmdlist;
+    Cpl::TShell::Cmd::Help                       helpCmd( cmdlist );
+    ...
+    // Create a BLOCKING TShell processor instance
+    Cpl::TShell::Maker  blockingCmdProcessor( cmdlist );
+    
+    // Create a helper object that is a TCP Socket Listener running in its
+    // own thread.  The TShell process executes in the context of the Listener's
+    // thread. The thread is created when shell.launch() is called.
+    Cpl::TShell::Socket shell( blockingCmdProcessor, 
+                               listener,
+                               "TShell", 
+                               CPL_SYSTEM_THREAD_PRIORITY_NORMAL + CPL_SYSTEM_THREAD_PRIORITY_LOWER +    CPL_SYSTEM_THREAD_PRIORITY_LOWER );
+    ...
+    // Start listening for connection requests.  The shell will be started
+    // when a connection is established.
+    shell.launch( portNum );
+    ...
+}
+```
+
+__Note:__ In the pseudo code above the shell objects are created on the stack.  It is 
+recommended that application statically allocate as many (if not all) of the
+shell objects.
+
 ## Non-Blocking Shell
+A non-blocking shell is where the shell framework expects that read operations on
+the input stream will return immediately with zero or more characters read, i.e.
+the input stream is polled. A non-blocking shell does __not__ require a thread
+which means it can be used in bare-metal application.   The following pseudo code 
+illustrates how to create a non-blocking shell that runs inside of the
+_main forever loop_.  
+
+```
+// Create the TShell command list and commands 
+static Cpl::Container::Map<Cpl::TShell::Command>    cmdlist_;
+static Cpl::TShell::Cmd::Help                       helpCmd_( cmdlist_ );
+...
+// Create a NON-BLOCKING TShell processor instance
+static Cpl::TShell::PolledMaker  blockingCmdProcessor_( cmdlist_ );
+
+int main( int argc, char* const argv[] )
+{
+    ...
+
+    // Provide the IO Streams for the shell
+    Cpl::Io::Input*   infd  = <....>;
+    Cpl::Io::Output*  outfd = <....>;
+    ...
+
+    // Start the shell    
+    polledCmdProcessor_.getCommandProcessor().start( *infd, *outfd ); 
+
+    // Main processing loop
+    for(;;)
+    {
+        ...
+        // Provide the TShell processor a 'timeslice' to execute
+        polledCmdProcessor_.getCommandProcessor().poll();
+        ...
+    }
+    ...
+}
+```
+
+__Note:__ In the example application - the non-blocking variant is more involved 
+than the blocking variants.  This is an artifact of how the CPL library
+supports periodic scheduling (i.e. polling) within an event thread - not because 
+a non-blocking shell is complicated.
+
+
+## Maker, Stdio, Socket
+The TShell framework contains several high level objects that can be used to
+create instances of a shell and a thread for the shell to execute in.  However,
+applications are free to __not__ uses any of these objects and create and 
+manage shell instances directly. 
+
+__Maker__, __PolledMaker__.  These two objects are used to create a TShell [`Processor`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/TShell/ProcessorApi.h) 
+instance along with the needed Input and Output stream decoders/encoders that 
+are used to frame the input/output text. 
+
+__Stdio__.  The `Stdio` object creates and manages a dedicated thread for a
+TShell processor instance that uses blocking semantics.
+
+__Socket__.  The `Socket` object creates and manages a dedicated _tcp listener_ 
+thread for a TShell processor instance that uses blocking semantics.  The
+thread performs a blocking _listen_ for socket connection requests.  When a 
+connection is accepted, the thread starts the shell. When the connection is 
+dropped or the shell self terminates - the thread resumes _listening_ for 
+socket connection requests.
 
 ## Help
 The shell framework provides basic support for run time help.  What the framework
@@ -205,7 +347,7 @@ for the help text. However, since the help feature is really just another comman
 (i.e. `help`) - an application can create is own implementation of the `help` 
 command to add the desired output format.
 
-The default convention for the help text is for each command to format it
+The default convention for the help text is for each command to format its help
 text so that no indivudal help line exceeds 80 characters.
 
 ## Security
@@ -214,13 +356,13 @@ Here is brief summary on how to enable the security feature.
 
 - Set `OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL` to something
    other than `ePUBLIC`.  This will be the permission for all legacy (i.e.
-   not Security aware) TShell commands
+   non Security aware) TShell commands
 
 - Recommend turning on the switch: `USE_CPL_TSHELL_PROCESSOR_SILENT_WHEN_PUBLIC`
 
 - Include the `Cpl::TShell::Cmd::User` command and provide an 
    implementation of the `Cpl::TShell::Security` interface (that is passed 
-   to the command's constructor).
+   to the `User` command's constructor).
 
 - Optionally include new security aware commands
 
@@ -404,3 +546,85 @@ bob off
 Bob's output is: disabled
 $
 ```
+
+# Running the Example
+The example supports creating and running a blocking shell, a blocking shell with
+sockets, and non-blocking shell.  The shell variant is selected when the user
+launches the executable.  The command line options are:
+
+```
+c:\_workspaces\zoe\pim\projects\Examples\TShell\windows\vc12>_win32\tshell-example.exe -h
+TShell Example.
+
+    Usage:
+      tshell-example [options]
+
+    Options:
+      -n            Create and run a non-blocking TShell that uses STDIO for as
+                    the IO streams.
+      -s PORT       Create and run a blocking TShell that uses TCP sockets as
+                    the IO streams. The TShell is socket listener on port
+                    number: PORT
+      -h,--help     Show this screen.
+
+    NOTES:
+     o The default behavior is to create and run a blocking TShell that uses
+       STDIO as the IO streams.
+```
+
+When the executable is launched with no options or with the `-n` option,  the run 
+time behavior is the same.  The only difference is what the `threads` command 
+reports.
+
+Blocking case: `tshell-example.exe` 
+
+```
+c:\_workspaces\zoe\pim\projects\Examples\TShell\windows\vc12>_win32\tshell-example.exe
+
+--- Your friendly neighborhood TShell. ---
+
+
+$ threads
+
+Name              R  ID        Native Hdl  Pri  User Time     Kernel Time
+----              -  --        ----------  ---  ---------     -----------
+Win32Main         Y  000062FC  000000F0      0  00:00:00.031  00:00:00.000
+Application       Y  00005C4C  00000114      0  00:00:00.000  00:00:00.000
+TShell            Y  00005D50  00000128     -2  00:00:00.000  00:00:00.000
+
+Total number of threads: 3
+$
+```
+
+Non-blocking case: `tshell-example.exe -n`
+```
+c:\_workspaces\zoe\pim\projects\Examples\TShell\windows\vc12>_win32\tshell-example.exe -n
+
+--- Your friendly neighborhood TShell. ---
+
+
+$ threads
+
+Name              R  ID        Native Hdl  Pri  User Time     Kernel Time
+----              -  --        ----------  ---  ---------     -----------
+Win32Main         Y  000042D4  000000F0      0  00:00:00.015  00:00:00.000
+Application       Y  00001374  00000114      0  00:00:00.015  00:00:00.000
+
+Total number of threads: 2
+$
+```
+
+When running the executable to use sockets (i.e `tshell-example.exe-s 5002`) 
+there are some differences.
+
+- A terminal emulator application (e.g. [Putty](https://www.putty.org/)) is 
+required to connect to the application's shell.  
+- The application's trace output is routed to the command line console.  This 
+means that when you issue a `bob on` command you will __not__ see the trace output 
+in your terminal emulator (Putty) window.  You can issue a the `trace here` command
+to redirect the application's trace output to the shell's output stream.  
+  - The ability to redirect the trace output is artifact of the `trace` command's 
+    implementation and functionality provided by the CPL Trace interface.
+- Issuing the `bye` command without any arguments will terminate the socket
+connection.  After terminating the connection, you can reconnect to the 
+shell using your terminal emulator (Putty).

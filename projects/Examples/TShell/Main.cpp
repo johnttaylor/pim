@@ -36,7 +36,6 @@
 // Note: A platform specific 'thread' command is also created (but is created
 //       in platform specific source file)
 Cpl::Container::Map<Cpl::TShell::Command>           g_cmdlist( "ignore_this_parameter-used to invoke the static constructor" );
-static Cpl::TShell::Maker                           cmdProcessor_( g_cmdlist );
 static Cpl::TShell::Cmd::Help                       helpCmd_( g_cmdlist );
 static Cpl::TShell::Cmd::Bye                        byeCmd_( g_cmdlist );
 static Cpl::TShell::Cmd::Trace                      traceCmd_( g_cmdlist );
@@ -120,15 +119,14 @@ int runTheApplication( MyShellOption_T              shellType,
 
         // Create a helper object that manages a dedicated thread for a
         // TShell processor to execute in.  The thread is created when
-        // shell->launch() is called.
-        Cpl::TShell::Stdio* shell = new(std::nothrow) Cpl::TShell::Stdio( blockingCmdProcessor, "TShell", CPL_SYSTEM_THREAD_PRIORITY_NORMAL + CPL_SYSTEM_THREAD_PRIORITY_LOWER + CPL_SYSTEM_THREAD_PRIORITY_LOWER );
-        CPL_SYSTEM_ASSERT( shell );
+        // shell.launch() is called.
+        Cpl::TShell::Stdio shell( blockingCmdProcessor, "TShell", CPL_SYSTEM_THREAD_PRIORITY_NORMAL + CPL_SYSTEM_THREAD_PRIORITY_LOWER + CPL_SYSTEM_THREAD_PRIORITY_LOWER );
 
         // Start the application
         bob.open();
 
         // Start the TShell/debug-console
-        shell->launch( infd, outfd );
+        shell.launch( infd, outfd );
 
         // Wait for the Application to be shutdown
         waitForShutdown_.wait();
@@ -137,7 +135,6 @@ int runTheApplication( MyShellOption_T              shellType,
         bob.close();
 
         // Shutdown the Application thread
-        delete shell;
         appMbox.pleaseStop();
         Cpl::System::Thread::destroy( *appThread );
     }
@@ -154,15 +151,16 @@ int runTheApplication( MyShellOption_T              shellType,
 
         // Create a helper object that is a TCP Socket Listener running in its
         // own thread.  The TShell process executes in the context of the Listener's
-        // thread. The thread is created when shell->launch() is called.
-        Cpl::TShell::Socket* shell = new(std::nothrow) Cpl::TShell::Socket( blockingCmdProcessor, listener, "TShell", CPL_SYSTEM_THREAD_PRIORITY_NORMAL + CPL_SYSTEM_THREAD_PRIORITY_LOWER + CPL_SYSTEM_THREAD_PRIORITY_LOWER );
+        // thread. The thread is created when shell.launch() is called.
+        Cpl::TShell::Socket shell( blockingCmdProcessor, listener, "TShell", CPL_SYSTEM_THREAD_PRIORITY_NORMAL + CPL_SYSTEM_THREAD_PRIORITY_LOWER + CPL_SYSTEM_THREAD_PRIORITY_LOWER );
         CPL_SYSTEM_ASSERT( shell );
 
         // Start the application
         bob.open();
 
-        // Start the TShell/debug-console
-        shell->launch( portNum );
+        // Start listening for connection requests.  The shell will be started
+        // when a connection is established.
+        shell.launch( portNum );
 
         // Wait for the Application to be shutdown
         waitForShutdown_.wait();
@@ -171,7 +169,6 @@ int runTheApplication( MyShellOption_T              shellType,
         bob.close();
 
         // Shutdown the Application thread
-        delete shell;
         appMbox.pleaseStop();
         Cpl::System::Thread::destroy( *appThread );
     }

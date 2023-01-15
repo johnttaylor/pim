@@ -13,7 +13,7 @@ R"(TShell Example.
       tshell-example [options]
 
     Options:
-      -n            Create and run a non-blocking TShell that uses STDIO for as 
+      -n            Create and run a non-blocking TShell that uses STDIO for  
                     the IO streams.
       -s PORT       Create and run a blocking TShell that uses TCP sockets as
                     the IO streams. The TShell is socket listener on port 
