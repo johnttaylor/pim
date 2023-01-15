@@ -95,13 +95,20 @@
   },
   "publish": {
     "current": {
-      "comment": "Update to the latest package version",
-      "version": "1.0.5",
-      "date": "Sun Sep 11 22:51:29 2022",
-      "timestamp": 1662936689,
+      "comment": "Clean-up TShell command (no functionality changes)",
+      "version": "1.0.6",
+      "date": "Sun Jan 15 21:12:02 2023",
+      "timestamp": 1673817122,
       "changes": null
     },
     "history": [
+      {
+        "comment": "Update to the latest package version",
+        "version": "1.0.5",
+        "date": "Sun Sep 11 22:51:29 2022",
+        "timestamp": 1662936689,
+        "changes": null
+      },
       {
         "comment": "Pickup latest changes to colony.core and nqbp",
         "version": "1.0.4",

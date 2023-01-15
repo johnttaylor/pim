@@ -18,22 +18,6 @@
         }
       },
       {
-        "pkgname": "colony.arduino",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Sep 11 23:22:06 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "1.0.5",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.0.5"
-        },
-        "repo": {
-          "name": "colony.arduino",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "colony.apps",
         "pkgtype": "overlay",
         "adoptedDate": "Sat Dec 24 15:51:53 2022",
@@ -61,6 +45,22 @@
         },
         "repo": {
           "name": "colony.core",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.arduino",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun Jan 15 21:14:18 2023",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "1.0.6",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.0.6"
+        },
+        "repo": {
+          "name": "colony.arduino",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
