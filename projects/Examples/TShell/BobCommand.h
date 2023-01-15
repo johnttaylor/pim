@@ -79,7 +79,7 @@ public:
         outBuf.format( "Bob's output is: %s", traceEnabled ? "ENABLED" : "disabled" );
         context.writeFrame( outBuf.getString() );
 
-        // Optional Set the delay
+        // Optionally Set the delay
         if ( tokens.numParameters() > 2 )
         {
             // Parse delay time
@@ -91,7 +91,7 @@ public:
                 return Command::eERROR_INVALID_ARGS;
             }
 
-            // Valid delay time - update the model point
+            // Have a valid delay time - update the model point
             mp::bobsDelayMs.write( newdelay );
             outBuf.format( "Bob's delay set to: %lu msecs", newdelay );
             context.writeFrame( outBuf.getString() );

@@ -1,194 +1,230 @@
-﻿# Data Model Example
+﻿# TShell Example
 
-The Data Model example project is an introduction to using the Data Model framework.  A brief overview to the data model can be found [here](https://github.com/johnttaylor/pim/blob/master/README-Intro-DataModel.md). 
+The TShell example project is an introduction to using the TShell framework.  A 
+brief overview to the TShell can be found [here](https://github.com/johnttaylor/pim/blob/master/README-Intro-TShell.md). 
 
 The example illustrates the following:
-- Multi-threaded application
-- Decoupling 'drivers' from the Application logic
-- Creating an application specific model point
-  - Includes customized read-modify-write operations for a model point
-- Polled semantics for reading values sourced by the input driver
-- The output driver uses event semantics
-- Persistent storage of model points
-- Console commands to interrogate and modify model points
+- Creating a custom command
+- Creating a blocking shell that uses a dedicated thread
+- Creating a non-blocking shell that shares the Application thread
+- Creating a blocking shell with TCP sockets, where the shell is essentially
+  a socket listener.
+
+Note: The example is built with the default _no security_ options.
 
 
-### Example Application
+# Example Application
 The example application contains the following modules/classes.  __Note:__ the
-goal of the application is to illustrate how to use model points, not do actually
+goal of the application is to illustrate how to use TShell, not do actually
 doing anything that is useful ;-).
 
-- __InputDriver__.  The Input Driver is representative of an 'input driver' that
-samples a physical signal.  The driver generates a random value in the range of 1 to 1000.
-The Input Driver executes in the _Driver_ thread and generates values at 100Hz.
-  - Files: [`InputDriver.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/InputDriver.h), [`InputDriver.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/InputDriver.cpp)
+- __BobModule__.  The Bob Module is representative of an Application or sub-system, 
+  i.e. something for a TShell command to interact with. The module increments a 
+  counter every N msecs and echoes the counter value to the TRACE engine (when 
+  enabled).  The module's public interface is via [Model Points](https://github.com/johnttaylor/pim/blob/master/README-Intro-DataModel.md).
 
-- __OutputDriver__.  The Output Driver is representative of an 'output driver' that
-drives physical output signals. The driver asserts/de-asserts two Boolean outputs, 
-one signal each for the High and Low Alarms. The Output Driver executes in the _Driver_ 
-thread and only changes its output values when the Alarms change state.
-  - Files: [`OutputDriver.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/OutputDriver.h), [`OutputDriver.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/OutputDriver.cpp)
+    | Model Point | Type | Description |
+    |-------------|:----:|-------------|
+    | `mp::bobsDelayMs`      | `Cpl::Dm::Mp::Uint32` | The delay time, in milliseconds, for   ncrementing the Bob Module's counter|
+    | `mp::enableBobsTrace` | `Cpl::Dm::Mp::Bool`    | Flag to enable/disable the Bob Module's trace output |
 
-- __Algorithm__.  The Algorithm module is representative of processing that is done
-on the Application's inputs and generates outputs per the Application requirements. 
-The Algorithm module executes periodically (at 10Hz) in the _Application_ thread. The
-Algorithm module does the following:
+   - Files: [`BobModule.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/BobModule.h)
 
-  - Captures the number of samples, cumulative sum, minimum, and maximum of its 
-    input value.  These metrics are stored in the MpMetrics model point.
-  - Captures the number of times the High and Low alarms are asserted.  These
-    counts are stored in individual model points.
-  - Generates a 'High Alarm' when the current input value goes above the value 
-    of 995.  The Alarm is lowered once the current value drops below 5.
-  - Generates a 'Low Alarm' when the current input value goes below the value 
-    of 5.  The Alarm is lowered once the current value goes above 995.
+- __BobCommand__.  The Bob Command is a custom TShell command that controls the
+runtime behavior of the Bob Module.   
+  - Files: [`BobCommand.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/BobCommand.h)
 
-  - Files: [`Algorithm.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/Algorithm.h), [`Algorithm.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/Algorithm.cpp)
-
-- __MpAlarm__.  The MpAlarm class defines an application specific model point
-used for managing a Alarm.
-  - Files: [`MpAlarm.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MpAlarm.h), [`MpAlarm.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MpAlarm.cpp)
-
-- __MpMetrics__.  The MpMetrics class defines an application specific model point
-used by the Algorithm module to store its metrics.
-  - Files: [`MpMetrics.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MpMetrics.h), [`MpMetrics.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MpMetrics.cpp)
-
-- __MetricsRecord__.  The Metrics Record header file defines the persistent storage
-record for the Application.  The Algorithm's metrics, alarm counters, and the boot counter
-model points are included in the persistent record. The Metrics Record executes 
-in the _Persistence_ thread. Note: The Metrics Record is
-responsible for initializing/incrementing the boot counter on start-up. 
-  - Files: [`MetricsRecord.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MetricsRecord.h)
 
 - __ModelPoints__.  The Model Points module defines _all_ of the model points used by 
 the Application.  All of the model points are statically allocated in the invalid state.
-  - Files: [`ModelPoints.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/ModelPoints.h), [`ModelPoints.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/ModelPoints.cpp)
+  - Files: [`ModelPoints.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/ModelPoints.h), [`ModelPoints.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/ModelPoints.cpp)
 
-- __TShell Console__.  The TShell console (think debug console) from the Cpl 
-C++ Class library is included to allow the developer to read and write model 
-points at run time.
+- __TShell Framework__.  The TShell framework from the Cpl 
+C++ Class library .
   - Directory: [`Cpl/TShell/`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/TShell)
-- __Persistent Storage__. The persistent storage framework from the CPL C++ 
-Class library is included to store the Metrics Record.  The data persistently
-stored is CRC'd at rest in order to detect corrupt records/data.  The persistent
-storage is read into RAM at start-up and the updated to NVRAM 'on-demand' as the
-application runs.
-  - The persistence data is stored in the file `nvram.bin` located in the current 
-    working directory of where the example executable was launched.  Deleting (or
-    editing) this file will trigger a _corrupt storage_ use case and cause the
-    persistent data to be reset to its default values as defined by application.
-  - Directories: [`Cpl/Persistent/`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Persistent), [`Cpl/Dm/Persistent/`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/Persistent)
+
 
 - __Main__.  The Main module is responsible for constructing all of the modules
 and/or classes along with the start-up and shutdown logic.  And orderly shutdown 
 of the application is triggered by the calling the `Cpl::System::Shutdown::success()` 
-method.  There is a total of five threads in the application:
+method.  There is a total of three threads in the application:
 
   | Thread | Description |
   |--------|-------------|
   | xxxMain     | This the main thread of the executable's process.  The start-up/shutdown logic executes in this thread. |
   | Application | This the primary _application_ thread and it is event/message based thread. The `Algorithm` class executes in this thread. |
-  | Drivers     | This thread is for the execution of the _drivers_ and it is event/message based thread.  This thread has the highest priority. |
-  | Persistence | This is an event/message based thread used to perform the physical read/writes to NVRAM. This thread has lower priority than the Application thread. |
-  | TShell      | The TShell console runs in own dedicate thread.  This thread has the lowest priority. |
+  | TShell      | The TShell console runs in own dedicate thread.  This thread has the lowest priority. _Note:_ This thread is __not__ created when using the non-blocking shell.|
 
-  - Files: [`Main.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/Main.h), [`Main.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/Main.cpp)
-### Model Points
-| Model Point | Type | Description |
-|-------------|:----:|-------------|
-| `mp::signalIn`    | `Cpl::Dm::Mp::Uint32`     | Input Signal.  Range is 1 to 1000|
-| `mp::metrics`     | `MpMetrics`                | Algorithm generated metrics for the input signal |
-| `mp::bootCounter` | `Cpl::Dm::Mp::Uint32`    | Number of the times the application has been run |
-| `mp::hiAlarm`     | `MpAlarm`       | High Alarm.  When the alarm is _asserted_ the model point value is __valid__.  When the alarm is _de-asserted_ the model point is __invalid__ | 
-| `mp::loAlarm`     | `MpAlarm`       | Low Alarm.  The low alarm has the same semantics/value range as the High Alarm| 
-| `mp::hiAlarmCounts`     | `Cpl::Dm::Mp::Uint32`       | The cumulative number of times the High Alarm has been raised| 
-| `mp::loAlarmCounts`     | `Cpl::Dm::Mp::Uint32`       | The cumulative number of times the Low Alarm has been raised| 
+  - Files: [`Main.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/Main.h), [`Main.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/Main.cpp)
 
-### Model Point APIs
-This section provides links to the Model Point Headers files.
+- ___Platform_ main__.  The _Platform_ main contains the Application's `main()` entry
+function. This file is responsible for providing the platform specific IO streams, 
+platform specific `threads` command. It is also is responsible for parsing the executable's
+command line inputs that specific which shell variant (e.g. blocking, non-blocking, etc.) to
+create and run.  The executable's command line options are:
+  ```
+  TShell Example.
 
-- [`Cpl::Dm::ModelPoint`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/ModelPoint.h). This is the API class that defines all of the common operation that 
-  can be performed on model point. 
-  - [`Cpl::Dm::ModelPointCommon_`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/ModelPointCommon_.h). This is the type-independent implementation base class that provides the majority of functionality for model points.
-- [`Cpl::Dm::Mp::Uint32`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/Mp/Uint32.h). This is the type specific MP for containing `uint32_t` data type.
-  - [`Cpl::Dm::Mp::Numeric`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Dm/Mp/Numeric.h). This file contains a collection of template classes that provides much of the `Uint32` implementation.
-- [`MpAlarm`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MpAlarm.h). This is the application specific MP for alarm data. 
-- [`MpMetrics`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/DataModel/MpMetrics.h). This is the application specific MP for metric data. 
+    Usage:
+      tshell-example [options]
+
+    Options:
+      -n            Create and run a non-blocking TShell that uses STDIO for as
+                    the IO streams.
+      -s PORT       Create and run a blocking TShell that uses TCP sockets as
+                    the IO streams. The TShell is socket listener on port
+                    number: PORT
+      -h,--help     Show this screen.
+
+    NOTES:
+     o The default behavior is to create and run a blocking TShell that uses
+       STDIO as the IO streams.
+  ```
+  - Files: [`winmain.h`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/windows/winmain.cpp), [`posixmain.cpp`](https://github.com/johnttaylor/pim/blob/master/projects/Examples/TShell/linux/posixmain.cpp)
 
 
+# Bob Command
 
-### TShell Console
-The TShell is a text-based command shell framework that can be used to interact 
-with an application. One example is a debug shell (or maintenance port) that 
-provides white-box access to running the application. Note: the TShell is only 
-a framework; the application is responsible for connecting it to the application 
-and providing application specific commands.
 
-The TShell has a `help` command that lists all of the available commands.  Typing
-`help *` or `help <cmd>` provides additional details for the commands.  For example:
-
-```
-$ help
-bye [app [<exitcode>]]
-dm ls [<filter>]
-dm write {<mp-json>}
-dm read <mpname>
-dm touch <mpname>
-help [* | <cmd>]
-threads
-tprint ["<text>"]
-trace [on|off]
-trace section (on|off) <sect1> [<sect2>]...
-trace threadfilters [<threadname1> [<threadname2>]]...
-trace level (none|brief|info|verbose|max)
-trace here|revert
-
-$ help dm
-dm ls [<filter>]
-dm write {<mp-json>}
-dm read <mpname>
-dm touch <mpname>
-  Lists, updates, and displays Model Points contained in the Model Database.
-  When 'ls' is used a list of model point names is returned.  The <filter>
-  argument will only list points that contain <filter>.  Updating a Model Point
-  is done by specifying a JSON object. See the concrete class definition of the
-  Model Point being updated for the JSON format.  When displaying a Model Point
-  <mpname> is the string name of the Model Point instance to be displayed.
-```
-
-Below are example TShell commands that will read, write, and then read the `hiAlarm` model point
+# TShell Details
+## Commands
+A Command is a concrete C++ class that implements the `Cpl::TShell::Command` 
+interface. In addition, each concrete class is required (in its constructor) to 
+_self register_ with the shell's command list. The following code snippet 
+lists the methods that each command is required to implement.
 
 ```
->> 00 00:15:41.932 (OutputDriver) hiAlarm RASIED. Signal=997, Acknowledged=no
-$ dm read hiAlarm
+/// This method executes the command.
+virtual Result_T execute( Context_&        context, 
+                          char*            rawCmdString, 
+                          Cpl::Io::Output& outfd ) noexcept = 0;
+
+/// This method returns the command's verb string
+virtual const char* getVerb() const noexcept = 0;
+
+/// This method returns the command's usage string
+virtual const char* getUsage() const noexcept = 0;
+
+/** This method returns the command's detailed help string.  Detailed
+    help is optional.  If the command does not support detailed help,
+    then nullptr is returned.
+ */
+virtual const char* getHelp() const noexcept = 0;
+
+/** Returns the minimum required permission level needed to execute the 
+    command.
+ */
+virtual Security::Permission_T getMinPermissionRequired() const noexcept = 0;
+```
+
+In practice there is `Cpl::TShell::Cmd::Command` base class that implements 
+the self registration of the command with the command list along with some 
+other (minimal) boiler plate code.  
+ 
+
+### execute()
+The above methods are fairly self explanatory with the exception of the `execute`
+command. I'll start with detailed description of its arguments
+
+- __context__.  The `context` argument is a reference to the framework's `Context_` 
+interface.  The `Context_` interface provides common infrastructure, information, 
+buffers, etc. that facilitates interaction between the shell processor and 
+individual commands.  For example, when the command wants to output a line of
+text, it uses the `context.writeFrame()` method instead of directly calling 
+`write` directly on the `outfd` output stream.  The `writeFrame()` method ensures that
+the output line operation is atomic.
+
+- __rawCmdString__.  As the name implies this is raw text from the accepted text
+frame containing thats contains the complete command text.  By passing the text
+as a `char*` instead of `const char*` _commands are allowed to modify the
+string_ contents (e.g. performing an in-place/destructive token parsing).
+
+- __outfd__.  The `outfd` argument is reference the shell's output stream.  In
+general commands should never operate directly on the output stream, but instead
+should use the `Context_` interface when outputting text.
+
+#### Execution sequence
+The steps for execution a command are pretty simple:
+1. Parse any command arguments
+   i. Return an error code if one or more arguments are _bad_ and optionally 
+      generate error messages
+2. Do the command action(s)
+   i. Return an error code if an error occurred while executing the action logic 
+      and optionally generate error messages
+3. Return the `Command::eSUCCESS` on successfully completion of the command
+
+The TShell framework itself does not provide support for parsing the raw command
+string. However, the CPL C++ class library provides a set of interfaces for
+parsing text strings.  For example, the `Cpl::Text::Tokenizer::TextBlock` is
+string tokenizer that supports quoted tokens that can contain embedded quotes. 
+
+```
+Cpl::Text::Tokenizer::TextBlock tokens( rawCmdString, context.getDelimiterChar(), context.getTerminatorChar(), context.getQuoteChar(), context.getEscapeChar() );
+...
+// Error checking
+if ( tokens.numParameters() > 3 || tokens.numParameters() < 2 )
 {
-  "name": "hiAlarm",
-  "valid": true,
-  "type": "MpAlarm",
-  "seqnum": 38,
-  "locked": false,
-  "val": {
-    "signal": 997,
-    "ack": false
-  }
+    return Command::eERROR_BAD_SYNTAX;
 }
-$ dm write {name:"hiAlarm",val:{ack:true}}
->> 00 00:15:43.313 (OutputDriver) hiAlarm RASIED. Signal=997, Acknowledged=YES
-$ dm read hiAlarm
-{
-  "name": "hiAlarm",
-  "valid": true,
-  "type": "MpAlarm",
-  "seqnum": 39,
-  "locked": false,
-  "val": {
-    "signal": 997,
-    "ack": true
-  }
-}
-$
+...
+Cpl::Text::String& token  = context.getTokenBuffer();
+token = tokens.getParameter( 1 );
 ```
-### Installation and Setup
+
+See the following directories for text parsing interfaces:
+
+  - [`Cpl/Text/`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Text), 
+    [`Cpl/Text/Tokenizer`](https://github.com/johnttaylor/pim/blob/master/src/Cpl/Text/Tokenizer)
+
+As mentioned above, commands should not directly use the `outfd` when generating
+output - and instead use the `content.writeFrame()` method.  The `writeFrame()` 
+methods do not support `printf` semantics.  When `printf` semantics are desired
+the command can use a `Cpl::Text::String` instance to do the formating and
+then output the String's buffer using the `writeFrame()` method.  The `Context_` 
+interface provides shared (across all commands) `Cpl::Text::String` instances
+specifically for this purpose.
+```
+Cpl::Text::String& outBuf = context.getOutputBuffer();
+...
+outBuf.format( "Bob's output is: %s", traceEnabled ? "ENABLED" : "disabled" );
+context.writeFrame( outBuf.getString() );
+```
+
+
+ 
+
+## Blocking Shell
+## Blocking Shell with Sockets
+## Non-Blocking Shell
+
+## Help
+The shell framework provides basic support for run time help.  What the framework
+does not provide is pretty or smart formating of the help output. Individual
+commands provide the raw help text, but there is no formatting imposed/required
+for the help text. However, since the help feature is really just another command
+(i.e. `help`) - an application can create is own implementation of the `help` 
+command to add the desired output format.
+
+The default convention for the help text is for each command to format it
+text so that no indivudal help line exceeds 80 characters.
+
+## Security
+The example application does not enable/use the security features of the shell.  
+Here is brief summary on how to enable the security feature.
+
+- Set `OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL` to something
+   other than `ePUBLIC`.  This will be the permission for all legacy (i.e.
+   not Security aware) TShell commands
+
+- Recommend turning on the switch: `USE_CPL_TSHELL_PROCESSOR_SILENT_WHEN_PUBLIC`
+
+- Include the `Cpl::TShell::Cmd::User` command and provide an 
+   implementation of the `Cpl::TShell::Security` interface (that is passed 
+   to the command's constructor).
+
+- Optionally include new security aware commands
+
+# Installation and Setup
 The source code for the Data Model example is part of the [PIM](https://github.com/johnttaylor/pim) repository on GitHub. The example code is functional on
 both a Windows and a Linux PC.
 
@@ -233,7 +269,7 @@ __Notes__:
 - Running the `env.bat|sh` script only needs to be run once per terminal window/session.
 - All builds are command line based and use the PIM repository's `nqbp` build engine.
 
-### Building the Example Application
+# Building the Example Application
 The PIM repository directory structure separates the source code directories from 
 the directories where the builds are performed. In the following top-level directory
 structure, application builds and unit tests are built in the `projects/` and `tests/` 
@@ -252,13 +288,13 @@ directory trees.
 ```
 
 The Application specific source code the example application is located in 
-`project/Examples/DataModel/` directory. The location of the example source 
+`project/Examples/TShell/` directory. The location of the example source 
 code does __not__ follow the paradigm for locating application source code under 
 the `src/` directory.  This exception was done to simplify the example. See the projects
 under the `projects/Storm/` directory for the recommended file/directory structure.
 
 To build the example application
-navigate to a leaf directory inside of the `project/Examples/DataModel/` 
+navigate to a leaf directory inside of the `project/Examples/TShell/` 
 directory and run the `nqbp.py` script. Which leaf directory depends on which 
 host-platform/compiler you are using. 
 
@@ -267,33 +303,39 @@ Visual Studio compiler (note: the `-g -t` options enable the debug and parallel
 build options respectively).
 
 ```
-c:\_workspaces\zoe\pim>cd projects\Examples\DataModel\windows\vc12
-c:\_workspaces\zoe\pim\projects\Examples\DataModel\windows\vc12>nqbp.py -gt
+c:\_workspaces\zoe\pim>cd projects\Examples\TShell\windows\vc12
+c:\_workspaces\zoe\pim\projects\Examples\TShell\windows\vc12>nqbp.py -gt
 ================================================================================
-= START of build for:  datamodel-example.exe
-= Project Directory:   C:\_workspaces\zoe\pim\projects\Examples\DataModel\windows\vc12
+= START of build for:  tshell-example.exe
+= Project Directory:   C:\_workspaces\zoe\pim\projects\Examples\TShell\windows\vc12
 = Toolchain:           VC++ 12, 32bit (Visual Studio 2013)
 = Build Configuration: win32
-= Begin (UTC):         Sun, 25 Dec 2022 20:51:48
-= Build Time:          1672001508 (63a8b7e4)
+= Begin (UTC):         Sun, 15 Jan 2023 14:07:00
+= Build Time:          1673791620 (63c40884)
 ================================================================================
 = Cleaning Built artifacts...
 = Cleaning Project and local Package derived objects...
 = Cleaning External Package derived objects...
 = Cleaning Absolute Path derived objects...
 =====================
-= Building Directory: src\Cpl\Dm\Persistent
+= Building Directory: src\Cpl\Text\Frame
 =====================
-= Building Directory: src\Cpl\Persistent
+= Building Directory: src\Cpl\Text\Tokenizer
+=====================
+= Building Directory: src\Cpl\Memory
+=====================
+= Building Directory: src\Cpl\Container
+=====================
+= Building Directory: src\Cpl\Checksum
 =====================
 = Building Directory: src\Cpl\Text
+=====================
+= Building Directory: src\Cpl\Io
+cdlist.c
 Pool_.cpp
+Decoder_.cpp
 TextBlock.cpp
 Basic.cpp
-Decoder_.cpp
-cdlist.c
-=
-= Archiving: library.lib
 
 ...
 
@@ -302,55 +344,63 @@ StdOut.cpp
 = Archiving: library.lib
 =====================
 = Building Project Directory:
-Algorithm.cpp
-InputDriver.cpp
-OutputDriver.cpp
-MpMetrics.cpp
-MpAlarm.cpp
 ModelPoints.cpp
 Main.cpp
 winmain.cpp
 =====================
 = Linking...
 ================================================================================
-= END of build for:    datamodel-example.exe
-= Project Directory:   C:\_workspaces\zoe\pim\projects\Examples\DataModel\windows\vc12
+= END of build for:    tshell-example.exe
+= Project Directory:   C:\_workspaces\zoe\pim\projects\Examples\TShell\windows\vc12
 = Toolchain:           VC++ 12, 32bit (Visual Studio 2013)
 = Build Configuration: win32
-= Elapsed Time (hh mm:ss): 00 00:13
+= Elapsed Time (hh mm:ss): 00 00:26
 ================================================================================
-
-c:\_workspaces\zoe\pim\projects\Examples\DataModel\windows\vc12>_win32\datamodel-example.exe
->> 00 00:00:00.009 (OutputDriver) hiAlarm lowered.
->> 00 00:00:00.009 (OutputDriver) loAlarm lowered.
+c:\_workspaces\zoe\pim\projects\Examples\TShell\windows\vc12>_win32\tshell-example.exe
 
 --- Your friendly neighborhood TShell. ---
 
 
-$ dm ls
-bootCounter
-hiAlarm
-hiAlarmCounts
-loAlarm
-loAlarmCounts
-metrics
-signalIn
+$ help
+bob on|off
+bob on|off delay
+bye [app [<exitcode>]]
+dm ls [<filter>]
+dm write {<mp-json>}
+dm read <mpname>
+dm touch <mpname>
+help [* | <cmd>]
+threads
+tprint ["<text>"]
+trace [on|off]
+trace section (on|off) <sect1> [<sect2>]...
+trace threadfilters [<threadname1> [<threadname2>]]...
+trace level (none|brief|info|verbose|max)
+trace here|revert
+$ bob on
+Bob's output is: ENABLED
 $ 
->> 00 00:00:06.046 (OutputDriver) hiAlarm RASIED. Signal=1000, Acknowledged=no
->> 00 00:00:08.213 (OutputDriver) hiAlarm lowered.
->> 00 00:00:08.367 (OutputDriver) loAlarm RASIED. Signal=3, Acknowledged=no
->> 00 00:00:11.359 (OutputDriver) hiAlarm RASIED. Signal=996, Acknowledged=no
->> 00 00:00:11.359 (OutputDriver) loAlarm lowered.
->> 00 00:00:21.354 (OutputDriver) hiAlarm lowered.
->> 00 00:00:21.354 (OutputDriver) loAlarm RASIED. Signal=1, Acknowledged=no
-$ dm read bootCounter
-{
-  "name": "bootCounter",
-  "valid": true,
-  "type": "Cpl::Dm::Mp::Uint32",
-  "seqnum": 2,
-  "locked": false,
-  "val": 1
-}
+>> 00 00:00:30.183 (bob) Bob's counter: 30
+>> 00 00:00:31.188 (bob) Bob's counter: 31
+>> 00 00:00:32.193 (bob) Bob's counter: 32
+>> 00 00:00:33.202 (bob) Bob's counter: 33
+>> 00 00:00:34.210 (bob) Bob's counter: 34
+>> 00 00:00:35.213 (bob) Bob's counter: 35
+bob on 500
+Bob's output is: ENABLED
+Bob's delay set to: 500 msecs
+$ 
+>> 00 00:00:35.805 (bob) Bob's counter: 36
+>> 00 00:00:36.311 (bob) Bob's counter: 37
+>> 00 00:00:36.822 (bob) Bob's counter: 38
+>> 00 00:00:37.334 (bob) Bob's counter: 39
+>> 00 00:00:37.844 (bob) Bob's counter: 40
+>> 00 00:00:38.357 (bob) Bob's counter: 41
+>> 00 00:00:38.869 (bob) Bob's counter: 42
+>> 00 00:00:39.377 (bob) Bob's counter: 43
+>> 00 00:00:39.887 (bob) Bob's counter: 44
+>> 00 00:00:40.396 (bob) Bob's counter: 45
+bob off
+Bob's output is: disabled
 $
 ```
