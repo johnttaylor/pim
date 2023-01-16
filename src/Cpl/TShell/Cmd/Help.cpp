@@ -22,8 +22,9 @@ static void outputLongText_( Cpl::TShell::Context_& context, bool& io, const cha
 
 
 ///////////////////////////
-Help::Help( Cpl::Container::Map<Cpl::TShell::Command>& commandList ) noexcept
-	:Command( commandList, CPLTSHELLCMD_CMD_HELP_ )
+Help::Help( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
+			Security::Permission_T                     minPermLevel ) noexcept
+	:Command( commandList, verb, minPermLevel )
 {
 }
 

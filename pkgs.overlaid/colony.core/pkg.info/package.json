@@ -109,64 +109,64 @@
   },
   "publish": {
     "current": {
-      "comment": "Feature adds to TShell, Data model, and enable default constructors for BETTER_ENUMs",
-      "version": "4.3.0",
-      "date": "Fri Dec 23 03:14:02 2022",
-      "timestamp": 1671765242,
-      "changes": "\"Add unit test for the Wifi-Station interface (though no concrete impl in colony.core)\\nEnable default constructors for BETTER_ENUMs\\nTShell refactored to support user login and three permission levels\\nAdd 'settling-time' feature to the Data Model's Persistent Records\\nRefactor Data Model Array MPs (array MPs are now typed ONLY by their element type)\\nRefactor String MPs (String MPs are now a single type)\\nAdd readAndSync() and isNotInvalidAndSync() method to properly synchronous Observers when the MP data is read in the change notification callback\\n\""
+      "comment": "Minor bug fix/clean-up to the TShell",
+      "version": "4.3.1",
+      "date": "Sun Jan 15 21:00:19 2023",
+      "timestamp": 1673816419,
+      "changes": "\"- Fix bug where the quote/escape characters where not being set correctly for the TShell Maker objects. \\n- Clean-up help strings \\n- Make base TShell command security aware\\n\""
     },
     "history": [
-        {
-            "comment": "Add additional driver support and non-blocking TCP socket streams",
-            "version": "4.2.2",
-            "date": "Sun Nov  6 23:15:51 2022",
-            "timestamp": 1667776551,
-            "changes": "\"- Add interface for WIFI Station functionality\\n- Add the ability to read 'out-of-band' input in the command shell.\\n- Add additional JSON support.\\n- Add Nvram driver interface.\\n- Add I2C platform independent interface definition.\\n- Add support for CAT24C512 EEPROM.\\n- Add non-blocking TCP socket interface and Win32 implementation\\n\""
-        },
-        {
-            "comment": "Minor bug fixes and external package updates",
-            "version": "4.2.1",
-            "date": "Sun Sep 11 18:56:47 2022",
-            "timestamp": 1662922607,
-            "changes": "\"- Fix bug in the missing 'blocking' argument for the frame decoders\\n- Fix issue of the Cpl::Io::Stream available() method reporting  mouse/focus events for stdin under Windoze\\n- Get the latest package version of: nqbp, colony.bsp, and colony.bsp.renesas.rx\\n\""
-        },
-        {
-            "comment": "Add additional driver support and non-blocking TCP socket streams",
-            "version": "4.2.2",
-            "date": "Sun Nov  6 23:15:51 2022",
-            "timestamp": 1667776551,
-            "changes": "\"- Add interface for WIFI Station functionality\\n- Add the ability to read 'out-of-band' input in the command shell.\\n- Add additional JSON support.\\n- Add Nvram driver interface.\\n- Add I2C platform independent interface definition.\\n- Add support for CAT24C512 EEPROM.\\n- Add non-blocking TCP socket interface and Win32 implementation\\n\""
-        },
-        {
-            "comment": "Added new Drivers. Tweaked the StreamDecoder. Added VS solution. Added Null Media and RAM IO stream",
-            "version": "4.2.0",
-            "date": "Sun Sep  4 17:55:27 2022",
-            "timestamp": 1662314127
-        },
-        {
-            "comment": "Add Periodic Scheduler. Add non-blocking TShell processor",
-            "version": "4.1.0",
-            "date": "Thu Aug 18 01:03:06 2022",
-            "timestamp": 1660784586
-        },
-        {
-            "comment": "Refactor Model Points for smaller footprint (is a breaking change)",
-            "version": "3.0.0",
-            "date": "Mon May 30 18:11:49 2022",
-            "timestamp": 1653934309
-        },
-        {
-            "comment": "Try again at publishing as a Outcast2 package",
-            "version": "2.0.2",
-            "date": "Sun Nov 28 14:33:57 2021",
-            "timestamp": 1638110037
-        },
-        {
-            "comment": "Initial publish as a Outcast2 package",
-            "version": "2.0.1.",
-            "date": "Sat Nov 20 20:15:42 2021",
-            "timestamp": 1637439342
-        }
+      {
+        "comment": "Feature adds to TShell, Data model, and enable default constructors for BETTER_ENUMs",
+        "version": "4.3.0",
+        "date": "Fri Dec 23 03:14:02 2022",
+        "timestamp": 1671765242,
+        "changes": "\"Add unit test for the Wifi-Station interface (though no concrete impl in colony.core)\\nEnable default constructors for BETTER_ENUMs\\nTShell refactored to support user login and three permission levels\\nAdd 'settling-time' feature to the Data Model's Persistent Records\\nRefactor Data Model Array MPs (array MPs are now typed ONLY by their element type)\\nRefactor String MPs (String MPs are now a single type)\\nAdd readAndSync() and isNotInvalidAndSync() method to properly synchronous Observers when the MP data is read in the change notification callback\\n\""
+      },
+      {
+        "comment": "Add additional driver support and non-blocking TCP socket streams",
+        "version": "4.2.2",
+        "date": "Sun Nov  6 23:15:51 2022",
+        "timestamp": 1667776551,
+        "changes": "\"- Add interface for WIFI Station functionality\\n- Add the ability to read 'out-of-band' input in the command shell.\\n- Add additional JSON support.\\n- Add Nvram driver interface.\\n- Add I2C platform independent interface definition.\\n- Add support for CAT24C512 EEPROM.\\n- Add non-blocking TCP socket interface and Win32 implementation\\n\""
+      },
+      {
+        "comment": "Minor bug fixes and external package updates",
+        "version": "4.2.1",
+        "date": "Sun Sep 11 18:56:47 2022",
+        "timestamp": 1662922607,
+        "changes": "\"- Fix bug in the missing 'blocking' argument for the frame decoders\\n- Fix issue of the Cpl::Io::Stream available() method reporting  mouse/focus events for stdin under Windoze\\n- Get the latest package version of: nqbp, colony.bsp, and colony.bsp.renesas.rx\\n\""
+      },
+      {
+        "comment": "Added new Drivers. Tweaked the StreamDecoder. Added VS solution. Added Null Media and RAM IO stream",
+        "version": "4.2.0",
+        "date": "Sun Sep  4 17:55:27 2022",
+        "timestamp": 1662314127
+      },
+      {
+        "comment": "Add Periodic Scheduler. Add non-blocking TShell processor",
+        "version": "4.1.0",
+        "date": "Thu Aug 18 01:03:06 2022",
+        "timestamp": 1660784586
+      },
+      {
+        "comment": "Refactor Model Points for smaller footprint (is a breaking change)",
+        "version": "3.0.0",
+        "date": "Mon May 30 18:11:49 2022",
+        "timestamp": 1653934309
+      },
+      {
+        "comment": "Try again at publishing as a Outcast2 package",
+        "version": "2.0.2",
+        "date": "Sun Nov 28 14:33:57 2021",
+        "timestamp": 1638110037
+      },
+      {
+        "comment": "Initial publish as a Outcast2 package",
+        "version": "2.0.1.",
+        "date": "Sat Nov 20 20:15:42 2021",
+        "timestamp": 1637439342
+      }
     ]
   }
 }

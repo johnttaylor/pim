@@ -20,8 +20,9 @@
 using namespace Cpl::TShell::Cmd;
 
 ///////////////////////////
-Bye::Bye( Cpl::Container::Map<Cpl::TShell::Command>& commandList ) noexcept
-	:Command( commandList, CPLTSHELLCMD_CMD_BYE_ )
+Bye::Bye( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
+		  Security::Permission_T                     minPermLevel ) noexcept
+	:Command( commandList, verb, minPermLevel )
 {
 }
 

@@ -15,23 +15,6 @@
 #include "colony_config.h"
 #include "Cpl/TShell/Cmd/Command.h"
 
-/** Command
-                                    "         1         2         3         4         5         6         7         8"
-                                    "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
-*/
-#define CPLTSHELLCMD_CMD_BYE_		"bye"
-/// Usage
-#define CPLTSHELLCMD_USAGE_BYE_     "bye [app [<exitcode>]]"
-
-/// Detailed Help text
-#ifndef CPLTSHELLCMD_DETAIL_BYE_
-#define CPLTSHELLCMD_DETAIL_BYE_    "  Requests the  shell to exit. If the optional argument 'app' is specified\n" \
-                                    "  then the application is exited with the specifed <exitcode>. The default\n" \
-                                    "  <exitcode> is '0'."
-
-#endif // ifndef allows detailed help to be compacted down to a single character if FLASH/code space is an issue
-
-
 ///
 namespace Cpl {
 ///
@@ -43,17 +26,35 @@ namespace Cmd {
  */
 class Bye : public Command
 {
+public:
+    /// The command verb/identifier
+    static constexpr const char* verb = "bye";
+
+    /// The command usage string
+    static constexpr const char* usage = "bye [app [<exitcode>]]"
+                                         "bob on|off delay";
+
+    /** The command detailed help string (recommended that lines do not exceed 80 chars)
+                                                          1         2         3         4         5         6         7         8
+                                                 12345678901234567890123456789012345678901234567890123456789012345678901234567890
+     */
+    static constexpr const char* detailedHelp = "  Requests the  shell to exit. If the optional argument 'app' is specified\n" 
+                                                "  then the application is exited with the specifed <exitcode>. The default\n" 
+                                                "  <exitcode> is '0'.";
+
+
 protected:
     /// See Cpl::TShell::Command
-    const char* getUsage() const noexcept { return CPLTSHELLCMD_USAGE_BYE_; }
+    const char* getUsage() const noexcept { return usage; }
 
     /// See Cpl::TShell::Command
-    const char* getHelp() const noexcept { return CPLTSHELLCMD_DETAIL_BYE_; }
+    const char* getHelp() const noexcept { return detailedHelp; }
 
 
 public:
     /// Constructor
-    Bye( Cpl::Container::Map<Cpl::TShell::Command>& commandList ) noexcept;
+    Bye( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
+         Security::Permission_T                     minPermLevel=OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL ) noexcept;
 
 public:
     /// See Cpl::TShell::Command

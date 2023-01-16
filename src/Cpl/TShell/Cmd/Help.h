@@ -16,23 +16,6 @@
 #include "Cpl/TShell/Cmd/Command.h"
 
 
-/** Command
-                                    "         1         2         3         4         5         6         7         8"
-                                    "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
-*/
-#define CPLTSHELLCMD_CMD_HELP_	    "help"
-/// Usage
-#define CPLTSHELLCMD_USAGE_HELP_    "help [* | <cmd>]"
-
-/// Detailed Help text
-#ifndef CPLTSHELLCMD_DETAIL_HELP_
-#define CPLTSHELLCMD_DETAIL_HELP_   "  Displays list of all supported commands and optionally their detailed help. If\n" \
-                                    "  the second argument is command, then the detailed help for that command will\n"   \
-                                    "  be displayed."
-
-#endif // ifndef allows detailed help to be compacted down to a single character if FLASH/code space is an issue
-
-
 ///
 namespace Cpl {
 ///
@@ -47,16 +30,33 @@ namespace Cmd {
 class Help : public Command
 {
 public:
+    /// The command verb/identifier
+    static constexpr const char* verb = "help";
+
+    /// The command usage string
+    static constexpr const char* usage = "help [* | <cmd>]";
+
+    /** The command detailed help string (recommended that lines do not exceed 80 chars)
+                                                          1         2         3         4         5         6         7         8
+                                                 12345678901234567890123456789012345678901234567890123456789012345678901234567890
+     */
+    static constexpr const char* detailedHelp = "  Displays list of all supported commands and optionally their detailed help. If\n" 
+                                                "  the second argument is command, then the detailed help for that command will\n"   
+                                                "  be displayed.";
+
+
+public:
     /// See Cpl::TShell::Command
-    const char* getUsage() const noexcept { return CPLTSHELLCMD_USAGE_HELP_; }
+    const char* getUsage() const noexcept { return usage; }
 
     /// See Cpl::TShell::Command
-    const char* getHelp() const noexcept { return CPLTSHELLCMD_DETAIL_HELP_; }
+    const char* getHelp() const noexcept { return detailedHelp; }
 
 
 public:
     /// Constructor
-    Help( Cpl::Container::Map<Cpl::TShell::Command>& commandList ) noexcept;
+    Help( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
+          Security::Permission_T                     minPermLevel=OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL ) noexcept;
 
 
 public:

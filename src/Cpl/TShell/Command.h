@@ -62,7 +62,7 @@ public:
 
 	/** This method returns the command's detailed help string.  Detailed
 		help is optional.  If the command does not support detailed help,
-		then 0 is returned.
+		then nullptr is returned.
 	 */
 	virtual const char* getHelp() const noexcept = 0;
 

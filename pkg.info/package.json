@@ -18,22 +18,6 @@
         }
       },
       {
-        "pkgname": "colony.arduino",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Sep 11 23:22:06 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "1.0.5",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.0.5"
-        },
-        "repo": {
-          "name": "colony.arduino",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "colony.apps",
         "pkgtype": "overlay",
         "adoptedDate": "Sat Dec 24 15:51:53 2022",
@@ -50,14 +34,30 @@
         }
       },
       {
-        "pkgname": "colony.core",
+        "pkgname": "colony.arduino",
         "pkgtype": "overlay",
-        "adoptedDate": "Sat Dec 24 15:53:03 2022",
+        "adoptedDate": "Sun Jan 15 21:14:18 2023",
         "parentDir": null,
         "version": {
-          "semanticVersion": "4.3.0",
+          "semanticVersion": "1.0.6",
           "branch": null,
-          "tag": "OUTCAST2-main-4.3.0"
+          "tag": "OUTCAST2-main-1.0.6"
+        },
+        "repo": {
+          "name": "colony.arduino",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.core",
+        "pkgtype": "overlay",
+        "adoptedDate": "Mon Jan 16 01:18:29 2023",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "4.3.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-4.3.1"
         },
         "repo": {
           "name": "colony.core",
@@ -127,6 +127,22 @@
         },
         "repo": {
           "name": "colony.bsp.renesas.rx",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "docopt-cpp",
+        "pkgtype": "readonly",
+        "adoptedDate": "Sun Jan 15 21:36:43 2023",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "0.6.3",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.6.3"
+        },
+        "repo": {
+          "name": "docopt-cpp",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
