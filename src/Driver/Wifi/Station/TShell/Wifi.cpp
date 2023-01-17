@@ -23,8 +23,9 @@ using namespace Driver::Wifi::Station::TShell;
 #define SECT_   "Driver::Wifi::Station::TShell"
 
 ///////////////////////////
-Wifi::Wifi( Cpl::Container::Map<Cpl::TShell::Command>& commandList ) noexcept
-    : Cpl::TShell::Cmd::Command( commandList, DRIVERWIFISTATIONTSHELL_CMD_WIFI_ )
+Wifi::Wifi( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
+            Cpl::TShell::Security::Permission_T        minPermLevel ) noexcept
+    : Cpl::TShell::Cmd::Command( commandList, verb, minPermLevel )
 {
 }
 
@@ -59,7 +60,6 @@ Cpl::TShell::Command::Result_T Wifi::execute( Cpl::TShell::Context_& context, ch
         if ( !Cpl::Text::a2i( authMethod, tokens.getParameter( 1 ) ) || authMethod < 0 || authMethod  > Connection::eWPA2_MIXED_PSK )
         {
             outtext.format( "Invalid auth-method (%d). Type 'help %' for list of auth-methods", 
-                            DRIVERWIFISTATIONTSHELL_CMD_WIFI_, 
                             tokens.getParameter( 1 ) );
             context.writeFrame( outtext );
             return Command::eERROR_INVALID_ARGS;

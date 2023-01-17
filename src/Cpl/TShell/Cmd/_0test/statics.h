@@ -9,34 +9,26 @@
 * Redistributions of the source code must retain the above copyright notice.
 *----------------------------------------------------------------------------*/
 
-#include "colony_config.h"
-#include "statics.h"
-#include <new>
+#include "helpers.h"
+#include "Cpl/TShell/Maker.h"
 
-#include "Cpl/TShell/Socket.h"
+#include "Cpl/Dm/TShell/Dm.h"
+#include "Cpl/Dm/ModelDatabase.h"
+#include "Cpl/Dm/Mp/Int32.h"
 
-#ifndef PORT_
-#define PORT_   5002
-#endif
-
-/// 
-extern void shell_test2( Cpl::Io::Socket::Listener& listener );
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
+extern Cpl::Container::Map<Cpl::TShell::Command>   cmdlist;
 
-void shell_test2( Cpl::Io::Socket::Listener& listener )
-{
-	// Start the shell
-	Cpl::TShell::Socket* shellPtr = new( std::nothrow ) Cpl::TShell::Socket( cmdProcessor_, listener );
-	shellPtr->launch( PORT_ );
+static Cpl::TShell::Maker cmdProcessor_( cmdlist );
 
-	// Create thread for my mock-application to run in
-	Cpl::System::Thread::create( mockApp, "APP-BOB" );
-
-	// Start the scheduler
-	Cpl::System::Api::enableScheduling();
-}
+static Cpl::TShell::Cmd::Help    helpCmd_( cmdlist );
+static Cpl::TShell::Cmd::Bye     byeCmd_( cmdlist );
+static Cpl::TShell::Cmd::Trace   traceCmd_( cmdlist );
+static Cpl::TShell::Cmd::TPrint  tprintCmd_( cmdlist );
 
 
+static Apple   mockApp;
+static Bob     bobCmd( cmdlist, mockApp );

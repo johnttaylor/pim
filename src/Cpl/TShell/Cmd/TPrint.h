@@ -17,22 +17,6 @@
 
 
 
-/** Command
-									  "         1         2         3         4         5         6         7         8"
-									  "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
-*/
-#define CPLTSHELLCMD_CMD_TPRINT_	  "tprint"
-/// Usage
-#define CPLTSHELLCMD_USAGE_TPRINT_    "tprint [\"<text>\"]"
-
-/// Detailed Help text
-#ifndef CPLTSHELLCMD_DETAIL_TPRINT_  
-#define CPLTSHELLCMD_DETAIL_TPRINT_   "  Outputs the optionally specified text with the current elasped time is\n" \
-                                      "  prepended to the text."
-
-
-#endif // ifndef allows detailed help to be compacted down to a single character if FLASH/code space is an issue
-
 ///
 namespace Cpl {
 ///

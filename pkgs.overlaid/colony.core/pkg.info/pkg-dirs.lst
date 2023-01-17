@@ -101,6 +101,7 @@ src/Cpl/TShell
 src/Cpl/TShell/Cmd
 src/Cpl/TShell/Cmd/FreeRTOS
 src/Cpl/TShell/Cmd/Win32
+src/Cpl/TShell/Cmd/_0test
 src/Cpl/TShell/_0test
 src/Cpl/TShell/_0test/_simtick
 src/Cpl/Type
@@ -301,6 +302,12 @@ tests/Cpl/Text/_0test/linux/gcc
 tests/Cpl/Text/_0test/windows
 tests/Cpl/Text/_0test/windows/mingw_w64
 tests/Cpl/Text/_0test/windows/vc12
+tests/Cpl/TShell/Cmd/_0test
+tests/Cpl/TShell/Cmd/_0test/linux
+tests/Cpl/TShell/Cmd/_0test/linux/gcc
+tests/Cpl/TShell/Cmd/_0test/windows
+tests/Cpl/TShell/Cmd/_0test/windows/mingw_w64
+tests/Cpl/TShell/Cmd/_0test/windows/vc12
 tests/Cpl/TShell/_0test/simtick
 tests/Cpl/TShell/_0test/simtick/linux
 tests/Cpl/TShell/_0test/simtick/linux/gcc

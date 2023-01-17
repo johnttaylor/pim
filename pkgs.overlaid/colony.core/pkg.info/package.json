@@ -109,13 +109,20 @@
   },
   "publish": {
     "current": {
-      "comment": "Minor bug fix/clean-up to the TShell",
-      "version": "4.3.1",
-      "date": "Sun Jan 15 21:00:19 2023",
-      "timestamp": 1673816419,
-      "changes": "\"- Fix bug where the quote/escape characters where not being set correctly for the TShell Maker objects. \\n- Clean-up help strings \\n- Make base TShell command security aware\\n\""
+      "comment": "Fix Tshell 'help text' errors introduced is previous update",
+      "version": "4.3.2",
+      "date": "Tue Jan 17 00:21:33 2023",
+      "timestamp": 1673914893,
+      "changes": "\"- Correct stupid clone-n-edit mistakes in the TShell commands.\\n- Add unit test to catch the above tshell errors in the future\\n- And new 'wait' tshell command.\\n- Clean up the 'wifi' tshell command\\n\\n\""
     },
     "history": [
+      {
+        "comment": "Minor bug fix/clean-up to the TShell",
+        "version": "4.3.1",
+        "date": "Sun Jan 15 21:00:19 2023",
+        "timestamp": 1673816419,
+        "changes": "\"- Fix bug where the quote/escape characters where not being set correctly for the TShell Maker objects. \\n- Clean-up help strings \\n- Make base TShell command security aware\\n\""
+      },
       {
         "comment": "Feature adds to TShell, Data model, and enable default constructors for BETTER_ENUMs",
         "version": "4.3.0",

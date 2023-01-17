@@ -1,0 +1,27 @@
+not-a-command goes here
+bye to many args
+tprint bad dog
+thread to many args
+trace 1 2 3 4 5 6 8
+help 1 3
+help
+help *
+help trace
+trace
+trace off
+trace on
+trace section on bob charlie joe
+trace threadfilters apple cherry orange
+trace level max
+trace here
+trace
+trace section off charlie bob
+trace threadfilters cherry
+trace level brief
+trace revert
+trace
+
+tprint "LAST CHECKED LINE (because of runtime specific values)"
+threads
+bye app 0
+

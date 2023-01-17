@@ -12,6 +12,7 @@
 
 #include "Stdio.h"
 #include "Cpl/System/Thread.h"
+#include <new>
 
 
 ///

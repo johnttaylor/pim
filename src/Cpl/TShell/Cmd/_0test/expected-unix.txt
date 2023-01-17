@@ -1,0 +1,99 @@
+
+--- Your friendly neighborhood TShell. ---
+
+
+$ ERROR: [not-a-command goes here]
+ERRNO 2: Command not supported
+$ ERROR: [bye]
+ERRNO 5: Command encounter 'extra' argument(s)
+$ ERROR: [tprint]
+ERRNO 5: Command encounter 'extra' argument(s)
+$ ERROR: [thread to many args]
+ERRNO 2: Command not supported
+$ ERROR: [trace]
+ERRNO 6: One or more Command arguments are incorrect/invalid
+$ ERROR: [help]
+ERRNO 5: Command encounter 'extra' argument(s)
+$ bob on|off [delay]
+bye [app [<exitcode>]]
+help [* | <cmd>]
+threads
+tprint ["<text>"]
+trace [on|off]
+trace section (on|off) <sect1> [<sect2>]...
+trace threadfilters [<threadname1> [<threadname2>]]...
+trace level (none|brief|info|verbose|max)
+trace here|revert
+$ bob on|off [delay]
+  Sets the test trace output to on/off and delay time between msgs
+ 
+bye [app [<exitcode>]]
+  Requests the  shell to exit. If the optional argument 'app' is specified
+  then the application is exited with the specified <exitcode>. The default
+  <exitcode> is '0'.
+ 
+help [* | <cmd>]
+  Displays list of all supported commands and optionally their detailed help. If
+  the second argument is command, then the detailed help for that command will
+  be displayed.
+ 
+threads
+  Displays the list of threads.
+ 
+tprint ["<text>"]
+  Outputs the optionally specified text with the current elapsed time is
+  prepended to the text.
+ 
+trace [on|off]
+trace section (on|off) <sect1> [<sect2>]...
+trace threadfilters [<threadname1> [<threadname2>]]...
+trace level (none|brief|info|verbose|max)
+trace here|revert
+  Enables/Disables the Cpl::System::Trace engine and manages the section',
+  information level, and thread filter options.  See the Cpl::System::Trace
+  interface for details on how the trace engine works.
+ 
+$ trace [on|off]
+trace section (on|off) <sect1> [<sect2>]...
+trace threadfilters [<threadname1> [<threadname2>]]...
+trace level (none|brief|info|verbose|max)
+trace here|revert
+  Enables/Disables the Cpl::System::Trace engine and manages the section',
+  information level, and thread filter options.  See the Cpl::System::Trace
+  interface for details on how the trace engine works.
+ 
+$  
+TRACE: Currently Enabled Sections:
+----------------------------------
+_0test
+ 
+TRACE: Currently Enabled Thread Filters:
+----------------------------------------
+ 
+TRACE: Runtime state:= ENABLED, Info Level:= INFO
+$ $ $ $ $ $ $  
+TRACE: Currently Enabled Sections:
+----------------------------------
+_0test
+bob
+charlie
+joe
+ 
+TRACE: Currently Enabled Thread Filters:
+----------------------------------------
+apple
+cherry
+orange
+ 
+TRACE: Runtime state:= ENABLED, Info Level:= MAX
+$ $ $ $ $  
+TRACE: Currently Enabled Sections:
+----------------------------------
+_0test
+joe
+ 
+TRACE: Currently Enabled Thread Filters:
+----------------------------------------
+cherry
+ 
+TRACE: Runtime state:= ENABLED, Info Level:= BRIEF

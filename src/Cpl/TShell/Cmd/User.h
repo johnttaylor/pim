@@ -41,9 +41,7 @@ public:
                                                           1         2         3         4         5         6         7         8
                                                  12345678901234567890123456789012345678901234567890123456789012345678901234567890
      */
-    static constexpr const char* detailedHelp = "  Enables/Disables the Cpl::System::Trace engine and manages the section',\n" 
-                                                "  information level, and thread filter options.  See the Cpl::System::Trace\n" 
-                                                "  interface for details on how the trace engine works.";
+    static constexpr const char* detailedHelp = "  Logs a user in and out of the shell.";
 
 
 public:

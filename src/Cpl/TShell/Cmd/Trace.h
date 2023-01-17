@@ -34,11 +34,11 @@ public:
     static constexpr const char* verb = "trace";
 
     /// The command usage string
-    static constexpr const char* usage = "trace[on | off]\n"
-                                         "trace section( on | off ) < sect1 > [<sect2>]...\n"
-                                         "trace threadfilters[<threadname1>[<threadname2>]]...\n"
-                                         "trace level( none | brief | info | verbose | max )\n"
-                                         "trace here | revert";
+    static constexpr const char* usage = "trace [on|off]\n"
+                                         "trace section (on|off) <sect1> [<sect2>]...\n"
+                                         "trace threadfilters [<threadname1> [<threadname2>]]...\n"
+                                         "trace level (none|brief|info|verbose|max)\n"
+                                         "trace here|revert";
 
     /** The command detailed help string (recommended that lines do not exceed 80 chars)
                                                           1         2         3         4         5         6         7         8

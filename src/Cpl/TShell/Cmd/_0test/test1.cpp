@@ -11,32 +11,35 @@
 
 #include "colony_config.h"
 #include "statics.h"
-#include <new>
 
-#include "Cpl/TShell/Socket.h"
 
-#ifndef PORT_
-#define PORT_   5002
-#endif
+#include "Cpl/TShell/Stdio.h"
+#include "Cpl/System/Api.h"
+#include "Cpl/System/Assert.h"
+#include "Cpl/System/Shutdown.h"
+#include <stdio.h>
 
 /// 
-extern void shell_test2( Cpl::Io::Socket::Listener& listener );
+extern void shell_test( Cpl::Io::Input& infd, Cpl::Io::Output& outfd );
 
 
 ////////////////////////////////////////////////////////////////////////////////
+static Cpl::TShell::Stdio shell_( cmdProcessor_ );
 
 
-void shell_test2( Cpl::Io::Socket::Listener& listener )
+void shell_test( Cpl::Io::Input& infd, Cpl::Io::Output& outfd )
 {
 	// Start the shell
-	Cpl::TShell::Socket* shellPtr = new( std::nothrow ) Cpl::TShell::Socket( cmdProcessor_, listener );
-	shellPtr->launch( PORT_ );
+	shell_.launch( infd, outfd );
 
 	// Create thread for my mock-application to run in
 	Cpl::System::Thread::create( mockApp, "APP-BOB" );
 
 	// Start the scheduler
 	Cpl::System::Api::enableScheduling();
+
+	// Wait forever - the 'bye' command is responsible for exiting
+	Cpl::System::Api::sleep( 0xFFFFFFFF );
 }
 
 

@@ -1,5 +1,5 @@
-#ifndef Cpl_TShell_Cmd_Bye_h
-#define Cpl_TShell_Cmd_Bye_h
+#ifndef Cpl_TShell_Cmd_Wait_h
+#define Cpl_TShell_Cmd_Wait_h
 /*-----------------------------------------------------------------------------
 * This file is part of the Colony.Core Project.  The Colony.Core Project is an
 * open source project with a BSD type of licensing agreement.  See the license
@@ -15,6 +15,7 @@
 #include "colony_config.h"
 #include "Cpl/TShell/Cmd/Command.h"
 
+
 ///
 namespace Cpl {
 ///
@@ -24,24 +25,22 @@ namespace Cmd {
 
 /** This class implements a  Shell command
  */
-class Bye : public Command
+class Wait : public Command
 {
 public:
     /// The command verb/identifier
-    static constexpr const char* verb = "bye";
+    static constexpr const char* verb = "wait";
 
     /// The command usage string
-    static constexpr const char* usage = "bye [app [<exitcode>]]";
+    static constexpr const char* usage = "wait msec";
 
     /** The command detailed help string (recommended that lines do not exceed 80 chars)
                                                           1         2         3         4         5         6         7         8
                                                  12345678901234567890123456789012345678901234567890123456789012345678901234567890
      */
-    static constexpr const char* detailedHelp = "  Requests the  shell to exit. If the optional argument 'app' is specified\n" 
-                                                "  then the application is exited with the specified <exitcode>. The default\n" 
-                                                "  <exitcode> is '0'.";
-
-
+    static constexpr const char* detailedHelp = "  Waits for 'msec' milliseconds before returning.  This is useful when issuing a\n" \
+                                                "  batch of console commands and you need a delay between the execution of\n" \
+                                                "  commands.";
 protected:
     /// See Cpl::TShell::Command
     const char* getUsage() const noexcept { return usage; }
@@ -52,8 +51,8 @@ protected:
 
 public:
     /// Constructor
-    Bye( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
-         Security::Permission_T                     minPermLevel=OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL ) noexcept;
+    Wait( Cpl::Container::Map<Cpl::TShell::Command>& commandList,
+          Security::Permission_T                     minPermLevel=OPTION_TSHELL_CMD_COMMAND_DEFAULT_PERMISSION_LEVEL ) noexcept;
 
 public:
     /// See Cpl::TShell::Command
