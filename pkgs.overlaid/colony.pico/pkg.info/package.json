@@ -1,0 +1,196 @@
+{
+  "dependencies": {
+    "strong": [
+      {
+        "pkgname": "pico-sdk",
+        "pkgtype": "readonly",
+        "adoptedDate": "Sat Jul 23 13:29:31 2022",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "1.4.0",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.4.0"
+        },
+        "repo": {
+          "name": "pico-sdk",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "pimoroni-pico",
+        "pkgtype": "readonly",
+        "adoptedDate": "Sat Aug 20 21:50:16 2022",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": null,
+          "branch": null,
+          "tag": "OUTCAST2-main-1.19.7"
+        },
+        "repo": {
+          "name": "pimoroni-pico",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "nqbp",
+        "pkgtype": "foreign",
+        "adoptedDate": "Sun Sep 11 23:36:12 2022",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "3.0.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-3.0.1"
+        },
+        "repo": {
+          "name": "nqbp",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.bsp",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun Sep 11 23:47:15 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "0.1.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.1.1"
+        },
+        "repo": {
+          "name": "colony.bsp",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.apps",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sat Dec 24 15:39:44 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "2.1.0",
+          "branch": null,
+          "tag": "OUTCAST2-main-2.1.0"
+        },
+        "repo": {
+          "name": "colony.apps",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.core",
+        "pkgtype": "overlay",
+        "virtualAdoption": false,
+        "adoptedDate": "Sun Feb 19 14:23:05 2023",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "4.3.3",
+          "branch": null,
+          "tag": "OUTCAST2-main-4.3.3"
+        },
+        "repo": {
+          "name": "colony.core",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      }
+    ],
+    "weak": [
+      {
+        "pkgname": "catch",
+        "pkgtype": "overlay",
+        "adoptedDate": "Sun Jul  3 21:13:27 2022",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "2.13.7b",
+          "branch": null,
+          "tag": "OUTCAST2-main-2.13.7b"
+        },
+        "repo": {
+          "name": "catch",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "ratt",
+        "pkgtype": "readonly",
+        "adoptedDate": "Sun Sep  4 14:31:59 2022",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "1.0.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.0.1"
+        },
+        "repo": {
+          "name": "ratt",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.arduino",
+        "pkgtype": "overlay",
+        "virtualAdoption": true,
+        "adoptedDate": "Sun Feb 19 14:30:16 2023",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "1.0.6",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.0.6"
+        },
+        "repo": {
+          "name": "colony.arduino",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      }
+    ]
+  },
+  "directories": {
+    "primary": [
+      "projects",
+      "scripts",
+      "src",
+      "tests"
+    ],
+    "adoptedExtras": [
+      "top"
+    ]
+  },
+  "info": {
+    "pkgname": "colony.pico",
+    "desc": "Raspberry Pico support the Colony.* repositories and sandbox for embedded dual-core 'stuffs'",
+    "owner": "John Taylor",
+    "email": "john.t.taylor@gmail.com",
+    "url": "www.integerfox.com",
+    "repo": {
+      "name": "colony.pico",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
+    }
+  },
+  "publish": {
+    "current": {
+      "comment": "Latest CPL updates. Updates to RP2040 OSAL (for ElapsedTime)",
+      "version": "0.2.0",
+      "date": "Sun Feb 19 14:33:39 2023",
+      "timestamp": 1676817219,
+      "changes": null
+    },
+    "history": [
+      {
+        "comment": "Initial published package version",
+        "version": "0.1.0",
+        "date": "Sun Jan 22 17:38:25 2023",
+        "timestamp": 1674409105,
+        "changes": null
+      },
+      {}
+    ]
+  }
+}

@@ -40,6 +40,10 @@ bool InputOutput::isOpened()
     return m_stream.isOpened();
 }
 
+Cpl::Io::InputOutput& InputOutput::getStream()
+{
+    return m_stream;
+}
 
 //////////////////////////
 bool InputOutput::read( char& c )

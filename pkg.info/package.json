@@ -52,15 +52,33 @@
       {
         "pkgname": "colony.core",
         "pkgtype": "overlay",
-        "adoptedDate": "Tue Jan 17 00:23:22 2023",
+        "virtualAdoption": false,
+        "adoptedDate": "Sun Feb 19 14:39:32 2023",
         "parentDir": null,
         "version": {
-          "semanticVersion": "4.3.2",
+          "semanticVersion": "4.3.3",
           "branch": null,
-          "tag": "OUTCAST2-main-4.3.2"
+          "tag": "OUTCAST2-main-4.3.3"
         },
         "repo": {
           "name": "colony.core",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.pico",
+        "pkgtype": "overlay",
+        "virtualAdoption": false,
+        "adoptedDate": "Sun Feb 19 14:42:20 2023",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "0.2.0",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.2.0"
+        },
+        "repo": {
+          "name": "colony.pico",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }

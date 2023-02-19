@@ -22,7 +22,7 @@ using namespace Cpl::Dm;
 MailboxServer::MailboxServer( unsigned long                       timingTickInMsec,
                               Cpl::System::SharedEventHandlerApi* eventHandler ) noexcept
     : Cpl::Dm::EventLoop( timingTickInMsec, eventHandler )
-    , Cpl::Itc::Mailbox( *((Cpl::System::EventLoop*) this) )
+    , Cpl::Itc::Mailbox( *((Cpl::System::Signable*) this) )
 {
 }
 

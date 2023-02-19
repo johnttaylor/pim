@@ -237,7 +237,17 @@ public:
 
             if ( flatten < deltaM - 1 || flatten > deltaM + 1 )
             {
-                FatalError::logf( "Precision time is not insync with milliseconds time, flatten=%lu, deltaM=%lu", flatten, deltaM );
+                FatalError::logf( "Precision time is not insync with milliseconds time.\nflatten=%lu, deltaM=%lu, psec=%lu, pmsec=%u, osec=%lu, omsec=%u, dsec=%lu, dmsec=%u, msec=%lu\n", 
+                                  flatten, 
+                                  deltaM,
+                                  ptime.m_seconds,
+                                  ptime.m_thousandths,
+                                  m_ptime.m_seconds,
+                                  m_ptime.m_thousandths,
+                                  deltaP.m_seconds,
+                                  deltaP.m_thousandths,
+                                  msec
+                                  );
             }
 
             m_ptime = ptime;

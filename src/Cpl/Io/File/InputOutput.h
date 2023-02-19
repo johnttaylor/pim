@@ -59,6 +59,8 @@ public:
      */
     bool isOpened();
 
+    /// See Cpl::Io::File::InputOutputApi
+    Cpl::Io::InputOutput& getStream();
 
 public:
     /// See Cpl::Io::Input

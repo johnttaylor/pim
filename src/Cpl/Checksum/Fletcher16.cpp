@@ -29,7 +29,7 @@ void Fletcher16::reset( void ) noexcept
 
 
 ///////////////////////////////////////
-void Fletcher16::accumulate( void* bytes, unsigned numbytes ) noexcept
+void Fletcher16::accumulate( const void* bytes, unsigned numbytes ) noexcept
 {
 	unsigned i;
 	uint8_t* ptr = (uint8_t*) bytes;

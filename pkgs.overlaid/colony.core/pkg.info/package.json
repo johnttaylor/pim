@@ -109,13 +109,20 @@
   },
   "publish": {
     "current": {
-      "comment": "Fix Tshell 'help text' errors introduced is previous update",
-      "version": "4.3.2",
-      "date": "Tue Jan 17 00:21:33 2023",
-      "timestamp": 1673914893,
-      "changes": "\"- Correct stupid clone-n-edit mistakes in the TShell commands.\\n- Add unit test to catch the above tshell errors in the future\\n- And new 'wait' tshell command.\\n- Clean up the 'wifi' tshell command\\n\\n\""
+      "comment": "Maintainence (Stack, ElapsedTime, RingBuffer, etc.) and minor features add (logging framework, base64 encoding, etc.)",
+      "version": "4.3.3",
+      "date": "Sun Feb 19 14:14:55 2023",
+      "timestamp": 1676816095,
+      "changes": "\"- Refactor Stack container to be able to support ITEMs that are not numeric types\\n- Refactor the ElapsedTime implementation so as to provide a default implementation for all platforms (and correct bugs when number of seconds exceed 47 days)\\n- Refactor the TLS class to not use virtual method (not needed for the interface semantics)\\n- Add integer and real number expression parsers\\n- Update BetterEnum to support smaller memory footprint. \\n- Add a Restartable wrapper to the TShell\\n- Add a BlockEncoder\\n- Update Checksum interface to take a const buffer source. \\n- Add a getStream() method to the File InputOutput interface\\n- misc clean-up\\n- add logging framework. \\n- Add LargeInteger math. \\n- Safer RingBuffer. \\n- Specify correct abstract type for an 'event loop' mailbox reference. \\n- Add support for base64 encoding\\n\""
     },
     "history": [
+      {
+        "comment": "Fix Tshell 'help text' errors introduced is previous update",
+        "version": "4.3.2",
+        "date": "Tue Jan 17 00:21:33 2023",
+        "timestamp": 1673914893,
+        "changes": "\"- Correct stupid clone-n-edit mistakes in the TShell commands.\\n- Add unit test to catch the above tshell errors in the future\\n- And new 'wait' tshell command.\\n- Clean up the 'wifi' tshell command\\n\\n\""
+      },
       {
         "comment": "Minor bug fix/clean-up to the TShell",
         "version": "4.3.1",

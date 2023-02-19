@@ -25,6 +25,19 @@ namespace Container {
     ring buffer is limited by number of bits in platform's 'unsigned'
     data type.
 
+    Thread/ISR Safety Notes:
+        - The only mutable (once the Ring buffer is created) data members of the
+          class are the head/tail pointers and the buffer contents.
+        - The add() operation only modifies the tail pointer (but does read the 
+          head pointer)
+        - The remove() operation only modifies the head pointer (but does read
+          the tail pointer).
+        - The clearTheBuffer() operation modifies both the head and tail pointers
+        - All other methods only read data members
+        - The implementation ASSUMES there is a single producer and a single
+          consumer of the RingBuffer.  And that ONLY the producer/consumer
+          are the invoking operations on the RingBuffer.
+
     Template Args:
         ITEM:=      Type of the data stored in the Ring Buffer
  */
@@ -33,31 +46,32 @@ class RingBuffer
 {
 private:
     /// Points to the first item in the buffer.
-    ITEM * m_headPtr;
+    ITEM*           m_headPtr;
 
     /// Points to the last item in the buffer.
-    ITEM*    m_tailPtr;
+    ITEM*           m_tailPtr;
 
-    /// Current number of items in the buffer
-    unsigned m_count;
-
-    /// Max number of elements
-    unsigned m_max;
+    /// Number of element in the allocate memory
+    const unsigned  m_memoryNumElements;
 
     /// End of the Memory element storage
-    ITEM*    m_endOfMemPtr;
+    ITEM* const     m_endOfMemPtr;
 
     /// Memory for the Elements
-    ITEM*    m_elements;
+    ITEM* const     m_elements;
 
 
 public:
     /** Constructor.  The application is responsible for providing the memory
-        for the Ring Buffer.  The argument ''maxElements' is the number of
+        for the Ring Buffer.  The argument ''numElements' is the number of
         items that will fit in the memory allocated by 'memoryForElements' - it
         is NOT the number of bytes of 'memoryForElements'.
+
+        Note: The maximum number of element that can actually be stored is
+              numElements - 1 (one element/index/slot is consumed/used to
+              represents the empty buffer state).
      */
-    RingBuffer( unsigned maxElements, ITEM memoryForElements[] ) noexcept;
+    RingBuffer( unsigned numElements, ITEM memoryForElements[] ) noexcept;
 
 
 
@@ -139,7 +153,11 @@ private:
 
 template <class ITEM>
 RingBuffer<ITEM>::RingBuffer( unsigned maxElements, ITEM memoryForElements[] ) noexcept
-    :m_headPtr( 0 ), m_tailPtr( 0 ), m_count( 0 ), m_max( maxElements ), m_endOfMemPtr( memoryForElements + maxElements ), m_elements( memoryForElements )
+    : m_headPtr( memoryForElements )
+    , m_tailPtr( memoryForElements )
+    , m_memoryNumElements( maxElements )
+    , m_endOfMemPtr( memoryForElements + maxElements )
+    , m_elements( memoryForElements )
 {
 }
 
@@ -147,7 +165,7 @@ RingBuffer<ITEM>::RingBuffer( unsigned maxElements, ITEM memoryForElements[] ) n
 template <class ITEM>
 inline void RingBuffer<ITEM>::clearTheBuffer() noexcept
 {
-    m_count = 0;
+    m_headPtr = m_tailPtr = m_elements;
 }
 
 
@@ -159,20 +177,12 @@ inline bool RingBuffer<ITEM>::add( const ITEM& item ) noexcept
         return false;
     }
 
-    if ( isEmpty() )
+    *m_tailPtr = item;
+    if ( ++m_tailPtr >= m_endOfMemPtr )
     {
-        m_headPtr = m_tailPtr = m_elements;
-    }
-    else
-    {
-        if ( ++m_tailPtr >= m_endOfMemPtr )
-        {
-            m_tailPtr = m_elements;
-        }
+        m_tailPtr = m_elements;
     }
 
-    *m_tailPtr = item;
-    m_count++;
     return true;
 }
 
@@ -184,7 +194,6 @@ inline bool RingBuffer<ITEM>::remove( ITEM& dst ) noexcept
         return false;
     }
 
-    m_count--;
     dst = *m_headPtr;
     if ( ++m_headPtr >= m_endOfMemPtr )
     {
@@ -213,32 +222,49 @@ inline ITEM* RingBuffer<ITEM>::peekTail( void ) const noexcept
         return 0;
     }
 
-    return m_tailPtr;
+    ITEM* prevElem = m_tailPtr - 1;
+    if ( prevElem < m_elements )
+    {
+        prevElem = m_endOfMemPtr - 1;
+    }
+
+    return prevElem;
 }
 
 
 template <class ITEM>
 inline bool RingBuffer<ITEM>::isEmpty( void ) const noexcept
 {
-    return m_count == 0;
+    return m_headPtr == m_tailPtr;
 }
 
 template <class ITEM>
 inline bool RingBuffer<ITEM>::isFull( void ) const noexcept
 {
-    return m_count == m_max;
+    ITEM* nextElem = m_tailPtr + 1;
+    if ( nextElem >= m_endOfMemPtr )
+    {
+        nextElem = m_elements;
+    }
+    return nextElem == m_headPtr;
 }
 
 template <class ITEM>
 inline unsigned RingBuffer<ITEM>::getNumItems( void ) const noexcept
 {
-    return m_count;
+    unsigned headIdx = (unsigned) (m_headPtr - m_elements);
+    unsigned tailIdx = (unsigned) (m_tailPtr - m_elements);
+    if ( tailIdx < headIdx )
+    {
+        tailIdx += m_memoryNumElements;
+    }
+    return tailIdx - headIdx;
 }
 
 template <class ITEM>
 inline unsigned RingBuffer<ITEM>::getMaxItems( void ) const noexcept
 {
-    return m_max;
+    return m_memoryNumElements - 1;   // One elem/slot is reserved for the empty-list condition
 }
 
 

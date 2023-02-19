@@ -66,7 +66,7 @@ void Crc16CcittFast::reset( void ) noexcept
 
 
 ///////////////////////////////////////
-void Crc16CcittFast::accumulate( void* bytes, unsigned numbytes ) noexcept
+void Crc16CcittFast::accumulate( const void* bytes, unsigned numbytes ) noexcept
 {
 	unsigned i;
 	uint8_t* ptr = (uint8_t*) bytes;

@@ -118,7 +118,6 @@ bool Input_::read( void* buffer, int numBytes, int& bytesRead )
 
 bool Input_::available()
 {
-    printf( "ANSI AVAIALBLE(), return:%d\n", m_inFd.m_handlePtr != 0 );
     // CURRENTLY NOT SUPPORTED -->RETURN TRUE (as per documentation/contract) WHEN OPENED
     return m_inFd.m_handlePtr != 0;
 }

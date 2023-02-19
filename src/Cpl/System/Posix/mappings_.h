@@ -70,6 +70,15 @@
 /// Mapping
 #define CPL_IO_FILE_MAX_NAME_MAP                PATH_MAX
 
+
+/// Mapping
+inline unsigned long CplSystemElapsedTime_getTimeInMilliseconds_MAP()
+{
+    struct timespec tm;
+    clock_gettime( CLOCK_MONOTONIC, &tm );
+    return tm.tv_sec * 1000 + tm.tv_nsec / 1000000;
+}
+
 //
 // Thread Priorities
 // Note: POSIX does not define/require specific Priority values, however

@@ -55,25 +55,23 @@ public:
     /** Adds an item to the top of the stack.  Returns true if successful;
         else false is returned (e.g. on stack overflow).
      */
-    bool push( ITEM dst ) noexcept;
+    bool push( const ITEM src ) noexcept;
 
 
-    /** Removes the top item of the stack.  If the stack is empty, then
-        a value of zero is returned. The optional argument 'statusPtr'
-        is used to return stats/result of the pop operation, i.e. when 
-        *statusPtr == false then the pop operation failed and the returned 
-        value is invalid.
+    /** Removes the top item of the stack.  If the stack is empty, 
+        the method returns false and no value is returned. 
      */
-    ITEM pop( bool* statusPtr=0 ) noexcept;
+    bool pop( ITEM& dst ) noexcept;
 
-
-    /** Returns the item on the top of the Stack. The returned item
-        remains on the stack. If the stack is empty, then a value of zero
-        is returned. The optional argument 'statusPtr'is used to return
-        stats/result of the pop operation, i.e. when *statusPtr == false then 
-        the peek operation failed and the returned value is invalid.
+    /** Removes AND discards the top item of the stack.  If the stack is empty,
+        the method returns false and no value is returned.
      */
-    ITEM peekTop( bool* statusPtr=0 ) const noexcept;
+    bool pop() noexcept;
+
+    /** Returns the item on the top of the Stack. If the stack is empty, 
+        the method returns false and no value is returned.
+     */
+    bool peekTop( ITEM& dst ) const noexcept;
 
 
 public:
@@ -134,7 +132,7 @@ inline void Stack<ITEM>::clearTheStack() noexcept
 
 
 template <class ITEM>
-inline bool Stack<ITEM>::push( ITEM item ) noexcept
+inline bool Stack<ITEM>::push( const ITEM item ) noexcept
 {
     if ( isFull() )
     {
@@ -147,48 +145,39 @@ inline bool Stack<ITEM>::push( ITEM item ) noexcept
 
 
 template <class ITEM>
-inline ITEM Stack<ITEM>::pop( bool* statusPtr ) noexcept
+inline bool Stack<ITEM>::pop( ITEM& dst ) noexcept
 {
     if ( isEmpty() )
     {
-        if ( statusPtr )
-        {
-            *statusPtr = false;
-        }
-
-        return (ITEM) 0;
+        return false;
     }
 
-
-    if ( statusPtr )
-    {
-        *statusPtr = true;
-    }
-
-    return m_elements[--m_count];
+    dst = m_elements[--m_count];
+    return true;
 }
 
-
 template <class ITEM>
-inline ITEM Stack<ITEM>::peekTop( bool* statusPtr ) const noexcept
+inline bool Stack<ITEM>::pop() noexcept
 {
     if ( isEmpty() )
     {
-        if ( statusPtr )
-        {
-            *statusPtr = false;
-        }
-
-        return (ITEM) 0;
+        return false;
     }
 
+    --m_count;
+    return true;
+}
 
-    if ( statusPtr )
+template <class ITEM>
+inline bool Stack<ITEM>::peekTop( ITEM& dst ) const noexcept
+{
+    if ( isEmpty() )
     {
-        *statusPtr = true;
+        return false;
     }
 
-    return m_elements[m_count - 1];
+    dst  = m_elements[m_count - 1];
+    return true;
 }
 
 

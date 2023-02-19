@@ -46,7 +46,7 @@ public:
     void stop() noexcept
     {
         MirroredChunk::stop();
-        m_stopCount++; 
+        m_stopCount++;
     }
 };
 
@@ -59,7 +59,7 @@ public:
     bool m_putResult;
     const char* m_getString;
 
-    MyPayload( const char* getString ) :m_getCount( 0 ), m_putCount( 0 ), m_putResult(true), m_getString( getString )
+    MyPayload( const char* getString ) :m_getCount( 0 ), m_putCount( 0 ), m_putResult( true ), m_getString( getString )
     {
     }
 
@@ -105,7 +105,7 @@ TEST_CASE( "MirroredChunk" )
 {
     CPL_SYSTEM_TRACE_SCOPE( SECT_, "MIRRORED-CHUNK test" );
     Cpl::System::Shutdown_TS::clearAndUseCounter();
-    
+
     FileAdapter fd1( FILE_NAME_REGION1, 0, 128 );
     FileAdapter fd2( FILE_NAME_REGION2, 0, 128 );
     MyUut uut( fd1, fd2 );
@@ -146,21 +146,21 @@ TEST_CASE( "MirroredChunk" )
         uut.updateData( payload2_ );
         REQUIRE( payload2_.m_getCount == 1 );
         REQUIRE( payload1_.m_putCount == 1 );
- 
+
         result = uut.loadData( payload2_ );
         REQUIRE( result == true );
         REQUIRE( payload2_.m_putCount == 1 );
         REQUIRE( payload1_.m_putCount == 1 );
         printf( "buffer=[%s], expected=[%s]\n", payload2_.m_buffer, payload2_.m_getString );
         REQUIRE( strcmp( payload2_.m_buffer, payload2_.m_getString ) == 0 );
-  
+
         uut.stop();
     }
 
     SECTION( "corrupt CRC" )
     {
         uut.start( mockEvents_ );
-    
+
         // Read the data 
         payload2_.m_putCount = 0;
         payload2_.m_getCount = 0;
@@ -184,7 +184,41 @@ TEST_CASE( "MirroredChunk" )
         REQUIRE( result == false );
         REQUIRE( payload2_.m_getCount == 0 );
         REQUIRE( payload2_.m_putCount == 1 );
-   
+
+        uut.stop();
+    }
+
+    SECTION( "erase" )
+    {
+        // Delete files
+        Cpl::Io::File::Api::remove( FILE_NAME_REGION1 );
+        Cpl::Io::File::Api::remove( FILE_NAME_REGION2 );
+        payload1_.m_putCount = 0;
+        payload1_.m_getCount = 0;
+        uut.start( mockEvents_ );
+
+        bool result = uut.loadData( payload1_ );
+        REQUIRE( result == false );
+        REQUIRE( payload1_.m_putCount == 0 );
+
+        REQUIRE( payload1_.m_getCount == 0 );
+        uut.updateData( payload1_ );
+        REQUIRE( payload1_.m_getCount == 1 );
+
+        result = uut.loadData( payload1_ );
+        REQUIRE( result == true );
+        REQUIRE( payload1_.m_putCount == 1 );
+        REQUIRE( strcmp( payload1_.m_buffer, payload1_.m_getString ) == 0 );
+
+        uut.updateData( payload1_, 0, true );
+        REQUIRE( payload1_.m_getCount == 2 );
+        REQUIRE( payload1_.m_putCount == 1 );
+
+        result = uut.loadData( payload1_ );
+        REQUIRE( result == false );
+        REQUIRE( payload1_.m_getCount == 2 );
+        REQUIRE( payload1_.m_putCount == 1 );
+
         uut.stop();
     }
 

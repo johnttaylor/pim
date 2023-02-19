@@ -35,13 +35,11 @@ TEST_CASE( "STACK: Validate member functions", "[stack]" )
 
 	SECTION( "Operations" )
 	{
-		bool status;
+		int  val;
 
 		REQUIRE( stack.isEmpty() == true );
 		REQUIRE( stack.isFull() == false );
-		REQUIRE( stack.peekTop() == 0 );
-		REQUIRE( stack.peekTop( &status ) == 0 );
-		REQUIRE( status == false );
+		REQUIRE( stack.peekTop( val ) == false );
 		REQUIRE( stack.getNumItems() == 0 );
 		REQUIRE( stack.getMaxItems() == 5 );
 
@@ -50,179 +48,159 @@ TEST_CASE( "STACK: Validate member functions", "[stack]" )
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 1 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop( &status ) == 10 );
-		REQUIRE( status == true );
-		REQUIRE( stack.peekTop() == 10 );
+		REQUIRE( stack.peekTop( val )  );
+		REQUIRE( val == 10 );
+		REQUIRE( stack.peekTop( val )  );
+		REQUIRE( val == 10 );
 
 		REQUIRE( stack.push( 20 ) == true );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 2 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 20 );
-		REQUIRE( stack.peekTop( &status ) == 20 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val ) );
+		REQUIRE( val == 20 );
 
 		REQUIRE( stack.push( 30 ) == true );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 3 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 30 );
-		REQUIRE( stack.peekTop( &status ) == 30 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val )  );
+		REQUIRE( val == 30 );
 
 		REQUIRE( stack.push( 40 ) == true );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 4 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 40 );
-		REQUIRE( stack.peekTop( &status ) == 40 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val )  );
+		REQUIRE( val == 40 );
 
 		REQUIRE( stack.push( 50 ) == true );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == true );
 		REQUIRE( stack.getNumItems() == 5 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 50 );
-		REQUIRE( stack.peekTop( &status ) == 50 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val ));
+		REQUIRE( val == 50 );
 
 		REQUIRE( stack.push( 60 ) == false );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == true );
 		REQUIRE( stack.getNumItems() == 5 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 50 );
-		REQUIRE( stack.peekTop( &status ) == 50 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val )  );
+		REQUIRE( val == 50 );
 
 
-		REQUIRE( stack.pop( &status ) == 50 );
-		REQUIRE( status == true );
+		REQUIRE( stack.pop( val ) );
+		REQUIRE( val == 50 );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 4 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 40 );
-		REQUIRE( stack.peekTop( &status ) == 40 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val )  );
+		REQUIRE( val == 40 );
 
-		REQUIRE( stack.pop() == 40 );
+		REQUIRE( stack.pop( val ) );
+		REQUIRE( val == 40 );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 3 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 30 );
-		REQUIRE( stack.peekTop( &status ) == 30 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val )  );
+		REQUIRE( val == 30 );
 
 		REQUIRE( stack.push( 60 ) == true );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 4 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 60 );
-		REQUIRE( stack.peekTop( &status ) == 60 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val )  );
+		REQUIRE( val == 60 );
 
 		REQUIRE( stack.push( 70 ) == true );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == true );
 		REQUIRE( stack.getNumItems() == 5 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 70 );
-		REQUIRE( stack.peekTop( &status ) == 70 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val ) );
+		REQUIRE( val == 70 );
 
 
-		REQUIRE( stack.pop( &status ) == 70 );
-		REQUIRE( status == true );
+		REQUIRE( stack.pop( val ) );
+		REQUIRE( val == 70 );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 4 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 60 );
-		REQUIRE( stack.peekTop( &status ) == 60 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val ) );
+		REQUIRE( val == 60 );
 
-		REQUIRE( stack.pop( &status ) == 60 );
-		REQUIRE( status == true );
+		REQUIRE( stack.pop( val ) );
+		REQUIRE( val == 60 );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 3 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 30 );
-		REQUIRE( stack.peekTop( &status ) == 30 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val ) );
+		REQUIRE( val == 30 );
 
-		REQUIRE( stack.pop( &status ) == 30 );
-		REQUIRE( status == true );
+		REQUIRE( stack.pop( val ) );
+		REQUIRE( val == 30 );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 2 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 20 );
-		REQUIRE( stack.peekTop( &status ) == 20 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val ) );
+		REQUIRE( val == 20 );
 
-		REQUIRE( stack.pop( &status ) == 20 );
-		REQUIRE( status == true );
+		REQUIRE( stack.pop( val ) );
+		REQUIRE( val == 20 );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 1 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 10 );
-		REQUIRE( stack.peekTop( &status ) == 10 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val ) );
+		REQUIRE( val == 10 );
 
-		REQUIRE( stack.pop( &status ) == 10 );
-		REQUIRE( status == true );
+		REQUIRE( stack.pop( val ) );
+		REQUIRE( val == 10 );
 		REQUIRE( stack.isEmpty() == true );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 0 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 0 );
-		REQUIRE( stack.peekTop( &status ) == 0 );
-		REQUIRE( status == false );
+		REQUIRE( stack.peekTop( val ) == false );
 
 
-		REQUIRE( stack.pop( &status ) == 0 );
-		REQUIRE( status == false );
+		REQUIRE( stack.pop( val ) == false);
 		REQUIRE( stack.isEmpty() == true );
 		REQUIRE( stack.isFull() == false );
-		REQUIRE( stack.peekTop() == 0 );
-		REQUIRE( stack.peekTop( &status ) == 0 );
-		REQUIRE( status == false );
+		REQUIRE( stack.peekTop( val ) == false );
 
 		REQUIRE( stack.push( 10 ) == true );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 1 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 10 );
-		REQUIRE( stack.peekTop( &status ) == 10 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val ) );
+		REQUIRE( val == 10 );
 
 		REQUIRE( stack.push( 20 ) == true );
 		REQUIRE( stack.isEmpty() == false );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 2 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 20 );
-		REQUIRE( stack.peekTop( &status ) == 20 );
-		REQUIRE( status == true );
+		REQUIRE( stack.peekTop( val ) );
+		REQUIRE( val == 20 );
 
 		stack.clearTheStack();
 		REQUIRE( stack.isEmpty() == true );
 		REQUIRE( stack.isFull() == false );
 		REQUIRE( stack.getNumItems() == 0 );
 		REQUIRE( stack.getMaxItems() == 5 );
-		REQUIRE( stack.peekTop() == 0 );
-		REQUIRE( stack.peekTop( &status ) == 0 );
-		REQUIRE( status == false );
+		REQUIRE( stack.peekTop( val ) == false );
 	}
 
 

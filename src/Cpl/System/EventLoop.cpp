@@ -25,7 +25,7 @@ using namespace Cpl::System;
 /////////////////////
 EventLoop::EventLoop( unsigned long          timeOutPeriodInMsec,
                       SharedEventHandlerApi* eventHandler )
-    : m_myThreadPtr( 0 )
+    : m_myThreadPtr( nullptr )
     , m_eventHandler( eventHandler )
     , m_sema()
     , m_timeout( timeOutPeriodInMsec )

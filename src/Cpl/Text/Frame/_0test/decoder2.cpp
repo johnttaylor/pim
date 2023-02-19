@@ -83,14 +83,29 @@ TEST_CASE( "linedecoder", "[linedecoder]" )
 	instring2.clear();
 	int expectedCount = 44;
 	bool result = true;
+	bool eolChecked = false;
 	while ( result && expectedCount )
 	{
+		char* inBuffer = buffer2_;
 		result = decoder.oobRead( buffer2_, expectedCount, oobBytes );
+
+		// HACK TO Get around issue with CRLF/LF as EOL when the input file comes/goes from GIT
+		if ( eolChecked == false )
+		{
+			eolChecked = true;
+			if ( *buffer2_ != '#' )
+			{
+				oobBytes--;
+				inBuffer++;
+			}
+		}
+
 		if ( result )
 		{
-			instring2.appendTo( buffer2_, oobBytes );
+			instring2.appendTo( inBuffer, oobBytes );
 			expectedCount -= oobBytes;
 		}
+
 	}
 	CPL_SYSTEM_TRACE_MSG( SECT_, ("oob=[%s]", instring2.getString()) );
 	REQUIRE( instring2 == "#my oob data here and more total of 44 bytes" );

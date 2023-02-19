@@ -20,7 +20,7 @@ using namespace Cpl::Itc;
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Mailbox::Mailbox( Cpl::System::EventLoop& myEventLoop )
+Mailbox::Mailbox( Cpl::System::Signable& myEventLoop )
     :m_eventLoop( myEventLoop )
 {
 }

@@ -45,7 +45,7 @@ public:
 	void reset( void ) noexcept;
 
 	/// See Cpl::Checksum::Ap16
-	void accumulate( void* bytes, unsigned numbytes=1 ) noexcept;
+	void accumulate( const void* bytes, unsigned numbytes=1 ) noexcept;
 
 	/// See Cpl::Checksum::Ap16
 	uint16_t finalize( void* destBuffer=0 ) noexcept;

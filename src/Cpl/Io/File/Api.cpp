@@ -18,7 +18,7 @@
 #include "Cpl/System/Thread.h"
 #include "Cpl/System/FatalError.h"
 #include <string.h>
-
+#include <new>
 
 
 ///
