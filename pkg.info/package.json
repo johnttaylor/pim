@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "strong": [],
+    "weak": []
+  },
+  "directories": {
+    "primary": null,
+    "adoptedExtras": null
+  },
+  "info": {
+    "pkgname": "pico-sdk",
+    "desc": "Outcast2 wrapper for the Raspberry PI Pico C/C++ SDK as a single repository",
+    "owner": "john taylor",
+    "email": "john.t.taylor@gmail.com",
+    "url": "www.integerfox.com",
+    "repo": {
+      "name": "pico-sdk",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
+    }
+  },
+  "publish": {
+    "current": {
+      "comment": "Initial Outcast2 package version",
+      "version": "1.4.0",
+      "date": "Sat Jul 23 13:24:12 2022",
+      "timestamp": 1658582652
+    },
+    "history": []
+  }
+}
