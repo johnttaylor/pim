@@ -86,7 +86,7 @@ void Crc32EthernetFast::reset( void ) noexcept
 
 
 ///////////////////////////////////////
-void Crc32EthernetFast::accumulate( void* bytes, unsigned numbytes ) noexcept
+void Crc32EthernetFast::accumulate( const void* bytes, unsigned numbytes ) noexcept
 {
 	unsigned i;
 	uint8_t* ptr = (uint8_t*) bytes;

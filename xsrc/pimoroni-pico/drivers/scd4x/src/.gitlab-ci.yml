@@ -1,0 +1,38 @@
+stages:
+  - validate
+  - build
+  - test
+
+syntax_check:
+  stage: validate
+  image:
+      name: registry.gitlab.sensirion.lokal/mso-sw/drivers/docker-driver-generator:0.1.0
+  tags: [linux, docker]
+  script:
+    - find . -type f -iregex ".*\.\(c\|h\|cpp\|ino\)" -exec clang-format-6.0 -i -style=file {} \; && git diff --exit-code
+
+
+cppcheck:
+  stage: validate
+  image:
+      name: registry.gitlab.sensirion.lokal/mso-sw/drivers/docker-driver-generator:0.1.0
+  tags: [linux, docker]
+  script:
+    - cppcheck --std=c89 --language=c --error-exitcode=1 --enable=warning,style,performance,portability -i sample-implementations/ .
+
+build:
+  stage: build
+  image:
+    name: sensirion/embedded-ci:2.3.0
+  tags: [linux, docker]
+  script:
+    - make
+
+test:
+  stage: test
+  image: registry.gitlab.sensirion.lokal/sensirion/docker/docker-rpi-testbed:1.2.0
+  tags: [mso-sw-testbed-2]
+  script:
+    - git clone -b 3.0.0 https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab/MSO-SW/drivers/testbed/i2c-mux-testbed.git
+    - cd tests/
+    - make test

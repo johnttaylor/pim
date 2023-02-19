@@ -48,9 +48,6 @@
 #define Cpl_System_Mutex_T_MAP                  SemaphoreHandle_t
 
 /// Mapping
-#define Cpl_System_FastLock_T_MAP               uint8_t // Note: Not really used, but need something or the code won't compile
-
-/// Mapping
 #define Cpl_System_Sema_T_MAP                   SemaphoreHandle_t
 
 /// Mapping
@@ -72,6 +69,11 @@
 //#define CPL_IO_FILE_MAX_NAME_MAP                PATH_MAX
 
 
+/// Mapping
+inline unsigned long CplSystemElapsedTime_getTimeInMilliseconds_MAP()
+{
+    return xTaskGetTickCount() / portTICK_PERIOD_MS;
+}
 
 
 //

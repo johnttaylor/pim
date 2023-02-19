@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include "colony_config.h"
 #include "Cpl/System/FatalError.h"
+#include "Cpl/System/BareMetal/Hal_.h"
 
 /// PRETTY_FUNCTION macro is non-standard
 #if defined(__GNUC__)
@@ -53,7 +54,8 @@
 /// BareMetal Mapping
 #define Cpl_System_TlsKey_T_MAP                     int
 
-
+/// BareMetal Mapping
+#define CplSystemElapsedTime_getTimeInMilliseconds_MAP      BareMetal::getElapsedTime
 
 /// Thread Priorities
 #define CPL_SYSTEM_THREAD_PRIORITY_HIGHEST_MAP      0

@@ -56,6 +56,8 @@
 #define Cpl_System_TlsKey_T_MAP                 DWORD
 
 
+/// Win32 Mapping
+#define CplSystemElapsedTime_getTimeInMilliseconds_MAP  clock
 
 /// Win32 Mapping
 #define CPL_SYSTEM_SHELL_NULL_DEVICE_x_MAP      "NUL"

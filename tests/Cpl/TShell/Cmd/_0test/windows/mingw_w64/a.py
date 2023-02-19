@@ -37,11 +37,20 @@ def post_process_output( golden ):
                     break
                 outf.write( line )
 
-    if ( not filecmp.cmp(golden,'temp.out.txt') ):
+    if ( not compare_files(golden,'temp.out.txt') ):
         utils.pop_dir()
         exit( "FAILED test - output does NOT match the expected values" )
 
-
+def compare_files( file1, file2 ):
+    line1 = line2 = True
+    with open(file1, 'r') as f1, open(file2, 'r') as f2:
+        while line1 and line2:
+            line1 = f1.readline()
+            line2 = f2.readline()
+            if line1 != line2:
+                return False
+    return True
+    
 #------------------------------------------------------------------------------
 # Make sure the environment is properly set
 NQBP_BIN = os.environ.get('NQBP_BIN')

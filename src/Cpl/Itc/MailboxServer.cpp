@@ -26,7 +26,7 @@ using namespace Cpl::Itc;
 /////////////////////
 MailboxServer::MailboxServer( unsigned long                       timingTickInMsec,
                               Cpl::System::SharedEventHandlerApi* eventHandler ) noexcept
-    : Mailbox( *((Cpl::System::EventLoop*)this) )
+    : Mailbox( *((Cpl::System::Signable*)this) )
     , Cpl::System::EventLoop( timingTickInMsec, eventHandler )
 {
 }

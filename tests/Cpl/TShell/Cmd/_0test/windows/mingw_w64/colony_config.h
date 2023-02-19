@@ -4,9 +4,7 @@
 // Enable ASSERT macros (part of the expected output)
 #define USE_CPL_SYSTEM_ASSERT_MACROS
 
-// Enable Trace (but NOT on code coverage builds)
-#ifndef BUILD_VARIANT_WIN32
+// Enable Trace 
 #define USE_CPL_SYSTEM_TRACE
-#endif
 
 #endif

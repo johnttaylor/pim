@@ -14,7 +14,7 @@
 
 #include "Cpl/Itc/PostApi.h"
 #include "Cpl/Container/SList.h"
-#include "Cpl/System/EventLoop.h"
+#include "Cpl/System/Signable.h"
 
 
 ///
@@ -34,7 +34,7 @@ class Mailbox :
 {
 public:
     /// Constructor
-    Mailbox( Cpl::System::EventLoop& myEventLoop );
+    Mailbox( Cpl::System::Signable& myEventLoop );
 
 
 public:
@@ -59,7 +59,7 @@ protected:
 
 protected:
     /// The EventLoop that I wait-on/dispatch-msgs-from
-    Cpl::System::EventLoop& m_eventLoop;
+    Cpl::System::Signable& m_eventLoop;
 
 };
 

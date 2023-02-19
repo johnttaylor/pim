@@ -23,7 +23,7 @@ using namespace Cpl::System;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-static int memoryRBuf_[5];
+static int memoryRBuf_[5+1];
 
 // Allocate/create my Model Database
 static Cpl::Dm::ModelDatabase    modelDb_( "ignoreThisParameter_usedToInvokeTheStaticConstructor" );

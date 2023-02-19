@@ -14,7 +14,7 @@
 
 #include "Cpl/Io/File/InputApi.h"
 #include "Cpl/Io/File/OutputApi.h"
-
+#include "Cpl/Io/InputOutput.h"
 
 ///
 namespace Cpl {
@@ -36,6 +36,13 @@ class InputOutputApi : public Cpl::Io::File::InputApi,
     public Cpl::Io::File::OutputApi
 
 {
+public:
+    /** Returns a 'stream proxy' for the File instance that is of type: Cpl::Io::InputOutput. 
+        This method is needed because an Cpl::Io::File::InputOutputApi does NOT 
+        inherit from Cpl::Io::InputOutput.
+    */
+    virtual Cpl::Io::InputOutput& getStream() = 0;
+
 };
 
 

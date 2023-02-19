@@ -1,0 +1,28 @@
+# Ignore the final output directories from the builds
+__pycache__/
+projects/**/.vs/
+projects/**/bin/Debug/
+projects/**/obj/
+projects/**/_pico/
+projects/**/_win32/
+tests/**/_pico/
+tests/**/_arduino/
+tests/**/_win32/
+tests/**/_win64/
+tests/**/_posix/
+tests/**/_posix64/
+tests/**/_cpp11/
+
+# Ignore the .obj directories
+projects/**/windows/**/src/
+projects/**/windows/**/xsrc/
+projects/**/gcc/src/
+projects/**/gcc/xsrc/
+projects/**/gcc/arduino/
+tests/**/gcc/src/
+tests/**/gcc/xsrc/
+tests/**/gcc/arduino/
+tests/**/vc12/src/
+tests/**/vc12/xsrc/
+tests/**/mingw_w64/src/
+tests/**/mingw_w64/xsrc/

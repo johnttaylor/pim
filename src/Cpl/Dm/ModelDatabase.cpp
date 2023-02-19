@@ -64,6 +64,8 @@ ModelPoint * ModelDatabase::lookupModelPoint( const char* modelPointName ) noexc
 ModelPoint* ModelDatabase::getFirstByName() noexcept
 {
     lock_();
+    
+    // Only sort the list ONCE!
     if ( !m_listSorted )
     {
         sortList();

@@ -66,11 +66,11 @@ public:
 public:
     /** Returns the thread-based stored value.
      */
-    virtual void* get( void );
+    void* get( void );
 
     /** This method sets the thread-based stored value.
      */
-    virtual void set( void* newValue );
+    void set( void* newValue );
 
 
 protected:

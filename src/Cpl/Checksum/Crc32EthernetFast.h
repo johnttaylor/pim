@@ -44,7 +44,7 @@ public:
 	void reset( void ) noexcept;
 
 	/// See Cpl::Checksum::Api32
-	void accumulate( void* bytes, unsigned numbytes=1 ) noexcept;
+	void accumulate( const void* bytes, unsigned numbytes=1 ) noexcept;
 
 	/// See Cpl::Checksum::Api32
 	uint32_t finalize( void* destBuffer=0 ) noexcept;
