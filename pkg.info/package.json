@@ -245,13 +245,20 @@
   },
   "publish": {
     "current": {
-      "comment": "Minor refactoring, bug fixes, and latest Outcast package updates",
-      "version": "2.0.1",
-      "date": "Sun Sep 11 23:28:04 2022",
-      "timestamp": 1662938884,
-      "changes": "\"- Refactor the top level 'Main' files to support port the Thermostat to other platforms (e.g. PI Pico)\\n- Refactor the Algorithm class to NOT be runnable object (i.e. a dedicated thread is not needed for processing rate of 0.5Hz)\\n- Fix Fan continuous bug where Fan Cont. operation did not work when the Thermostat is in the OFF mode\\n- Fix bug in the missing 'blocking' argument for the frame decoders\\n- Fix issue of the Cpl::Io::Stream available() method reporting  mouse/focus events for stdin under Windoze\\n- Get the latest package version of: nqbp, colony.*\\n\""
+      "comment": "Switch over to NQBP2 and pick up the latest colony.* packages",
+      "version": "2.0.2",
+      "date": "Fri Feb 24 20:00:46 2023",
+      "timestamp": 1677268846,
+      "changes": null
     },
     "history": [
+      {
+        "comment": "Minor refactoring, bug fixes, and latest Outcast package updates",
+        "version": "2.0.1",
+        "date": "Sun Sep 11 23:28:04 2022",
+        "timestamp": 1662938884,
+        "changes": "\"- Refactor the top level 'Main' files to support port the Thermostat to other platforms (e.g. PI Pico)\\n- Refactor the Algorithm class to NOT be runnable object (i.e. a dedicated thread is not needed for processing rate of 0.5Hz)\\n- Fix Fan continuous bug where Fan Cont. operation did not work when the Thermostat is in the OFF mode\\n- Fix bug in the missing 'blocking' argument for the frame decoders\\n- Fix issue of the Cpl::Io::Stream available() method reporting  mouse/focus events for stdin under Windoze\\n- Get the latest package version of: nqbp, colony.*\\n\""
+      },
       {
         "comment": "Address compiler warning issues. Update the linux env.sh script to support setting a path to the GCC toolchain",
         "version": "2.0.0",
