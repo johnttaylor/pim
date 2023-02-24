@@ -31,8 +31,6 @@
 #include "Storm/Thermostat/Main/InstallerRecord.h"
 #include "Storm/Thermostat/Main/RunTimeRecord.h"
 
-#ifndef DOXYGEN_WILL_SKIP_THIS
-
 static Storm::Thermostat::SimHouse::Cmd     houseCmd_( g_cmdlist );
 static Storm::Thermostat::Log               logCmd_( g_cmdlist );
 
@@ -72,6 +70,5 @@ static Storm::Thermostat::Main::RunTimeRecord   runtimeRec_( chunkRuntimeRec_ );
 static Cpl::Persistent::Record*      records_[3+1] ={ &userRec_, &installerRec_, &runtimeRec_, 0 };
 static Cpl::Persistent::RecordServer recordServer_( records_ );
 
-#endif  // end DOXYGEN_WILL_SKIP_THIS
 
 #endif // end Header latch
