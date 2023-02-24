@@ -67,10 +67,10 @@ public:
 
 protected:
     /// This method is called when the Model point changes state/value
-    void delayModelPointChange( Cpl::Dm::Mp::Uint32 & mp );
+    void delayModelPointChange( Cpl::Dm::Mp::Uint32& mp, Cpl::Dm::SubscriberApi& clientSubscriber );
 
     /// This method is called when the Model point changes state/value
-    void verboseModelPointChange( Cpl::Dm::Mp::Bool & mp );
+    void verboseModelPointChange( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientSubscriber );
 
 public:
     /// This method is called from the Periodic Scheduler

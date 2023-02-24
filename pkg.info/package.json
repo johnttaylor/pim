@@ -52,23 +52,6 @@
         }
       },
       {
-        "pkgname": "colony.pico",
-        "pkgtype": "overlay",
-        "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 19:08:00 2023",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "0.2.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-0.2.1"
-        },
-        "repo": {
-          "name": "colony.pico",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "colony.core",
         "pkgtype": "overlay",
         "virtualAdoption": false,
@@ -115,6 +98,23 @@
         },
         "repo": {
           "name": "colony.arduino",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "colony.pico",
+        "pkgtype": "overlay",
+        "virtualAdoption": false,
+        "adoptedDate": "Fri Feb 24 19:32:10 2023",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "0.2.2",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.2.2"
+        },
+        "repo": {
+          "name": "colony.pico",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }

@@ -67,22 +67,22 @@ void Bob::stop()
 }
 
 ///////////////////////////////////////////////////
-void Bob::delayModelPointChange( Cpl::Dm::Mp::Uint32 & mp )
+void Bob::delayModelPointChange( Cpl::Dm::Mp::Uint32& mp, Cpl::Dm::SubscriberApi& clientSubscriber )
 {
     CPL_SYSTEM_TRACE_MSG( "app", ("Bob:delayModelPointChange()") );
 
     uint32_t delayMs;
-    if ( mp.readAndSync( delayMs, m_observerDelay ) )
+    if ( mp.readAndSync( delayMs, clientSubscriber ) )
     {
         m_delayMs = delayMs;
     }
 }
 
-void Bob::verboseModelPointChange( Cpl::Dm::Mp::Bool & mp )
+void Bob::verboseModelPointChange( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientSubscriber )
 {
     CPL_SYSTEM_TRACE_MSG( "app", ("Bob:verboseModelPointChange()") );
     bool verbose;
-    if ( mp.readAndSync( verbose, m_observerVerbose ) )
+    if ( mp.readAndSync( verbose, clientSubscriber ) )
     {
         m_verbose = verbose;
     }

@@ -194,13 +194,20 @@
   },
   "publish": {
     "current": {
-      "comment": "Switch to using NQBP2 and latest get latest colony.core package",
-      "version": "0.2.1",
-      "date": "Fri Feb 24 19:01:08 2023",
-      "timestamp": 1677265268,
+      "comment": "Fix build errors from latest DataModel refactoring",
+      "version": "0.2.2",
+      "date": "Fri Feb 24 19:30:43 2023",
+      "timestamp": 1677267043,
       "changes": null
     },
     "history": [
+      {
+        "comment": "Switch to using NQBP2 and latest get latest colony.core package",
+        "version": "0.2.1",
+        "date": "Fri Feb 24 19:01:08 2023",
+        "timestamp": 1677265268,
+        "changes": null
+      },
       {
         "comment": "Latest CPL updates. Updates to RP2040 OSAL (for ElapsedTime)",
         "version": "0.2.0",
