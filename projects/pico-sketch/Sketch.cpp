@@ -76,20 +76,20 @@ public:
 
 public:
     /// Button event
-    void buttonEventAlt( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventAlt( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.readAndSync( pressed, m_obAltButton ) && pressed && !consumeAnyKeyWhenWaiting() )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed && !consumeAnyKeyWhenWaiting() )
         {
             toggleCursor();
         }
     }
 
     /// Button event
-    void buttonEventRight( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventRight( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.readAndSync( pressed, m_obRightButton ) && pressed && !consumeAnyKeyWhenWaiting() )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed && !consumeAnyKeyWhenWaiting() )
         {
             deactivateCursor();
             movePencil( 1, 0 );
@@ -97,10 +97,10 @@ public:
     }
 
     /// Button event
-    void buttonEventLeft( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventLeft( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.readAndSync( pressed, m_obLeftButton ) && pressed && !consumeAnyKeyWhenWaiting() )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed && !consumeAnyKeyWhenWaiting() )
         {
             deactivateCursor();
             movePencil( -1, 0 );
@@ -108,10 +108,10 @@ public:
     }
 
     /// Button event
-    void buttonEventUp( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventUp( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.readAndSync( pressed, m_obUpButton ) && pressed && !consumeAnyKeyWhenWaiting() )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed && !consumeAnyKeyWhenWaiting() )
         {
             deactivateCursor();
             movePencil( 0, -1 );
@@ -119,10 +119,10 @@ public:
     }
 
     /// Button event
-    void buttonEventDown( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventDown( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.readAndSync( pressed, m_obDownButton ) && pressed && !consumeAnyKeyWhenWaiting() )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed && !consumeAnyKeyWhenWaiting() )
         {
             deactivateCursor();
             movePencil( 0, 1 );
@@ -130,10 +130,10 @@ public:
     }
 
     /// Button event
-    void buttonEventSize( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventSize( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.readAndSync( pressed, m_obSizeButton ) && pressed && !consumeAnyKeyWhenWaiting() )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed && !consumeAnyKeyWhenWaiting() )
         {
 
             deactivateCursor();
@@ -151,10 +151,10 @@ public:
     }
 
     /// Button event
-    void buttonEventColor( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventColor( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.readAndSync( pressed, m_obColorButton ) && pressed && !consumeAnyKeyWhenWaiting() )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed && !consumeAnyKeyWhenWaiting() )
         {
             // Colors: Black, Blue, Green, Cyan, Red, Magenta, Yellow, White }
             const static RGB_T colors[] ={ {0,0,0},         // Black
@@ -178,10 +178,10 @@ public:
     }
 
     /// Button event
-    void buttonEventClear( Cpl::Dm::Mp::Bool & mp )
+    void buttonEventClear( Cpl::Dm::Mp::Bool & mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.readAndSync( pressed, m_obClearButton ) && pressed && !consumeAnyKeyWhenWaiting() )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed && !consumeAnyKeyWhenWaiting() )
         {
             drawStartScreen();
             m_waitingAnyKey = true;

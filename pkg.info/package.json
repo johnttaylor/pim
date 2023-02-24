@@ -86,10 +86,27 @@
         }
       },
       {
+        "pkgname": "pico-sdk",
+        "pkgtype": "readonly",
+        "virtualAdoption": false,
+        "adoptedDate": "Fri Feb 24 19:39:48 2023",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "1.4.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-1.4.1"
+        },
+        "repo": {
+          "name": "pico-sdk",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
         "pkgname": "colony.pico",
         "pkgtype": "overlay",
         "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 19:32:10 2023",
+        "adoptedDate": "Fri Feb 24 19:45:36 2023",
         "parentDir": null,
         "version": {
           "semanticVersion": "0.2.2",
