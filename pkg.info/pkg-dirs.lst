@@ -1,0 +1,13 @@
+projects
+projects/examples/DataModel
+projects/examples/DataModel/linux
+projects/examples/DataModel/linux/gcc
+projects/examples/DataModel/windows
+projects/examples/DataModel/windows/mingw_w64
+projects/examples/DataModel/windows/vc12
+projects/examples/TShell
+projects/examples/TShell/linux
+projects/examples/TShell/linux/gcc
+projects/examples/TShell/windows
+projects/examples/TShell/windows/mingw_w64
+projects/examples/TShell/windows/vc12

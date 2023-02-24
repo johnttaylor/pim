@@ -84,7 +84,7 @@ void assert_triggered( const char *file, uint32_t line );
 #define configCHECK_FOR_STACK_OVERFLOW          0
 #define configUSE_MALLOC_FAILED_HOOK            0
 #define configUSE_IDLE_HOOK                     0
-#define configUSE_TICK_HOOK                     0   // Note: Set to 1 when using Cpl OSAL
+#define configUSE_TICK_HOOK                     0   
 #define configUSE_TICKLESS_IDLE                 0
 #define configUSE_TRACE_FACILITY                1
 #define configUSE_STATS_FORMATTING_FUNCTIONS    1

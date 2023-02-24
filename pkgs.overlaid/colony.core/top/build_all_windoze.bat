@@ -28,7 +28,7 @@ echo on
 call %_TOPDIR%..\env.bat 3
 
 cd %_TOPDIR%..\tests
-%_TOPDIR%..\..\xpkgs\nqbp\other\bob.py -v4 mingw_w64 -t --bld-all --bldnum %BUILD_NUMBER%
+%_TOPDIR%..\..\xpkgs\nqbp\other\bob.py -v4 mingw_w64 --bldtime --bld-all --bldnum %BUILD_NUMBER%
 IF ERRORLEVEL 1 EXIT /b 1
 
 :: Run unit tests
@@ -50,7 +50,7 @@ echo on
 call %_TOPDIR%..\env.bat 1
 
 cd %_TOPDIR%..\tests
-%_TOPDIR%..\..\xpkgs\nqbp\other\bob.py -v4 vc12 -t --bld-all --bldnum %BUILD_NUMBER%
+%_TOPDIR%..\..\xpkgs\nqbp\other\bob.py -v4 vc12 --bldtime --bld-all --bldnum %BUILD_NUMBER%
 IF ERRORLEVEL 1 EXIT /b 1
 
 :: Run unit tests

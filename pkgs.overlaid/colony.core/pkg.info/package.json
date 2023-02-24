@@ -82,6 +82,23 @@
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
+      },
+      {
+        "pkgname": "nqbp2",
+        "pkgtype": "readonly",
+        "virtualAdoption": false,
+        "adoptedDate": "Fri Feb 24 18:35:27 2023",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "0.1.1",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.1.1"
+        },
+        "repo": {
+          "name": "nqbp2",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
       }
     ]
   },
@@ -109,13 +126,20 @@
   },
   "publish": {
     "current": {
-      "comment": "Maintainence (Stack, ElapsedTime, RingBuffer, etc.) and minor features add (logging framework, base64 encoding, etc.)",
-      "version": "4.3.3",
-      "date": "Sun Feb 19 14:14:55 2023",
-      "timestamp": 1676816095,
-      "changes": "\"- Refactor Stack container to be able to support ITEMs that are not numeric types\\n- Refactor the ElapsedTime implementation so as to provide a default implementation for all platforms (and correct bugs when number of seconds exceed 47 days)\\n- Refactor the TLS class to not use virtual method (not needed for the interface semantics)\\n- Add integer and real number expression parsers\\n- Update BetterEnum to support smaller memory footprint. \\n- Add a Restartable wrapper to the TShell\\n- Add a BlockEncoder\\n- Update Checksum interface to take a const buffer source. \\n- Add a getStream() method to the File InputOutput interface\\n- misc clean-up\\n- add logging framework. \\n- Add LargeInteger math. \\n- Safer RingBuffer. \\n- Specify correct abstract type for an 'event loop' mailbox reference. \\n- Add support for base64 encoding\\n\""
+      "comment": "Switch to NQBP GEN2 build engine",
+      "version": "4.3.4",
+      "date": "Thu Feb 23 19:31:51 2023",
+      "timestamp": 1677180711,
+      "changes": null
     },
     "history": [
+      {
+        "comment": "Maintainence (Stack, ElapsedTime, RingBuffer, etc.) and minor features add (logging framework, base64 encoding, etc.)",
+        "version": "4.3.3",
+        "date": "Sun Feb 19 14:14:55 2023",
+        "timestamp": 1676816095,
+        "changes": "\"- Refactor Stack container to be able to support ITEMs that are not numeric types\\n- Refactor the ElapsedTime implementation so as to provide a default implementation for all platforms (and correct bugs when number of seconds exceed 47 days)\\n- Refactor the TLS class to not use virtual method (not needed for the interface semantics)\\n- Add integer and real number expression parsers\\n- Update BetterEnum to support smaller memory footprint. \\n- Add a Restartable wrapper to the TShell\\n- Add a BlockEncoder\\n- Update Checksum interface to take a const buffer source. \\n- Add a getStream() method to the File InputOutput interface\\n- misc clean-up\\n- add logging framework. \\n- Add LargeInteger math. \\n- Safer RingBuffer. \\n- Specify correct abstract type for an 'event loop' mailbox reference. \\n- Add support for base64 encoding\\n\""
+      },
       {
         "comment": "Fix Tshell 'help text' errors introduced is previous update",
         "version": "4.3.2",

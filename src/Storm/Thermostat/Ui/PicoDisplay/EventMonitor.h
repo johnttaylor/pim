@@ -101,9 +101,9 @@ public:
 
 protected:
     /// Application changed the thermostat mode
-    void thermostatModeChange( Storm::Dm::MpThermostatMode& mp )
+    void thermostatModeChange( Storm::Dm::MpThermostatMode& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
-        if ( mp.read( g_uiMode ) )
+        if ( mp.readAndSync( g_uiMode, clientObserver ) )
         {
             m_modeActive = false;
             drawMode();
@@ -111,9 +111,9 @@ protected:
     }
 
     /// Application changed the fan mode
-    void fanModeChange( Storm::Dm::MpFanMode& mp )
+    void fanModeChange( Storm::Dm::MpFanMode& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
-        if ( mp.read( g_uiFan ) )
+        if ( mp.readAndSync( g_uiFan, clientObserver ) )
         {
             m_fanActive = false;
             drawFan();
@@ -121,9 +121,9 @@ protected:
     }
 
     /// Application changed the Setpoints
-    void setpointsModeChange( Storm::Dm::MpSetpoints& mp )
+    void setpointsModeChange( Storm::Dm::MpSetpoints& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
-        if ( mp.read( g_uiCoolingSetpoint, g_uiHeatingSetpoint ) )
+        if ( mp.readAndSync( g_uiCoolingSetpoint, g_uiHeatingSetpoint, clientObserver ) )
         {
             m_setPointActive = false;
             updateSetpoints();
@@ -132,10 +132,10 @@ protected:
 
 protected:
     /// Button event
-    void buttonEventMode( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventMode( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.read( pressed ) && pressed )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed )
         {
             // Check for Setpoint Selection active
             if ( m_setPointActive )
@@ -169,10 +169,10 @@ protected:
     }
 
     /// Button event
-    void buttonEventFan( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventFan( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.read( pressed ) && pressed )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed )
         {
             // Check for Setpoint Selection active
             if ( m_setPointActive )
@@ -208,10 +208,10 @@ protected:
     }
 
     /// Button event
-    void buttonEventUp( Cpl::Dm::Mp::Bool& mp )
+    void buttonEventUp( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.read( pressed ) && pressed )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed )
         {
             // Start selection
             if ( !m_setPointActive )
@@ -236,10 +236,10 @@ protected:
     }
 
     /// Button event
-    void buttonEventDown( Cpl::Dm::Mp::Bool & mp )
+    void buttonEventDown( Cpl::Dm::Mp::Bool& mp, Cpl::Dm::SubscriberApi& clientObserver )
     {
         bool pressed;
-        if ( mp.read( pressed ) && pressed )
+        if ( mp.readAndSync( pressed, clientObserver ) && pressed )
         {
             // Start selection
             if ( !m_setPointActive )

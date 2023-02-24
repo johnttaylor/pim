@@ -21,11 +21,19 @@
   },
   "publish": {
     "current": {
-      "comment": "Initial Outcast2 package version",
-      "version": "1.4.0",
-      "date": "Sat Jul 23 13:24:12 2022",
-      "timestamp": 1658582652
+      "comment": "Add missing PIO files for the PICO-W build",
+      "version": "1.4.1",
+      "date": "Fri Feb 24 19:37:54 2023",
+      "timestamp": 1677267474,
+      "changes": null
     },
-    "history": []
+    "history": [
+      {
+        "comment": "Initial Outcast2 package version",
+        "version": "1.4.0",
+        "date": "Sat Jul 23 13:24:12 2022",
+        "timestamp": 1658582652
+      }
+    ]
   }
 }
