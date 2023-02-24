@@ -1,0 +1,42 @@
+{
+  "dependencies": {
+    "strong": [],
+    "weak": []
+  },
+  "directories": {
+    "primary": null,
+    "adoptedExtras": [
+      "top"
+    ]
+  },
+  "info": {
+    "desc": "(N)ot (Q)uite (B)env - (P)ython, Gen2: is multi-host build engine for C/C++",
+    "owner": "John Taylor",
+    "email": "John.T.Taylor@gmail.com",
+    "url": "www.integerfox.com/nqbp2",
+    "repo": {
+      "name": "nqbp2",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
+    },
+    "pkgname": "nqbp"
+  },
+  "publish": {
+    "current": {
+      "comment": "Add toolchain for RP2040-Wireless. Update Windows Host toolchains to use response files (to avoid 8K Windoze limit)",
+      "version": "0.1.1",
+      "date": "Thu Feb 23 18:23:44 2023",
+      "timestamp": 1677176624,
+      "changes": null
+    },
+    "history": [
+      {
+        "comment": "initial version (most (but not all) toolchains have been verified)",
+        "version": "0.1.0",
+        "date": "Wed Feb 22 00:40:08 2023",
+        "timestamp": 1677026408,
+        "changes": null
+      }
+    ]
+  }
+}
