@@ -1,0 +1,20 @@
+; Nested Script with iteration
+#HEADER
+
+namespaces
+embeddedNames,     Names of the N class to embedded. Each name is seperated 
+;                  with ',' (Foo,Foo2,...)
+flagName,          Name of the flag variable for the above class
+myClass            Name of My class that will contain the embedded class
+
+; Begin Expansion Text
+#CONTENT
+#ifndef $U<namespaces>+_$
+#define $U<namespaces>+_$
+
+class $myClass$
+{
+    $_SUBSCRIPT, example_1.f4t, embeddedNames, flagName
+};
+
+#endif

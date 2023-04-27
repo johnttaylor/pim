@@ -1,0 +1,56 @@
+{
+  "dependencies": {
+    "strong": [],
+    "weak": []
+  },
+  "directories": {
+    "primary": null,
+    "adoptedExtras": [
+      "top"
+    ]
+  },
+  "info": {
+    "desc": "(N)ot (Q)uite (B)env - (P)ython, Gen2: is multi-host build engine for C/C++",
+    "owner": "John Taylor",
+    "email": "John.T.Taylor@gmail.com",
+    "url": "www.integerfox.com/nqbp2",
+    "repo": {
+      "name": "nqbp2",
+      "type": "git",
+      "origin": "https://github.com/johnttaylor"
+    },
+    "pkgname": "nqbp"
+  },
+  "publish": {
+    "current": {
+      "comment": " 1. Add STM32 toolchains. 2. Add ninja executables to the repo. 3. add ability to invoke the ninja 'deps' tool. 4. Add support to clean 'legacy' derived object when migrating to NQBP2",
+      "version": "0.1.3",
+      "date": "Mon Apr 24 22:48:00 2023",
+      "timestamp": 1682376480,
+      "changes": null
+    },
+    "history": [
+      {
+        "comment": "1. Add missing header paths to the PI Pico toolchains. 2. Update documentation",
+        "version": "0.1.2",
+        "date": "Sun Feb 26 21:58:50 2023",
+        "timestamp": 1677448730,
+        "changes": null
+      },
+      {
+        "comment": "Add toolchain for RP2040-Wireless. Update Windows Host toolchains to use response files (to avoid 8K Windoze limit)",
+        "version": "0.1.1",
+        "date": "Thu Feb 23 18:23:44 2023",
+        "timestamp": 1677176624,
+        "changes": null
+      },
+      {
+        "comment": "initial version (most (but not all) toolchains have been verified)",
+        "version": "0.1.0",
+        "date": "Wed Feb 22 00:40:08 2023",
+        "timestamp": 1677026408,
+        "changes": null
+      }
+    ]
+  }
+}

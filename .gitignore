@@ -1,0 +1,8 @@
+# ignore non source python files
+*.pyc
+*.pyo
+*.o
+*.exe
+*.lst
+*.log
+
