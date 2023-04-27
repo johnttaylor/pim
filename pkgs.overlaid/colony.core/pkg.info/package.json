@@ -1,56 +1,7 @@
 {
   "dependencies": {
-    "strong": [
-      {
-        "pkgname": "colony.bsp",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Sep 11 18:48:31 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "0.1.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-0.1.1"
-        },
-        "repo": {
-          "name": "colony.bsp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      }
-    ],
+    "strong": [],
     "weak": [
-      {
-        "pkgname": "freertos",
-        "pkgtype": "readonly",
-        "adoptedDate": "Sat Nov 27 19:23:36 2021",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "8.2.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-8.2.1"
-        },
-        "repo": {
-          "name": "freertos",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "nqbp",
-        "pkgtype": "foreign",
-        "adoptedDate": "Sun Sep 11 18:51:26 2022",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "3.0.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-3.0.1"
-        },
-        "repo": {
-          "name": "nqbp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
       {
         "pkgname": "catch",
         "pkgtype": "overlay",
@@ -68,17 +19,69 @@
         }
       },
       {
-        "pkgname": "colony.bsp.renesas.rx",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Sep 11 18:49:55 2022",
-        "parentDir": null,
+        "pkgname": "stm32F4-sdk",
+        "pkgtype": "readonly",
+        "virtualAdoption": false,
+        "adoptedDate": "Fri Mar 31 21:29:23 2023",
+        "parentDir": "xsrc",
         "version": {
-          "semanticVersion": "1.0.2",
+          "semanticVersion": null,
           "branch": null,
-          "tag": "OUTCAST2-main-1.0.2"
+          "tag": "OUTCAST2-main-1.27.1"
         },
         "repo": {
-          "name": "colony.bsp.renesas.rx",
+          "name": "stm32F4-sdk",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "stm32-gcc-arm",
+        "pkgtype": "readonly",
+        "virtualAdoption": false,
+        "adoptedDate": "Fri Mar 31 21:30:22 2023",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": null,
+          "branch": null,
+          "tag": "OUTCAST2-main-10.3-2021.10"
+        },
+        "repo": {
+          "name": "stm32-gcc-arm",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "freertos",
+        "pkgtype": "readonly",
+        "virtualAdoption": false,
+        "adoptedDate": "Thu Apr 20 13:48:05 2023",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "10.4.3-LTS-Patch1",
+          "branch": null,
+          "tag": "OUTCAST2-main-10.4.3-LTS-Patch1"
+        },
+        "repo": {
+          "name": "freertos",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "stm32F7-sdk",
+        "pkgtype": "readonly",
+        "virtualAdoption": false,
+        "adoptedDate": "Sat Apr 22 18:12:32 2023",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": null,
+          "branch": null,
+          "tag": "OUTCAST2-main-1.17.0"
+        },
+        "repo": {
+          "name": "stm32F7-sdk",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
@@ -87,12 +90,12 @@
         "pkgname": "nqbp2",
         "pkgtype": "readonly",
         "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 18:35:27 2023",
+        "adoptedDate": "Mon Apr 24 22:50:30 2023",
         "parentDir": "xsrc",
         "version": {
-          "semanticVersion": "0.1.1",
+          "semanticVersion": "0.1.3",
           "branch": null,
-          "tag": "OUTCAST2-main-0.1.1"
+          "tag": "OUTCAST2-main-0.1.3"
         },
         "repo": {
           "name": "nqbp2",
@@ -126,13 +129,20 @@
   },
   "publish": {
     "current": {
-      "comment": "Switch to NQBP GEN2 build engine",
-      "version": "4.3.4",
-      "date": "Thu Feb 23 19:31:51 2023",
-      "timestamp": 1677180711,
-      "changes": null
+      "comment": "Migrate to STM32 as the default target platform",
+      "version": "4.4.0",
+      "date": "Thu Apr 27 00:10:33 2023",
+      "timestamp": 1682554233,
+      "changes": "\"- Updated to newer version of NQBP2 for STM32 toolchains\\n- Added STM32F413ZH as the 'default' target platform\\n- Added stream IO/driver for the STM32F MCU (works with/for other STM32x MCUs)\\n- Adopted the gcc toolchain for STM32 MCUs\\n- Adopted stm32 SDKs for the F4 and F7 families of MCU\\n- Deprecated the RX62N platform\\n- Move the BSP Package into the colony core (i.e. the BSP package has been deprecated)\\n- Added the 'Micro Application' framework (Cpl::MApp)\\n- Updated the freertos package to 10.4.3-LTS-Patch-1 (and added support for Seggers' SystemView)\""
     },
     "history": [
+      {
+        "comment": "Switch to NQBP GEN2 build engine",
+        "version": "4.3.4",
+        "date": "Thu Feb 23 19:31:51 2023",
+        "timestamp": 1677180711,
+        "changes": null
+      },
       {
         "comment": "Maintainence (Stack, ElapsedTime, RingBuffer, etc.) and minor features add (logging framework, base64 encoding, etc.)",
         "version": "4.3.3",

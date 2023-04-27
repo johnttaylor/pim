@@ -49,6 +49,7 @@ void PeriodicScheduler::appRun()
             bool atLeastOne = executeScheduler();
             processChangeNotifications();
             processMessages();
+            processTimers();
             if ( m_idleFunc )
             {
                 (m_idleFunc)((m_nowFunc)(), atLeastOne);

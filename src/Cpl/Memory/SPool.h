@@ -75,6 +75,8 @@ public:
 	/// See Cpl::Memory::Allocator
 	void release( void *ptr ) { m_pool.release( ptr ); }
 
+	/// See Cpl::Memory::Allocator
+	size_t wordSize() const noexcept { return m_pool.wordSize(); }
 
 private:
 	/// Prevent access to the copy constructor -->SPools can not be copied!

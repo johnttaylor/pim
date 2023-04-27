@@ -5,9 +5,12 @@ _posix/
 _cpp11/
 _win32/
 _win64/
+_stm32/
 
 # visual studio
 *.exe
 *.ilk
 *.pdb
 *.sln
+
+*.user

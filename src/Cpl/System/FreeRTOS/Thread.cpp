@@ -319,7 +319,7 @@ Cpl::System::Thread* Cpl::System::Thread::create( Runnable&   runnable,
                                                   bool        allowSimTicks
 )
 {
-    return new Cpl::System::FreeRTOS::Thread( runnable, name, priority, stackSize );
+    return new (std::nothrow) Cpl::System::FreeRTOS::Thread( runnable, name, priority, stackSize );
 }
 
 

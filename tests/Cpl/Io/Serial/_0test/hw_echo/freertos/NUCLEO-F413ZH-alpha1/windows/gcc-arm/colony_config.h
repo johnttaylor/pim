@@ -1,0 +1,10 @@
+#ifndef COLONY_CONFIG_H_
+#define COLONY_CONFIG_H_
+
+// Enable Trace
+#define USE_CPL_SYSTEM_TRACE
+
+#define OPTION_BSP_CONSOLE_TX_FIFO_SIZE  (512)
+#define OPTION_BSP_CONSOLE_RX_FIFO_SIZE  (1024*4)
+
+#endif

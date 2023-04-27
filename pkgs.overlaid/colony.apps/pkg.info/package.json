@@ -2,17 +2,18 @@
   "dependencies": {
     "strong": [
       {
-        "pkgname": "colony.bsp",
+        "pkgname": "colony.core",
         "pkgtype": "overlay",
-        "adoptedDate": "Sun Sep 11 22:58:17 2022",
+        "virtualAdoption": false,
+        "adoptedDate": "Thu Apr 27 00:22:52 2023",
         "parentDir": null,
         "version": {
-          "semanticVersion": "0.1.1",
+          "semanticVersion": "4.4.0",
           "branch": null,
-          "tag": "OUTCAST2-main-0.1.1"
+          "tag": "OUTCAST2-main-4.4.0"
         },
         "repo": {
-          "name": "colony.bsp",
+          "name": "colony.core",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
@@ -20,32 +21,16 @@
       {
         "pkgname": "colony.arduino",
         "pkgtype": "overlay",
-        "adoptedDate": "Sun Sep 11 23:00:34 2022",
+        "virtualAdoption": false,
+        "adoptedDate": "Thu Apr 27 00:33:44 2023",
         "parentDir": null,
         "version": {
-          "semanticVersion": "1.0.5",
+          "semanticVersion": "1.0.8",
           "branch": null,
-          "tag": "OUTCAST2-main-1.0.5"
+          "tag": "OUTCAST2-main-1.0.8"
         },
         "repo": {
           "name": "colony.arduino",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "colony.core",
-        "pkgtype": "overlay",
-        "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 18:47:00 2023",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "4.3.4",
-          "branch": null,
-          "tag": "OUTCAST2-main-4.3.4"
-        },
-        "repo": {
-          "name": "colony.core",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
@@ -85,31 +70,15 @@
         }
       },
       {
-        "pkgname": "nqbp",
-        "pkgtype": "foreign",
-        "adoptedDate": "Sun Sep 11 22:55:44 2022",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "3.0.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-3.0.1"
-        },
-        "repo": {
-          "name": "nqbp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "nqbp2",
         "pkgtype": "readonly",
         "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 18:39:39 2023",
+        "adoptedDate": "Thu Apr 27 01:07:37 2023",
         "parentDir": "xsrc",
         "version": {
-          "semanticVersion": "0.1.1",
+          "semanticVersion": "0.1.3",
           "branch": null,
-          "tag": "OUTCAST2-main-0.1.1"
+          "tag": "OUTCAST2-main-0.1.3"
         },
         "repo": {
           "name": "nqbp2",
@@ -144,13 +113,34 @@
   },
   "publish": {
     "current": {
-      "comment": "Switch over to NQBP2 and pickup latest colony.core",
-      "version": "2.1.1",
-      "date": "Fri Feb 24 01:43:03 2023",
-      "timestamp": 1677202983,
+      "comment": "remove derived files from the package list - AGAIN",
+      "version": "2.1.4",
+      "date": "Thu Apr 27 01:14:13 2023",
+      "timestamp": 1682558053,
       "changes": null
     },
     "history": [
+      {
+        "comment": "remove derived files from the package list",
+        "version": "2.1.3",
+        "date": "Thu Apr 27 01:08:56 2023",
+        "timestamp": 1682557736,
+        "changes": null
+      },
+      {
+        "comment": "adopt new version of colony core (4.4.0) and deprecated bsp package",
+        "version": "2.1.2",
+        "date": "Thu Apr 27 00:34:37 2023",
+        "timestamp": 1682555677,
+        "changes": null
+      },
+      {
+        "comment": "Switch over to NQBP2 and pickup latest colony.core",
+        "version": "2.1.1",
+        "date": "Fri Feb 24 01:43:03 2023",
+        "timestamp": 1677202983,
+        "changes": null
+      },
       {
         "comment": "Pickup latest colony.core package/changes and refactor Storm MPs for the Cpl::Dm changes",
         "version": "2.1.0",

@@ -85,6 +85,27 @@ public:
 
 
 public:
+    /// Convenience method for common I2C operation
+    inline Result_T registerWriteByte( uint8_t device7BitAddress, uint8_t reg, uint8_t value, bool noStop = false )
+    {
+        uint8_t buffer[2] ={ reg, value };
+        return writeToDevice( device7BitAddress, sizeof( buffer ), buffer, noStop );
+    }
+    
+    /// Convenience method for common I2C operation
+    template <class READ_TYPE>
+    inline Result_T registerRead( uint8_t device7BitAddress, uint8_t reg, READ_TYPE& dstReadResult )
+    {
+        Result_T result;
+        result = writeToDevice( device7BitAddress, sizeof( reg ), &reg, true );
+        if ( result == eSUCCESS )
+        {
+            result = readFromDevice( device7BitAddress, sizeof( dstReadResult ), &dstReadResult );
+        }
+        return result;
+    }
+
+public:
     /** This method changes the default/current I2C baud-rate.  The application
         is responsible for setting values that are supported by the actual
         platform hardware.  The method returns the previous baud rate setting.
