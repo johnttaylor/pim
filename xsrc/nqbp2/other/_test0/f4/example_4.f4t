@@ -1,0 +1,18 @@
+; Simple Script
+#HEADER
+className
+flagName,  Name of the flag variable 
+
+; Begin Expansion Text
+#CONTENT
+class $u<className$
+{
+public:
+    bool m_$l<flagName$;
+
+    $_INLINE, className, flagName
+    void $u<className$::set$u<flagName$( bool newvalue );
+    $_END_INLINE
+    
+public: // MORE stuff here
+};
