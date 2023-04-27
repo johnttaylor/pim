@@ -14,6 +14,10 @@ set NQBP_WORK_ROOT=%_HERE%..\
 set NQBP_XPKGS_ROOT=%_HERE%xsrc
 set NQBP_BIN=%NQBP_XPKGS_ROOT%\nqbp2
 
+:: Add Ninja to the command path, but only once
+IF "/%NQBP2_DONOT_ADD_NINJA_TO_PATH%" == "/" set PATH=%NQBP_XPKGS_ROOT%\nqbp2\ninja;%PATH% & set NQBP2_DONOT_ADD_NINJA_TO_PATH=true
+
+
 :: Set helper macros
 doskey top=cd %_HERE%
 doskey t=cd %_HERE%

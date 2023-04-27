@@ -28,6 +28,9 @@ fi
 # Put the current directory into the command path (simplifies invoking the nqbp.py scripts)
 export PATH=$PATH:./
 
+# Add ninja to the command path
+export PATH=$PATH:$NQBP_BIN/ninja
+
 # Configure NQBP
 export NQBP_PKG_ROOT=$HERE
 export NQBP_WORK_ROOT=$HERE/..

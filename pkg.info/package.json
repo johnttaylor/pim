@@ -152,6 +152,23 @@
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
+      },
+      {
+        "pkgname": "nqbp2",
+        "pkgtype": "readonly",
+        "virtualAdoption": false,
+        "adoptedDate": "Thu Apr 27 01:28:51 2023",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "0.1.3",
+          "branch": null,
+          "tag": "OUTCAST2-main-0.1.3"
+        },
+        "repo": {
+          "name": "nqbp2",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
       }
     ]
   },
