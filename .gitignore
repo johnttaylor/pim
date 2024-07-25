@@ -43,7 +43,6 @@ make.log
 *.idb
 *.pdb
 *.ilk
-*.lst
 *.map
 *.jdebug.user
 *.jdebug

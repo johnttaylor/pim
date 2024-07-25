@@ -4,7 +4,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import imp
+import importlib
 from time import strftime
 import config
 import subprocess
@@ -55,7 +55,8 @@ def import_code(code, name):
 
     # Load the 'code' into the memory
     try:
-        module = imp.new_module(name)
+        spec   = importlib.machinery.ModuleSpec(name, None)
+        module = importlib.util.module_from_spec(spec)
         config.g_utils_import_dictionary[name] = module
         exec(code, module.__dict__)
         return module
@@ -123,7 +124,7 @@ def find_files( file_extension=config.g_ratt_file_extension , search_paths=None)
         1) The current working directory 
         2) Then 'search_paths' is searched starting with index 0
 
-        If no files are found, the None is returned
+        If no files are found, THEN an empty dictionary is returned
     """
 
     # Dictionary of found files: key=file name, value=path found at
@@ -151,6 +152,13 @@ def find_files( file_extension=config.g_ratt_file_extension , search_paths=None)
         for p in search_paths:
             d = search_directory( d, file_extension, p )
 
+    # Strip out all 'ignored' files
+    fdict = {}
+    for k,v in d.items():
+        if ( k in config.g_ignore_pyfiles ):
+            continue
+        fdict[k] = v
 
     # Return the list of found scripts
-    return d
+    return fdict
+

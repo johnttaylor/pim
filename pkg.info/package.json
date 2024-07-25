@@ -122,38 +122,6 @@
     ],
     "weak": [
       {
-        "pkgname": "ratt",
-        "pkgtype": "foreign",
-        "adoptedDate": "Mon May 30 19:53:21 2022",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "1.0.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.0.1"
-        },
-        "repo": {
-          "name": "ratt",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "catch",
-        "pkgtype": "overlay",
-        "adoptedDate": "Mon May 30 19:48:56 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "2.13.7b",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.13.7b"
-        },
-        "repo": {
-          "name": "catch",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "nqbp",
         "pkgtype": "foreign",
         "adoptedDate": "Sun Sep 11 23:16:56 2022",
@@ -214,6 +182,40 @@
         },
         "repo": {
           "name": "nqbp2",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "catch",
+        "pkgtype": "overlay",
+        "virtualAdoption": false,
+        "adoptedDate": "Thu Jul 25 21:30:47 2024",
+        "parentDir": null,
+        "version": {
+          "semanticVersion": "2.13.7e",
+          "branch": null,
+          "tag": "OUTCAST2-main-2.13.7e"
+        },
+        "repo": {
+          "name": "catch",
+          "type": "git",
+          "origin": "https://github.com/johnttaylor"
+        }
+      },
+      {
+        "pkgname": "ratt",
+        "pkgtype": "foreign",
+        "virtualAdoption": false,
+        "adoptedDate": "Thu Jul 25 21:34:06 2024",
+        "parentDir": "xsrc",
+        "version": {
+          "semanticVersion": "2.0.2",
+          "branch": null,
+          "tag": "OUTCAST2-main-2.0.2"
+        },
+        "repo": {
+          "name": "ratt",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }

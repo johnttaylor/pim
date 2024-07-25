@@ -19,11 +19,11 @@ def run():
     passcode = config.g_passed
 
     # Send a newline to the UUT and wait for a response form UUT, i.e. is the UUT alive?
-    r = uut.cli( "", "$>", 2)
-    if ( r != None ):
-        # Load and execute the test action
-        action   = std.load("action_uut")
-        passcode = config.g_failed if action == None else action.run(timeout=2)
+    r = uut.cli( "" )
+    if r != None:
+        # execute the test action - with a 2 second timeout
+        passcode = std.run("action_uut", script_kwargs={'timeout':2} )
+    
     else:
         output.writeline("ERROR: The UUT is not responding")
         passcode = config.g_failed

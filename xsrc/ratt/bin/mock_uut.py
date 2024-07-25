@@ -86,8 +86,7 @@ class Sim:
 class Listener:
     def __init__(self, host, port, event ):
         # Create thread so that Ctrl-C works (in the main thread) to exit the program prior to the client connection
-        t = threading.Thread( target=self.listen, args=(host, port, event) )
-        t.setDaemon(True)
+        t = threading.Thread( target=self.listen, args=(host, port, event), daemon=True )
         t.start()
         
     def listen( self, host, port, event ):

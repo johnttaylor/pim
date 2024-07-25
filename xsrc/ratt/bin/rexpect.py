@@ -56,10 +56,10 @@ class ExpectLinuxConsole(object):
     def __init__( self, exename, logfile=None ):
        self.exename     = exename
        self.logfile     = logfile
-       self.child = pexpect.spawn(exename,logfile=logfile,maxread=1)
+       self.child = pexpect.spawn(exename,logfile=logfile,maxread=4096)
 
     def respawn( self ):
-        self.child = pexpect.popen_spawn.PopenSpawn(self.exename,logfile=self.logfile,maxread=1)
+        self.child = pexpect.popen_spawn.PopenSpawn(self.exename,logfile=self.logfile,maxread=4096)
 
     def is_detached_uut(self):
         return False;

@@ -19,21 +19,23 @@ def run( timeout ):
     output.write_entry(__name__)
     passcode = config.g_passed
 
-    uut.cli( '.spam 2 200 "Spam message 2";', "$>", timeout )
-    uut.cli( '.spam 1 1000 "Spam message 1";', "$>", timeout )
+    uut.cli( '.spam 2 200 "Spam message 2";', max_wait_sec=timeout)
+    uut.cli( '.spam 1 1000 "Spam message 1";', max_wait_sec=timeout )
     r = uut.waitfor( timeout, "message 1")
-    if ( r == None ):
+    if r == None:
         output.writeline( "uut.waitfor(): FAILED to find 'message 1'")
         passcode = config.g_failed
-    elif ( "spam 1" in r ):
-        output.writeline( "uut.waitfor(): MATCHED the WRONG 'message1', from: [{}] ".format( r ) )
+
+    elif "spam 1" in r:
+        output.writeline( f"uut.waitfor(): MATCHED the WRONG 'message1', from: [{r}] " )
         passcode = config.g_failed
+
     else:    
-        output.writeline_verbose( "uut.waitfor(): MATCHED 'message1', from: [{}] ".format( r ) )
+        output.writeline_verbose( f"uut.waitfor(): MATCHED 'message1', from: [{r}] " )
 
     # Disable the spam messages, i.e. leave the UUT in the same state as found it
-    uut.cli( '.spam 1 0 "turnoff";' );
-    uut.cli( '.spam 2 0 "turnoff";' );
+    uut.cli( '.spam 1 0 "turnoff";', wait=False );
+    uut.cli( '.spam 2 0 "turnoff";', wait=False );
 
     output.write_exit(__name__)
     return passcode

@@ -8,7 +8,6 @@ usage: ratt [options] --win <executable>...
        
 Arguments:
    <executable>         UUT is an executable and 'connecting' via stdio
-   <socketnum>          The UUT's TCP socket number to connect to
    --nouut              Does NOT connect to any UUT
 
 Options:
@@ -31,16 +30,15 @@ Options:
                         opening can not be found in/relative to --path2
 
    --crlf               Sets the UUT newline to '\\r\\n' (instead of '\\n')
-   --logfile BASE       Defines the base log file name [Default: ratt.log]
+   --logfile BASE       Defines the base log file name.  The actual log file
+                        name is 'BASE_<starttime>' [Default: ratt.log]
    --log                Enables logging
    -v                   Be verbose
-   --vlog               Be verbose in the log (and terse on console ouput)
    -d, --debug          Enables additional output for debugging RATT scripts
-   --dlog               Enables debug output in the log file ONLY
    -h, --help           Display help for common options/usage
 
 Examples:
-    ; UUT is the executable
+    ; UUT is the executable 'my_uut.exe'
     ratt.py --win mypath\\my_utt.exe
 
     ; UUT is a physical device connected to a Windows PC on COM4
@@ -48,7 +46,7 @@ Examples:
 
     ; Run mysuite.py script with a UUT connected via TCP (on the same PC on 
     ; port 5002) using Putty's plink 
-    ratt.py --input mysuite.ratt --win "C:\\Program Files\\PuTTY\\plink.exe" -telnet localhost -P 5002
+    ratt.py --input mysuite.py --win "C:\\Program Files\\PuTTY\\plink.exe" -telnet localhost -P 5002
 
 """
 
@@ -68,11 +66,14 @@ from docopt.docopt import docopt
 from collections import deque
 from time import time, localtime, strftime
 
-VERSION = "0.2"
+VERSION = "2.0.0"
 
 
 # ------------------------------------------------------------------------------
 def main():
+    # Mark the time the script starts
+    start_time = time()
+    std.get_start_time_ns()
 
     # Parse command line
     args = docopt(__doc__, version=VERSION, options_first=True)
@@ -86,29 +87,28 @@ def main():
     
     # Open log file (when not disabled)
     logfile = None
-    if (args['--log'] == True or args['--vlog'] or args['--dlog']):
-        if (args['--vlog']):
-            config.g_verbose_logs = True
-        if (args['--dlog']):
-            config.g_debug_logs = True
+    if (args['--log'] == True ):
         logfile = open(utils.append_current_time(args['--logfile']), "wb")
 
     ## Created 'Expected' object for a: Windoze executable UUT
-    if (args['--win']):
-        config.g_uut = rexpect.ExpectWindowsConsole(" ".join(args['<executable>']), logfile)
+    try:
+        if (args['--win']):
+            config.g_uut = rexpect.ExpectWindowsConsole(" ".join(args['<executable>']))
    
-    # Created 'Expected' object for a: Linux/Wsl executable UUT
-    elif (args['--linux']):
-        config.g_uut = rexpect.ExpectLinuxConsole(" ".join(args['<executable>']), logfile)
+        # Created 'Expected' object for a: Linux/Wsl executable UUT
+        elif (args['--linux']):
+            config.g_uut = rexpect.ExpectLinuxConsole(" ".join(args['<executable>']))
 
-    # Create 'Expected' object for a: NO UUT
-    elif (args['--nouut']):
-        config.g_uut = rexpect.ExpectNullConsole(logfile)
+        # Create 'Expected' object for a: NO UUT
+        elif (args['--nouut']):
+            config.g_uut = rexpect.ExpectNullConsole()
+    except Exception as e:
+        sys.exit( f"ERROR: Not able to launch pexpect/uut. {e}" )
 
     # Enable output
     output.set_verbose_mode(args['-v'])
     output.set_debug_mode(args['--debug'])
-    output.set_output_fd(sys.stdout, logfile)
+    output.set_output_fds(sys.stdout, logfile)
 
     # Get script paths
     config.g_script_paths.append('.')
@@ -125,7 +125,6 @@ def main():
         if (input == None):
             sys.exit(result)
 
-        start_time = time()
         output.writeline("------------ START: Ratt, ver={}. Start time={}".format(VERSION, strftime("%Y-%m-%d_%H.%M.%S",localtime(start_time))))
         output.writeline("------------ RUNNING SUITE CASE: {}".format(result))
         passcode = input.main()
@@ -140,15 +139,20 @@ def main():
 
     # interactive mode
     else:
-        output.writeline("")
+        output.writeline(" ")
         output.writeline("------------ Welcome to Ratt, this is my Kung-Fu and it is strong! ------------")
         output.writeline("                   ver={}. Start time={}".format(VERSION,  utils.append_current_time("", "")))
-        output.writeline("")
-        exec('from rattlib import *')
-        exec('import config')
-        
+        output.writeline(" ")
+        output.writeline("This is an interactive Python shell, enter python commands/code.")
+        output.writeline("- For help on available rattlib modules type: help('rattlib')")
+        output.writeline("- For a list of available test scripts type: man.list()")
+        output.writeline(" ")
+
+       
+        std.get_start_time_ns()
         while(True):
             output.write(">")
+
             line = sys.stdin.readline().rstrip("\r\n")
             output.writeline(line, log_only=True)
             try:

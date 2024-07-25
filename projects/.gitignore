@@ -1,4 +1,18 @@
+# Misc
+*.lst
+*.gcov
+_posix64/
+_posix/
+_cpp11/
 _win32/
 _win64/
-_pico/
+_stm32/
 _arduino/
+ratt.log*
+eeprom.bin
+
+# visual studio
+*.exe
+*.ilk
+*.pdb
+*.user

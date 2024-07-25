@@ -17,8 +17,8 @@ def run():
     output.write_entry(__name__)
     passcode = config.g_passed
 
-    # Load Test action -->should be the test action script from patha/
-    passcode = std.load("action_path_check").run()
+    # Run Test action -->should be the test action script from patha/
+    passcode = std.run("action_path_check", passcode)
 
     output.write_exit(__name__)
     return passcode

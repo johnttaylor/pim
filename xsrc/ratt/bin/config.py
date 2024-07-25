@@ -14,4 +14,5 @@ g_debug_logs              = False;
 g_entry_banner            = "{}STARTING:  {} ..."
 g_exit_banner             = "{}COMPLETED: {}."
 indent_prefix             = ".."
-g_ratt_file_extension     = ".ratt"
+g_ratt_file_extension     = ".py"
+g_ignore_pyfiles          = ['mytoolchain.py', 'nqbp.py', 'tca.py', 'a.py', 'aa.py', 'b.py', 'bb.py']

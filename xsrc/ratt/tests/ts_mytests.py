@@ -13,25 +13,13 @@ import config
 def main():
     """ Entry point for the Test Suite
     """
-
     output.write_entry( __name__ )
     passcode = config.g_passed
+    uut.setprompt("$>")
 
     # Test rattlib.uut
-    if ( passcode == config.g_passed ):
-         tc = std.load("tc_uut")
-         passcode = config.g_failed if tc == None else tc.run()
-
-    # Test rattlib.std
-    #if ( passcode == config.g_passed ):
-    #    tc = std.load("tc_std")
-    #    passcode = config.g_failed if tc == None else tc.run() 
-
-
-    # Test ratt search paths
-    if ( passcode == config.g_passed ):
-         tc = std.load("tc_paths")
-         passcode = config.g_failed if tc == None else tc.run() 
+    passcode = std.run("tc_uut", passcode )
+    passcode = std.run("tc_paths", passcode )
     
     # Cleanly Exit the UUT
     uut.cli(".exit;")
