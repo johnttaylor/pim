@@ -26,6 +26,15 @@ namespace LED {
 class RedGreenBlue
 {
 public:
+    /** This method is used to start the driver
+     */
+    virtual void start() noexcept = 0;
+
+    /** This method is used to stop the driver
+     */
+    virtual void stop() noexcept = 0;
+
+public:
     /** This method is used to set the LED's color value/state by individual Red/Green/Blue color values
      */
     virtual void setRgb( uint8_t redValue, uint8_t greenValue, uint8_t blueValue ) noexcept = 0;

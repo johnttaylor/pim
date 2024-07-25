@@ -377,7 +377,7 @@ class ArrayUint32 : public NumericArray_<uint32_t, N, ArrayUint32<N>>
 public:
     /// Constructor. Invalid Point
     ArrayUint32( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
-        : Mp::NumericArray_<uint8_t, N, ArrayUint32<N>>( myModelBase, symbolicName )
+        : Mp::NumericArray_<uint32_t, N, ArrayUint32<N>>( myModelBase, symbolicName )
     {
     }
 
@@ -404,7 +404,7 @@ class ArrayUint64 : public NumericArray_<uint64_t, N, ArrayUint64<N>>
 public:
     /// Constructor. Invalid Point
     ArrayUint64( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
-        : Mp::NumericArray_<uint8_t, N, ArrayUint64<N>>( myModelBase, symbolicName )
+        : Mp::NumericArray_<uint64_t, N, ArrayUint64<N>>( myModelBase, symbolicName )
     {
     }
 
@@ -458,7 +458,7 @@ class ArrayInt32 : public NumericArray_<int32_t, N, ArrayInt32<N>>
 public:
     /// Constructor. Invalid Point
     ArrayInt32( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
-        : Mp::NumericArray_<int8_t, N, ArrayInt32<N>>( myModelBase, symbolicName )
+        : Mp::NumericArray_<int32_t, N, ArrayInt32<N>>( myModelBase, symbolicName )
     {
     }
 
@@ -485,7 +485,7 @@ class ArrayInt64 : public NumericArray_<int64_t, N, ArrayInt64<N>>
 public:
     /// Constructor. Invalid Point
     ArrayInt64( Cpl::Dm::ModelDatabase& myModelBase, const char* symbolicName )
-        : Mp::NumericArray_<int8_t, N, ArrayInt64<N>>( myModelBase, symbolicName )
+        : Mp::NumericArray_<int64_t, N, ArrayInt64<N>>( myModelBase, symbolicName )
     {
     }
 

@@ -59,7 +59,7 @@ namespace CAT24C512 {
     serial 512Kb (64KB) I2C EEPROM.
 
     The implementation ASSUMES (i.e. requires) that the Application is RESPONSIBLE
-    for starting/stopping the i2cDriver since it is shared resource.
+    for starting/stopping the i2cDriver since it is a shared resource.
 
     The interface itself is NOT thread safe. It is the responsibility of
     the users/clients of the driver to handle any threading issues.

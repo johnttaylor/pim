@@ -13,7 +13,6 @@
 #include "Api.h"
 #include "Cpl/System/Assert.h"
 #include "Cpl/System/Api.h"
-#include "pico/time.h"
 
 using namespace Driver::NV::Onsemi::CAT24C512;
 

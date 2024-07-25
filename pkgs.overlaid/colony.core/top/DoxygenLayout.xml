@@ -111,7 +111,7 @@
         <detaileddescription visible="yes" title=""/>
         <includes visible="yes"/>
         <includegraph visible="yes"/>
-        <includedbygraph visible="yest"/>
+        <includedbygraph visible="yes"/>
         <sourcelink visible="yes"/>
         <memberdecl>
             <classes visible="yes" title=""/>

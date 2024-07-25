@@ -45,10 +45,18 @@ bool bufferToString( const void* buffer, int len, Cpl::Text::String& destString,
 	cases of null 'buffer' pointer, 'len' equals zero, or not enough memory
 	in 'destString' to contain the final result).
 
+	If 'separator' does not equal '\0', then it inserted between bytes
+	in the output string.
+
 	Note: The default operation is to use uppercase text and to clear
 		  the destString before the conversion.
  */
-bool bufferToAsciiHex( const void* binaryData, int len, Cpl::Text::String& destString, bool upperCase=true, bool appendToString=false );
+bool bufferToAsciiHex( const void*		  binaryData, 
+					   int			      len, 
+					   Cpl::Text::String& destString, 
+					   bool               upperCase=true, 
+					   bool               appendToString=false, 
+					   char               separator='\0' );
 
 /** This method converts the binary buffer to a single string that is ASCII
     BINARY. The number of digits in the output string is always a multiple of

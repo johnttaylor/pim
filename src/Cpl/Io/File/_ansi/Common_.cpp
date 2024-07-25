@@ -20,18 +20,18 @@ using namespace Cpl::Io::File;
 /////////////////////////////////////////////////////
 Cpl::Io::Descriptor Common_::open( const char* fileEntryName, bool readOnly, bool forceCreate, bool forceEmptyFile )
 {
-    const char* mode = "r+"; // default to read+write, no create, no truncate
+    const char* mode = "rb+"; // default to read+write, no create, no truncate
 
     // Read only (no create, no truncate)
     if ( readOnly )
     {
-        mode = "r";
+        mode = "rb";
     }
 
     // Read/Write (create, truncate). NOTE: using FILE* handle, I only have the option to create AND truncate (can't separate the two options)
     else if ( forceCreate || forceEmptyFile )
     {
-        mode = "w+";
+        mode = "wb+";
     }
 
     // Open the file

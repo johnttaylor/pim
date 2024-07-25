@@ -49,10 +49,10 @@ Cpl::TShell::Command::Result_T Threads::execute( Cpl::TShell::Context_& context,
 
 	// Display list header
 	m_io &= context.writeFrame( " " );
-	outtext.format( "%-16s  %-1s  %-8s  %-10s", "Name", "R", "ID", "Native Hdl" );
+	outtext.format( "%-16s  %-1s  %-10s  %-10s", "Name", "R", "ID", "Native Hdl" );
 	hookHeader1( outtext );
 	m_io &= context.writeFrame( outtext );
-	outtext.format( "%-16s  %-1s  %-8s  %-10s", "----", "-", "--", "----------" );
+	outtext.format( "%-16s  %-1s  %-10s  %-10s", "----", "-", "--", "----------" );
 	hookHeader2( outtext );
 	m_io &= context.writeFrame( outtext );
 

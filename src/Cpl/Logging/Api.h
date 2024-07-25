@@ -29,7 +29,7 @@
 #define OPTION_CPL_LOGGING_MIN_QUEUE_SPACE             3
 #endif
 
-
+  
 ///
 namespace Cpl {
 ///
@@ -145,6 +145,19 @@ void vlogf( CATEGORY_ID catId, MESSAGE_ID msgId, const char* msgTextFormat, va_l
     createAndAddLogEntry_( catId, catId._to_string(), msgId, msgId._to_string(), msgTextFormat, ap );
 }
 
+/*---------------------------------------------------------------------------*/
+/** This method is implemented the application - it converts numeric values
+    for the Category and Message IDs into text strings.  The method returns
+    true when successful, else false is returned if one or more the input
+    values are not 'valid'
+
+    Note: The output is only "as good" as the input, i.e. if the message IDs are
+          not 'from' the category enum - the result will be indeterminate
+ */
+bool getIDStrings( uint32_t             categoryNumericValue,
+                   uint16_t             messageIdNumericValue,
+                   Cpl::Text::String&   dstCategoryString,
+                   Cpl::Text::String&   dstMessageString ) noexcept;
 
 };      // end namespaces
 };

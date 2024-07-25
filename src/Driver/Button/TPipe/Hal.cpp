@@ -16,6 +16,7 @@
 #include "Cpl/Text/Tokenizer/Basic.h"
 #include "Cpl/Text/FString.h"
 #include "Cpl/System/Mutex.h"
+#include "Cpl/System/Assert.h"
 #include <memory.h>
 
 
@@ -74,7 +75,6 @@ public:
         Cpl::System::Mutex::ScopeBlock lock( m_lock );
         for ( int i=0; i < OPTION_DRIVER_BUTTON_HAL_TPIPE_MAX_BUTTONS; i++ )
         {
-
             // Exit early if the end-of-list is found
             if ( m_buttons[i].buttonName.length() == 0 )
             {
@@ -87,7 +87,7 @@ public:
             }
         }
 
-        // If I get the button name was found in the List of buttons supplied by the TPipe
+        // If I get the button name was not found in the List of buttons supplied by the TPipe
         return false;
     }
 };
@@ -98,6 +98,7 @@ static ButtonFrameHandler* rxFrameHandler_;
 
 void driverButtonHalTPipe_initialize( Cpl::Container::Map<Driver::TPipe::RxFrameHandlerApi>& tpipeRxFrameHandlerList )
 {
+    CPL_SYSTEM_ASSERT( rxFrameHandler_ == nullptr ); // Only call this function once
     rxFrameHandler_ = new(std::nothrow) ButtonFrameHandler( tpipeRxFrameHandlerList );
 }
 

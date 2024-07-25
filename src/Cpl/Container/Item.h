@@ -49,7 +49,7 @@ protected:
         itself should ever use this constructor -->not intended for Items in a
         Map
      */
-    Item( const char* ignoreThisParameter_usedToCreateAUniqueConstructor ) {}
+    Item( const char* /* ignoreThisParameter_usedToCreateAUniqueConstructor */ ) {}
 
 
 public:

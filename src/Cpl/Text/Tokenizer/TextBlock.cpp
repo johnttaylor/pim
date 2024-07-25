@@ -239,9 +239,9 @@ void TextBlock::removeWhiteSpace( char* startOfTokenPtr, char* firstNonSpacePtr,
 		// Advance my pointer to the first (if there is any) trailing whitespace char AND determine if there is any whitespace to remove
 		if ( ++lastNonSpacePtr < m_ptr )
 		{
-			size_t numSpaces = m_ptr - lastNonSpacePtr;
-			removeCharacter_( lastNonSpacePtr, numSpaces );
-			m_ptr -= numSpaces;
+			size_t count = m_ptr - lastNonSpacePtr;
+			removeCharacter_( lastNonSpacePtr, count );
+			m_ptr -= count;
 		}
 	}
 }

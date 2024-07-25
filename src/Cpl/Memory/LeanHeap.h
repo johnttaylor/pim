@@ -50,6 +50,9 @@ public:
     /// See Cpl::Memory::ContiguousAllocator. 
     uint8_t* getMemoryStart( size_t& dstAllocatedLenInBytes ) noexcept;
 
+    /// See Cpl::Memory::Allocator
+    size_t wordSize() const noexcept { return sizeof( size_t ); }
+
 private:
     /// Prevent access to the copy constructor -->LeanHeap can not be copied!
     LeanHeap( const LeanHeap& m );

@@ -2,6 +2,7 @@
 src/Cpl/Io/File
 src/Cpl/Io/File/_posix
 src/Cpl/Io/File/_posix/_api
+src/Cpl/Checksum
 
 # tests
 src/Cpl/Io/File/_0test

@@ -1,0 +1,21 @@
+# Start with an empty log file
+log clear
+
+# Generate some log entries
+log write 1 0 "bob was here"
+log write 1 1 "or was he?"
+log write 1 0 "Hello world"
+log write 1 1 "Goodbye"
+
+# Allow time for the records to be written to disk
+wait 3000
+
+# Test display commands
+log
+log *
+log 3
+log 0 2
+log 1 2
+log 2 2
+shutdown
+bye app 0

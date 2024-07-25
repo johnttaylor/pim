@@ -1,7 +1,6 @@
-/** @namespace Driver::NV
+/** @namespace Driver::I2C
 
-The 'NV' namespace defines a platform independent interface for reading and 
-writing from/to non-volatile storage.
+The 'I2C' namespace defines a platform independent interface for a I2C bus.
 
 */ 
 

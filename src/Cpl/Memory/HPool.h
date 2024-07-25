@@ -87,6 +87,8 @@ public:
 	/// See Cpl::Memory::Allocator
 	void release( void *ptr ) { m_poolPtr->release( ptr ); }
 
+	/// See Cpl::Memory::Allocator
+	size_t wordSize() const noexcept { return m_poolPtr->wordSize(); }
 
 private:
 	/// Prevent access to the copy constructor -->HPools can not be copied!

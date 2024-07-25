@@ -25,7 +25,6 @@
 *----------------------------------------------------------------------------*/ 
  
 #include <stdint.h>
-#include "Bsp/UserSpace/driver_hal_mappings_.h"
 
 
 // Start C++

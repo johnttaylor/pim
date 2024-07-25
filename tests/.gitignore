@@ -1,13 +1,29 @@
 # Misc
+jenkins-gcovr.xml
 *.gcov
 _posix64/
 _posix/
 _cpp11/
 _win32/
 _win64/
+_stm32/
+_arduino/
+ratt.log*
+
+# more stuff
+make.log
+*.gcda
+*.gcno
+*.idb
+*.pdb
+*.ilk
+*.lst
+*.map
 
 # visual studio
 *.exe
 *.ilk
 *.pdb
 *.sln
+
+*.user

@@ -14,7 +14,7 @@
 
 #include <stdbool.h>
 
-#ifdef _cpluscplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -27,7 +27,7 @@ extern "C" {
  */
 void cpl_system_assert_c_wrapper( bool true_expression, const char* file, unsigned line, const char* func );
 
-#ifdef _cpluscplus
+#ifdef __cplusplus
 }
 #endif
 

@@ -204,7 +204,7 @@ SList<ITEM>::SList( void ) noexcept
 }
 
 template <class ITEM>
-SList<ITEM>::SList( const char* notUsed ) noexcept
+SList<ITEM>::SList( const char* /* notUsed */ ) noexcept
 {
 }
 

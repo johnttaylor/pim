@@ -61,7 +61,7 @@ protected:
 
 protected:
 	/// Input stream
-	Cpl::Io::Input* m_srcPtr;
+	Cpl::Io::Input* volatile m_srcPtr;
 
 	/// Block semantics
 	bool			m_blocking;

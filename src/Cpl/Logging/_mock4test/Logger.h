@@ -21,7 +21,4 @@
 extern uint32_t g_logEntryCount;
 
 
-
-};      // end namespaces
-};
 #endif  // end header latch

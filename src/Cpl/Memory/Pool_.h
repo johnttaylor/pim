@@ -23,62 +23,67 @@ namespace Memory {
 
 
 /** This private concrete class implements a Memory Allocator using a pool of
-	fixed size blocks.  The implementation relies on a sub-class to allocate
-	the actual memory for the blocks.
+    fixed size blocks.  The implementation relies on a sub-class to allocate
+    the actual memory for the blocks.
  */
 
 class Pool_ : public Allocator
 {
 public:
-	/// Helper class so I can put my blocks into to my standard containers
-	class BlockInfo_ : public Cpl::Container::ExtendedItem
-	{
-	public:
-		/// Constructor
-		BlockInfo_() :m_blockPtr( 0 ) {}
+    /// Helper class so I can put my blocks into to my standard containers
+    class BlockInfo_ : public Cpl::Container::ExtendedItem
+    {
+    public:
+        /// Constructor
+        BlockInfo_() :m_blockPtr( 0 ) {}
 
-	public:
-		/// Reference to the block being stored in the list
-		const char* m_blockPtr;
-	};
+    public:
+        /// Reference to the block being stored in the list
+        const char* m_blockPtr;
+    };
 
 
 protected:
-	/// My free list of blocks
-	Cpl::Container::DList<BlockInfo_>   m_freeList;
+    /// My free list of blocks
+    Cpl::Container::DList<BlockInfo_>   m_freeList;
 
-	/// My list of allocated blocks
-	Cpl::Container::DList<BlockInfo_>   m_allocatedList;
+    /// My list of allocated blocks
+    Cpl::Container::DList<BlockInfo_>   m_allocatedList;
 
-	/// Block size
-	size_t                              m_blockSize;
+    /// Block size
+    size_t                              m_blockSize;
 
-	/// Flag that controls memory errors behavior
-	bool                                m_fatalErrors;
+    /// Block size
+    size_t                              m_alignedBlockSize;
 
-
-public:
-	/// Constructor.
-	Pool_( BlockInfo_     infoBlocks[],
-		size_t         blockSize,
-		size_t         alignedBlockSize,
-		size_t         numBlocks,
-		void*          arrayOfBlocks,
-		bool           fatalErrors
-	);
-
-
-/// Destructor
-	~Pool_();
+    /// Flag that controls memory errors behavior
+    bool                                m_fatalErrors;
 
 
 public:
-	/// See Cpl::Memory::Allocator
-	void* allocate( size_t numbytes );
+    /// Constructor.
+    Pool_( BlockInfo_     infoBlocks[],
+           size_t         blockSize,
+           size_t         alignedBlockSize,
+           size_t         numBlocks,
+           void*          arrayOfBlocks,
+           bool           fatalErrors
+    );
 
-	/// See Cpl::Memory::Allocator
-	void release( void *ptr );
 
+    /// Destructor
+    ~Pool_();
+
+
+public:
+    /// See Cpl::Memory::Allocator
+    void* allocate( size_t numbytes );
+
+    /// See Cpl::Memory::Allocator
+    void release( void *ptr );
+
+    /// See Cpl::Memory::Allocator
+    size_t wordSize() const noexcept;
 
 };
 

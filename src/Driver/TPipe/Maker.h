@@ -38,7 +38,7 @@ public:
     /** Constructor.  
         @param frameHandlerList The set of received frame handlers.  Note: frame
                                 handler's self register
-        @param rxFrameSize      The size, in bytes, of the buffer used to hold
+        @param maxRxFrameSize   The size, in bytes, of the buffer used to hold
                                 an incoming Frame.  
         @param verbDelimiters   The delimiter characters used to separate the
                                 command verb from the rest of commands tokens/data.

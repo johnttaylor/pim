@@ -289,7 +289,7 @@ TEST_CASE( "basic" )
 
 
         Lister myThreadList;
-        Cpl::System::Api::sleep( 100 );    // Give time to ensure all threads are active.
+        Cpl::System::Api::sleep( 200 );    // Give time to ensure all threads are active.
         Thread::traverse( myThreadList );
         REQUIRE( myThreadList.m_foundApple );
         REQUIRE( myThreadList.m_foundOrange );

@@ -24,11 +24,11 @@ namespace I2C {
 
 /** This class defines a non-platform specific interface for an I2C master device
     driver. The intended usage is to create ONE driver per physical I2C bus, i.e.
-    the driver instance can/should-be shared with multiple clients.  
-    
-    The driver is thread safe in that ALL operations are atomic. This means that
-    all of the methods have the potential to BLOCK if another client/thread has
-    in-progress method call.
+    the driver instance can shared with multiple clients.  
+
+    The driver is NOT thread safe.  It is the responsibility of the Application
+    to ensure thread safety when driver is used and/or shared with multiple 
+    clients.
  */
 class Master
 {
@@ -83,6 +83,27 @@ public:
                                      void*     dstData,
                                      bool      noStop = false ) = 0;
 
+
+public:
+    /// Convenience method for common I2C operation
+    inline Result_T registerWriteByte( uint8_t device7BitAddress, uint8_t reg, uint8_t value, bool noStop = false )
+    {
+        uint8_t buffer[2] ={ reg, value };
+        return writeToDevice( device7BitAddress, sizeof( buffer ), buffer, noStop );
+    }
+    
+    /// Convenience method for common I2C operation
+    template <class READ_TYPE>
+    inline Result_T registerRead( uint8_t device7BitAddress, uint8_t reg, READ_TYPE& dstReadResult )
+    {
+        Result_T result;
+        result = writeToDevice( device7BitAddress, sizeof( reg ), &reg, true );
+        if ( result == eSUCCESS )
+        {
+            result = readFromDevice( device7BitAddress, sizeof( dstReadResult ), &dstReadResult );
+        }
+        return result;
+    }
 
 public:
     /** This method changes the default/current I2C baud-rate.  The application

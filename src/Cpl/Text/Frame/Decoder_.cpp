@@ -68,9 +68,6 @@ bool Decoder_::scan( size_t maxSizeOfFrame, char* frame, size_t& frameSize ) noe
         }
 
     }
-
-    // I should never get here!
-    return false;
 }
 
 

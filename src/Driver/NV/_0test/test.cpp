@@ -72,7 +72,10 @@ int runtests( Driver::NV::Api& uut,
               size_t           expectedBytesPerPage,
               size_t           expectedTotalSize )
 {
-    CPL_SYSTEM_TRACE_MSG( SECT_, ("Starting test for the NV RAM tests") );
+    CPL_SYSTEM_TRACE_MSG( SECT_, ("Starting test for the NV RAM tests\nNum Page=%lu, BytesPerPage=%lu, TotalSize=%lu",
+                                   expectedPages,
+                                   expectedBytesPerPage,
+                                   expectedTotalSize) );
 
     // Verify page info
     if ( uut.getNumPages() != expectedPages )

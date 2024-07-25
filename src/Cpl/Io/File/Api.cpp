@@ -286,7 +286,7 @@ bool Api::copyFile( const char* srcName, const char* dstName )
 	}
 
 	Input  src( srcName );
-	Output dst( dstName );
+	Output dst( dstName, true, true );
 	return copyHelper_( src, dst );
 }
 
@@ -299,7 +299,7 @@ bool Api::appendFile( const char* srcName, const char* dstName )
 	}
 
 	Input  src( srcName );
-	Output dst( dstName );
+	Output dst( dstName, true );
 	dst.setToEof();
 	return copyHelper_( src, dst );
 }

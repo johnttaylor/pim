@@ -81,7 +81,7 @@ public:
 
 
 public:
-    /// See Cpl::Io::File::ObjectApi (is quantile to isEos())
+    /// See Cpl::Io::File::ObjectApi (is equivalent to isEos())
     bool isEof();
 
     /// See Cpl::Io::File::ObjectApi

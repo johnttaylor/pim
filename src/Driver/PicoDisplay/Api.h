@@ -1,3 +1,4 @@
+
 #ifndef Driver_PicoDisplay_Api_h_
 #define Driver_PicoDisplay_Api_h_
 /*-----------------------------------------------------------------------------
@@ -13,8 +14,8 @@
 /** @file */
 
 
-#include "libraries/pico_graphics/pico_graphics.hpp"    // Must be first #include (because of the Pimoroni/Pico SDK)
 #include "colony_config.h"
+#include "pico_graphics.hpp" 
 #include "Driver/Button/PolledDebounced.h"
 #include "Driver/LED/RedGreenBlue.h"
 
