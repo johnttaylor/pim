@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""
+r""" 
 Script to build projects using NQBP
 ===============================================================================
 usage: bob [options] here [<build-opts>...]

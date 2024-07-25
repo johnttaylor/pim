@@ -102,15 +102,16 @@ def run( argv, copyright=None ):
     cfg     = 'codegen.cfg'
       
     # Generated File names
-    oldfsm    = fsm + '.h'
-    oldfsmcpp = fsm + '.cpp'
-    oldevt    = fsm + '_ext.h'
-    oldtrace  = fsm + '_trace.h'
-    oldtrace2 = fsm + '_trace.java'
-    newfsm    = fsm + '_.h'
-    newfsmcpp = fsm + '_.cpp'
-    newevt    = fsm + '_ext_.h'
-    newtrace  = fsm + '_trace_.h'
+    oldfsm      = fsm + '.h'
+    oldfsmcpp   = fsm + '.cpp'
+    oldevt      = fsm + '_ext.h'
+    oldtrace    = fsm + '_trace.h'
+    oldtracecpp = fsm + '_trace.cpp'
+    oldtrace2   = fsm + '_trace.java'
+    newfsm      = fsm + '_.h'
+    newfsmcpp   = fsm + '_.cpp'
+    newevt      = fsm + '_ext_.h'
+    newtrace    = fsm + '_trace_.h'
     
     # Delete 'optional' old/previous files 
     utils.delete_file( evque + ".h" )
@@ -120,7 +121,7 @@ def run( argv, copyright=None ):
     geneatedCodegenConfig( cfg, base, names )
         
     # Build Sinelabore command
-    cmd = 'java -jar -Djava.ext.dirs={} {}/codegen.jar {} -p CADIFRA -doxygen -o {} -l cppx -Trace {}'.format( sinpath, sinpath, sargs, fsm, fsmdiag )
+    cmd = 'java -cp {}\*; codegen.Main {} -p CADIFRA -doxygen -o {} -l cppx -Trace {}'.format( sinpath, sargs, fsm, fsmdiag )
     cmd = utils.standardize_dir_sep( cmd )
   
     # Invoke Sinelabore command
@@ -156,16 +157,19 @@ def run( argv, copyright=None ):
       
     
     # Post process the generated file(s) 
-    cleanup_trace( oldfsmcpp, names, fsm, oldfsm, oldtrace, newtrace )
+    cleanup_trace( oldfsmcpp, names, fsm, oldfsm, oldtrace, newtrace, oldtracecpp )
     cleanup_includes( oldfsm,    names, oldfsm, newfsm, oldevt, newevt, base + '.h' )
     cleanup_includes( oldfsmcpp, names, oldfsm, newfsm, oldevt, newevt, base + '.h' )
-      
+    convert_member_to_class_methods_header( oldfsm, fsm )  
+    convert_member_to_class_methods_cpp( oldfsmcpp, fsm )  
+
     # Housekeeping for naming convention
     utils.delete_file( newfsm )
     utils.delete_file( newfsmcpp )
     utils.delete_file( newevt )
     utils.delete_file( newtrace )
-    utils.delete_file( oldtrace2 )  # remove unwanted JAVA file
+    utils.delete_file( oldtrace2 )      # remove unwanted JAVA file
+    utils.delete_file( oldtracecpp )    # remove unused CPP file
     os.rename( oldfsm, newfsm )
     os.rename( oldfsmcpp, newfsmcpp ) 
     os.rename( oldevt, newevt ) 
@@ -320,9 +324,39 @@ def cleanup_includes( headerfile, namespaces, oldfsm, newfsm, oldevt, newevt, ba
     
     os.remove( headerfile )
     os.rename( tmpfile, headerfile )
+
+#
+def convert_member_to_class_methods_header( file, parent_class ):
+    macroname = parent_class.upper()
+    tmpfile  = file + ".tmp"
+    with open( file ) as inf:
+        with open( tmpfile, "w") as outf:  
+            for line in inf:
+                if ( "const char* getNameByState(const unsigned short state) const" in line ):
+                    line = line.replace("const char* getNameByState(const unsigned short state) const","static const char* getNameByState(const unsigned short state)" )
+                if ( f"const char* getNameByEvent(const {macroname}_EVENT_T evt) const" in line ):
+                    line = line.replace(f"const char* getNameByEvent(const {macroname}_EVENT_T evt) const", f"static const char* getNameByEvent(const {macroname}_EVENT_T evt)" )
+                outf.write( line )
+    os.remove( file )
+    os.rename( tmpfile, file )
+
+def convert_member_to_class_methods_cpp( file, parent_class ):
+    macroname = parent_class.upper()
+    tmpfile  = file + ".tmp"
+    with open( file ) as inf:
+        with open( tmpfile, "w") as outf:  
+            for line in inf:
+                if ( f"const char* {parent_class}::getNameByState(const unsigned short state) const" in line ):
+                    line = line.replace(f"const char* {parent_class}::getNameByState(const unsigned short state) const",f"const char* {parent_class}::getNameByState(const unsigned short state)" )
+                if ( f"const char* {parent_class}::getNameByEvent(const {macroname}_EVENT_T evt) const" in line ):
+                    line = line.replace(f"const char* {parent_class}::getNameByEvent(const {macroname}_EVENT_T evt) const", f"const char* {parent_class}::getNameByEvent(const {macroname}_EVENT_T evt)" )
+                outf.write( line )
+    os.remove( file )
+    os.rename( tmpfile, file )
+                
       
 #      
-def cleanup_trace( cppfile, namespaces, base, oldfsm, old_trace_headerfile, new_trace_headerfile ):
+def cleanup_trace( cppfile, namespaces, base, oldfsm, old_trace_headerfile, new_trace_headerfile, oldtracecpp ):
     # Add xx_trace_.h include to xxx_.cpp
     tmpfile  = cppfile + ".tmp"
     path     = path_namespaces( namespaces )
@@ -351,20 +385,32 @@ def cleanup_trace( cppfile, namespaces, base, oldfsm, old_trace_headerfile, new_
                         if ( newcount > 1 ):
                             outf.write( '    CPL_SYSTEM_TRACE_MSG( SECT_, ( "  New State=%s", getNameByState(getInnermostActiveState()) ));\n' )
                 prev_line = line
+                
     os.remove( cppfile )
     os.rename( tmpfile, cppfile )
 
+    # Get event array from trace.cpp
+    events = ''
+    found  = False
+    with open( oldtracecpp, "r") as inf:  
+        for line in inf:
+            if ( line.find("const") != -1 or found == True ):
+                events = events + line
+                found  = True
+                if ( line.find(';') != -1 ):
+                    found = False
+
+
     # add CPL trace hooks
     tmpfile  = old_trace_headerfile + ".tmp"
-    path     = path_namespaces( namespaces )
-    trace_fn = 'TraceEvent(int evt);'
-    enum     = 'enum ' + base + 'TraceEvent'
-    comment  = '/* Simulation which'
+    trace_fn = 'TraceEvent('
     
+    added_include = False
     with open( old_trace_headerfile ) as inf:
         with open( tmpfile, "w") as outf:  
             for line in inf:
-                if ( line.find( '#define' ) != -1):
+                if ( line.find( '#define' ) != -1 and added_include == False ):
+                    added_include = True
                     outf.write( line )
                     outf.write( '\n' )
                     outf.write( '#include "Cpl/System/Trace.h"\n' )
@@ -374,13 +420,12 @@ def cleanup_trace( cppfile, namespaces, base, oldfsm, old_trace_headerfile, new_
                     outf.write( '\n' )
                 elif ( line.find( trace_fn ) != -1 ):
                     outf.write( '#define {}TraceEvent(a) CPL_SYSTEM_TRACE_MSG( SECT_, ( "  Old State=%s, Event=%s", getNameByState(getInnermostActiveState()), {}TraceEvents[a] ));\n'.format( base, base) )
-                elif ( line.find( enum ) != -1 ):
-                    pass
-                elif ( line.find( comment ) != -1 ):
-                    pass
+                    outf.write('\n')        
+                    outf.write( events )
                 else:
                     outf.write( line )
-                
+
+
     os.remove( old_trace_headerfile )
     os.rename( tmpfile, old_trace_headerfile )
      
@@ -392,10 +437,10 @@ def getContextMethods( fname ):
     guards  = []
     with open(fname) as f:
         for line in f:
-            g = re.search(r'[a-zA-Z0-9]+\(\)(?!\;)',line)
+            guard_matches = re.findall(r'[^a-zA-Z0-9_]([a-zA-Z0-9]+\(\))(?!\;)',line)
             a = re.search(r'[a-zA-Z0-9]+\(\)\;', line)
-            if ( g != None ):
-                guards.append( g.group(0) )
+            if ( guard_matches != None ):
+                guards.extend( guard_matches )
             if ( a != None ):
                 actions.append( a.group(0).split(';')[0] )
     
@@ -427,7 +472,7 @@ def end_nested_namespaces( namespaces ):
     nest = ""
     for n in namespaces:
         nest += "};"
-    nest += "  /// end namespace(s)"
+    nest += "  // end namespace(s)"
     return nest
 
 def cfg_namespaces( namespaces ):
@@ -459,7 +504,7 @@ def generatedContextClass( class_name, namespaces,  header, actions, guards ):
         f.write( header )
         f.write( "\n\n/* This file is auto-generated DO NOT MANUALLY EDIT this file! */\n\n" )
         f.write( "\n" )
-        f.write( "/// Namespace(s)\n" )
+        f.write( "///\n" )
         f.write( "{}\n".format( nested_namespaces(namespaces) ) )
         f.write( "\n\n" )
         f.write( "/// Context (aka actions/guards) for my Finite State Machine\n" )
@@ -502,13 +547,20 @@ def generateEventClass( class_name, namespaces,  parent_class, parent_header, de
         f.write( '#include "{}{}"\n'.format(path, parent_header) )
         f.write( '#include "Cpl/Container/RingBuffer.h"\n' )
         f.write( "\n\n" )
-        f.write( "/// Namespace(s)\n" )
+        f.write( "///\n" )
         f.write( "{}\n".format( nested_namespaces(namespaces) ) )
         f.write( "\n\n" )
         f.write( "/// Event Queue for FSM events.\n" )
         f.write( "class {}: public {}, public Cpl::Container::RingBuffer<{}_EVENT_T>\n".format( class_name, parent_class, macroname ) )
         f.write( "{\n" )
+        f.write( "public:\n" );
+        f.write( "    /// Define callback function that is called when an event has completed\n" )
+        f.write( "    typedef void ( *EventCompletedCbFunc_T )( {}_EVENT_T proceessedMsg );\n".format( macroname ) )
+        f.write( "\n" )
         f.write( "protected:\n" )
+        f.write( "    /// Optional Callback function for event-completed (typically used for unit testing purposes)\n" )
+        f.write( "    EventCompletedCbFunc_T  m_eventCompletedCallback;\n" )
+        f.write( "\n" )
         f.write( "    /// Memory for Event queue\n" )
         f.write( "    {}_EVENT_T m_eventQueMemory[{}];\n".format( macroname, depth) )
         f.write( "\n")
@@ -517,7 +569,7 @@ def generateEventClass( class_name, namespaces,  parent_class, parent_header, de
         f.write( "\n")
         f.write( "public:\n" )
         f.write( "    /// Constructor\n" )
-        f.write( "    {}();\n".format( class_name) )
+        f.write( "    {}( EventCompletedCbFunc_T eventCompletedCallback = nullptr );\n".format( class_name) )
         f.write( "\n")
         f.write( "public:\n" )
         f.write( "    /// This method properly queues and process event messages\n" )
@@ -539,12 +591,13 @@ def generateEventClass( class_name, namespaces,  parent_class, parent_header, de
         f.write( "\n" )
         f.write( '#define SECT_ "{}::{}"\n'.format( "::".join(namespaces), parent_class ) )
         f.write( "\n" )
-        f.write( "/// Namespace(s)\n" )
+        f.write( "///\n" )
         f.write( "{}\n".format( nested_namespaces(namespaces) ) )
         f.write( "\n\n" )
-        f.write( "{}::{}()\n".format( class_name, class_name ) )
-        f.write( ":Cpl::Container::RingBuffer<{}_EVENT_T>( {}, m_eventQueMemory )\n".format( macroname, depth ) )
-        f.write( ",m_processingFsmEvent(false)\n" )
+        f.write( "{}::{}( EventCompletedCbFunc_T eventCompletedCallback )\n".format( class_name, class_name ) )
+        f.write( ": Cpl::Container::RingBuffer<{}_EVENT_T>( {}, m_eventQueMemory )\n".format( macroname, depth ) )
+        f.write( ", m_eventCompletedCallback( eventCompletedCallback )\n" )
+        f.write( ", m_processingFsmEvent(false)\n" )
         f.write( "    {\n" ) 
         f.write( "    }\n" ) 
         f.write( "\n\n" )
@@ -568,6 +621,12 @@ def generateEventClass( class_name, namespaces,  parent_class, parent_header, de
         f.write( '                CPL_SYSTEM_TRACE_MSG( SECT_, ("  Event IGNORED:= %s", getNameByEvent(msg)) );\n' )
         f.write( "                }\n" )
         f.write( '            CPL_SYSTEM_TRACE_MSG( SECT_, ("  Event Completed:=  %s, end state=%s", getNameByEvent(msg), getNameByState(getInnermostActiveState())) );\n' )
+        f.write( "\n" )
+        f.write( "            // Provide 'hook' for event-processing-completed\n" )
+        f.write( '            if ( m_eventCompletedCallback )\n' )
+        f.write( '                {\n' )
+        f.write( '                (m_eventCompletedCallback) ( msg );\n' )
+        f.write( '                }\n' )
         f.write( "            }\n" )
         f.write( "\n" )
         f.write( "        m_processingFsmEvent = false;\n" )
@@ -659,6 +718,8 @@ StateMachineClassHasDestructor=no
 #If set to 'yes' separte state classes are used. Otherwise action code is completely inlined into the state machine code
 SeparateStateClasses=no
 #
+ReturnEventProcessed=yes
+
 '''
     # Replace tokens
     cfg = cfg.replace( "$$BASE$$", base )

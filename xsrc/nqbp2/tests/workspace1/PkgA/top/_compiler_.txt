@@ -1,3 +1,0 @@
-1,01-vcvars32-vc17.bat,Visual Studio VC17 (32bit) compiler for Windows  
-2,03-mingw64-v9.2.0.bat,MINGW64 v9.2.0 compiler for Windows (32bit and 64 bit)  
-3,06-gcc-arm-pico-v11.2.bat,GCC-ARM compiler for Raspberry Pi Pico  

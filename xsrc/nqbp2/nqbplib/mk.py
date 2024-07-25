@@ -84,6 +84,17 @@ Arguments:
                    build variant) referenced in the libdirs.b file.
   --qry-dirs2      Same as --qry-dirs with the addition of the any source file
                    include/exclude info
+  --qry-opts       Displays all of the toolchain options (no build is performed) 
+  --deps           Outputs the Header file dependencies. DOES NOT BUILD the 
+                   projects.
+  --vs             VSCode: Generates a compiler_flags.txt file in the package 
+                   root with the compiler arguments for intellisense (NOT 
+                   building from within VSCode).
+  --vsjson         VSCode: Generates a compile_commands.json file in the package
+                   root with the all of the compile commands for all files in
+                   the project.                    
+  --vsgdb          VSCode: Adds an entry in the .vscode/launch.json file for 
+                   launching the GDB debugger for the project's executable.
   -h,--help        Display help.
   --version        Display version number.
 
@@ -149,6 +160,14 @@ def build( argv, toolchain ):
         toolchain.clean_all( arguments, silent=True )
         sys.exit()
 
+    if ( arguments['--deps'] ):
+        ncmd   = f"ninja -t deps"
+        vardir = "_" + arguments['-b']
+        utils.push_dir( vardir );
+        utils.run_shell2( ncmd, True, "ERROR: Dependency Tool failed." )
+        utils.pop_dir()
+        sys.exit()
+
     # Validate Compiler toolchain is set properly (ONLY after non-build options have been processed, i.e. don't have to have an 'active' toolchain for non-build options to work)
     toolchain.validate_cc()
             
@@ -179,7 +198,9 @@ def do_build( printer, toolchain, arguments, variant ):
         toolchain.pre_build( variant, arguments )
 
         # Output start banner
-        if ( arguments['--qry-dirs'] == False ):
+        if ( arguments['--qry-dirs'] == False 
+            and arguments['--qry-dirs2'] == False 
+            and arguments['--vsjson'] == False ):
             start_banner(printer, toolchain)
          
         # Spit out handy-dandy debug info
@@ -237,13 +258,23 @@ def do_build( printer, toolchain, arguments, variant ):
         toolchain.finalize(  arguments, builtlibs, objfiles, 'local', linkout )
         ninja_file.close()
         
+        if ( arguments['--vsjson'] ):
+            ofile  = os.path.join(NQBP_PKG_ROOT(),'compile_commands.json')
+            ncmd   = f"ninja -t compdb > {ofile}"
+            utils.run_shell2( ncmd, True, "ERROR: Generation of the compile_command.sjon failed." )
+            printer.output(f"File: {ofile} generated.")
+            return
+
         # Run ninja
         ninja_opts = ''
         if ( arguments['-v'] ):
             ninja_opts = '-v'
         if ( arguments['-1'] ):
             ninja_opts = ninja_opts + ' -j 1'
-        utils.run_shell2( f"ninja {ninja_opts}", True, "ERROR: Build failed." )
+        ncmd = f"ninja {ninja_opts} -d keepdepfile"
+        printer.debug( '# ninja command = ' + ncmd )
+
+        utils.run_shell2( ncmd, True, "ERROR: Build failed." )
 
     # Output end banner
     end_banner(printer, toolchain)
@@ -311,7 +342,7 @@ def build_single_directory( printer, arguments, toolchain, dir, entry, pkg_root,
     # verify source directory exists
     if ( not os.path.exists( srcpath ) ):
         printer.output( "")
-        printer.output( "ERROR: Build Failed - directory does not exist: " )
+        printer.output( f"ERROR: Build Failed - directory does not exist: {srcpath}" )
         printer.output( "" )
         sys.exit(1)
         

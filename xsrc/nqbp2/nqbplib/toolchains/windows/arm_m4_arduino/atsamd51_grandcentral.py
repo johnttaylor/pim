@@ -65,7 +65,7 @@ class ToolChain( base.ToolChain ):
         cpp_and_c_flags                 = ' -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500'
         self._base_release.cflags       = self._base_release.cflags + common_flags + cpp_and_c_flags + asm_and_compile_flags + ' -g'
         self._base_release.c_only_flags = self._base_release.c_only_flags + ' -std=gnu11'
-        self._base_release.cppflags     = self._base_release.cppflags + ' -std=gnu++11 -fno-threadsafe-statics -fno-rtti -fno-exceptions -DARDUINO_BSP_VERSION=\\"' + env_bsp_ver + '\\"'
+        self._base_release.cppflags     = self._base_release.cppflags + ' -std=gnu++14 -fno-threadsafe-statics -fno-rtti -fno-exceptions -DARDUINO_BSP_VERSION=\\"' + env_bsp_ver + '\\"'
         self._base_release.cppflags    += ' -Wno-restrict -Wno-address-of-packed-member -Wno-class-memaccess'
         self._base_release.asmflags     = asm_and_compile_flags + ' -c -x assembler-with-cpp'
 

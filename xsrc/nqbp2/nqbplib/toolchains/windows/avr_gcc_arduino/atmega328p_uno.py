@@ -53,6 +53,7 @@ class ToolChain( base.ToolChain ):
         self._base_release.c_only_flags  = self._base_release.c_only_flags + ' -std=gnu11 -fno-fat-lto-objects'
         self._base_release.cppflags      = self._base_release.cppflags + ' -std=gnu++11 -fpermissive -fno-exceptions -fno-rtti -fno-threadsafe-statics'
         self._base_release.asmflags      = common_flags + asm_and_compile_flags + ' -c -x assembler-with-cpp'
+        self._base_release.exclude_clangd.append('-std=gnu11')
 
         self._base_release.linklibs      = ' -Wl,--start-group -lm -Wl,--end-group'
         self._base_release.linkflags     = common_flags + link_and_compile_flags + ' -fuse-linker-plugin -Wl,--gc-sections'

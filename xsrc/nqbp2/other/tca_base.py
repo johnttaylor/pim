@@ -45,6 +45,8 @@ Arguments:
                    again.
                    
 Options:
+  --ci             Uses the repository root instead of the src/ directory. This
+                   is a work-around for Jenkins-Cobertura plugin
   -w LINES         Size of the 'window' when displaying the output when using
                    the '-m' option.  [Default: 2].
   -h, --help       Display command help.
@@ -90,26 +92,27 @@ def run(argv):
     
     # get the package root
     pkg = NQBP_PKG_ROOT()
-    
-    # setup excludes 
-    excludes = '--exclude=.*_0test.*  --exclude=^tests* --exclude-unreachable-branches'
+    gcovr_root = f'-r {pkg}/src'
+    if args['--ci']:
+        gcovr_root = f'--filter .*src/.* -r {pkg}'
 
-    # Setup 'arc' excludes for C++ code (see https://gcovr.com/en/stable/faq.html)
-    arcopt = ' --exclude-unreachable-branches'
+    # setup excludes 
+    excludes = '--exclude=.*_0test.* --exclude=.*/xsrc/.* --exclude=.*src/Catch.* --exclude=.*src/Cpl/Json/Arduino.h --exclude=.*src/Cpl/Json/ArduinoHelpers.cpp --exclude=.*src/Cpl/Type/enum.h --exclude-unreachable-branches --exclude-lines-by-pattern .*CPL_SYSTEM_TRACE.* --exclude-lines-by-pattern .*CPL_SYSTEM_ASSERT.*'
+
+    # Setup 'arc' excludes for C++ code (see https://gcovr.com/en/stable/faq.html) 
+    arcopt = ' --exclude-unreachable-branches --decisions '
     if ( args['--all'] ):
         arcopt = ''
 
     # Generate summary
     if (args['rpt']):
         python = 'python'
-        if ( platform.system() == 'Windows' ):
-            python = 'py -3'
-
-        cmd  = '{} -m gcovr {} {} -j 8 -r {}{}src --object-directory . {}'.format(python, excludes, arcopt, pkg, os.sep, ' '.join(args['<args>']) if args['<args>'] else '') 
+        cmd  = '{} -m gcovr {} {} --gcov-ignore-parse-errors=negative_hits.warn -j 8 {} --object-directory . {} .'.format(python, excludes, arcopt, gcovr_root,  ' '.join(args['<args>']) if args['<args>'] else '') 
         if (args['<args>']):
             first = args['<args>'][0]
             if (first == '-h' or first == '--help'):
                 cmd = '{} -m gcovr --help'.format(python)
+        print(cmd)        
         run_shell(cmd, True)
 
     # Generate human readable .gcov files

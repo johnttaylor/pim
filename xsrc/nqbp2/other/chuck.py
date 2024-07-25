@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-
-"""
+r"""
  
 Chuck is an script for invoking a package's automated unit tests
 ===============================================================================

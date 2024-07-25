@@ -15,12 +15,21 @@ set NQBP_XPKGS_ROOT=%_HERE%xsrc
 set NQBP_BIN=%NQBP_XPKGS_ROOT%\nqbp2
 
 :: Set helper macros
-doskey top=cd %_HERE%
 doskey t=cd %_HERE%
 doskey bob=%NQBP_BIN%\other\bob.py $*
 doskey chuck=%NQBP_BIN%\other\chuck.py $*
+doskey fixx=%NQBP_BIN%\other\fixx.py $*
+doskey ratt=%NQBP_XPKGS_ROOT%\ratt\bin\ratt.py $*
 doskey whatcc=echo:%PIM_ENV_COMPILER%
 doskey killpy=taskkill /F /IM python.exe
+doskey killb=taskkill /F /IM b.exe
+doskey gitchmodx=git update-index --chmod=+x $*
+doskey setexe=git update-index --chmod=+x $*
+doskey ports=reg query HKLM\HARDWARE\DEVICEMAP\SERIALCOMM
+doskey map=%NQBP_PKG_ROOT%scripts\colony.core\map.py $*
+doskey tvc=touch %NQBP_PKG_ROOT%*vcxproj
+doskey log=git log | grep -v "^commit.*" | grep -v "^Author:.*" | grep -v "^Date:.*" | grep -v " *Merge .*" | grep -v "^Merge:.*" | grep -v "^ *$" | grep -v "^git-subtree-dir:.*" | grep -v "^git-subtree-split:.*"
+
 
 :: No compiler option selected
 IF "/%1"=="/" GOTO :displaycc

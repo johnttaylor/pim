@@ -18,7 +18,7 @@ Gen2 NQBP was created to specially address the lack of dependency checking in _c
 [NQBP](https://github.com/johnttaylor/nqbp).  This was done by incorporating the
 [__Ninja__](https://ninja-build.org/) build tool to perform the actual builds.
 
-Documentation is located in the top/ directory and/or available at: http://www.integerfox.com/nqbp2.
+Documentation is located in the `top/` directory.
 
 NQBP is licensed with a BSD licensing agreement (see the `top/` directory).
 
@@ -80,6 +80,27 @@ value to `0`.  The Gen2 `nqbpy.py` script has a new option - `--bldtime` - that
 when used, sets `BUILD_TIME_UTC` to the current build time (instead of `0`).  The 
 intent here is that formal builds would use the `--bldtime` switch, and developer 
 build would not.
+
+### Window's Command Line Length Limitation
+__TL;DR__ NQBP Gen2 toolchains includes using compiler _response files_ to avoid the Windows
+Command Line length limitation.
+
+A Windows terminal (i.e. `cmd.exe`) command line length is limited to ~8K.  This
+can be problematic with large projects or even small projects that have excessive
+compiler/linker arguments or numerous header paths (see [here] about my rant about
+header file pollution).  The solution for this is use the compiler's _response file_
+mechanism for passing arguments. 
+
+The tricky bit comes when using a GCC cross compiler (e.g. ARM7 Cortex) on a
+Windows host.  The Windows variant of these compiler properly handle the 
+differences in the directory separator (`\` vs `/`) when the argument is passed
+on the command line.  However, when compiler is parsing a _response file_ - it
+expects/only-handles the `/` as the directory separator.
+
+Using response files for Window Host builds is matter of how the toolchain file
+are constructed, i.e. not a limitation of NQBP classic.  However, since the
+existing toolchains where being updated for Gen2 - these toolchains have been
+modified to use _response files_.
 
 ### Command Line Options
 NQBP Gen2 has fewer command line options, i.e. eliminated all of the _classic_

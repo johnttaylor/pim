@@ -53,3 +53,7 @@ myMediaFile
 _compiler_.txt
 *.vcxproj.user
 .vs/
+.vscode
+compile_flags.txt
+compile_commands.json
+.cmake
