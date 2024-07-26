@@ -1,7 +1,0 @@
-# Ignore the final output directories from the builds
-__pycache__/
-tests/**/_target/
-
-# Ignore the .obj directories
-tests/**/Rx/**/src/
-tests/**/Rx/**/xsrc/

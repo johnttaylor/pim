@@ -2,31 +2,15 @@
   "dependencies": {
     "strong": [
       {
-        "pkgname": "colony.bsp",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Sep 11 19:15:58 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "0.1.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-0.1.1"
-        },
-        "repo": {
-          "name": "colony.bsp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "colony.core",
         "pkgtype": "overlay",
         "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 01:46:53 2023",
+        "adoptedDate": "Thu Apr 27 00:28:42 2023",
         "parentDir": null,
         "version": {
-          "semanticVersion": "4.3.4",
+          "semanticVersion": "4.4.0",
           "branch": null,
-          "tag": "OUTCAST2-main-4.3.4"
+          "tag": "OUTCAST2-main-4.4.0"
         },
         "repo": {
           "name": "colony.core",
@@ -36,22 +20,6 @@
       }
     ],
     "weak": [
-      {
-        "pkgname": "nqbp",
-        "pkgtype": "foreign",
-        "adoptedDate": "Sun Sep 11 19:15:27 2022",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "3.0.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-3.0.1"
-        },
-        "repo": {
-          "name": "nqbp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
       {
         "pkgname": "catch",
         "pkgtype": "overlay",
@@ -113,13 +81,20 @@
   },
   "publish": {
     "current": {
-      "comment": "Update to NQBP2 and latest colony.core",
-      "version": "1.0.7",
-      "date": "Fri Feb 24 02:02:25 2023",
-      "timestamp": 1677204145,
+      "comment": "adopt new version of colony core (4.4.0) and deprecated bsp package",
+      "version": "1.0.8",
+      "date": "Thu Apr 27 00:32:06 2023",
+      "timestamp": 1682555526,
       "changes": null
     },
     "history": [
+      {
+        "comment": "Update to NQBP2 and latest colony.core",
+        "version": "1.0.7",
+        "date": "Fri Feb 24 02:02:25 2023",
+        "timestamp": 1677204145,
+        "changes": null
+      },
       {
         "comment": "Clean-up TShell command (no functionality changes)",
         "version": "1.0.6",

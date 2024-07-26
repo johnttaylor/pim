@@ -34,31 +34,15 @@
         }
       },
       {
-        "pkgname": "colony.bsp",
-        "pkgtype": "overlay",
-        "adoptedDate": "Sun Sep 11 23:47:15 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "0.1.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-0.1.1"
-        },
-        "repo": {
-          "name": "colony.bsp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
         "pkgname": "colony.core",
         "pkgtype": "overlay",
         "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 18:43:35 2023",
+        "adoptedDate": "Thu Apr 27 00:38:06 2023",
         "parentDir": null,
         "version": {
-          "semanticVersion": "4.3.4",
+          "semanticVersion": "4.4.0",
           "branch": null,
-          "tag": "OUTCAST2-main-4.3.4"
+          "tag": "OUTCAST2-main-4.4.0"
         },
         "repo": {
           "name": "colony.core",
@@ -70,12 +54,12 @@
         "pkgname": "colony.apps",
         "pkgtype": "overlay",
         "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 18:53:11 2023",
+        "adoptedDate": "Thu Apr 27 01:15:33 2023",
         "parentDir": null,
         "version": {
-          "semanticVersion": "2.1.1",
+          "semanticVersion": "2.1.4",
           "branch": null,
-          "tag": "OUTCAST2-main-2.1.1"
+          "tag": "OUTCAST2-main-2.1.4"
         },
         "repo": {
           "name": "colony.apps",
@@ -121,12 +105,12 @@
         "pkgname": "colony.arduino",
         "pkgtype": "overlay",
         "virtualAdoption": true,
-        "adoptedDate": "Sun Feb 19 14:30:16 2023",
+        "adoptedDate": "Thu Apr 27 00:42:38 2023",
         "parentDir": null,
         "version": {
-          "semanticVersion": "1.0.6",
+          "semanticVersion": "1.0.8",
           "branch": null,
-          "tag": "OUTCAST2-main-1.0.6"
+          "tag": "OUTCAST2-main-1.0.8"
         },
         "repo": {
           "name": "colony.arduino",
@@ -138,31 +122,15 @@
         "pkgname": "nqbp2",
         "pkgtype": "readonly",
         "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 18:54:04 2023",
+        "adoptedDate": "Thu Apr 27 01:16:54 2023",
         "parentDir": "xsrc",
         "version": {
-          "semanticVersion": "0.1.1",
+          "semanticVersion": "0.1.3",
           "branch": null,
-          "tag": "OUTCAST2-main-0.1.1"
+          "tag": "OUTCAST2-main-0.1.3"
         },
         "repo": {
           "name": "nqbp2",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "nqbp",
-        "pkgtype": "foreign",
-        "adoptedDate": "Sun Sep 11 23:36:12 2022",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "3.0.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-3.0.1"
-        },
-        "repo": {
-          "name": "nqbp",
           "type": "git",
           "origin": "https://github.com/johnttaylor"
         }
@@ -194,13 +162,20 @@
   },
   "publish": {
     "current": {
-      "comment": "Fix build errors from latest DataModel refactoring",
-      "version": "0.2.2",
-      "date": "Fri Feb 24 19:30:43 2023",
-      "timestamp": 1677267043,
+      "comment": "adopt new version of colony core (4.4.0) and deprecated bsp package",
+      "version": "0.2.3",
+      "date": "Thu Apr 27 01:19:26 2023",
+      "timestamp": 1682558366,
       "changes": null
     },
     "history": [
+      {
+        "comment": "Fix build errors from latest DataModel refactoring",
+        "version": "0.2.2",
+        "date": "Fri Feb 24 19:30:43 2023",
+        "timestamp": 1677267043,
+        "changes": null
+      },
       {
         "comment": "Switch to using NQBP2 and latest get latest colony.core package",
         "version": "0.2.1",

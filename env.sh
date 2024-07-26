@@ -34,6 +34,9 @@ export NQBP_WORK_ROOT=$HERE/..
 export NQBP_XPKGS_ROOT=$HERE/xsrc
 export NQBP_BIN=$NQBP_XPKGS_ROOT/nqbp
 
+# Add ninja to the command path
+export PATH=$PATH:$NQBP_BIN/ninja
+
 
 alias t="cd $HERE"
 alias bob="$NQBP_BIN/other/bob.py"

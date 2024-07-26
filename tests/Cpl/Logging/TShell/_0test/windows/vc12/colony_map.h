@@ -3,7 +3,11 @@
 
 /// Null BSP
 #include "Bsp/UserSpace/Api.h"
+<<<<<<<< HEAD:tests/Cpl/Logging/TShell/_0test/windows/vc12/colony_map.h
 
+========
+ 
+>>>>>>>> origin/master:tests/Cpl/MApp/_0test/windows/vc12/colony_map.h
 // Cpl::System mappings
 #ifdef BUILD_VARIANT_WIN32
 #include "Cpl/System/Win32/mappings_.h"
