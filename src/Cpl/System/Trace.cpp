@@ -296,12 +296,19 @@ void Trace::clearThreadFilter_( void )
 }
 
 
-bool Trace::passedThreadFilter_( const char* threadNameToTest )
+bool Trace::passedThreadFilter_()
 {
+    // Safely get the current's thread name (i.e. works with non-CPL threads)
+    const char* threadNameToTest = nullptr;
+    Thread*     curThread        = Thread::tryGetCurrent();
+    if ( curThread != nullptr )
+    {
+        threadNameToTest = curThread->getName();
+    }
+
     bool result = true;
     Locks_::tracing().lock();
-
-    if ( threadFilterEnabled_ )
+    if ( threadFilterEnabled_ && threadNameToTest  )
     {
         int i;
         for ( i=0, result=false; i < NUM_THREAD_FILTERS_; i++ )

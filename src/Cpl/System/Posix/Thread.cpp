@@ -31,6 +31,7 @@ static Cpl::Container::SList<Thread> threadList_( "StaticConstructor" );
 
 static void addThreadToActiveList_( Thread& thread );
 static void removeThreadFromActiveList_( Thread& thread );
+static bool isActiveThread( Thread* threadPtrToValidate );
 
 // 'ole basic min/max methods
 inline int myMin( int a, int b ) { return a < b ? a : b; }
@@ -150,6 +151,7 @@ Thread::Thread( Cpl::System::Runnable&   runnable,
 
     // Create the thread
     pthread_create( &m_threadHandle, &thread_attr, &entryPoint, this );
+    pthread_attr_destroy( &thread_attr );
 }
 
 Thread::~Thread()
@@ -243,13 +245,7 @@ void* Thread::entryPoint( void* data )
 //////////////////////////////
 Cpl::System::Thread& Cpl::System::Thread::getCurrent() noexcept
 {
-    // Trap potential error
-    if ( !keyCreated_ )
-    {
-        Cpl::System::FatalError::logRaw( "Posix::Thread::getCurrent().  Have not yet created 'Tls Index'." );
-    }
-
-    Thread* curThread = (Thread*) pthread_getspecific( tsdKey_ );
+    Thread* curThread = tryGetCurrent();
 
     // Trap potential error
     if ( !curThread )
@@ -258,6 +254,18 @@ Cpl::System::Thread& Cpl::System::Thread::getCurrent() noexcept
     }
 
     return *curThread;
+}
+
+Cpl::System::Thread* Cpl::System::Thread::tryGetCurrent() noexcept
+{
+    // Trap potential error
+    if ( !keyCreated_ )
+    {
+        Cpl::System::FatalError::logRaw( "Posix::Thread::tryGetCurrent().  Have not yet created 'Tls Index'." );
+    }
+
+    Cpl::System::Posix::Thread* ptr = (Cpl::System::Posix::Thread*) pthread_getspecific( tsdKey_ );
+    return isActiveThread( ptr )? ptr: nullptr;
 }
 
 
@@ -315,6 +323,22 @@ void removeThreadFromActiveList_( Thread& thread )
     threadList_.remove( thread );
 }
 
+bool isActiveThread( Thread* threadPtrToValidate )
+{
+    Cpl::System::Mutex::ScopeBlock lock( Cpl::System::Locks_::sysLists() );
+    Cpl::System::Posix::Thread* ptr = threadList_.first();
+    while ( ptr )
+    {
+        if ( ptr == threadPtrToValidate )
+        {
+            return true;
+        }
+        ptr = threadList_.next( *ptr );
+    }
+    return false;
+}
+
+
 
 //////////////////////////////
 Cpl::System::Thread* Cpl::System::Thread::create( Runnable&   runnable,
@@ -325,7 +349,7 @@ Cpl::System::Thread* Cpl::System::Thread::create( Runnable&   runnable,
                                                   bool        allowSimTicks
 )
 {
-    return new Cpl::System::Posix::Thread( runnable, name, priority, stackSize, allowSimTicks );
+    return new Cpl::System::Posix::Thread( runnable, name, priority, stackSize, SCHED_OTHER, allowSimTicks );
 }
 
 

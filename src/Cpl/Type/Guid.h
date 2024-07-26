@@ -13,6 +13,7 @@
 /** @file */
 
 #include "Cpl/Text/String.h"
+#include "Cpl/Text/FString.h"
 #include <stdint.h>
 
 
@@ -34,6 +35,10 @@
 namespace Cpl {
 /// 
 namespace Type {
+
+/// Convenience typedef for a GUID String
+typedef Cpl::Text::FString<CPL_TYPE_GUID_MAX_FORMATTED_LENGTH> GuidString_T;
+
 
 /** This structure defines a type for a 16 Byte GUID/UUID.
 	See https://en.wikipedia.org/wiki/Universally_unique_identifier for additional

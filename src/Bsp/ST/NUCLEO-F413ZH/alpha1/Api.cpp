@@ -34,7 +34,10 @@ void Bsp_Api_initialize( void )
 
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
+    MX_ADC1_Init();
+    MX_TIM4_Init();
     MX_USART3_UART_Init();
+    MX_I2C2_Init();
 
     // Initialize System View (asap after the basic board initialization has completed)
     INIT_SEGGER_SYSVIEW();

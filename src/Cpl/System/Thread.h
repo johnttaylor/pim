@@ -89,6 +89,16 @@ public:
     /// This method returns a reference to the currently executing thread.
     static Thread& getCurrent() noexcept;
 
+    /** Special version of getCurrent().  getCurrent() will trigger a FATAL
+        error when called from a NON CPL thread.  tryGetCurrent() will 
+        return a nullptr when it detects that the current thread is NOT a 
+        CPL thread.
+
+        This method should ONLY be used when your application has mix of CPL and
+        non-CPL threads, i.e. the default should be to use getCurrent(). 
+     */
+    static Thread* tryGetCurrent() noexcept;
+
     /** This method causes the CURRENT thread to wait until its 'thread
         semaphore' is signal/set.
      */

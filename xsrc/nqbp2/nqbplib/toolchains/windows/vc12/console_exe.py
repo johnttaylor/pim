@@ -37,6 +37,7 @@ class ToolChain( base.ToolChain ):
         self._asmflag_symdef             = '/D '
         self._cflag_symvalue_delimiter   = '"'
         self._asmflag_symvalue_delimiter = '"'
+        self._compiler_option_delimiter  = '/'
 
         self._ar_library_name = 'library.lib'
         self._ar_options      = '/NOLOGO'
@@ -71,15 +72,27 @@ class ToolChain( base.ToolChain ):
         self._base_release.cflags    = '/FS /nologo  /D "_CRT_SECURE_NO_WARNINGS" /D "_CONSOLE" /D "_MBCS" /Zi /FD /D "WIN32" /D "WIN32_LEAN_AND_MEAN" /c'
         self._base_release.linkflags = '/nologo /subsystem:console /pdb:{}.pdb /machine:X86'.format( os.path.splitext(exename)[0] )
         self._base_release.linklibs  = '' #kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib'
-        
+        self._base_release.exclude_clangd = ['/c']
+
         # Optimized options, flags, etc.
         self._optimized_release.cflags    = '/D "NDEBUG"'
         self._optimized_release.linkflags = '/nologo /subsystem:console /pdb:{}.pdb /machine:X86'.format( os.path.splitext(exename)[0] )
         
         # Debug options, flags, etc.
-        self._debug_release.cflags    = '/FS /Zi /Od /D "_DEBUG" /RTCs'
+        self._debug_release.cflags    = '/FS /Zi /Od /D "_DEBUG" /RTCs /D "DEBUG_BUILD"'
         self._debug_release.linkflags = '/debug /NODEFAULTLIB:LIBCMT '
         self._debug_release.linklibs  = 'libcmtd.lib'
+
+    #-----------------------------------------------------
+    def _translate_cc_for_clang(self, ccopts):
+        # Convert /D to -D
+        newopts = []
+        for o in ccopts:
+            if o.startswith("/D"):
+                o = o.replace("/D", "-D", 1)
+            newopts.append(o)
+
+        return newopts
 
     #-----------------------------------------------------
     def _build_compile_rule( self ):

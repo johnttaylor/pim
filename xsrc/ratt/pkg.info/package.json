@@ -21,12 +21,33 @@
   },
   "publish": {
     "current": {
-      "comment": "remove native support for serial ports (was not portable in python)",
-      "version": "1.0.1",
-      "date": "Sun May 29 17:01:20 2022",
-      "timestamp": 1653843680
+      "comment": "Fix regex issues in docopt",
+      "version": "2.0.2",
+      "date": "Sat Jul 20 17:50:47 2024",
+      "timestamp": 1721497847,
+      "changes": null
     },
     "history": [
+      {
+        "comment": "Refactor to use importlib instead of imp",
+        "version": "2.0.1",
+        "date": "Thu Jun  6 23:59:29 2024",
+        "timestamp": 1717718369,
+        "changes": null
+      },
+      {
+        "comment": "refactoring/clean-up (is breaking change) and bug fixing",
+        "version": "2.0.0",
+        "date": "Sun Apr 30 22:42:15 2023",
+        "timestamp": 1682894535,
+        "changes": "\"- Changed file extension to .py (works better with editors)\\n- Changed the default logging semantics to always do verbose logging\\n- Added Host timestamps to the log file\\n- Fixed 'double logging of uut data' bug\\n- Requires Python 3.8 or higher\\n- Updated documentation\\n\\n\""
+      },
+      {
+        "comment": "remove native support for serial ports (was not portable in python)",
+        "version": "1.0.1",
+        "date": "Sun May 29 17:01:20 2022",
+        "timestamp": 1653843680
+      },
       {
         "comment": "Publish as Outcast2 package",
         "version": "1.0.0",

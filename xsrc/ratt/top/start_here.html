@@ -5326,7 +5326,7 @@ html .solidborders td {  border: 1px solid black; }</pre>
 <div modified="20141230012524223" title="$:/state/toc/Contents-Overview--242358753">
 <pre>open</pre>
 </div>
-<div list="Overview" title="$:/StoryList">
+<div list="rattlib [[Test Scripts]] [[System Requirements]] [[Recommended Conventions]] Overview [[Command Line Usage]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20141011164829984" modified="20141020024516096" title="$:/temp/advancedsearch">
@@ -5453,35 +5453,31 @@ html .solidborders td {  border: 1px solid black; }</pre>
 
 </pre>
 </div>
-<div created="20181110155051247" modified="20181110164907459" tags="Overview" title="Caveats">
+<div created="20181110155051247" modified="20230430172150812" tags="Overview" title="Caveats">
 <pre>The following is list of caveats when using RATT
 
-* pexpect search from the top (oldest data first) of its input/UUT buffer.  This means you to be careful about a matching on a string that happened previously – but is not the one the script is actually interested in.
+* pexpect search from the top (oldest data first) of its input/UUT buffer.  This means you to be careful about a matching on a string that happened previously – but is not the one that the script is actually interested in.
 * Searching the UUTs output for a match can take time, i.e. there can/will-be delays from when the UUT outputs the desired match content and the time when RATT/pexpect recognizes the match.  To decrease the search time, it is recommend to the following:
 ** Call the ``uut.clear()`` command as late as possible before waiting on output from the UUT.  The clear() command empty's the pexpect input/UUT buffer, i.e. less to data to search through.
+*** Note: The `uut.cli()` automatically issues a `uut.clear()` before it waits for a response/prompt (but only when called with //waiting// semantics). 
 ** The simpler a regular expression is - the faster the search
 * Regular Expressions
 ** All matches are minimal matches (non greedy)
 ** ''end-of-line''.  The short version is use  ``\r\n`` to match for newline.  For a detailed explanation click [[here|https://pexpect.readthedocs.io/en/stable/overview.html#find-the-end-of-line-cr-lf-conventions]]
-* The pexpect package was original implemented on a Linux platform and its support for Windows is good, but not as good as on Linux.  Under Windows, pexpect does not spawn applications in a //terminal// and many Windows application only supports interactive behavior when they detects they are running in a //terminal//, i.e. they do ''not'' work with RATT/pexpect.
-* Support for connecting via serial ports under Linux has ''not'' been implemented (as of Nov, 2018)</pre>
+* The pexpect package was original implemented on a Linux platform and its support for Windows is good, but not as good as on Linux.  Under Windows, pexpect does not spawn applications in a //terminal// and many Windows application only supports interactive behavior when they detects they are running in a //terminal//, i.e. they do ''not'' work with RATT/pexpect.</pre>
 </div>
-<div created="20181110164921105" modified="20181110172248191" tags="Overview" title="Command Line Usage">
-<pre>The following is snapshot of ratty.py script's command usage.  Note: this page may/can-be out of date.  To get the current supported usage, type ``ratt.py -h``
+<div created="20181110164921105" modified="20240505194205804" tags="Overview" title="Command Line Usage">
+<pre>The following is snapshot of ratt.py script's command usage.  Note: this page may/can-be out of date.  To get the current supported usage, type ``ratt.py -h``
 
 ```
+Test Tool that automates issuing actions to a Under-Under-Test (UUT)
+===============================================================================
 usage: ratt [options] --win &lt;executable&gt;...
        ratt [options] --linux &lt;executable&gt;...
-       ratt [options] --comport &lt;comnum&gt;
-       ratt [options] --serialports
        ratt [options] --nouut
 
 Arguments:
    &lt;executable&gt;         UUT is an executable and 'connecting' via stdio
-   --comport            Connect to a Window's serial port attached to the UUT
-   &lt;socketnum&gt;          The UUT's TCP socket number to connect to
-   &lt;comnum&gt;             Windows serial port number
-   --serialports        List available serial ports
    --nouut              Does NOT connect to any UUT
 
 Options:
@@ -5503,28 +5499,24 @@ Options:
                         script files.  This path is used if the file being
                         opening can not be found in/relative to --path2
 
-   --baud RATE          Baud rate of the serial port [Default: 115200]
-   --parity PARITY      Parity bits, values={even,odd,none} [Default: none]
-   --databits DBIT      Number of data bits of the serial port [Default: 8]
-   --stopbits SBIT      Number of Stop bits of the serial port [Default: 1]
-
    --crlf               Sets the UUT newline to '\r\n' (instead of '\n')
-   --logfile BASE       Defines the base log file name [Default: ratt.log]
+   --logfile BASE       Defines the base log file name.  The actual log file
+                        name is 'BASE_&lt;starttime&gt;' [Default: ratt.log]
    --log                Enables logging
    -v                   Be verbose
    -d, --debug          Enables additional output for debugging RATT scripts
    -h, --help           Display help for common options/usage
 
 Examples:
-    ; UUT is the executable
-    ratt.py --win mypath\my_utt.exe
+    ; UUT is the executable 'my_uut.exe'
+    ratt.py --input mysuite.py --win mypath\my_utt.exe
 
     ; UUT is a physical device connected to a Windows PC on COM4
-    ratt.py --comport 4
+    ratt.py --input mysuite.py --win &quot;C:\Program Files\PuTTY\plink.exe&quot; -serial COM4 -sercfg 115200,8,1,N,N
 
     ; Run mysuite.py script with a UUT connected via TCP (on the same PC on
     ; port 5002) using Putty's plink
-    ratt.py --input mysuite.py --win &quot;E:\Program Files (x86)\PuTTY\plink.exe&quot; -telnet localhost -P 5002
+    ratt.py --input mysuite.py --win &quot;C:\Program Files\PuTTY\plink.exe&quot; -telnet localhost -P 5002
 ```</pre>
 </div>
 <div created="20141012031702770" modified="20141019031650552" title="LeftMenu">
@@ -5546,7 +5538,7 @@ __''//Table-of-Contents//''__
 
 &lt;div align=&quot;center&quot;&gt;&lt;iframe src=&quot;./license.txt&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;800&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;</pre>
 </div>
-<div created="20140726152202471" creator="JohnTaylor" modified="20181111235533727" modifier="JohnTaylor" tags="Contents" title="Overview">
+<div created="20140726152202471" creator="JohnTaylor" modified="20230430173336198" modifier="JohnTaylor" tags="Contents" title="Overview">
 <pre>!RATT  
 
 RATT is a Python based automated test tool built on top of the [[pexpect|https://pexpect.readthedocs.io/en/stable/index.html]] package.  RATT was specifically created to perform automated testing of [[UUTs|https://en.wikipedia.org/wiki/Device_under_test]] that support a [[Command Line Interface|https://en.wikipedia.org/wiki/Command-line_interface]], but can be used with any application that supports  interactive behavior (e.g. stdio) with the parent process that launched the application .  Below is summary of RATT's features:
@@ -5558,13 +5550,14 @@ RATT is a Python based automated test tool built on top of the [[pexpect|https:/
 * Test scripts can be located anywhere and in multiple locations
 * Works with UUTs connected via:
 ** A serial port
-** stdio (aka console applications)
-** Telnet/SSH (requires a suitable telent/ssh client application)
+** stdio (requires a command-line connection tool such Putty's `plink`)
+** Telnet/SSH (requires a command-line connection tool such as `ssh`)
 
+RATT is built on the assumption that it executes a //Test Suite// script and the contents of the //Test Suite// script executes one or more //Test Cases//.  A final ''pass/fail'' result is returned. If ''all'' //Test Cases// pass then pass (`0`) is returned; else fail (`1`) is returned
 
 {{LeftMenu}}</pre>
 </div>
-<div created="20181111212802440" modified="20181112000818777" tags="Overview" title="rattlib">
+<div created="20181111212802440" modified="20230430172443169" tags="Overview" title="rattlib">
 <pre>The Ratt tool contains a internal package - rattlib - that provides a small set of Python functions, entities, etc. to aid in writing Test scripts.
 
 //Note: Organizations are welcome to add additional modules to the rattlib package.//
@@ -5573,7 +5566,7 @@ The rattlib package is broken down into the following modules:
 
 * ''man'' - Provides methods to get help on the available test scripts.
 * ''output'' - Provides a collection of methods to output/log messages to the console and/or log file.
-* ''std'' - Provides basic functionality.  Most notable the ``std.load()`` method is used to load a test script.
+* ''std'' - Provides basic functionality.  Most notable the ``std.load()`` and `std.run()` methods are used to load a test script and load &amp; run a test script.
 * ''uut'' - Provides a collection of method to interact with the UUT (Unit-Under-Test)
 
 Interactive help is available for all modules in the rattlib, e.g. when running ratt in interactive mode you can type: ``help(std)``
@@ -5581,29 +5574,45 @@ Interactive help is available for all modules in the rattlib, e.g. when running 
 
 </pre>
 </div>
-<div created="20181110180950003" modified="20181111223844658" tags="Overview" title="Recommended Conventions">
+<div created="20181110180950003" modified="20240505210646244" tags="Overview" title="Recommended Conventions">
 <pre>Other than the requirements for the top level input script (aka ``--input TSFILE``) the RATT tool does not impose any requirements/conventions of the content of the test scripts.  That said below are recommended conventions for your test scripts.
 
 //''Note:'' the rattlib.man() module assumes these conventions are followed//
 
 ''Test Suites''
 
-* Test Suite files (``i.e. the TSFILE``) shall contain a method named ``run()`` that returns a positive integer where zero indicates pass; greater than 0 indicates failure.  Note: the run() method can ''not'' take any arguments
-* Have a naming convention for Test Suite files that identify the file as a Test Suite
+* Test Suite files (``i.e. the TSFILE``) shall contain a method named ``main()`` that returns a positive integer where zero indicates pass; greater than 0 indicates failure.  Note: the ``main()`` method can ''not'' take any arguments
+* Have a naming convention for Test Suite files that identify the file as a Test Suite 
 * Test Suite files should be limited to running one or more Test Case files.  For example:
 &lt;&lt;&lt;
 ```
-    # Test rattlib.uut
-    if ( passcode == config.g_passed ):
-         passcode = std.load(&quot;tc_uut&quot;).run()
+&quot;&quot;&quot; Test Suite: 
 
-    # Test rattlib.std
-    if ( passcode == config.g_passed ):
-         passcode = std.load(&quot;tc_std&quot;).run()
+    Example: Blah....
 
-    # Test ratt search paths
-    if ( passcode == config.g_passed ):
-         passcode = std.load(&quot;tc_paths&quot;).run()
+    Pre-Conditions:  Blah...
+
+    Post-Conditions: Blah...
+&quot;&quot;&quot;
+from rattlib import *
+import config
+
+def main():
+    &quot;&quot;&quot; Entry point for the Test Suite
+    &quot;&quot;&quot;
+    output.write_entry( __name__ )
+
+    # Default initial pass/fail status to 'pass'
+    passcode = config.g_passed
+
+    # Test Cases: Note: A test case is only executed when passcode equals config.g_passed
+    passcode = std.run(&quot;tc_bob&quot;, passcode)
+    passcode = std.run(&quot;tc_bobs_uncle&quot;, passcode)
+    ...
+
+    # Return the final result
+    output.write_exit( __name__ )
+    return passcode
 ```
 &lt;&lt;&lt;
 
@@ -5614,44 +5623,65 @@ Interactive help is available for all modules in the rattlib, e.g. when running 
 ** Strongly encouraged that the ``run()`` method have single exit/return point.
 * Test case files are not limited in their content
 * Have a naming convention for Test Case files that identify the file as a Test Case
+* Below is example Test Case script.  It assumes that the UUT is running the Cpl C++ Command Line shell.
+&lt;&lt;&lt;
+```
+&quot;&quot;&quot; Test Case: 
 
-''Test Actions''
+    Verifies the UUT is running
 
-* Create //Action// Files for reusable test components and/or test primitives.  Action files should contain a method named ``run()``. that returns a positive integer where zero indicates pass; greater than 0 indicates failure.  
-** The ``run()`` method can have zero or more arguments.
-** Strongly encouraged that the ``run()`` method have single exit/return point.
-** The ``run()`` method can return a tuple, however index 0 of the tuple should the pass/fail result
-* Test Action files are not limited in their content
-* Have a naming convention for Test Action files that identify the file as a Test Action.
+    Pre-Conditions:  The UUT must be running.
+
+    Post-Conditions: Same as the Pre-condition
+&quot;&quot;&quot;
+from rattlib import *
+import config
+
+def run():
+    &quot;&quot;&quot; Entry point for the Test Case
+    &quot;&quot;&quot;
+    output.write_entry(__name__)
+    passcode = config.g_passed
+    
+    # Send a help command to the UUT and wait for a response form UUT, i.e. is the UUT alive?
+    r = uut.cli( &quot;&quot; ) # Consume the initial prompt at start-up
+    r = uut.cli( &quot;help&quot; )
+    if r != None:
+        passcode = config.g_passed if 'help [* | &lt;cmd&gt;]' in r else config.g_failed
+    else:
+        output.writeline(&quot;ERROR: The UUT is not responding&quot;)
+        passcode = config.g_failed
+
+    output.write_exit(__name__)
+    return passcode
+```
+&lt;&lt;&lt;
 
 ''General''
 
 * Script output
 ** Use the ``rattlib.output.writeline()`` method for outputting errors.
 ** Use the ``rattlib.output.write_entry()`` and ``rattlib.output.write_exit()``methods to //record// the entry and exit of the ``main()`` and ``run()`` methods in all of the script files.
-** Use the ``ratllib.output.writeline_verbose()`` and ``ratllib.output.write_verbose()`` methods to output status/trace information.
+** Use the ``rattlib.output.writeline_verbose()`` and ``rattlib.output.write_verbose()`` methods to output status/trace information.
 ** Use the ``ratllib.output.writeline_debug()`` and ``ratllib.output.write_debug()`` methods to output detailed debugging information.
-** Enabling logging (``--log``) when running formal tests.  Also enable the verbose logging  (``--vlog``) and debugging logging (``--dlog``) options.
+
 * Comments/Documentation
 ** Each script file (Test Suite, Test Case, Test Action) should have a module comment (i.e. a docstring comment at the start of the file). 
 *** For Test Suite and Test Case scripts, include in the module level comments the scripts's pre-conditions and post-conditions.
-** Each script file's //entry// function should have docstring comment that describes the function, its function argument(s) and return value(s)
-</pre>
+** Each script file's //entry// function should have docstring comment that describes the function, its function argument(s) and return value(s).</pre>
 </div>
-<div created="20181110151344173" modified="20181110154909694" tags="Overview" title="System Requirements">
+<div created="20181110151344173" modified="20230430175809099" tags="Overview" title="System Requirements">
 <pre>!!The following is list of prerequisites/requirements for RATT
 
-* Python 2.7
+* Python 3.8 or higher
 * The following python packages installed:
-** pip install pexpect-serial
-** pip install pexpect
-** pip install pyserial
-* If you are connecting to a UUT via TCP/Telnet/SSH/etc. you will need to have command line client application that provides the TCP/network connectivity.  For example, to connect via Telnet (and/or raw text based TCP sockets) you need:
-** Linux: install the //telnet// client
+** `pip install pexpect`  (4.8.0 or higher)
+* If you are connecting to a UUT via a serial point or TCP/Telnet/SSH/etc. you will need to have command line client application that provides the TCP/network connectivity.  For example, to connect via Telnet (and/or raw text based TCP sockets) you need:
+** Linux: tools such `cu`, `mincom`, `telnet`, `ssh` are available.
 ** Windows: install a third party command line client such as [[Putty's |https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html]] command line client [[plink|https://the.earth.li/~sgtatham/putty/0.70/htmldoc/Chapter7.html#plink]].  
 *** Note: The native Windows //telent.exe// does not work with pexpect/RATT because pexpect does  ''not'' spawn applications in a //terminal// and the Windows telnet application only supports interactive behavior when it detects it is running in a //terminal//</pre>
 </div>
-<div created="20181111210425794" modified="20181111212800013" tags="Overview" title="Test Scripts">
+<div created="20181111210425794" modified="20230430180000825" tags="Overview" title="Test Scripts">
 <pre>Test scripts are written in Python.  The Ratt package does not impose constraints and/or limit the content of the test scripts - with the exception of the ``TSFILE`` specified on the [[command line|Command Line Usage]] when launching the ratt.py script.  That said, there are [[recommended conventions|Recommended Conventions]] for the test scripts.  See [[rattlib]] for how a test script is loaded.
 
 ''Script Locations''
@@ -5664,7 +5694,7 @@ Interactive help is available for all modules in the rattlib, e.g. when running 
 **# The ``--path2`` directory (if specified)
 **# The ``--path3`` directory (if specified)
 * Test scripts are loaded by file name relative to the paths described above
-** Test script file names essential global with respect to the set path specified when the ratt.py script is launched.  This is by design.  What does this mean:
+** Test script file names are essential global with respect to the set of paths specified when the `ratt.py` script is launched.  This is by design.  What does this mean:
 **# If the are two files named ``mytest.py`` within the defined search path - the first file found (defined by the searched) is loaded.
 **# The test designer can define a set of //backing// test scripts located at path N, and (if desired) can //override// one or more of the //backing// scripts by placing script(s)  with same name at path N-1</pre>
 </div>

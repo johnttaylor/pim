@@ -31,7 +31,11 @@
 #ifdef ENABLE_BSP_SEGGER_SYSVIEW   
 #include "SEGGER_SYSVIEW_FreeRTOS.h"
 #endif
- 
+
+/// needed for newLib SBRK implementation
+#define configISR_STACK_SIZE_WORDS  128 // 512 Bytes  
+
+
 /* USER CODE END Header */
 
 #ifndef FREERTOS_CONFIG_H

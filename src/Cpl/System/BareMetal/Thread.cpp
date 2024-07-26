@@ -113,15 +113,19 @@ Cpl_System_Thread_NativeHdl_T Thread::getNativeHandle( void ) noexcept
 //////////////////////////////
 Cpl::System::Thread& Cpl::System::Thread::getCurrent() noexcept
 {
+    return *tryGetCurrent();
+}
+
+Cpl::System::Thread* Cpl::System::Thread::tryGetCurrent() noexcept
+{
     // Trap potential error
     if ( !mainThread_ )
     {
         Cpl::System::FatalError::logRaw( "BareMeal::Thread::getCurrent().  Cpl::System::Api::initialize() has NOT been called" );
     }
 
-    return *mainThread_;
+    return mainThread_;
 }
-
 
 void Cpl::System::Thread::wait() noexcept
 {

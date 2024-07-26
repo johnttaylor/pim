@@ -281,6 +281,7 @@ inline ITEM* RingBuffer<ITEM>::peekNextAddItems( unsigned& dstNumFlatElements ) 
 {
     if ( isFull() )
     {
+        dstNumFlatElements = 0;
         return nullptr;
     }
 

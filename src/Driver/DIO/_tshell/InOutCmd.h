@@ -16,11 +16,12 @@
 #include "Cpl/TShell/Cmd/Command.h"
 #include "Driver/DIO/InOut.h"
 
-/// Maximum supported number of Inputs/Outputs
+/// Maximum supported number of Inputs
 #ifndef OPTION_DRIVER_DIO_IN_OUT_CMD_MAX_IN_PINS
 #define OPTION_DRIVER_DIO_IN_OUT_CMD_MAX_IN_PINS        32
 #endif
 
+/// Maximum supported number of Outputs
 #ifndef OPTION_DRIVER_DIO_IN_OUT_CMD_MAX_OUT_PINS
 #define OPTION_DRIVER_DIO_IN_OUT_CMD_MAX_OUT_PINS       32
 #endif

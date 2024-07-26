@@ -400,28 +400,25 @@ def _get_marker_dir( from_fname, marker ):
     result = ''  
     idx    = 0  
     path.reverse()
-    
+
     try:
         idx = path.index(marker)
         idx = len(path) - idx -1
         path.reverse()
+
         for d in path[1:idx]:
             result += os.sep + d
         
     except:
         result = None
-    
-    if ( result == None ):
-        result = _test_for_top( result, marker )    
-    
-    return result
+
+    # sanity check the result, i.e. the top/ directory is required to be in the root dir
+    return _test_for_top( result, marker )
     
 
 def _test_for_top( dir, marker ):
-    while( dir != None ):
-        if ( os.path.isdir(dir + os.sep + NQBP_PKG_TOP()) ) :
-            break
-        else:
+    if ( dir != None ):
+        if ( not os.path.isdir(dir + os.sep + NQBP_PKG_TOP()) ) :
             dir = _get_marker_dir( dir, marker )
     
     return dir

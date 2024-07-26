@@ -29,6 +29,10 @@
 #include "colony_config.h"
 #include "Bsp/ST/NUCLEO-F413ZH/alpha1/MX/Core/Inc/main.h"   // Access the PINs
 #include "Bsp/ST/NUCLEO-F413ZH/alpha1/MX/Core/Inc/usart.h"  // Access the UART handles/instances
+#include "Bsp/ST/NUCLEO-F413ZH/alpha1/MX/Core/Inc/tim.h"    // Access the PWMs/Timers
+#include "Bsp/ST/NUCLEO-F413ZH/alpha1/MX/Core/Inc/i2c.h"    // Access the I2C handles/instances
+#include "Bsp/ST/NUCLEO-F413ZH/alpha1/MX/Core/Inc/adc.h"    // Access the AIN handles/instances
+
 
 
 #ifdef ENABLE_BSP_SEGGER_SYSVIEW   

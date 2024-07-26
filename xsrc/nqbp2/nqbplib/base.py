@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Base toolchain functions and classes
+r"""Base toolchain functions and classes
 
 Magic Symbols
 --------------------
@@ -37,6 +37,7 @@ import os
 import shutil
 import sys
 import subprocess
+import json
 
 #
 from . import utils
@@ -55,45 +56,48 @@ from .my_globals import NQBP_NAME_LIBDIRS
 # Structure for holding build-variant specific options
 class BuildValues:
     def __init__(self):
-        self.inc          = ''
-        self.asminc       = ''
-        self.cflags       = ''
-        self.c_only_flags = ''
-        self.cppflags     = ''
-        self.asmflags     = ''
-        self.linkflags    = ''
-        self.linklibs     = ''
-        self.linkscript   = ''
-        self.firstobjs    = ''
-        self.lastobjs     = ''
+        self.inc            = ''
+        self.asminc         = ''
+        self.cflags         = ''
+        self.c_only_flags   = ''
+        self.cppflags       = ''
+        self.asmflags       = ''
+        self.linkflags      = ''
+        self.linklibs       = ''
+        self.firstobjs      = ''
+        self.lastobjs       = ''
+        self.exclude_clangd = []
+        self.include_clangd = []
 
     def append(self,src):
-        self.inc          += ' ' + src.inc        
-        self.asminc       += ' ' + src.asminc           
-        self.cflags       += ' ' + src.cflags           
-        self.c_only_flags += ' ' + src.c_only_flags
-        self.cppflags     += ' ' + src.cppflags         
-        self.asmflags     += ' ' + src.asmflags         
-        self.linkflags    += ' ' + src.linkflags        
-        self.linklibs     += ' ' + src.linklibs 
-        self.linkscript   += ' ' + src.linkscript 
-        self.firstobjs    += ' ' + src.firstobjs 
-        self.lastobjs     += ' ' + src.lastobjs 
+        self.inc            += ' ' + src.inc
+        self.asminc         += ' ' + src.asminc
+        self.cflags         += ' ' + src.cflags
+        self.c_only_flags   += ' ' + src.c_only_flags
+        self.cppflags       += ' ' + src.cppflags
+        self.asmflags       += ' ' + src.asmflags
+        self.linkflags      += ' ' + src.linkflags
+        self.linklibs       += ' ' + src.linklibs
+        self.firstobjs      += ' ' + src.firstobjs
+        self.lastobjs       += ' ' + src.lastobjs
+        self.exclude_clangd.extend( src.exclude_clangd )
+        self.include_clangd.extend( src.include_clangd )
   
         
     def copy(self):
-        new = BuildValues()
-        new.inc          = self.inc        
-        new.asminc       = self.asminc           
-        new.cflags       = self.cflags           
-        new.c_only_flags = self.c_only_flags
-        new.cppflags     = self.cppflags         
-        new.asmflags     = self.asmflags         
-        new.linkflags    = self.linkflags        
-        new.linklibs     = self.linklibs 
-        new.linkscript   = self.linkscript 
-        new.firstobjs    = self.firstobjs 
-        new.lastobjs     = self.lastobjs 
+        new                = BuildValues()
+        new.inc            = self.inc
+        new.asminc         = self.asminc
+        new.cflags         = self.cflags
+        new.c_only_flags   = self.c_only_flags
+        new.cppflags       = self.cppflags
+        new.asmflags       = self.asmflags
+        new.linkflags      = self.linkflags
+        new.linklibs       = self.linklibs
+        new.firstobjs      = self.firstobjs
+        new.lastobjs       = self.lastobjs
+        new.exclude_clangd = self.exclude_clangd.copy()
+        new.include_clangd = self.include_clangd.copy()
        
         return new
             
@@ -118,6 +122,7 @@ class ToolChain:
         self._asmflag_symdef             = '-D'
         self._cflag_symvalue_delimiter   = ''
         self._asmflag_symvalue_delimiter = ''
+        self._compiler_option_delimiter  = '-'
         self._printer                    = None
         self._ninja_writer               = None
 
@@ -147,7 +152,7 @@ class ToolChain:
         #self._clean_ext_dirs = []
         #self._clean_abs_dirs = []
         # Retain cleaning NQBP classic derived directories -->help cleaning up when transition from classic to NQBP2
-        self._clean_pkg_dirs = [ 'src' ]
+        self._clean_pkg_dirs = [ 'src', '__pycache__' ]
         self._clean_ext_dirs = [ NQBP_WRKPKGS_DIRNAME() ]
         self._clean_abs_dirs = [ '__abs' ]
 
@@ -179,12 +184,14 @@ class ToolChain:
         #       - Workspace Public Include directory
         #       - Legacy 'xsrc' Third party source tree
         #
-        self._base_release = BuildValues()
-        self._base_release.inc       = '-I. -I{}{}src  -I{} -I{}'.format(NQBP_PKG_ROOT(),os.sep, prjdir, NQBP_XPKGS_SRC_ROOT()  )
-        self._base_release.asminc    = self._base_release.inc
-        self._base_release.cflags    = '-c '
-        self._base_release.asmflags  = self._base_release.cflags
-        self._base_release.linklibs  = '-Wl,-lstdc++ -Wl,-lm'
+        self._base_release                = BuildValues()
+        self._base_release.inc            = '-I. -I{}{}src  -I{} -I{}'.format(NQBP_PKG_ROOT(),os.sep, prjdir, NQBP_XPKGS_SRC_ROOT()  )
+        self._base_release.asminc         = self._base_release.inc
+        self._base_release.cflags         = '-c '
+        self._base_release.asmflags       = self._base_release.cflags
+        self._base_release.linklibs       = '-Wl,-lstdc++ -Wl,-lm'
+        self._base_release.exclude_clangd = ['-x c++', '-c', '-std=c++11', '-std=c++14', '-std=c++17', '-std=gnu++11', '-std=gnu++14', '-std=gnu++17']
+        self._base_release.include_clangd = ['-xc++']
         
         # Optimized options, flags, etc.
         self._optimized_release = BuildValues()
@@ -201,7 +208,6 @@ class ToolChain:
         self._bld_variants[self._bld]['debug']     = self._debug_release
  
         
-    
     #--------------------------------------------------------------------------
     def set_printer(self, printer):
         self._printer = printer
@@ -270,6 +276,7 @@ class ToolChain:
             if ( not silent ):
                 self._printer.output( "=====================" )
                 self._printer.output( "= Build Variant: " + b )
+            self._bld = b
             self.clean(silent)
     
 
@@ -363,8 +370,17 @@ class ToolChain:
         self._all_opts.asminc = utils.standardize_dir_sep( self._all_opts.asminc, self._os_sep  )
         self._all_opts.firstobjs = utils.standardize_dir_sep( self._all_opts.firstobjs, self._os_sep  )
         self._all_opts.lastobjs = utils.standardize_dir_sep( self._all_opts.lastobjs, self._os_sep  )
-        self._all_opts.linkscript = utils.standardize_dir_sep( self._all_opts.linkscript, self._os_sep  )
 
+        if ( arguments['--qry-opts'] ):
+            self._printer.enable_debug()
+            self._dump_options(  self._all_opts, True )
+            sys.exit(0)
+        if ( arguments['--vs'] ):
+            self._create_clangd_file()
+            sys.exit(0)
+        if ( arguments['--vsgdb'] ):
+            self._create_vs_gdbentry()
+            sys.exit(0)
         if ( arguments['--debug'] ):
             self._printer.debug( "# Final 'all_opts'" )
             self._dump_options(  self._all_opts, True )
@@ -487,11 +503,10 @@ class ToolChain:
 
         startgroup = self._linker_libgroup_start if len(libs) > 0 else ''
         endgroup   = self._linker_libgroup_end   if len(libs) > 0 else ''
-        ldopts = '{} {} {} {} {} {} {} {} {}'.format( 
+        ldopts = '{} {} {} {} {} {} {} {}'.format( 
                                             self._all_opts.firstobjs,
                                             " ".join(objfiles),
                                             self._all_opts.linkflags,
-                                            self._all_opts.linkscript,
                                             startgroup,
                                             " ".join(libs),
                                             endgroup,
@@ -530,6 +545,158 @@ class ToolChain:
     #==========================================================================
     # Private Methods
     #==========================================================================
+    
+    #--------------------------------------------------------------------------
+    def _translate_cc_for_clang(self, l):
+        return l # Default is GCC compiler -->nothing needed
+    
+    def _create_clangd_file( self ):
+        inclist = self._tokenize_includes( self._all_opts.inc )
+        optlist = self._tokenize_copts( self._all_opts.cflags + ' ' + self._all_opts.cppflags + self._all_opts.c_only_flags)
+        ofile = os.path.join( NQBP_PKG_ROOT(), "compile_flags.txt" )
+        try:
+            with open( ofile, "w") as fd:
+                for i in inclist:
+                    fd.write( i + "\n")
+                for o in optlist:
+                    fd.write( o + "\n")
+                    
+        except Exception as e:                    
+            self._printer.output( f"ERROR: Failed writing {ofile} VSCode file [{e}].")
+            sys.exit(1)
+        self._printer.output(f"Succesfuly generated {ofile}")  
+          
+    def _tokenize_includes( self, inc ):
+        inclist = inc.strip().split(' ')
+        inclist = list(set(inclist))  # remove duplicates
+        exclude = ['', '-I.', '/I.']
+        for e in exclude:
+            try:
+                inclist.remove(e)
+            except:
+                pass
+            
+        return inclist
+
+    def _tokenize_copts( self, opts ):
+        # brute force tokenize the compiler args
+        optslist    = opts.strip().split(' ' + self._compiler_option_delimiter)
+        optslist[0] = optslist[0][1:] # Remove the cc delimter from  first item in the list to match the remaining options
+        optslist    = list(set(optslist)) # remove duplicates
+        
+        # Remove whitespace and restores the argument delimiter
+        l = []
+        for i in optslist[1:]:
+            e = self._compiler_option_delimiter + i.strip()
+            l.append(e)               
+
+        # Hook to 'convert' non-gcc-like args to something clang understand
+        l = self._translate_cc_for_clang(l)
+        
+        # Add clang specific options
+        l.extend(self._all_opts.include_clangd)
+        
+        # Remove toolchain specific options
+        xlist = ['-']
+        xlist.extend(self._all_opts.exclude_clangd)
+        for e in xlist:
+            try:
+                l.remove(e)
+            except:
+                pass
+            
+        return l
+    
+    #--------------------------------------------------------------------------
+    def _create_vs_gdbentry(self):
+        vsdir   = os.path.join( NQBP_PKG_ROOT(), ".vscode" )
+        launchf = os.path.join( vsdir, "launch.json" )
+        
+        # Create .vscode directory if it does not exist
+        if ( not os.path.exists(vsdir) ):
+            try:
+                os.makedirs(vsdir)
+            except:
+                pass
+            
+        # Create launch.json file if it does not exist
+        if ( not os.path.isfile(launchf) ):
+            launchjson = {}
+            launchjson['configurations'] = []
+            with open(launchf,'w') as fd:
+                json.dump(launchjson,fd, indent=2)
+            self._printer.output( f"Created empty {launchf} file")
+            
+        # Load the launch.json file
+        try:
+            jsondict = self._load_json_file( launchf )
+        except Exception as e:                    
+            self._printer.output( f"ERROR: Failed Reading {launchf} VSCode file [{e}].")
+            sys.exit(1)
+            
+        jsondict = self._remove_existing_entries( jsondict )
+        
+        name     = os.path.join( NQBP_PRJ_DIR(), '_' + self.get_build_variant(), self.get_final_output_name() )
+        jsondict = self._populate_launch_entry( jsondict, name )
+        
+        try:
+            with open(launchf,'w') as fd:
+                json.dump(jsondict,fd, indent=2)
+            self._printer.output( f"Update {launchf} with new GDB entry")
+            
+        except Exception as e:
+            self._printer.output( f"ERROR: Failed writing {launchf} VSCode file [{e}].")
+            sys.exit(1)
+        
+    def _load_json_file( self, fname ):
+        with open( fname, "r") as fd:
+            lines = fd.readlines()
+        
+        # filter out comments
+        newlines = []
+        for l in lines:
+            if l.strip().startswith("//"):
+                continue
+            newlines.append(l)
+        
+        # convert lines to JSON dictionary
+        jsondata = ''.join(str(x) for x in newlines) # convert to a single string
+        return json.loads(jsondata)
+        
+    def _remove_existing_entries( self, jsondict ):
+        try:
+            cfgs    = jsondict["configurations"]
+            newcfgs = []
+            for c in cfgs:
+                if not c["name"].startswith("NQBP2:"):
+                    newcfgs.append(c)
+            jsondict["configurations"] = newcfgs
+            return jsondict
+        except Exception as e:
+            self._printer.output( f"ERROR: Failed reading the launch.json file [{e}].")
+            sys.exit(1)
+            
+    def _populate_launch_entry( self, jsondict, name ):
+        entry = {}
+        entry["name"] = f"NQBP2: {name}"
+        entry["type"] = "cppdbg"
+        entry["request"] = "launch"
+        entry["program"] = name
+        entry["args"] = []
+        entry["environment"] = []
+        entry["stopAtEntry"] = False
+        entry["cwd"] = NQBP_PRJ_DIR()
+        entry["externalConsole"] = False
+        entry["MIMode"] ="gdb"
+        cmd = {}
+        cmd["description"]    = "Enable pretty-printing for gdb"
+        cmd["text"]           = "-enable-pretty-printing"
+        cmd["ignoreFailures"] = True
+        cmds = [ cmd ]
+        entry["setupCommands"] = cmds
+
+        jsondict["configurations"].append(entry)
+        return jsondict
     
     #--------------------------------------------------------------------------
     def _start_ninja_file( self, bld_variant, arguments ):
@@ -758,6 +925,5 @@ class ToolChain:
         self._printer.debug( '#      linklibs:   ' + sv.linklibs   + ("\n" if extraSpace else " "))
         self._printer.debug( '#      firstobjs:  ' + sv.firstobjs  + ("\n" if extraSpace else " "))
         self._printer.debug( '#      lastobjs:   ' + sv.lastobjs   + ("\n" if extraSpace else " "))
-        self._printer.debug( '#      linkscript: ' + sv.linkscript + ("\n" if extraSpace else " "))
   
                                                                          

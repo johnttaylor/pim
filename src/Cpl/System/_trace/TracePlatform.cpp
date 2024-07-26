@@ -61,6 +61,8 @@ void TracePlatform_::output( Cpl::Text::String& src )
 */
 void TracePlatform_::appendInfo( Cpl::Text::String& dst, Trace::InfoLevel_T info, const char* section, const char* filename, int linenum, const char* funcname )
 {
+    bool isCplThread = Cpl::System::Thread::tryGetCurrent() != nullptr;
+
     // Level: eBRIEF 
     if ( info > Trace::eNONE )
     {
@@ -90,7 +92,7 @@ void TracePlatform_::appendInfo( Cpl::Text::String& dst, Trace::InfoLevel_T info
         {
             // Add Thread name
             dst += '[';
-            dst += Thread::myName();
+            dst += isCplThread? Thread::myName(): "n/a";
 
             // Add closing bracket when NO higher info level
             if ( info == Trace::eINFO )
@@ -104,7 +106,7 @@ void TracePlatform_::appendInfo( Cpl::Text::String& dst, Trace::InfoLevel_T info
             {
                 // Add thread id 
                 dst += ", ";
-                dst += Thread::myId();
+                dst += isCplThread ? Thread::myId(): 0;
                 dst += "] ";
 
                 // LEVEL: eMAX

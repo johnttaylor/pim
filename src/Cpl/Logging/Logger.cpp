@@ -98,7 +98,7 @@ static void createAndAddOverflowEntry() noexcept
     logEntry.timestamp = now();
 
     // Format text
-    Cpl::Text::FString<OPTION_CPL_LOGGING_MAX_MSG_TEXT_LEN> stringBuf;
+    Cpl::Text::FString<OPTION_CPL_LOGGING_MAX_FORMATTED_MSG_TEXT_LEN> stringBuf;
     startText( stringBuf, overflowCatText_, overflowMsgText_ );
     stringBuf.formatAppend( "overflow count=%d", overflowCount_ );
 
@@ -151,11 +151,8 @@ void Cpl::Logging::createAndAddLogEntry_( uint32_t    category,
         logEntry.category  = category;
         logEntry.msgId     = msgId;
         logEntry.timestamp = now();
-
-        // Format text
-        Cpl::Text::FString<OPTION_CPL_LOGGING_MAX_MSG_TEXT_LEN> stringBuf;
-        startText( stringBuf, catIdText, msgIdText );
-        stringBuf.vformatAppend( format, ap );
+        vsnprintf( logEntry.msgText, sizeof( logEntry.msgText ), format, ap ); 
+        logEntry.msgText[OPTION_CPL_LOGGING_MAX_MSG_TEXT_LEN] = '\0'; // Ensure the text string is null terminated
 
         // Manage the queue overflow state
         if ( !isQueFull() )
@@ -169,6 +166,9 @@ void Cpl::Logging::createAndAddLogEntry_( uint32_t    category,
         }
 
         // Echo to the Trace engine (always echoed even when not added to the FIFO)
+        Cpl::Text::FString<OPTION_CPL_LOGGING_MAX_FORMATTED_MSG_TEXT_LEN> stringBuf;
+        startText( stringBuf, catIdText, msgIdText );
+        stringBuf += logEntry.msgText;
         CPL_SYSTEM_TRACE_MSG( catIdText, ("%s", stringBuf.getString()) );
     }
 }

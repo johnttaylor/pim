@@ -110,6 +110,7 @@ void Manager::request( StartMAppMsg& msg )
             payload.success = false;
 
             // Restore the MApp to the inactive list
+            m_startedMApps.removeItem( *mapp );
             m_inactiveMApps.insert( *mapp );
         }
         else
@@ -121,6 +122,7 @@ void Manager::request( StartMAppMsg& msg )
                 payload.success = false;
 
                 // Restore the MApp to the inactive list
+                m_startedMApps.removeItem( *mapp );
                 m_inactiveMApps.insert( *mapp );
             }
         }

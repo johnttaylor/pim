@@ -6,3 +6,5 @@
 *.lst
 *.log
 
+ratt.log*
+

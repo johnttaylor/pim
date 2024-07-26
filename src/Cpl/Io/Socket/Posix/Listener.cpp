@@ -119,7 +119,7 @@ void Listener::listen()
 		int bOptLen = sizeof( int );
 		if ( setsockopt( newfd, SOL_SOCKET, SO_KEEPALIVE, (char*) &bOptVal, bOptLen ) < 0 )
 		{
-			int sockerr = errno;
+			CPL_SYSTEM_TRACE_ALLOCATE( int, sockerr, errno );
 			CPL_SYSTEM_TRACE_MSG( SECT_, ( "Cpl::Io::Socket::Posix::Listener:: start() - Failed enable SO_KEEPALIVE. errCode=(%X) %s.", sockerr, strerror( sockerr ) ) );
 		}
 

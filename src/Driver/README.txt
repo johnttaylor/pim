@@ -9,7 +9,7 @@ when the some device/peripheral is common across multiple physical targets.
 
 The various driver interfaces are/were created as needed, i.e. there is NO grand
 plan to design the canonical set of drivers.  In addition, the are/will-be
-drivers that are very similiar - but different for some reason or other.  This
+drivers that are very similar - but different for some reason or other.  This
 is OKAY.  If an existing driver make sense for you application - then use it.
 What you should NOT do - is for force your application design to accommodate
 an existing driver interface (i.e. instead create a new driver that meets your 

@@ -39,6 +39,14 @@ def filter_warnings( output ):
             continue
 
         # Filter
+        if ( re.search( r"^.*warning: Tag.*has become obsolete.*", line ) ):
+            continue
+
+        # Filter
+        if ( re.search( r'To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"', line )):
+            continue
+
+        # Filter
         #if ( re.search( r"src/Cpl/Text/Frame/LineDecoder.h:.*warning: Found unknown command.*\\r", line ) ):
         #    continue
  

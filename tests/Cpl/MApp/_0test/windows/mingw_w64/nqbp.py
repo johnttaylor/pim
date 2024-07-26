@@ -20,4 +20,3 @@ if __name__ == '__main__':
 	import mytoolchain
 	from nqbplib import mk
 	mk.build( sys.argv, mytoolchain.create() )
-

@@ -2,6 +2,7 @@
 src/Cpl/Io/File
 src/Cpl/Io/File/_win32
 src/Cpl/Io/File/_win32/_api
+src/Cpl/Checksum
 
 # tests
 src/Cpl/Io/File/_0test

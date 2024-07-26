@@ -179,15 +179,27 @@ void Thread::entryPoint( Thread* myThreadPtr )
 //////////////////////////////
 Cpl::System::Thread& Cpl::System::Thread::getCurrent() noexcept
 {
+    Thread* curThread = tryGetCurrent();
+
     // Trap potential error
-    if ( !cpl_system_cpp11_thread_mePtr_ )
+    if ( curThread == nullptr )
     {
         Cpl::System::FatalError::logRaw( "Cpp11::Thread::getCurrent().  Current thread is NOT a 'Cpl::System::Thread'." );
     }
 
-    return *cpl_system_cpp11_thread_mePtr_;
+    return *curThread;
 }
 
+Cpl::System::Thread* Cpl::System::Thread::tryGetCurrent() noexcept
+{
+    // Trap potential error
+    if ( !cpl_system_cpp11_thread_mePtr_ )
+    {
+        return nullptr;
+    }
+
+    return cpl_system_cpp11_thread_mePtr_;
+}
 
 void Cpl::System::Thread::wait() noexcept
 {

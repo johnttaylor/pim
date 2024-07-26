@@ -249,13 +249,13 @@ public:
     static void clearThreadFilter_( void );
 
     /** This method returns true if the thread filter has been set and the
-        specified name 'passes' the thread filter check, i.e. the specified
+        current thread's name 'passes' the thread filter check, i.e. the specified
         name match one of the names in the filter list.
 
         NOTE: NEVER call this method directly -->use the CPL_SYSTEM_TRACE_xxx()
               macros.
      */
-    static bool passedThreadFilter_( const char* threadNameToTest = Cpl::System::Thread::myName() );
+    static bool passedThreadFilter_();
 
 
 public:
@@ -385,9 +385,6 @@ protected:
 #define CPL_SYSTEM_TRACE_CLEAR_THREAD_FILTER()              Cpl::System::Trace::clearThreadFilter_()
 
 /// Macro Wrapper
-#define CPL_SYSTEM_TRACE_PASSED_THREAD_FILTER(tname)        Cpl::System::Trace::passedThreadFilter_( tname )
-
-/// Macro Wrapper
 #define CPL_SYSTEM_TRACE_DISABLE_SECTION(sect)              Cpl::System::Trace::disableSection_(sect)
 
 /// Macro Wrapper
@@ -454,9 +451,6 @@ protected:
 
 /// Macro Wrapper
 #define CPL_SYSTEM_TRACE_CLEAR_THREAD_FILTER()        
-
-/// Macro Wrapper
-#define CPL_SYSTEM_TRACE_PASSED_THREAD_FILTER(tname)    false
 
 /// Macro Wrapper 
 #define CPL_SYSTEM_TRACE_GET_SECTIONS(dst)          	0  

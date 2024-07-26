@@ -50,15 +50,24 @@ class ToolChain( base.ToolChain ):
 
         # 
         mcu                             = '-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb'
-        common_flags                    = f' {mcu} --specs=nano.specs' 
-        self._base_release.cflags       = self._base_release.cflags + common_flags + ' -DUSE_HAL_DRIVER  -ffunction-sections -fdata-sections -Wno-array-bounds -Wno-stringop-truncation'
-        self._base_release.c_only_flags = self._base_release.c_only_flags + ' -std=gnu11  -Os'
-        self._base_release.cppflags     = self._base_release.cppflags + ' -Wno-restrict -Wno-address-of-packed-member -Wno-class-memaccess -fno-threadsafe-statics -fno-rtti -fno-exceptions -fno-unwind-tables -fno-use-cxa-atexit'
+        common_flags                    = f'{mcu} --specs=nano.specs --specs=nosys.specs -u _printf_float '
+        cpp_and_c_flags                 = '-ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -DUSE_HAL_DRIVER -Wno-array-bounds -Wno-stringop-truncation -Wno-stringop-overflow'
+        self._base_release.c_only_flags = self._base_release.c_only_flags + ' -std=gnu11'
+        self._base_release.cflags       = self._base_release.cflags + common_flags + cpp_and_c_flags + ' -g'
+        self._base_release.cppflags     = self._base_release.cppflags + ' -Wno-restrict -Wno-address-of-packed-member -Wno-class-memaccess  -fno-rtti -fno-exceptions -fno-unwind-tables  -fno-threadsafe-statics -fno-use-cxa-atexit'
+
         self._base_release.asmflags     = self._base_release.cflags + ' -x assembler-with-cpp'
         self._base_release.asminc       = self._base_release.asminc + self._base_release.inc
+        self._base_release.exclude_clangd.extend(['-std=gnu11', 
+                                                  '--param max-inline-insns-single=500',
+                                                  '-mcpu=cortex-m4',
+                                                  '-mfpu=fpv4-sp-d16',
+                                                  '-mfloat-abi=hard',
+                                                  '-mthumb',
+                                                  '--specs=nano.specs'])
         
         linker_script                   = os.path.join( bsp_mx_root, linker_script )
-        self._base_release.linkflags    = f' --specs=nosys.specs {common_flags} -T{linker_script}  -Wl,-Map={exename}.map -Wl,--gc-sections -static' 
+        self._base_release.linkflags    = f' {common_flags} -T{linker_script}  -Wl,-Map={exename}.map -Wl,--gc-sections' 
         self._base_release.linklibs     = ' -Wl,--start-group -lc -lm -Wl,--end-group'                                        
         
 
@@ -66,7 +75,7 @@ class ToolChain( base.ToolChain ):
         self._optimized_release.linkflags  = self._optimized_release.linkflags + ' -DNDEBUG'
 
         # Debug options, flags, etc.
-        self._debug_release.cflags     = r'-g3 -DDEBUG'
+        self._debug_release.cflags     = self._debug_release.cflags + r' -g3 -DDEBUG'
         
  
    #--------------------------------------------------------------------------

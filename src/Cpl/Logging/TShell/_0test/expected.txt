@@ -1,0 +1,30 @@
+
+--- Your friendly neighborhood TShell. ---
+
+
+$ $ $ $ Created log entry
+$ Created log entry
+$ Created log entry
+$ Created log entry
+$ $ Waiting 3000 msec ...
+$ $ [4] (         3) CRITICAL:BOB_HAPPENED. Goodbye
+$ [4] (         3) CRITICAL:BOB_HAPPENED. Goodbye
+[3] (         2) CRITICAL:OUT_OF_MEMORY. Hello world
+[2] (         1) CRITICAL:BOB_HAPPENED. or was he?
+[1] (         0) CRITICAL:OUT_OF_MEMORY. bob was here
+4 log records
+$ [4] (         3) CRITICAL:BOB_HAPPENED. Goodbye
+[3] (         2) CRITICAL:OUT_OF_MEMORY. Hello world
+[2] (         1) CRITICAL:BOB_HAPPENED. or was he?
+3 log records
+$ [4] (         3) CRITICAL:BOB_HAPPENED. Goodbye
+[3] (         2) CRITICAL:OUT_OF_MEMORY. Hello world
+2 log records
+$ [3] (         2) CRITICAL:OUT_OF_MEMORY. Hello world
+[2] (         1) CRITICAL:BOB_HAPPENED. or was he?
+2 log records
+$ [2] (         1) CRITICAL:BOB_HAPPENED. or was he?
+[1] (         0) CRITICAL:OUT_OF_MEMORY. bob was here
+2 log records
+$ The Persistent Storage thread has been shutdown
+$ 

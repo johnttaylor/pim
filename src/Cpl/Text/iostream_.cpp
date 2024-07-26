@@ -26,15 +26,10 @@ ostream& operator<< ( ostream &out, const Cpl::Text::String& outstring )
 
 istream& operator>> ( istream &in, Cpl::Text::String& instring )
 {
-	streamsize savelen = in.width();
 	int        maxlen  = 0;
 	char*      dstPtr  = instring.getBuffer( maxlen );
-
-	in.width( maxlen + 1 );  // Add 1 because the 'width' parameter includes the null terminator
-	in >> dstPtr;
-	in.width( savelen );
-
-	return in;
+	memset( dstPtr, 0, maxlen+1 );	// Ensure there is null terminator.  Note: maxlen does NOT include the NULL terminator
+	return in.read( dstPtr, maxlen );
 }
 
 };

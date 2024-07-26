@@ -1,234 +1,252 @@
 {
-  "dependencies": {
-    "strong": [
-      {
-        "pkgname": "pimoroni-pico",
-        "pkgtype": "readonly",
-        "virtualAdoption": false,
-        "adoptedDate": "Sun Feb 19 14:48:15 2023",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": null,
-          "branch": null,
-          "tag": "OUTCAST2-main-1.19.7"
-        },
-        "repo": {
-          "name": "pimoroni-pico",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "pico-sdk",
-        "pkgtype": "readonly",
-        "virtualAdoption": false,
-        "adoptedDate": "Fri Feb 24 19:39:48 2023",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "1.4.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.4.1"
-        },
-        "repo": {
-          "name": "pico-sdk",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "colony.core",
-        "pkgtype": "overlay",
-        "virtualAdoption": false,
-        "adoptedDate": "Thu Apr 27 01:24:17 2023",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "4.4.0",
-          "branch": null,
-          "tag": "OUTCAST2-main-4.4.0"
-        },
-        "repo": {
-          "name": "colony.core",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "colony.apps",
-        "pkgtype": "overlay",
-        "virtualAdoption": false,
-        "adoptedDate": "Thu Apr 27 01:25:58 2023",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "2.1.4",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.1.4"
-        },
-        "repo": {
-          "name": "colony.apps",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "colony.arduino",
-        "pkgtype": "overlay",
-        "virtualAdoption": false,
-        "adoptedDate": "Thu Apr 27 01:26:19 2023",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "1.0.8",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.0.8"
-        },
-        "repo": {
-          "name": "colony.arduino",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "colony.pico",
-        "pkgtype": "overlay",
-        "virtualAdoption": false,
-        "adoptedDate": "Thu Apr 27 01:27:06 2023",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "0.2.3",
-          "branch": null,
-          "tag": "OUTCAST2-main-0.2.3"
-        },
-        "repo": {
-          "name": "colony.pico",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      }
-    ],
-    "weak": [
-      {
-        "pkgname": "ratt",
-        "pkgtype": "foreign",
-        "adoptedDate": "Mon May 30 19:53:21 2022",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "1.0.1",
-          "branch": null,
-          "tag": "OUTCAST2-main-1.0.1"
-        },
-        "repo": {
-          "name": "ratt",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "catch",
-        "pkgtype": "overlay",
-        "adoptedDate": "Mon May 30 19:48:56 2022",
-        "parentDir": null,
-        "version": {
-          "semanticVersion": "2.13.7b",
-          "branch": null,
-          "tag": "OUTCAST2-main-2.13.7b"
-        },
-        "repo": {
-          "name": "catch",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "docopt-cpp",
-        "pkgtype": "readonly",
-        "adoptedDate": "Sun Jan 15 21:36:43 2023",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "0.6.3",
-          "branch": null,
-          "tag": "OUTCAST2-main-0.6.3"
-        },
-        "repo": {
-          "name": "docopt-cpp",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      },
-      {
-        "pkgname": "nqbp2",
-        "pkgtype": "readonly",
-        "virtualAdoption": false,
-        "adoptedDate": "Thu Apr 27 01:28:51 2023",
-        "parentDir": "xsrc",
-        "version": {
-          "semanticVersion": "0.1.3",
-          "branch": null,
-          "tag": "OUTCAST2-main-0.1.3"
-        },
-        "repo": {
-          "name": "nqbp2",
-          "type": "git",
-          "origin": "https://github.com/johnttaylor"
-        }
-      }
-    ]
-  },
-  "directories": {
-    "primary": [
-      "src",
-      "tests",
-      "projects"
-    ],
-    "adoptedExtras": [
-      "docs",
-      "top"
-    ]
-  },
-  "info": {
-    "pkgname": "pim",
-    "desc": "Source code for the book: Patterns in the Machine: A Software Engineering Guide to Embedded Development",
-    "owner": "John Taylor",
-    "email": "john.t.taylor@gmail.com",
-    "url": "https://www.apress.com/us/book/9781484264393",
-    "repo": {
-      "name": "pim",
-      "type": "git",
-      "origin": "https://github.com/johnttaylor"
-    }
-  },
-  "publish": {
-    "current": {
-      "comment": "Switch over to NQBP2 and pick up the latest colony.* packages",
-      "version": "2.0.2",
-      "date": "Fri Feb 24 20:00:46 2023",
-      "timestamp": 1677268846,
-      "changes": null
+    "dependencies": {
+        "strong": [
+            {
+                "pkgname": "colony.bsp",
+                "pkgtype": "overlay",
+                "adoptedDate": "Sun Sep 11 23:19:01 2022",
+                "parentDir": null,
+                "version": {
+                    "semanticVersion": "0.1.1",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-0.1.1"
+                },
+                "repo": {
+                    "name": "colony.bsp",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            },
+            {
+                "pkgname": "pimoroni-pico",
+                "pkgtype": "readonly",
+                "virtualAdoption": false,
+                "adoptedDate": "Sun Feb 19 14:48:15 2023",
+                "parentDir": "xsrc",
+                "version": {
+                    "semanticVersion": null,
+                    "branch": null,
+                    "tag": "OUTCAST2-main-1.19.7"
+                },
+                "repo": {
+                    "name": "pimoroni-pico",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            },
+            {
+                "pkgname": "colony.apps",
+                "pkgtype": "overlay",
+                "virtualAdoption": false,
+                "adoptedDate": "Fri Feb 24 19:08:45 2023",
+                "parentDir": null,
+                "version": {
+                    "semanticVersion": "2.1.1",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-2.1.1"
+                },
+                "repo": {
+                    "name": "colony.apps",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            },
+            {
+                "pkgname": "colony.arduino",
+                "pkgtype": "overlay",
+                "virtualAdoption": false,
+                "adoptedDate": "Fri Feb 24 19:09:18 2023",
+                "parentDir": null,
+                "version": {
+                    "semanticVersion": "1.0.7",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-1.0.7"
+                },
+                "repo": {
+                    "name": "colony.arduino",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            },
+            {
+                "pkgname": "pico-sdk",
+                "pkgtype": "readonly",
+                "virtualAdoption": false,
+                "adoptedDate": "Fri Feb 24 19:39:48 2023",
+                "parentDir": "xsrc",
+                "version": {
+                    "semanticVersion": "1.4.1",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-1.4.1"
+                },
+                "repo": {
+                    "name": "pico-sdk",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            },
+            {
+                "pkgname": "colony.pico",
+                "pkgtype": "overlay",
+                "virtualAdoption": false,
+                "adoptedDate": "Fri Feb 24 19:45:36 2023",
+                "parentDir": null,
+                "version": {
+                    "semanticVersion": "0.2.2",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-0.2.2"
+                },
+                "repo": {
+                    "name": "colony.pico",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            },
+            {
+                "pkgname": "colony.core",
+                "pkgtype": "overlay",
+                "virtualAdoption": false,
+                "adoptedDate": "Thu Jul 25 21:21:58 2024",
+                "parentDir": null,
+                "version": {
+                    "semanticVersion": "4.4.3",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-4.4.2"
+                },
+                "repo": {
+                    "name": "colony.core",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            }
+        ],
+        "weak": [
+            {
+                "pkgname": "docopt-cpp",
+                "pkgtype": "readonly",
+                "adoptedDate": "Sun Jan 15 21:36:43 2023",
+                "parentDir": "xsrc",
+                "version": {
+                    "semanticVersion": "0.6.3",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-0.6.3"
+                },
+                "repo": {
+                    "name": "docopt-cpp",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            },
+            {
+                "pkgname": "nqbp2",
+                "pkgtype": "readonly",
+                "virtualAdoption": false,
+                "adoptedDate": "Thu Jul 25 21:16:33 2024",
+                "parentDir": "xsrc",
+                "version": {
+                    "semanticVersion": "0.1.8",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-0.1.8"
+                },
+                "repo": {
+                    "name": "nqbp2",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            },
+            {
+                "pkgname": "catch",
+                "pkgtype": "overlay",
+                "virtualAdoption": false,
+                "adoptedDate": "Thu Jul 25 21:30:47 2024",
+                "parentDir": null,
+                "version": {
+                    "semanticVersion": "2.13.7e",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-2.13.7e"
+                },
+                "repo": {
+                    "name": "catch",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            },
+            {
+                "pkgname": "ratt",
+                "pkgtype": "foreign",
+                "virtualAdoption": false,
+                "adoptedDate": "Thu Jul 25 21:34:06 2024",
+                "parentDir": "xsrc",
+                "version": {
+                    "semanticVersion": "2.0.2",
+                    "branch": null,
+                    "tag": "OUTCAST2-main-2.0.2"
+                },
+                "repo": {
+                    "name": "ratt",
+                    "type": "git",
+                    "origin": "https://github.com/johnttaylor"
+                }
+            }
+        ]
     },
-    "history": [
-      {
-        "comment": "Minor refactoring, bug fixes, and latest Outcast package updates",
-        "version": "2.0.1",
-        "date": "Sun Sep 11 23:28:04 2022",
-        "timestamp": 1662938884,
-        "changes": "\"- Refactor the top level 'Main' files to support port the Thermostat to other platforms (e.g. PI Pico)\\n- Refactor the Algorithm class to NOT be runnable object (i.e. a dedicated thread is not needed for processing rate of 0.5Hz)\\n- Fix Fan continuous bug where Fan Cont. operation did not work when the Thermostat is in the OFF mode\\n- Fix bug in the missing 'blocking' argument for the frame decoders\\n- Fix issue of the Cpl::Io::Stream available() method reporting  mouse/focus events for stdin under Windoze\\n- Get the latest package version of: nqbp, colony.*\\n\""
-      },
-      {
-        "comment": "Address compiler warning issues. Update the linux env.sh script to support setting a path to the GCC toolchain",
-        "version": "2.0.0",
-        "date": "Sat Jul  9 23:47:35 2022",
-        "timestamp": 1657410455
-      },
-      {
-        "comment": "Fix package dependency error",
-        "version": "1.1.1",
-        "date": "Sat Jun 11 18:41:03 2022",
-        "timestamp": 1654972863
-      },
-      {
-        "comment": "Update the Model Point (i.e. Cpl::Dm) implementation to have a small FLASH footprint; Minor feature enhancements and bug fixes",
-        "version": "1.1.0",
-        "date": "Tue May 31 20:49:15 2022",
-        "timestamp": 1654030155
-      }
-    ]
-  }
+    "directories": {
+        "primary": [
+            "src",
+            "tests",
+            "projects"
+        ],
+        "adoptedExtras": [
+            "docs",
+            "top"
+        ]
+    },
+    "info": {
+        "pkgname": "pim",
+        "desc": "Source code for the book: Patterns in the Machine: A Software Engineering Guide to Embedded Development",
+        "owner": "John Taylor",
+        "email": "john.t.taylor@gmail.com",
+        "url": "https://www.apress.com/us/book/9781484264393",
+        "repo": {
+            "name": "pim",
+            "type": "git",
+            "origin": "https://github.com/johnttaylor"
+        }
+    },
+    "publish": {
+        "current": {
+            "comment": "Switch over to NQBP2 and pick up the latest colony.* packages",
+            "version": "2.0.2",
+            "date": "Fri Feb 24 20:00:46 2023",
+            "timestamp": 1677268846,
+            "changes": null
+        },
+        "history": [
+            {
+                "comment": "Minor refactoring, bug fixes, and latest Outcast package updates",
+                "version": "2.0.1",
+                "date": "Sun Sep 11 23:28:04 2022",
+                "timestamp": 1662938884,
+                "changes": "\"- Refactor the top level 'Main' files to support port the Thermostat to other platforms (e.g. PI Pico)\\n- Refactor the Algorithm class to NOT be runnable object (i.e. a dedicated thread is not needed for processing rate of 0.5Hz)\\n- Fix Fan continuous bug where Fan Cont. operation did not work when the Thermostat is in the OFF mode\\n- Fix bug in the missing 'blocking' argument for the frame decoders\\n- Fix issue of the Cpl::Io::Stream available() method reporting  mouse/focus events for stdin under Windoze\\n- Get the latest package version of: nqbp, colony.*\\n\""
+            },
+            {
+                "comment": "Address compiler warning issues. Update the linux env.sh script to support setting a path to the GCC toolchain",
+                "version": "2.0.0",
+                "date": "Sat Jul  9 23:47:35 2022",
+                "timestamp": 1657410455
+            },
+            {
+                "comment": "Fix package dependency error",
+                "version": "1.1.1",
+                "date": "Sat Jun 11 18:41:03 2022",
+                "timestamp": 1654972863
+            },
+            {
+                "comment": "Update the Model Point (i.e. Cpl::Dm) implementation to have a small FLASH footprint; Minor feature enhancements and bug fixes",
+                "version": "1.1.0",
+                "date": "Tue May 31 20:49:15 2022",
+                "timestamp": 1654030155
+            }
+        ]
+    }
 }

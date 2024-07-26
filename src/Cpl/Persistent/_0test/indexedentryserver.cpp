@@ -39,7 +39,7 @@
 #define ENTRY_MAX_LEN               8
 #define CHUNK_META_LEN              (4+sizeof(size_t))
 #define ENTRY_META                  8
-#define TOTAL_ENTRY                 (ENTRY_META+CHUNK_META_LEN+ENTRY_META)
+#define TOTAL_ENTRY                 (ENTRY_META+CHUNK_META_LEN+ENTRY_MAX_LEN)
 
 #define ENTRY1                  "Hello"
 #define ENTRY2                  "World"

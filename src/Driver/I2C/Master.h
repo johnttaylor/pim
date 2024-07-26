@@ -24,11 +24,11 @@ namespace I2C {
 
 /** This class defines a non-platform specific interface for an I2C master device
     driver. The intended usage is to create ONE driver per physical I2C bus, i.e.
-    the driver instance can/should-be shared with multiple clients.  
-    
-    The driver is thread safe in that ALL operations are atomic. This means that
-    all of the methods have the potential to BLOCK if another client/thread has
-    in-progress method call.
+    the driver instance can shared with multiple clients.  
+
+    The driver is NOT thread safe.  It is the responsibility of the Application
+    to ensure thread safety when driver is used and/or shared with multiple 
+    clients.
  */
 class Master
 {

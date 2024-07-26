@@ -42,7 +42,7 @@ bool Cpl::Text::bufferToString( const void* buffer, int len, String& destString,
 	return !destString.truncated();
 }
 
-bool Cpl::Text::bufferToAsciiHex( const void* binaryData, int len, String& destString, bool upperCase, bool appendToString )
+bool Cpl::Text::bufferToAsciiHex( const void* binaryData, int len, String& destString, bool upperCase, bool appendToString, char separator )
 {
 	if ( !binaryData || len == 0 )
 	{
@@ -69,6 +69,10 @@ bool Cpl::Text::bufferToAsciiHex( const void* binaryData, int len, String& destS
 		c = *ptr;
 		destString += tableP[( c >> 4 ) & 0x0F];
 		destString += tableP[c & 0x0F];
+		if ( separator != '\0' && (i + 1) < len )
+		{
+			destString += separator;
+		}
 	}
 
 	return !destString.truncated();

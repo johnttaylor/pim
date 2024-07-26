@@ -56,6 +56,13 @@ class ToolChain( base.ToolChain ):
         self._base_release.cppflags     = self._base_release.cppflags + ' -Wno-restrict -Wno-address-of-packed-member -Wno-class-memaccess -fno-threadsafe-statics -fno-rtti -fno-exceptions -fno-unwind-tables -fno-use-cxa-atexit'
         self._base_release.asmflags     = self._base_release.cflags + ' -x assembler-with-cpp'
         self._base_release.asminc       = self._base_release.asminc + self._base_release.inc
+        self._base_release.exclude_clangd.extend(['-std=gnu11', 
+                                                  '--param max-inline-insns-single=500',
+                                                  '-mcpu=cortex-m7',
+                                                  '-mfpu=fpv5-d16',
+                                                  '-mfloat-abi=hard',
+                                                  '-mthumb',
+                                                  '--specs=nano.specs'])
         
         linker_script                   = os.path.join( bsp_mx_root, linker_script )
         self._base_release.linkflags    = f' --specs=nosys.specs {common_flags} -T{linker_script}  -Wl,-Map={exename}.map -Wl,--gc-sections -static' 

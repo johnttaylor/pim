@@ -23,12 +23,33 @@
   },
   "publish": {
     "current": {
-      "comment": "add some handy dandy helper macros/functions when testing involves model points",
-      "version": "2.13.7b",
-      "date": "Sun May 29 16:52:12 2022",
-      "timestamp": 1653843132
+      "comment": "Add 'Fakeit' for mocking classes and 'FFF' for mocking c functions",
+      "version": "2.13.7e",
+      "date": "Thu May 16 20:15:54 2024",
+      "timestamp": 1715890554,
+      "changes": null
     },
     "history": [
+      {
+        "comment": "Add more helper functions",
+        "version": "2.13.7d",
+        "date": "Thu Mar 14 20:51:40 2024",
+        "timestamp": 1710449500,
+        "changes": null
+      },
+      {
+        "comment": "add additional helper class(es)",
+        "version": "2.13.7c",
+        "date": "Sat Jun 17 19:55:05 2023",
+        "timestamp": 1687031705,
+        "changes": null
+      },
+      {
+        "comment": "add some handy dandy helper macros/functions when testing involves model points",
+        "version": "2.13.7b",
+        "date": "Sun May 29 16:52:12 2022",
+        "timestamp": 1653843132
+      },
       {
         "comment": "Publish as Outcast2 pacakge",
         "version": "2.13.7",

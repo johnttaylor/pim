@@ -34,6 +34,13 @@ provides the following features:
   a thread-safe FIFO.  It is the application's responsibility to consume the
   entries from the FIFO and record them in persistent storage.  The FIFO supports
   change notifications via a model point - see Cpl::Containers::RingBufferMP.
+    - The log entry data structure inherits from the Cpl::Persistent::Payload
+      interface.  The Payload interface defines two methods to serialize and
+      deserialize the log entry data structure.  While this introduces a
+      dependency on the Cpl::Persistent namespace - the Payload interface 
+      definition has no other dependencies, i.e. the application is NOT required
+      to use the Cpl::Persistent namespace for storing the log entry to 
+      persistent media.
 
 - The log entry FIFO can overflow if the application is not storing log entries
   faster than the applicatoin is generating entries. When this happens, the 

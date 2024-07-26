@@ -269,6 +269,8 @@ Error message and password prompt
 
 <li>Adding a new Toolchain</li>
 
+<li>Customizable build values</li>
+
 <li>External Package Model</li>
 
 <li>Installing NQBP</li>
@@ -280,6 +282,8 @@ Error message and password prompt
 <li>Licensing</li>
 
 <li>Linking</li>
+
+<li>Modifying mytoolchain.py</li>
 
 <li>NQBP History</li>
 
@@ -5351,7 +5355,7 @@ html .solidborders td {  border: 1px solid black; }</pre>
 <div modified="20190112022928289" title="$:/state/toc/Overview-Using NQBP--242358753">
 <pre>open</pre>
 </div>
-<div list="[[Installing NQBP]] [[Selecting What To Build]] Overview [[NQBP History]]" title="$:/StoryList">
+<div list="[[Customizable build values]] [[Modifying mytoolchain.py]] Linking [[External Package Model]] [[Selecting a ToolChain]] [[Preprocessing Scripts]] [[Adding a new Toolchain]] [[Installing NQBP]] [[NQBP History]] [[Workspace Structure]] Overview" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20141011164829984" modified="20230223182055765" title="$:/temp/advancedsearch">
@@ -5485,6 +5489,27 @@ html .solidborders td {  border: 1px solid black; }</pre>
 # In the file //toolchain_name// create a new python class that inherits from &lt;code&gt;base.~ToolChain&lt;/code&gt; and that  implements the details for your compiler. 
 # Create a templace file name //toolchain_name mytoolchain// in the same directory as the //toolchain_name// file.  This file is the template for a project's &lt;code&gt;mytoolchain.py&lt;/code&gt; file that will be using the new compiler toolchain.</pre>
 </div>
+<div created="20240107185249152" modified="20240107191321214" tags="[[Using NQBP]] Usage" title="Customizable build values">
+<pre>In the `mytoolchain.py` the method  `BuildValues()` is used to create an instance of the customizable build options.  The supported build options are:
+
+| !Option |!Description |h
+| `.inc`  |List of header search path directives w, e.g. `-I xsrc/pimoroni/include` |
+| `.asminc`  |List of header search path directives that are ''only'' passed to the assembler |
+| `.cflags`  |List of compiler options specified when compiling C and C++ code |
+| `.c_only_flags`  |List of compiler options specified when compiling C code (this is in addition to `.cflags`) |
+| `.cppflags`  |List of compiler options specified when compiling C++ code (this is in addition to `.cflags`) |
+| `.asmflags`  |List of assembler options specified when 'compiling' an assembly source file|
+| `.linkflags`  |List of linker flags passed to the linker |
+| `.linklibs`  |List of ''external'' libraries to link against.  Do ''not'' include libraries generated per source directory |
+| `.firstobjs`  |List of object files that will be unconditionally linked with the executable.  In addition, the object files are the 'first' object files specified (to the linker) |
+| `.lastobjs`  |List of object files that will be unconditionally linked with the executable.  In addition, the object files are the 'last' object files specified (to the linker) |
+
+
+
+
+
+</pre>
+</div>
 <div created="20200421035359045" modified="20230223164036481" tags="Usage [[Using NQBP]]" title="External Package Model">
 <pre>NQBP supports multiple models for how external source code is handled.  The model is selected by setting the environment variable `NQBP_XPKG_MODEL`.  If the variable is not set (or set to unsupported value), then the external source model is set to `legacy`
 
@@ -5573,6 +5598,63 @@ There is short-cut to including all of the object module in a directory using th
 
 ''Note:''  It is recommended that the above method be used instead of `base_release.firstobjs = '../src/Cpl/Rte/Mp/_0test/*.o'`.
   This is because the Windows command shell does ''not'' expand wildcards as a Linux/Unix shell does.  For example the above `*.o` notation does not work with the Mingw GCC compiler when running under Windows (however it does work with the Visual Studio compiler because Microsoft compiler does the wildcard expansion itself).</pre>
+</div>
+<div created="20240107183441749" modified="20240107191447133" tags="[[Using NQBP]] Usage" title="Modifying mytoolchain.py">
+<pre>Once you have create a `mytoolchain.py` file in the build directory - the file can be customized for that build-directory.  
+
+For each build variant a python dictionary with build variant specific options needs to be created.  
+
+1. First create 3 custom options.  The 'base' option is common settings for both the release and debug builds.   See [[Customizable build values]] for what fields are available in the class returned by `BuildValues()`
+
+```
+# Set project specific 'base' (i.e always used) options
+base_release           = BuildValues()        # Do NOT comment out this line
+base_release.cflags    = '/W3 /WX /EHsc /D CATCH_CONFIG_FAST_COMPILE'  # /EHsc enables exceptions
+base_release.firstobjs = '_BUILT_DIR_.src/Cpl/Container/_0test'
+
+# Set project specific 'optimized' options
+optimzed_release          = BuildValues()    # Do NOT comment out this line
+optimzed_release.cflags   = '/O2'
+
+# Set project specific 'debug' options
+debug_release          = BuildValues()       # Do NOT comment out this line
+debug_release.cflags   = '/D &quot;_MY_APP_DEBUG_SWITCH_&quot;'
+```
+2. Then create a dictionary with the above set of options.  Note: The keywords parameter **must** match the example below:
+
+  ```
+# Default build variant
+win32_opts = { 'user_base':base_release, 
+               'user_optimized':optimzed_release, 
+               'user_debug':debug_release
+             }
+
+# Second build variant
+cpp11_opts = { 'user_base':base_cpp11, 
+               'user_optimized':optimzed_cpp11, 
+               'user_debug':debug_cpp11
+             }
+  
+```
+3. Add all build variants dictionary to dictionary of build variants
+
+```
+build_variants = { 'win32':win32_opts,
+                   'cpp11':cpp11_opts,
+                 }   
+```
+
+4. Final step is to update the `create()` function to specify the default build variant as well as any toolchain specific arguments.  ''Note:''  The arguments to the `create()` function are determine by the toolchain file imported.
+
+```
+# Select Module that contains the desired toolchain
+from nqbplib.toolchains.windows.vc12.console_exe import ToolChain
+
+# Function that instantiates an instance of the toolchain, with 'win32' as the default build variant
+def create():
+    tc = ToolChain( FINAL_OUTPUT_NAME, prjdir, build_variants, 'win32' )
+    return tc 
+```</pre>
 </div>
 <div created="20140727034237559" creator="JohnTaylor" modified="20200501231034687" modifier="JohnTaylor" tags="Overview" title="NQBP History">
 <pre>Why NQBP?  First we need to start with [[Benv|http://mnmoran.org/benvman.html]].  Benv is build engine that was developed to 'free' developers from authoring makefile and provide a simple and resusable method for building C/C++ source code.  Benv was originally develop for *NIX platforms.  A [[fork|http://sourceforge.net/projects/openrepo]] of the project ported Benv to run on Windows.  A principle issue with running Benv on Windows is that because of Benv's *NIX roots, the Windows port relies on the [[Cygwin.dll|http://www.cygwin.com]].  Cygwin is great alternative for running in a Linux like environment on a Windows box - but it does incur a performance hit.  

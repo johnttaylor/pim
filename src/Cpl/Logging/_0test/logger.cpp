@@ -24,8 +24,6 @@ using namespace Cpl::Logging;
 
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Use anonymous namespace to make my class local-to-the-file in scope
-namespace {
 
 BETTER_ENUM( CategoryId, uint32_t
              , CRITICAL    = 0x00000001
@@ -35,6 +33,45 @@ BETTER_ENUM( CategoryId, uint32_t
 BETTER_ENUM( CriticalMsg, uint16_t, OUT_OF_MEMORY, BOB_HAPPENED );
 BETTER_ENUM( WarningMsg, uint16_t, BATTERY_LOW, CONNECTION_DROPPED, LOGGING_OVERFLOW );
 BETTER_ENUM( EventMsg, uint16_t, ELVIS_HAS_LEFT_THE_BUILDING, SKY_IS_FALLING );
+
+bool Cpl::Logging::getIDStrings( uint32_t             categoryNumericValue,
+                                 uint16_t             messageIdNumericValue,
+                                 Cpl::Text::String&   dstCategoryString,
+                                 Cpl::Text::String&   dstMessageString ) noexcept
+{
+    switch ( categoryNumericValue )
+    {
+    case CategoryId::CRITICAL:
+        if ( CriticalMsg::_is_valid( messageIdNumericValue ) )
+        {
+            dstCategoryString = (+CategoryId::CRITICAL)._to_string();
+            dstMessageString  = CriticalMsg::_from_integral_unchecked( messageIdNumericValue )._to_string();
+            return true;
+        }
+        break;
+    case CategoryId::WARNING:
+        if ( WarningMsg::_is_valid( messageIdNumericValue ) )
+        {
+            dstCategoryString = (+CategoryId::WARNING)._to_string();
+            dstMessageString  = WarningMsg::_from_integral_unchecked( messageIdNumericValue )._to_string();
+            return true;
+        }
+        break;
+    case CategoryId::EVENT:
+        if ( EventMsg::_is_valid( messageIdNumericValue ) )
+        {
+            dstCategoryString = (+CategoryId::EVENT)._to_string();
+            dstMessageString  = EventMsg::_from_integral_unchecked( messageIdNumericValue )._to_string();
+            return true;
+        }
+        break;
+    default:
+        break;
+    }
+    return false;
+}
+
+
 
 void logf( CriticalMsg msgId, const char* msgTextFormat, ... ) noexcept
 {
@@ -60,7 +97,6 @@ void logf( EventMsg msgId, const char* msgTextFormat, ... ) noexcept
     va_end( ap );
 }
 
-} // end namespace
 
 
 // Allocate/create my Data model stuffs
@@ -78,6 +114,8 @@ CplLoggingTime_T Cpl::Logging::now() noexcept
     return nowValue_++;
 }
 
+
+
 ////////////////////////////////////////////////////////////////////////////////
 TEST_CASE( "logger" )
 {
@@ -93,7 +131,7 @@ TEST_CASE( "logger" )
                     (+CategoryId::WARNING)._to_string(),
                     WarningMsg::LOGGING_OVERFLOW,
                     (+WarningMsg::LOGGING_OVERFLOW)._to_string() );
-                    
+
 
         logf( CriticalMsg::BOB_HAPPENED, "dang that bob!" );
         logf( WarningMsg::CONNECTION_DROPPED, "status=%d", true );
@@ -121,7 +159,14 @@ TEST_CASE( "logger" )
         REQUIRE( logEntry.msgId == EventMsg::ELVIS_HAS_LEFT_THE_BUILDING );
 
         result = logFifo_.remove( logEntry );
-        REQUIRE( result == false);
+        REQUIRE( result == false );
+
+        Cpl::Text::FString<OPTION_CPL_LOGGING_MAX_LEN_CATEGORY_ID_TEXT> cat;
+        Cpl::Text::FString<OPTION_CPL_LOGGING_MAX_LEN_MESSAGE_ID_TEXT>  msg;
+        REQUIRE( Cpl::Logging::getIDStrings( CategoryId::CRITICAL, CriticalMsg::BOB_HAPPENED, cat, msg ) );
+        REQUIRE( cat == "CRITICAL" );
+        REQUIRE( msg == "BOB_HAPPENED" );
+        REQUIRE( Cpl::Logging::getIDStrings( CategoryId::WARNING, 0xff, cat, msg ) == false );
 
         shutdown();
     }
@@ -148,7 +193,7 @@ TEST_CASE( "logger" )
         uint32_t logCount;
         bool     valid = mp_fifoCount.read( logCount );
         REQUIRE( valid );
-        REQUIRE( logCount == MAX_FIFO_ENTRIES-1 );
+        REQUIRE( logCount == MAX_FIFO_ENTRIES - 1 );
 
         EntryData_T logEntry;
         bool result = logFifo_.remove( logEntry );
@@ -232,7 +277,7 @@ TEST_CASE( "logger" )
 
         enableCategory( CategoryId::WARNING );
         uint32_t mask = getCategoryEnabledMask();
-        REQUIRE( mask == (CategoryId::WARNING | CategoryId::EVENT ) );
+        REQUIRE( mask == (CategoryId::WARNING | CategoryId::EVENT) );
 
         logf( CriticalMsg::BOB_HAPPENED, "dang that bob!" );
         logf( WarningMsg::CONNECTION_DROPPED, "status=%d", true );
